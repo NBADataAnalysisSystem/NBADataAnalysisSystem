@@ -1,110 +1,92 @@
 package entity;
 
+import java.util.Map;
+
 public class PlayerEntity {
 
-	private String playerID;
-	private String name;
-	private String number;
-	private String position;
-	private String height;
-	private String weight;
-	private String birth;
-	private String age;
-	private String exp;
-	private String school;
-	private String actionURL;
-	private String portraitURL;
-	private String team;
-	private String numOfEntryField;
-	private String numOfStartingField;
-	private String numOfRebound;
-	private String numOfAssist;
-	private String timeOfPresence;
-	private String numOfOffense;
-	private String numOfDefense;
-	private String numOfSteal;
-	private String numOfBlockShot;
-	private String numOfTurnOver;
-	private String numOfFoul;
-	private String scoring;
+	private Map<PlayerInfo, String> playerInfo;
 	
-	public PlayerEntity() {
+	public PlayerEntity(Map<PlayerInfo, String> playerInfo) {
+		this.playerInfo = playerInfo;
 	}
 
 	/**
 	 * @return the playerID
 	 */
 	public String getPlayerID() {
-		return playerID;
+		return playerInfo.get(PlayerInfo.playerID);
 	}
 
 	/**
 	 * @return the name
 	 */
 	public String getName() {
-		return name;
+		return playerInfo.get(PlayerInfo.name);
 	}
 
 	/**
 	 * @return the number
 	 */
 	public String getNumber() {
-		return number;
+		return playerInfo.get(PlayerInfo.number);
 	}
 
 	/**
 	 * @return the position
 	 */
 	public String getPosition() {
-		return position;
+		return playerInfo.get(PlayerInfo.position);
 	}
 
 	/**
 	 * @return the height
 	 */
 	public String getHeight() {
-		return height;
+		return playerInfo.get(PlayerInfo.height);
 	}
 
 	/**
 	 * @return the weight
 	 */
 	public String getWeight() {
-		return weight;
+		return playerInfo.get(PlayerInfo.weight);
 	}
 
 	/**
 	 * @return the birth
 	 */
 	public String getBirth() {
-		return birth;
+		return playerInfo.get(PlayerInfo.birth);
 	}
 
 	/**
 	 * @return the age
 	 */
 	public String getAge() {
-		return age;
+		return playerInfo.get(PlayerInfo.age);
 	}
 
 	/**
 	 * @return the exp
 	 */
 	public String getExp() {
-		return exp;
+		return playerInfo.get(PlayerInfo.exp);
 	}
 
 	/**
 	 * @return the school
 	 */
 	public String getSchool() {
-		return school;
+		return playerInfo.get(PlayerInfo.school);
 	}
 
 	/**
 	 * @return the actionURL
 	 */
 	public String getActionURL() {
+		String actionURL = playerInfo.get(PlayerInfo.filePath)
+				+ "players\\action" 
+				+ playerInfo.get(PlayerInfo.name);
 		return actionURL;
 	}
 
@@ -112,6 +94,9 @@ public class PlayerEntity {
 	 * @return the portraitURL
 	 */
 	public String getPortraitURL() {
+		String portraitURL = playerInfo.get(PlayerInfo.filePath)
+				+ "players\\portrait" 
+				+ playerInfo.get(PlayerInfo.name);
 		return portraitURL;
 	}
 
@@ -119,91 +104,91 @@ public class PlayerEntity {
 	 * @return the team
 	 */
 	public String getTeam() {
-		return team;
+		return playerInfo.get(PlayerInfo.team);
 	}
 
 	/**
 	 * @return the numOfEntryField
 	 */
 	public String getNumOfEntryField() {
-		return numOfEntryField;
+		return playerInfo.get(PlayerInfo.numOfEntryField);
 	}
 
 	/**
 	 * @return the numOfStartingField
 	 */
 	public String getNumOfStartingField() {
-		return numOfStartingField;
+		return playerInfo.get(PlayerInfo.numOfStartingField);
 	}
 
 	/**
 	 * @return the numOfRebound
 	 */
 	public String getNumOfRebound() {
-		return numOfRebound;
+		return playerInfo.get(PlayerInfo.numOfRebound);
 	}
 
 	/**
 	 * @return the numOfAssist
 	 */
 	public String getNumOfAssist() {
-		return numOfAssist;
+		return playerInfo.get(PlayerInfo.numOfAssist);
 	}
 
 	/**
 	 * @return the timeOfPresence
 	 */
 	public String getTimeOfPresence() {
-		return timeOfPresence;
+		return playerInfo.get(PlayerInfo.timeOfPresence);
 	}
 
 	/**
 	 * @return the numOfOffense
 	 */
 	public String getNumOfOffense() {
-		return numOfOffense;
+		return playerInfo.get(PlayerInfo.numOfOffense);
 	}
 
 	/**
 	 * @return the numOfDefense
 	 */
 	public String getNumOfDefense() {
-		return numOfDefense;
+		return playerInfo.get(PlayerInfo.numOfDefense);
 	}
 
 	/**
 	 * @return the numOfSteal
 	 */
 	public String getNumOfSteal() {
-		return numOfSteal;
+		return playerInfo.get(PlayerInfo.numOfSteal);
 	}
 
 	/**
 	 * @return the numOfBlockShot
 	 */
 	public String getNumOfBlockShot() {
-		return numOfBlockShot;
+		return playerInfo.get(PlayerInfo.numOfBlockShot);
 	}
 
 	/**
 	 * @return the numOfTurnOver
 	 */
 	public String getNumOfTurnOver() {
-		return numOfTurnOver;
+		return playerInfo.get(PlayerInfo.numOfTurnOver);
 	}
 
 	/**
 	 * @return the numOfFoul
 	 */
 	public String getNumOfFoul() {
-		return numOfFoul;
+		return playerInfo.get(PlayerInfo.numOfFoul);
 	}
 
 	/**
 	 * @return the scoring
 	 */
 	public String getScoring() {
-		return scoring;
+		return playerInfo.get(PlayerInfo.scoring);
 	}
 			
 }
