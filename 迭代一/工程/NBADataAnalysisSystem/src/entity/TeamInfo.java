@@ -1,12 +1,12 @@
 package entity;
 
 public enum TeamInfo {
-	teamID,
-	fullName,
-	abbrName,
-	location,
-	zone,
-	division,
-	homeCourt,
-	builtTime
+	TEAM_ID,
+	FULL_NAME,
+	ABBR_NAME,
+	LOCATION,
+	ZONE,
+	DIVISION,
+	HOME_COURT,
+	BUILT_TIME
 }
