@@ -3,14 +3,22 @@ package dao;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+
+
+
 
 import entity.Player;
 import entity.PlayerInfo;
@@ -66,19 +74,28 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 	
 	public boolean fileToDatabase(String path) throws Exception {
 		File[] fileList = new File(path).listFiles();
+		Pattern pattern = Pattern.compile("©¦\\w+ *\\w*,* *\\w*-*\\w*");
 		for(File file : fileList){
-			BufferedReader br = new BufferedReader(new FileReader(file));
-			String strTemp = br.readLine();
-			String [] strList = new String[9];
-			int i = 0;
-			while(!(strTemp.equals("¨X¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨h¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨[")
-					|| strTemp.equals("¨c©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤¨f"))){
-				strList[i++]=strTemp.split("¨U")[0].split("©¦")[1];
-			}
-			System.out.println(strList[0]);
-			br.close();	               
+			System.out.println(findPlayerMatcher(file,pattern));
 		}
 		return true;
+	}
+	
+	private String findPlayerMatcher(File file,Pattern pattern) throws Exception{
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
+		String strTemp = br.readLine();
+        String result = "";
+		
+		while(strTemp != null){
+		    Matcher matcher = pattern.matcher(strTemp);
+			if(matcher.find()){
+				result += ("'"+matcher.group(0).split("©¦")[1] + "',");
+			}
+			strTemp = br.readLine();
+		}
+		br.close();	      
+		result = result.substring(0,result.length()-1);
+		return result;
 	}
 	
 

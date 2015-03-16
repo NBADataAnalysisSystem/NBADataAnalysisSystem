@@ -21,14 +21,14 @@ public class PlayerDaoJdbcImpTest {
 	private static Connection connection;
 	private static DatabaseConnection dbconn;
 	
-	@BeforeClass
+	/*@BeforeClass
 	public static void setupDatabase() throws Exception {
 		Class.forName("org.sqlite.JDBC");
 		connection = DriverManager.getConnection("jdbc:sqlite:player.db");
 		dbconn = new DatabaseConnection(connection, null);
 		dao.setConnection(connection);
 		dao.createTables();
-	}
+	}*/
 	
 	@AfterClass
 	public static void closeDatabase() throws Exception {
