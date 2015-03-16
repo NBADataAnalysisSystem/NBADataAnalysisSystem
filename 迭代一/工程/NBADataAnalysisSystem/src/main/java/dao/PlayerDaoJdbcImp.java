@@ -3,6 +3,7 @@ package dao;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -62,5 +63,23 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 		statement.executeUpdate(reader.readLine());
 		reader.close();
 	}
+	
+	public boolean fileToDatabase(String path) throws Exception {
+		File[] fileList = new File(path).listFiles();
+		for(File file : fileList){
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			String strTemp = br.readLine();
+			String [] strList = new String[9];
+			int i = 0;
+			while(!(strTemp.equals("¨X¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨h¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨[")
+					|| strTemp.equals("¨c©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤¨f"))){
+				strList[i++]=strTemp.split("¨U")[0].split("©¦")[1];
+			}
+			System.out.println(strList[0]);
+			br.close();	               
+		}
+		return true;
+	}
+	
 
 }

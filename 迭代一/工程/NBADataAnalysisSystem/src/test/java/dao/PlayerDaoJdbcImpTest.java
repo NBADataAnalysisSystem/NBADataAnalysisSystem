@@ -11,12 +11,9 @@ import java.sql.DriverManager;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
-import org.dbunit.operation.DatabaseOperation;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import entity.Player;
 
 public class PlayerDaoJdbcImpTest {
 
@@ -53,13 +50,18 @@ public class PlayerDaoJdbcImpTest {
 		return dataSet;
 	}
 	
-	@Test
+	/*@Test
 	public void testGetPlayerById() throws Exception {
 		IDataSet setupDataset = getDataSet("./src/test/java/player.xml");
 		DatabaseOperation.CLEAN_INSERT.execute(dbconn, setupDataset);
 		Player player = dao.getPlayerById("1");
 		assertNotNull(player);
 		assertEquals("aaa", player.getName());
+	}*/
+	
+	@Test
+	public void testFileToDatabase() throws Exception {
+		dao.fileToDatabase("./data/players/info/");
 	}
 
 }
