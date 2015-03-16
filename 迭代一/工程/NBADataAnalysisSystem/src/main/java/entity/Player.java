@@ -2,11 +2,11 @@ package entity;
 
 import java.util.Map;
 
-public class PlayerEntity {
+public class Player {
 
 	private Map<PlayerInfo, String> playerInfo;
 	
-	public PlayerEntity(Map<PlayerInfo, String> playerInfo) {
+	public Player(Map<PlayerInfo, String> playerInfo) {
 		this.playerInfo = playerInfo;
 	}
 

@@ -1,1 +1,0 @@
-IController对象，控制器负责获取用户输入，并调用IService模块的服务。
