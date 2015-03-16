@@ -1,6 +1,6 @@
 package entity;
 
-public enum PlayerInfo {
+ public enum PlayerInfo {
 	PLAYER_ID,
 	NAME,
 	NUMBER,
