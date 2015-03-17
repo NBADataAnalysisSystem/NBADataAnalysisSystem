@@ -111,7 +111,8 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 		File[] fileList = new File(path).listFiles();
 		
 		//存储球员数据到数据库
-		Pattern pattern = Pattern.compile("│\\w+ *\\w*,* *\\w*-*\\w*");
+		//Pattern pattern = Pattern.compile("│\\w+ *\\w*,* *\\w*-*\\w*");
+		Pattern pattern = Pattern.compile("│([\\w', \\(\\)-\\.]*)");
 		for(File file : fileList){
 			insertPlayersIntoDatabase("players",findPlayerMatcher(file,pattern));
 		}
@@ -144,28 +145,12 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 	
 	//将球员数据保存到数据库
 	private void insertPlayersIntoDatabase(String table,String[] value) throws Exception{
-		//String sql = "use database NBADatabase;"
-			//	+ "insert into " + table +
-				//"(player_name,jersey_number,position,height,weight,birth,age,exp,school) values"
-				//+ "(" + value + ");" ;
-		//Statement statement = connection.createStatement();
-		//statement.executeQuery(sql);
-		
-		
-		for(int i =0;i<9;i++){
-			System.out.println(value[i]);
-		}
-	
+
 		//PreparedStatement prep = connection.prepareStatement("insert into players values(?,?,?,?,?,?,?,?,?);");
     	for(int i = 0 ;i < 9;i ++ ){
     		prep.setString(i+1,value[i]);
     	}
     	prep.addBatch();
-    	
-    	//connection.setAutoCommit(false);
-    	//prep.executeBatch();
-    	//connection.setAutoCommit(true);
-    	//prep.close();
     	
     	Statement stat = connection.createStatement();
     	ResultSet rs = stat.executeQuery("select * from players;");
