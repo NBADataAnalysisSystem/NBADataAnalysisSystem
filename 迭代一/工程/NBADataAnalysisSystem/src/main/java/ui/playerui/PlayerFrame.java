@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import com.sun.awt.AWTUtilities;
@@ -26,6 +28,7 @@ public class PlayerFrame extends JFrame implements ActionListener{
 	JScrollPane sp ;
 	PlayerModel model;
 	JTable table;
+	ArrayList<String> listToShow;
 	
 	
 	@SuppressWarnings("static-access")
@@ -64,7 +67,7 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		xp.add(leftPane);
 		
 		
-		JButton btn_Add = new JButton("");
+		JButton btn_Add = new JButton("π¥—°–≈œ¢");
 		btn_Add.setName("add");
 		btn_Add.addActionListener(this);
 		leftPane.add(btn_Add);
@@ -129,7 +132,20 @@ public class PlayerFrame extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		if(e.getSource() instanceof JButton){
+			JButton btn = (JButton)e.getSource();
+			String name = btn.getName();
+			if("add".equals(name)){
+				SwingUtilities.invokeLater(new Runnable(){
+					public void run(){
+						add();
+					}
+				});
+			}
+		}
+	}
+	
+	public void add(){
 		
 	}
 	
