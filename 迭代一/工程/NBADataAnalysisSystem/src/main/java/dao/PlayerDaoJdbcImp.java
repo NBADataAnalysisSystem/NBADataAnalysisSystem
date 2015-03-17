@@ -8,6 +8,8 @@ import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,20 +22,24 @@ import java.util.regex.Pattern;
 
 
 
+
+
+
 import entity.Player;
 import entity.PlayerInfo;
 
 public class PlayerDaoJdbcImp implements PlayerDao {
 
 	private Connection connection;
-
+	PreparedStatement prep ;
+	//从数据库中读取球员数据，创建并返回球员对象
 	public Player getPlayerById(String id) throws SQLException {
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery("SELECT * FROM players WHERE id=" + id);
 		Map<PlayerInfo, String> map = new HashMap<PlayerInfo, String>();
 		map.put(PlayerInfo.PLAYER_ID, resultSet.getString("id"));
 		map.put(PlayerInfo.NAME, resultSet.getString("name"));
-		map.put(PlayerInfo.NUMBER, resultSet.getString("number"));
+		/*map.put(PlayerInfo.NUMBER, resultSet.getString("number"));
 		map.put(PlayerInfo.POSITION, resultSet.getString("position"));
 		map.put(PlayerInfo.HEIGHT, resultSet.getString("height"));
 		map.put(PlayerInfo.WEIGHT, resultSet.getString("weight"));
@@ -54,48 +60,121 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 		map.put(PlayerInfo.NUM_OF_BLOCK_SHOT, resultSet.getString("num_of_block_shot"));
 		map.put(PlayerInfo.NUM_OF_TURN_OVER, resultSet.getString("num_of_turn_over"));
 		map.put(PlayerInfo.NUM_OF_FOUL, resultSet.getString("num_of_foul"));
-		map.put(PlayerInfo.SCORING, resultSet.getString("scoring"));
+		map.put(PlayerInfo.SCORING, resultSet.getString("scoring"));*/
 		return new Player(map);
 	}
+	
 	
 	public void setConnection(Connection connection) {
 		this.connection = connection;
 	}
 	
+	//创建数据库及相关表格
 	public void createTables() throws Exception {
 		Statement statement = connection.createStatement();
 		BufferedReader reader = new BufferedReader(
 				new InputStreamReader(
 						new FileInputStream(
 								new File("./src/test/java/player.sql"))));
-		statement.executeUpdate(reader.readLine());
+		String sql = "";
+		String strTemp = "";
+		while((strTemp = reader.readLine()) != null){
+			sql += strTemp;
+		}
+        System.out.println(sql);
+		statement.executeUpdate(sql);
 		reader.close();
 	}
 	
-	public boolean fileToDatabase(String path) throws Exception {
+	//连接并创建数据库
+    public void createDatabase() throws Exception{
+    	Class.forName("org.sqlite.JDBC");
+    	connection = DriverManager.getConnection("jdbc:sqlite:NBADatabase.db");
+    	Statement stat = connection.createStatement();
+    	stat.executeUpdate("drop table if exists players");
+    	stat.executeUpdate("create table players ("
+    			+ "player_name varchar(30),"
+    			+ "jersey_number varchar(10),"
+    			+ "position varchar(10),"
+    			+ "height varchar(10),"
+    			+ "weight varchar(10),"
+    			+ "birth varchar(10),"
+    			+ "age varchar(10),"
+    			+ "exp varchar(10),"
+    			+ "school varchar(10) );");
+    	 prep = connection.prepareStatement("insert into players values(?,?,?,?,?,?,?,?,?);");
+    	
+    }
+	
+	//读取文本文件，保存到数据库
+	public void fileToDatabase(String path) throws Exception {
 		File[] fileList = new File(path).listFiles();
+		
+		//存储球员数据到数据库
 		Pattern pattern = Pattern.compile("│\\w+ *\\w*,* *\\w*-*\\w*");
 		for(File file : fileList){
-			System.out.println(findPlayerMatcher(file,pattern));
+			insertPlayersIntoDatabase("players",findPlayerMatcher(file,pattern));
 		}
-		return true;
+		
+    	
+    	connection.setAutoCommit(false);
+    	prep.executeBatch();
+    	connection.setAutoCommit(true);
+		
 	}
 	
-	private String findPlayerMatcher(File file,Pattern pattern) throws Exception{
+	//读取player文件，格式化输出球员信息
+	private String[] findPlayerMatcher(File file,Pattern pattern) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
 		String strTemp = br.readLine();
-        String result = "";
+        String[]  result = new String[9];
 		
+        int i = 0;
 		while(strTemp != null){
 		    Matcher matcher = pattern.matcher(strTemp);
 			if(matcher.find()){
-				result += ("'"+matcher.group(0).split("│")[1] + "',");
+				result[i] = matcher.group(0).split("│")[1] ;
+				i++;
 			}
 			strTemp = br.readLine();
 		}
 		br.close();	      
-		result = result.substring(0,result.length()-1);
 		return result;
+	}
+	
+	//将球员数据保存到数据库
+	private void insertPlayersIntoDatabase(String table,String[] value) throws Exception{
+		//String sql = "use database NBADatabase;"
+			//	+ "insert into " + table +
+				//"(player_name,jersey_number,position,height,weight,birth,age,exp,school) values"
+				//+ "(" + value + ");" ;
+		//Statement statement = connection.createStatement();
+		//statement.executeQuery(sql);
+		
+		
+		for(int i =0;i<9;i++){
+			System.out.println(value[i]);
+		}
+	
+		//PreparedStatement prep = connection.prepareStatement("insert into players values(?,?,?,?,?,?,?,?,?);");
+    	for(int i = 0 ;i < 9;i ++ ){
+    		prep.setString(i+1,value[i]);
+    	}
+    	prep.addBatch();
+    	
+    	//connection.setAutoCommit(false);
+    	//prep.executeBatch();
+    	//connection.setAutoCommit(true);
+    	//prep.close();
+    	
+    	Statement stat = connection.createStatement();
+    	ResultSet rs = stat.executeQuery("select * from players;");
+    	while (rs.next()){
+    		System.out.println("name = "+rs.getString("player_name"));
+    		System.out.println("number= "+rs.getString("jersey_number"));
+    		rs.close();
+    		connection.close();
+    	}
 	}
 	
 
