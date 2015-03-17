@@ -3,10 +3,7 @@ package dao;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -31,7 +28,7 @@ import entity.PlayerInfo;
 public class PlayerDaoJdbcImp implements PlayerDao {
 
 	private Connection connection;
-	PreparedStatement prep ;
+	private PreparedStatement prep ;
 	//从数据库中读取球员数据，创建并返回球员对象
 	public Player getPlayerById(String id) throws SQLException {
 		Statement statement = connection.createStatement();
@@ -93,6 +90,7 @@ public class PlayerDaoJdbcImp implements PlayerDao {
     	Statement stat = connection.createStatement();
     	stat.executeUpdate("drop table if exists players");
     	stat.executeUpdate("create table players ("
+    			+ "id integer primary key autoincrement,"
     			+ "player_name varchar(30),"
     			+ "jersey_number varchar(10),"
     			+ "position varchar(10),"
@@ -101,14 +99,23 @@ public class PlayerDaoJdbcImp implements PlayerDao {
     			+ "birth varchar(10),"
     			+ "age varchar(10),"
     			+ "exp varchar(10),"
-    			+ "school varchar(10) );");
-    	 prep = connection.prepareStatement("insert into players values(?,?,?,?,?,?,?,?,?);");
+    			+ "school varchar(10),"
+    			+ "unique(id,player_name) );");
+    	 prep = connection.prepareStatement("insert into players values(?,?,?,?,?,?,?,?,?,?);");
+    	 PreparedStatement prepa = connection.prepareStatement("insert into paths values(?,?)");
+    	 prepa.setString(1,"2");
+    	 prepa.setString(2,"sig");
+    	 prepa.addBatch();
+    	   	connection.setAutoCommit(false);
+        	prepa.executeBatch();
+        	connection.setAutoCommit(true);
+    		
     	
     }
 	
 	//读取文本文件，保存到数据库
 	public void fileToDatabase(String path) throws Exception {
-		File[] fileList = new File(path).listFiles();
+		File[] fileList = new File(path+"players/info/").listFiles();
 		
 		//存储球员数据到数据库
 		//Pattern pattern = Pattern.compile("│\\w+ *\\w*,* *\\w*-*\\w*");
@@ -147,8 +154,9 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 	private void insertPlayersIntoDatabase(String table,String[] value) throws Exception{
 
 		//PreparedStatement prep = connection.prepareStatement("insert into players values(?,?,?,?,?,?,?,?,?);");
+		
     	for(int i = 0 ;i < 9;i ++ ){
-    		prep.setString(i+1,value[i]);
+    		prep.setString(i+2,value[i]);
     	}
     	prep.addBatch();
     	
