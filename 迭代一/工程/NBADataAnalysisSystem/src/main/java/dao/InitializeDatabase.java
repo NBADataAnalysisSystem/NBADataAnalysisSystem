@@ -3,9 +3,12 @@ package dao;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,7 +26,6 @@ public class InitializeDatabase {
     	stat.executeUpdate("drop table if exists matches");
     	stat.executeUpdate("drop table if exists overtime_matches");
     	stat.executeUpdate("drop table if exists player_match_performance");
-    	stat.executeUpdate("drop table if exists team_season_performance");
     	stat.executeUpdate("drop table if exists teams");
     	stat.executeUpdate("drop table if exists paths");
     	
@@ -49,6 +51,8 @@ public class InitializeDatabase {
 		teamFileToDatabase(path+"/teams/teams");
 		
 		matchFileToDatabase(path+"/matches");
+		
+		pathToDatabase(path);
 	}
 	
 	//连接到数据库
@@ -113,8 +117,70 @@ public class InitializeDatabase {
 	}
 	
 	//保存比赛数据到数据库
-	private void matchFileToDatabase(String path){};
+	private void matchFileToDatabase(String path) throws Exception{
+		File[] fileList = new File(path).listFiles();
+		PreparedStatement matchPrep = connection.prepareStatement(""
+				+ "insert into matches values ("
+				+ "?,?,?,?,?,?,?,?,?,?,"
+				+ "?)");
+		PreparedStatement overtimeMatchPrep = connection.prepareStatement(""
+				+ "insert into overtime_matches values("
+				+ "?,?,?)");
+		PreparedStatement playerMatchPerformancePrep = 
+				connection.prepareStatement(""
+				+ "insert into player_match_performance values ("
+				+ "?,?,?,?,?,?,?,?,?,?,"
+				+ "?,?,?,?,?,?,?,?,?,?)");
+		for(File file : fileList ){
+		String matchID = file.getName();
+		String matchInformation = matchID.split("_")[0]+";";
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
 
+		
+		String strTemp = br.readLine();
+		while(!isTeam(strTemp)){
+			matchInformation += strTemp;
+			strTemp = br.readLine();
+		}
+		insertMatchIntoDatabase(matchInformation,matchPrep,overtimeMatchPrep);
+		String team = strTemp;
+		strTemp = br.readLine();
+		while(!isTeam(strTemp)){
+			playerMatchPerformancePrep.setString(1,matchID);
+			playerMatchPerformancePrep.setString(2,team);
+			insertPlayerMatchPerformanceIntoDatabase(strTemp,playerMatchPerformancePrep);
+			strTemp = br.readLine();
+		}
+		
+		team = strTemp;
+		strTemp = br.readLine();
+		while(strTemp!=null && !isTeam(strTemp)){
+			playerMatchPerformancePrep.setString(1,matchID);
+			playerMatchPerformancePrep.setString(2,team);
+			insertPlayerMatchPerformanceIntoDatabase(strTemp,playerMatchPerformancePrep);
+			strTemp = br.readLine();
+		}
+		}
+		
+    	connection.setAutoCommit(false);
+    	matchPrep.executeBatch();
+    	overtimeMatchPrep.executeBatch();
+    	playerMatchPerformancePrep.executeBatch();
+    	connection.setAutoCommit(true);	
+		
+	};
+
+	//保存路径信息到数据库
+	private void pathToDatabase(String path) throws Exception{
+		PreparedStatement prep = connection.prepareStatement("insert into paths values ("
+				+ "?,?)");
+		prep.setString(2,path);
+		prep.addBatch();
+		
+    	connection.setAutoCommit(false);
+    	prep.executeBatch();
+    	connection.setAutoCommit(true);	
+	}
 	//筛选指定文件中的球员信息
 	private String[] findPlayerMatcher(File file) throws Exception{
 		Pattern pattern = Pattern.compile("│([\\w', \\(\\)-\\.]*)");
@@ -135,4 +201,53 @@ public class InitializeDatabase {
 		br.close();	      
 		return result;
 	}
+	
+	//判断match文件的分隔符（球队名）
+	 private boolean isTeam(String str){
+		for(int i = 0 ;i < str.length();i ++){
+			if(str.charAt(i)==';'){
+				return false;
+			}
+		}
+		return true;
+	}
+
+	 //将一个match记录添加到matches和overtime_matches的PrepareedStatement中
+	 private void insertMatchIntoDatabase(String match,PreparedStatement matchPrep
+			 ,PreparedStatement overtimeMatchPrep) throws Exception{
+		 String[] data = match.split(";");
+		 matchPrep.setString(2, data[0]);
+		 matchPrep.setString(3, data[1]);
+		 matchPrep.setString(4, data[2].split("-")[0]);
+		 matchPrep.setString(5, data[2].split("-")[1]);
+		 matchPrep.setString(6, data[3]);
+		 matchPrep.setString(7, data[4]);
+		 matchPrep.setString(8, data[5]);
+		 matchPrep.setString(9, data[6]);
+		 matchPrep.setString(10, data[7]);
+		 if(data.length >8 ){
+			 matchPrep.setString(11, "true");
+			 for(int i = 8 ;i < data.length;i++){
+				 overtimeMatchPrep.setString(1,data[0]+";"+
+						 						data[1]+";"+
+			 									data[2]);
+				 overtimeMatchPrep.setString(2,(i-7)+"");
+				 overtimeMatchPrep.setString(3,data[i]);
+				 overtimeMatchPrep.addBatch();
+			 }
+
+		 }else{
+			 matchPrep.setString(11,"false");
+		 }
+		 matchPrep.addBatch();
+	 }
+
+	 //将一个球员的赛场表现添加到PreparedStatement中
+	 private void insertPlayerMatchPerformanceIntoDatabase(String str,PreparedStatement prep) throws Exception{
+		 String[] data = str.split(";");
+		 for(int i = 0 ;i < 18; i ++ ){
+			 prep.setString(3+i,data[i]);
+		 }
+		 prep.addBatch();
+	 }
 }

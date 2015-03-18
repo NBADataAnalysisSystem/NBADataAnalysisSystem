@@ -25,43 +25,21 @@ unique (date_of_match,home_court_team,away_team)
 创建加时赛表
 */
 create table overtime_matches(
-id integer,
+id varchar（25）,
 serial_number varchar(3),
 score varchar(10),
-primary key(id)
+primary key(id,serial_number)
 );
 
 
 
 /*
-创建球队赛季成绩表
-*/
-create table team_season_performance(
-id int primary key,
-season varchar(10),
-num_of_matches varchar(4),
-shooting varchar(4),
-shot varchar(4),
-defensive_rebounds varchar(4),
-offensive_rebounds varchar(4),
-rebounds varchar(4),
-assists varchar(4),
-steals varchar(4),
-block_shots  varchar(4),
-turn_overs varchar(4),
-fouls varchar(4),
-score varchar(10)
-);
-
-
-
-
-/*
-创建球队赛程成绩表
+创建球员比赛成绩表
 */
 create table player_match_performance(
+match_id varchar(25),
+team varchar(10),
 player_name varchar(30),
-match_id int,
 player_position varchar(10),
 presence_time varchar(20),
 shootings varchar(4),
