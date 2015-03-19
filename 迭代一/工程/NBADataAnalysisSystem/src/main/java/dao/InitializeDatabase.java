@@ -3,12 +3,9 @@ package dao;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -132,34 +129,35 @@ public class InitializeDatabase {
 				+ "?,?,?,?,?,?,?,?,?,?,"
 				+ "?,?,?,?,?,?,?,?,?,?)");
 		for(File file : fileList ){
-		String matchID = file.getName();
-		String matchInformation = matchID.split("_")[0]+";";
-		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
+			String matchID = file.getName();
+			String matchInformation = matchID.split("_")[0]+";";
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
 
 		
-		String strTemp = br.readLine();
-		while(!isTeam(strTemp)){
-			matchInformation += strTemp;
+			String strTemp = br.readLine();
+			while(!isTeam(strTemp)){
+				matchInformation += strTemp;
+				strTemp = br.readLine();
+			}
+			insertMatchIntoDatabase(matchInformation,matchPrep,overtimeMatchPrep);
+			String team = strTemp;
 			strTemp = br.readLine();
-		}
-		insertMatchIntoDatabase(matchInformation,matchPrep,overtimeMatchPrep);
-		String team = strTemp;
-		strTemp = br.readLine();
-		while(!isTeam(strTemp)){
-			playerMatchPerformancePrep.setString(1,matchID);
-			playerMatchPerformancePrep.setString(2,team);
-			insertPlayerMatchPerformanceIntoDatabase(strTemp,playerMatchPerformancePrep);
-			strTemp = br.readLine();
-		}
+			while(!isTeam(strTemp)){
+				playerMatchPerformancePrep.setString(1,matchID);
+				playerMatchPerformancePrep.setString(2,team);
+				insertPlayerMatchPerformanceIntoDatabase(strTemp,playerMatchPerformancePrep);
+				strTemp = br.readLine();
+			}
 		
-		team = strTemp;
-		strTemp = br.readLine();
-		while(strTemp!=null && !isTeam(strTemp)){
-			playerMatchPerformancePrep.setString(1,matchID);
-			playerMatchPerformancePrep.setString(2,team);
-			insertPlayerMatchPerformanceIntoDatabase(strTemp,playerMatchPerformancePrep);
+			team = strTemp;
 			strTemp = br.readLine();
-		}
+			while(strTemp!=null && !isTeam(strTemp)){
+				playerMatchPerformancePrep.setString(1,matchID);
+				playerMatchPerformancePrep.setString(2,team);
+				insertPlayerMatchPerformanceIntoDatabase(strTemp,playerMatchPerformancePrep);
+				strTemp = br.readLine();
+			}
+			br.close();
 		}
 		
     	connection.setAutoCommit(false);
@@ -212,42 +210,40 @@ public class InitializeDatabase {
 		return true;
 	}
 
-	 //将一个match记录添加到matches和overtime_matches的PrepareedStatement中
-	 private void insertMatchIntoDatabase(String match,PreparedStatement matchPrep
-			 ,PreparedStatement overtimeMatchPrep) throws Exception{
-		 String[] data = match.split(";");
-		 matchPrep.setString(2, data[0]);
-		 matchPrep.setString(3, data[1]);
-		 matchPrep.setString(4, data[2].split("-")[0]);
-		 matchPrep.setString(5, data[2].split("-")[1]);
-		 matchPrep.setString(6, data[3]);
-		 matchPrep.setString(7, data[4]);
-		 matchPrep.setString(8, data[5]);
-		 matchPrep.setString(9, data[6]);
-		 matchPrep.setString(10, data[7]);
-		 if(data.length >8 ){
-			 matchPrep.setString(11, "true");
-			 for(int i = 8 ;i < data.length;i++){
-				 overtimeMatchPrep.setString(1,data[0]+";"+
-						 						data[1]+";"+
-			 									data[2]);
-				 overtimeMatchPrep.setString(2,(i-7)+"");
-				 overtimeMatchPrep.setString(3,data[i]);
-				 overtimeMatchPrep.addBatch();
-			 }
+	//将一个match记录添加到matches和overtime_matches的PrepareedStatement中
+	private void insertMatchIntoDatabase(String match,PreparedStatement matchPrep
+			,PreparedStatement overtimeMatchPrep) throws Exception{
+		String[] data = match.split(";");
+		matchPrep.setString(2, data[0]);
+		matchPrep.setString(3, data[1]);
+		matchPrep.setString(4, data[2].split("-")[0]);
+		matchPrep.setString(5, data[2].split("-")[1]);
+		matchPrep.setString(6, data[3]);
+		matchPrep.setString(7, data[4]);
+		matchPrep.setString(8, data[5]);
+		matchPrep.setString(9, data[6]);
+		matchPrep.setString(10, data[7]);
+		if(data.length >8 ){
+			matchPrep.setString(11, "true");
+			for(int i = 8 ;i < data.length;i++){
+				overtimeMatchPrep.setString(1,data[0]
+						+";"+data[1]+";"+data[2]);
+				overtimeMatchPrep.setString(2,(i-7)+"");
+				overtimeMatchPrep.setString(3,data[i]);
+				overtimeMatchPrep.addBatch();
+			}
+		}else{
+			matchPrep.setString(11,"false");
+		}
+		matchPrep.addBatch();
+	}
 
-		 }else{
-			 matchPrep.setString(11,"false");
-		 }
-		 matchPrep.addBatch();
-	 }
-
-	 //将一个球员的赛场表现添加到PreparedStatement中
-	 private void insertPlayerMatchPerformanceIntoDatabase(String str,PreparedStatement prep) throws Exception{
-		 String[] data = str.split(";");
-		 for(int i = 0 ;i < 18; i ++ ){
-			 prep.setString(3+i,data[i]);
-		 }
-		 prep.addBatch();
-	 }
+	//将一个球员的赛场表现添加到PreparedStatement中
+	private void insertPlayerMatchPerformanceIntoDatabase(String str,PreparedStatement prep) throws Exception{
+		String[] data = str.split(";");
+		for(int i = 0 ;i < 18; i ++ ){
+			prep.setString(3+i,data[i]);
+		}
+		prep.addBatch();
+	}
 }
