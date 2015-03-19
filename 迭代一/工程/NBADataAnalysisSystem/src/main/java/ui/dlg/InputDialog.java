@@ -9,16 +9,18 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
+import com.sun.awt.AWTUtilities;
+
 @SuppressWarnings("serial")
 public class InputDialog extends JDialog implements ActionListener{
 
 	
 	JButton btn_apply; 
 	JButton btn_cancel;
-	
+	JFrame frame;
 	public InputDialog(JFrame parent){
 		super(parent);
-		
+		frame = parent;
 		btn_apply = new JButton("È·¶¨");
 		btn_apply.setName("apply");
 		btn_apply.addActionListener(this);
@@ -46,6 +48,7 @@ public class InputDialog extends JDialog implements ActionListener{
 				apply();
 			}else if ("cancel".equals(name)){
 				dispose();
+				AWTUtilities.setWindowOpacity(frame, 1f);
 			}
 		}
 	

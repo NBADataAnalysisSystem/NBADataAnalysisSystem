@@ -11,6 +11,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.sun.awt.AWTUtilities;
+
 import ui.SelectedInfoOfPlayer;
 import ui.playerui.PlayerFrame;
 
@@ -280,6 +282,8 @@ public class AdditionOfPlayerInfo extends InputDialog implements ItemListener {
 		frame.setString();
 		frame.refreshData();
 		frame.changeTableColumns();
+		AWTUtilities.setWindowOpacity(frame, 1f);
+		dispose();
 		
 	}
 

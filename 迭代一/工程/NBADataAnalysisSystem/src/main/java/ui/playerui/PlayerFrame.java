@@ -5,9 +5,14 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -21,6 +26,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import com.sun.awt.AWTUtilities;
+
 import ui.dlg.AdditionOfPlayerInfo;
 
 @SuppressWarnings("serial")
@@ -30,11 +37,11 @@ public class PlayerFrame extends JFrame implements ActionListener{
 	static JScrollPane sp ;
 	static PlayerModel model;
 	static JTable table;
-	JFrame tableContain;
 	JPanel 	tablePanel;
 	static ArrayList<String> listToShow;
 	int tableWidth;
 	int tableHeight;
+	private static Point origin = new Point();
 	
 	
 	@SuppressWarnings({ "static-access", "unused" })
@@ -103,7 +110,6 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		sp.setViewportView(table); //装载表格 
 		//playerPanel.add(new JScrollPane(table), BorderLayout.CENTER);
 		//TODO 用于存放表格的Frame ，无法存放在原Frame中。窗口为绝对位置。
-		tableContain = new JFrame();
 		table.setEnabled(false);
 		tablePanel.setLayout(new BorderLayout());
 		tablePanel.add(sp, BorderLayout.CENTER);
@@ -148,6 +154,21 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		closeButton.setName("close");
 		this.add(closeButton);
 		
+		JButton reduceButton = new JButton();
+		ImageIcon reduceIcon = new ImageIcon("resource/ReduceButton.jpg");
+		Image tempReduce = reduceIcon.getImage().getScaledInstance(reduceIcon.getIconWidth()/3,reduceIcon.getIconHeight()/3,Image.SCALE_DEFAULT);  
+		reduceIcon.setImage(tempReduce);
+		reduceButton.setMargin(new Insets(0,0,0,0));
+		reduceButton.setIcon(reduceIcon);
+		reduceButton.setBounds(900,0,reduceIcon.getIconWidth(), reduceIcon.getIconHeight());
+		reduceButton.addActionListener(this);
+		reduceButton.addActionListener(new ActionListener(){
+	        @Override public void actionPerformed(ActionEvent e){
+	            setExtendedState(JFrame.ICONIFIED);
+	        }
+	    });
+		this.add(reduceButton);
+		
 		
 		tablePanel.setSize(bg.getIconWidth()-123,  bg.getIconHeight()-36);
 		tablePanel.setLocation(122,35);
@@ -157,8 +178,33 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		this.add(tablePanel);//TODO
 		tablePanel.setVisible(true);
 		this.setVisible(true);
-		
+	
+		//设置拖动窗体的方法
+		this. addMouseListener( 
+		        new MouseAdapter(){
+		            public void mousePressed(MouseEvent e){
+		              origin.x = e.getX();
+		              origin.y = e.getY();
+		            }
 
+		            public void mouseReleased(MouseEvent e) {
+		              ( (MouseListener) this).mouseReleased(e);
+		            }
+		            @Override
+		            public void mouseEntered(MouseEvent e) {
+		              repaint();              
+		            }            
+		          }
+		      );
+
+		      this.addMouseMotionListener(
+		          new MouseMotionAdapter(){
+		            public void mouseDragged(MouseEvent e){
+		              Point p =    getLocation();
+		              setLocation(p.x + e.getX() - origin.x, p.y + e.getY() - origin.y );
+		            }          
+		          }
+		      );    
 
 		listToShow = new ArrayList<String>();
 		listToShow.add("ID");
@@ -213,7 +259,7 @@ public class PlayerFrame extends JFrame implements ActionListener{
 	}
 	
 	public void add(){
-		
+		AWTUtilities.setWindowOpacity(this, 0.5f);
 		AdditionOfPlayerInfo addition = new AdditionOfPlayerInfo(this);
 		addition.setPlayerFrame(this);
 		addition.setVisible(true);	
