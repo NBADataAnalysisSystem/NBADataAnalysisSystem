@@ -1,12 +1,13 @@
 package ui.dlg;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 @SuppressWarnings("serial")
 public class InputDialog extends JDialog implements ActionListener{
@@ -55,12 +56,20 @@ public class InputDialog extends JDialog implements ActionListener{
 	
 	}
 	
+    public static void center(JFrame frame){
+        Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = frame.getWidth();
+        int height = frame.getHeight();
+        frame.setLocation( (screensize.width - width) / 2,
+                      (screensize.height - height) / 2);
+    }
+    
 	public void infoMsg(String msg){
 		
-		JOptionPane.showMessageDialog(this, msg, "消息", JOptionPane.INFORMATION_MESSAGE);
+		//JOptionPane.showMessageDialog(this, msg, "消息", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	public void errorMsg(String msg){
-		JOptionPane.showMessageDialog(this, msg, "错误消息", JOptionPane.ERROR_MESSAGE);
+	//	JOptionPane.showMessageDialog(this, msg, "错误消息", JOptionPane.ERROR_MESSAGE);
 	}
 }

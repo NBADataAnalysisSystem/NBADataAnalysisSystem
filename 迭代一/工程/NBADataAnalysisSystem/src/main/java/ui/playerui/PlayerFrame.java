@@ -1,6 +1,7 @@
 package ui.playerui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -17,7 +18,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+
+import ui.ButtonOperation;
+import ui.dlg.AdditionOfPlayerInfo;
 
 import com.sun.awt.AWTUtilities;
 
@@ -25,16 +30,21 @@ import com.sun.awt.AWTUtilities;
 public class PlayerFrame extends JFrame implements ActionListener{
 	
 	JPanel playerPanel;
-	JScrollPane sp ;
-	PlayerModel model;
-	JTable table;
-	ArrayList<String> listToShow;
+	static JScrollPane sp ;
+	static PlayerModel model;
+	static JTable table;
+	JFrame tableContain;
+	JPanel 	tablePanel;
+	static ArrayList<String> listToShow;
+	int tableWidth;
+	int tableHeight;
 	
 	
 	@SuppressWarnings("static-access")
 	public PlayerFrame(){
 		super();
 
+		this.setUndecorated(true);
 		this.setSize(1000, 562);
 		this.setLocation(500,200);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -72,30 +82,69 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		btn_Add.addActionListener(this);
 		leftPane.add(btn_Add);
 		
+		tablePanel = new JPanel();
 		model = new PlayerModel();
 		table  = new JTable(model);
-		sp = new JScrollPane(table);
+		sp = new JScrollPane();
+		
+		//TODO
+		table.setOpaque(true);
+		DefaultTableCellRenderer render = new DefaultTableCellRenderer();
+		Dimension viewSize = new Dimension();
+		viewSize.width = table.getColumnModel().getTotalColumnWidth();;
+		viewSize.height = 10*table.getRowHeight();
+		table.setPreferredScrollableViewportSize(viewSize);
+		//将JScrollPane设置为透明
+		sp.getViewport().setOpaque(false);  //jScrollPanel 为table存放的容器，一般在Swing创    //  建表格时，它自动生成，原代码为：jScrollPane1 = new javax.swing.JScrollPane();
+		sp.setOpaque(false);     //将中间的viewport设置为透明
+		sp.setViewportView(table); //装载表格 
 		//playerPanel.add(new JScrollPane(table), BorderLayout.CENTER);
 		//TODO 用于存放表格的Frame ，无法存放在原Frame中。窗口为绝对位置。
-		JFrame tableContain = new JFrame();
-		tableContain.add(sp);
+		tableContain = new JFrame();
+		tablePanel.setLayout(new BorderLayout());
+		tablePanel.add(sp, BorderLayout.CENTER);
+		tablePanel.setOpaque(true);
+		tableWidth = bg.getIconWidth()-123;
+		tableHeight =  bg.getIconHeight()-36;
+		
+
+		
+		//TODO TABLE透明度设置
+		//tableContain.add(tablePanel);
 		//设置位置和大小
-		tableContain.setLocation(300, 133);
-		tableContain.setSize(bg.getIconWidth()-123,  bg.getIconHeight()-36);
+		//tableContain.setLocation(300, 133);
+		//tableContain.setSize(bg.getIconWidth()-123,  bg.getIconHeight()-36);
 		//去除边框等装饰，才能用AWTUtilities.setWindowOpacity
-		tableContain.setUndecorated(true);
+		//tableContain.setUndecorated(true);
 		//方法弊端：不支持跨平台
-		AWTUtilities.setWindowOpacity(tableContain, 0.4F);
+		//AWTUtilities.setWindowOpacity(tableContain, 0.4F);
 		//让表格始终位于最前端
-		tableContain.setAlwaysOnTop(true);
+		//tableContain.setAlwaysOnTop(true);
 		//tableContain.setLocationRelativeTo(null);
 		
+//		String  CloseImg="resource/UntouchedClose.png";
+//		ButtonOperation CloseButton = new ButtonOperation(CloseImg,this);
+//		//CloseButton.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		//CloseButton.setAlwaysOnTop(true);
+//		this.add(CloseButton);
+//		CloseButton.setVisible(true);
+		
+
 		//this.add(tableContain);
-		this.setVisible(true);
-		tableContain.setVisible(true);
+		//tableContain.setVisible(true);
+		tablePanel.setSize(500, 500);
+		tablePanel.setOpaque(false);
 		this.add(playerPanel);
 		playerPanel.setVisible(true);
+		this.add(tablePanel);//TODO
+		tablePanel.setVisible(true);
+		this.setVisible(true);
+		
 
+
+		listToShow = new ArrayList<String>();
+		
+		//refreshData();
 		
 	}
 	
@@ -109,8 +158,8 @@ public class PlayerFrame extends JFrame implements ActionListener{
 	}
 
 	class PlayerModel extends DefaultTableModel {
-		private final String[] COLUMNS = new String[] {
-				"1","2","3","4"
+		private String[] COLUMNS = new String[]{
+				"ID","名字"
 				
 		};
 		public boolean isCellEditable(int row, int column) {
@@ -122,12 +171,6 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		public String getColumnName(int column) {
 			return COLUMNS[column];
 		}
-	}
-	/**
-	 * 初始话列表，刷新表格信息
-	 */
-	public void refreshData() {
-
 	}
 
 	@Override
@@ -145,9 +188,48 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void add(){
 		
+		AdditionOfPlayerInfo addition = new AdditionOfPlayerInfo(this);
+		addition.setPlayerFrame(this);
+		addition.setVisible(true);	
+		
 	}
+	//设置LIST的值
+	public void setList(ArrayList<String> list){
+		
+		listToShow.addAll(list);
+	}
+	
+	//把List转为String[]
+	static String[] stringToShow;
+	public void setString(){
+		
+		stringToShow = new String [listToShow.size()];
+		for(int i = 0;i<listToShow.size();i++){
+			
+			stringToShow[i] = listToShow.get(i);
+			
+		}
+		
+	}
+	//TODO 表头改变不了。
+	public void refreshData() {
+		listToShow.set(0, "ID");
+		this.setString();
+		model.COLUMNS = stringToShow;
+		tablePanel.removeAll();
+		sp.getViewport().removeAll();
+		table = new JTable(model);
+		sp.getViewport().add(table);
+		tablePanel.add(sp);
+//		tableContain.add(tablePanel);
+		revalidate();
+		repaint();
+		System.out.println(model.getColumnName(2));
+	}
+	
 	
 	@SuppressWarnings("unused")
 	public static void main(String[] args){

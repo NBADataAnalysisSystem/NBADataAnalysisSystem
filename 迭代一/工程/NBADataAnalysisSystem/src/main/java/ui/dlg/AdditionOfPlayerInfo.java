@@ -1,15 +1,18 @@
 package ui.dlg;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import ui.SelectedInfoOfPlayer;
+import ui.playerui.PlayerFrame;
 
 @SuppressWarnings("serial")
 public class AdditionOfPlayerInfo extends InputDialog implements ItemListener {
@@ -37,11 +40,15 @@ public class AdditionOfPlayerInfo extends InputDialog implements ItemListener {
 	
 	SelectedInfoOfPlayer selectedItem;
 	
-	ArrayList<String> selectedInfo;
+	private ArrayList<String> selectedInfo;
 
 		
 	public AdditionOfPlayerInfo(JFrame parent) {
 		super(parent);
+		
+		this.setTitle("π¥—°–≈œ¢");
+		this.setSize(500,250);
+		resetLocation();
 		
 		selectedItem = new SelectedInfoOfPlayer();
 		selectedInfo = new ArrayList<>();
@@ -150,11 +157,24 @@ public class AdditionOfPlayerInfo extends InputDialog implements ItemListener {
 		 numOfFoul.addItemListener(this);
 		 scorling.addItemListener(this);
 		
+		checkPanel.setBorder(BorderFactory.createEtchedBorder());
+		this.add(checkPanel);
+		checkPanel.setVisible(true);
+		this.setAlwaysOnTop(true);
 		
+		JPanel bp = new JPanel();
+		bp.setBorder(BorderFactory.createEtchedBorder());
+		bp.add(btn_apply);
+		bp.add(btn_cancel);
+		this.add(bp, BorderLayout.SOUTH);
 		
 		
 	}
-
+	
+	PlayerFrame frame;
+	public void setPlayerFrame(PlayerFrame frame){
+		this.frame = frame;
+	}
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
@@ -247,5 +267,19 @@ public class AdditionOfPlayerInfo extends InputDialog implements ItemListener {
 	      
 	        
 	    }
+	
+	public ArrayList<String> getList(){
+		
+		return selectedInfo;
+		
+	}
+	
+	public void apply(){
+		
+		frame.setList(this.getList());
+		frame.setString();
+		frame.refreshData();
+		
+	}
 
 }
