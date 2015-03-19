@@ -42,7 +42,8 @@ public class AdditionOfPlayerInfo extends InputDialog implements ItemListener {
 	
 	SelectedInfoOfPlayer selectedItem;
 	
-	private ArrayList<String> selectedInfo;
+	private  ArrayList<String> selectedInfo;
+	private ArrayList<String> alreadySelected = new ArrayList<>();
 
 		
 	public AdditionOfPlayerInfo(JFrame parent) {
@@ -51,7 +52,7 @@ public class AdditionOfPlayerInfo extends InputDialog implements ItemListener {
 		this.setTitle("勾选信息");
 		this.setSize(500,250);
 		resetLocation();
-		
+
 		selectedItem = new SelectedInfoOfPlayer();
 		selectedInfo = new ArrayList<>();
 		
@@ -112,7 +113,7 @@ public class AdditionOfPlayerInfo extends InputDialog implements ItemListener {
 		numOfFoul = new JCheckBox("犯规数");
 		numOfFoul.setSelected(false);
 		
-		scorling = new JCheckBox("得分数");
+		scorling = new JCheckBox("得分");
 		scorling.setSelected(false);
 		
 		JPanel checkPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -174,10 +175,57 @@ public class AdditionOfPlayerInfo extends InputDialog implements ItemListener {
 	}
 	
 	PlayerFrame frame;
+	@SuppressWarnings("unchecked")
 	public void setPlayerFrame(PlayerFrame frame){
 		this.frame = frame;
+		alreadySelected = frame.getList();
+		judgeSelect();
+
 	}
 
+	public void judgeSelect(){
+			if(alreadySelected.contains("号数")){
+				numOfPlayer.setSelected(true);
+			}if(alreadySelected.contains("位置")){
+				positionOfPlayer.setSelected(true);
+			} if(alreadySelected.contains("身高")){
+				heightOfPlayer.setSelected(true);
+			}if(alreadySelected.contains("体重")){
+				weightOfPlayer.setSelected(true);
+			} if(alreadySelected.contains("出生日期")){
+				birthOfPlayer.setSelected(true);
+			}if(alreadySelected.contains("年龄")){
+				ageOfPlayer.setSelected(true);
+			}if(alreadySelected.contains("经验")){
+				expOfPlayer.setSelected(true);
+			}if(alreadySelected.contains("学校")){
+				schoolOfPlayer.setSelected(true);
+			}if(alreadySelected.contains("所在球队")){
+				teamOfPlayer.setSelected(true);
+			} if(alreadySelected.contains("参赛场数")){
+				numOfEntryField.setSelected(true);
+			}if(alreadySelected.contains("先发场数")){
+				numOfStartingField.setSelected(true);
+			}if(alreadySelected.contains("篮板数")){
+				numOfRebound.setSelected(true);
+			}if(alreadySelected.contains("助攻数")){
+				numOfAssist.setSelected(true);
+			}if(alreadySelected.contains("在场时间")){
+				timeOfPresence.setSelected(true);
+			}if(alreadySelected.contains("防守数")){
+				numOfOffense.setSelected(true);
+			}if(alreadySelected.contains("抢断数")){
+				numOfSteal.setSelected(true);
+			}if(alreadySelected.contains("盖帽数")){
+				numOfBlockShot.setSelected(true);
+			}if(alreadySelected.contains("失误数")){
+				numOfTurnOver.setSelected(true);
+			}if(alreadySelected.contains("犯规数")){
+				numOfFoul.setSelected(true);
+			}if(alreadySelected.contains("得分")){
+				scorling.setSelected(true);
+			}	
+	}
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 	      //获取改变的复选按键
@@ -269,6 +317,11 @@ public class AdditionOfPlayerInfo extends InputDialog implements ItemListener {
 	      
 	        
 	    }
+	public void setList(ArrayList<String> temp){
+		
+		selectedInfo = temp;
+		
+	}
 	
 	public ArrayList<String> getList(){
 		
@@ -277,7 +330,6 @@ public class AdditionOfPlayerInfo extends InputDialog implements ItemListener {
 	}
 	
 	public void apply(){
-		
 		frame.setList(this.getList());
 		frame.setString();
 		frame.refreshData();

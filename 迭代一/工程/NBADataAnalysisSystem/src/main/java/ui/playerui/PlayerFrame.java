@@ -11,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
 
@@ -187,9 +186,9 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		              origin.y = e.getY();
 		            }
 
-		            public void mouseReleased(MouseEvent e) {
-		              ( (MouseListener) this).mouseReleased(e);
-		            }
+//		            public void mouseReleased(MouseEvent e) {
+//		              ( (MouseListener) this).mouseReleased(e);
+//		            }
 		            @Override
 		            public void mouseEntered(MouseEvent e) {
 		              repaint();              
@@ -263,6 +262,12 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		AdditionOfPlayerInfo addition = new AdditionOfPlayerInfo(this);
 		addition.setPlayerFrame(this);
 		addition.setVisible(true);	
+		
+	}
+	
+	public ArrayList<String> getList(){
+		
+		return listToShow;
 		
 	}
 	//…Ë÷√LISTµƒ÷µ
