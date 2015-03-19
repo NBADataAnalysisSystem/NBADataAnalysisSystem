@@ -1,7 +1,9 @@
 package dao.playerdao;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import entity.player.PlayerInfo;
 
@@ -39,6 +41,17 @@ public class PlayerTranslation {
 	
 	public String translation(PlayerInfo playerInfo) {
 		return map.get(playerInfo);
+	}
+	
+	public PlayerInfo reverseTranslation(String string) {
+		Iterator<Entry<PlayerInfo, String>> iterator = map.entrySet().iterator();
+		while (iterator.hasNext()) {
+			Entry<PlayerInfo, String> entry = iterator.next();
+			if (entry.getValue().equals(string)) {
+				return (PlayerInfo) entry.getKey();
+			}
+		}
+		return null;
 	}
 	
 }

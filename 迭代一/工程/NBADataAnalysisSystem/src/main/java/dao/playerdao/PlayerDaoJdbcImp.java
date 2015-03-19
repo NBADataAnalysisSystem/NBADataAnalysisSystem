@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 import entity.player.PlayerInfo;
 
 public class PlayerDaoJdbcImp implements PlayerDao {
@@ -18,19 +19,32 @@ public class PlayerDaoJdbcImp implements PlayerDao {
     	connection = DriverManager.getConnection("jdbc:sqlite:NBADatabase.db");    
     }
     
-	public Map<PlayerInfo, String> getPlayer(ArrayList<PlayerInfo> columnList)
+	public ArrayList<Map<PlayerInfo, String>> getPlayer(ArrayList<PlayerInfo> columnList)
 			throws Exception {
 		String columnsToSearch = "";
 		PlayerTranslation translation = new PlayerTranslation();
+		ArrayList<String> columnStrList = new ArrayList<String>();
 		for (PlayerInfo playerInfo:columnList) {
-			columnsToSearch = columnsToSearch + (translation.translation(playerInfo)) + ",";
+			String temp = translation.translation(playerInfo);
+			columnsToSearch = columnsToSearch + temp + ",";
+			columnStrList.add(temp);
 		}
+		columnsToSearch = columnsToSearch.substring(0, columnsToSearch.length()-1);
 		Statement statement = connection.createStatement();
-		ResultSet resultSet = statement.executeQuery("SELECT " + columnsToSearch + "FROM players");
-		Map<PlayerInfo, String> map = new HashMap<PlayerInfo, String>();
-		map.put(PlayerInfo.PLAYER_ID, resultSet.getString("id"));
-		map.put(PlayerInfo.NAME, resultSet.getString("name"));
-		return map;
+		ResultSet resultSet = statement.executeQuery("SELECT " + columnsToSearch + " FROM players");
+		ArrayList<Map<PlayerInfo, String>> result = new ArrayList<Map<PlayerInfo, String>>();
+		while (resultSet.next()) {
+			Map<PlayerInfo, String> map = new HashMap<PlayerInfo, String>();
+			for (String string:columnStrList) {
+				map.put(translation.reverseTranslation(string), resultSet.getString(string));
+			}
+			result.add(map);
+		}
+		return result;
+	}
+	
+	public void close() throws Exception {
+		connection.close();
 	}
     
 }
