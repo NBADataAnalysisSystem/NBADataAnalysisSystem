@@ -1,26 +1,7 @@
 package dao;
 
-import static org.junit.Assert.*;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-import java.sql.Connection;
-import java.sql.DriverManager;
-
-import org.dbunit.database.DatabaseConnection;
-import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.xml.FlatXmlDataSet;
-import org.dbunit.operation.DatabaseOperation;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-import dao.playerdao.PlayerDaoJdbcImp;
-import entity.player.Player;
-
 public class PlayerDaoJdbcImpTest {
-
+/*
 	private static PlayerDaoJdbcImp dao = new PlayerDaoJdbcImp();
 	private static Connection connection;
 	private static DatabaseConnection dbconn;
@@ -63,14 +44,14 @@ public class PlayerDaoJdbcImpTest {
 		assertEquals("aaa", player.getName());
 	}
 	
-	/*@Test
+	@Test
 	public void testFileToDatabase() throws Exception {
 		//dao.fileToDatabase("./data/players/info/");
 	
-	}*/
+	}
 	
 
 	
 	
-
+*/
 }

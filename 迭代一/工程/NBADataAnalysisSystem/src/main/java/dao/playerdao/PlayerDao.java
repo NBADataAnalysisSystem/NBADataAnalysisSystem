@@ -1,11 +1,11 @@
 package dao.playerdao;
 
-import java.sql.SQLException;
-
-import entity.player.Player;
+import java.util.ArrayList;
+import java.util.Map;
+import entity.player.PlayerInfo;
 
 public interface PlayerDao {
 
-	Player getPlayerById(String id) throws SQLException;
+	Map<PlayerInfo, String> getPlayer(ArrayList<PlayerInfo> columnList) throws Exception;
 	
 }
