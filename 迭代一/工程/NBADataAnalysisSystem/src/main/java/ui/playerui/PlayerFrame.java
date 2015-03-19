@@ -4,9 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -19,6 +21,8 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+
+import com.sun.xml.internal.bind.v2.model.core.Adapter;
 
 import ui.dlg.AdditionOfPlayerInfo;
 
@@ -73,9 +77,15 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		xp.add(leftPane);
 		
 		
-		JButton btn_Add = new JButton("勾选信息");
+		JButton btn_Add = new JButton();
 		btn_Add.setName("add");
 		btn_Add.addActionListener(this);
+		ImageIcon selectIcon = new ImageIcon("resource/SelectInfo.jpg");
+		Image tempSelect = selectIcon.getImage().getScaledInstance(selectIcon.getIconWidth(),selectIcon.getIconHeight(),Image.SCALE_DEFAULT);  
+		selectIcon.setImage(tempSelect);
+		btn_Add.setMargin(new Insets(0,0,0,0));
+		btn_Add.setIcon(selectIcon);
+		btn_Add.setBounds(950,0,selectIcon.getIconWidth(), selectIcon.getIconHeight());
 		leftPane.add(btn_Add);
 		
 		tablePanel = new JPanel();
@@ -97,6 +107,7 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		//playerPanel.add(new JScrollPane(table), BorderLayout.CENTER);
 		//TODO 用于存放表格的Frame ，无法存放在原Frame中。窗口为绝对位置。
 		tableContain = new JFrame();
+		table.setEnabled(false);
 		tablePanel.setLayout(new BorderLayout());
 		tablePanel.add(sp, BorderLayout.CENTER);
 		tablePanel.setOpaque(true);
@@ -128,6 +139,19 @@ public class PlayerFrame extends JFrame implements ActionListener{
 
 		//this.add(tableContain);
 		//tableContain.setVisible(true);
+		
+		JButton closeButton = new JButton();
+		ImageIcon closeIcon = new ImageIcon("resource/CloseButton.jpg");
+		Image tempClose = closeIcon.getImage().getScaledInstance(closeIcon.getIconWidth()/3,closeIcon.getIconHeight()/3,Image.SCALE_DEFAULT);  
+		closeIcon.setImage(tempClose);
+		closeButton.setMargin(new Insets(0,0,0,0));
+		closeButton.setIcon(closeIcon);
+		closeButton.setBounds(950,0,closeIcon.getIconWidth(), closeIcon.getIconHeight());
+		closeButton.addActionListener(this);
+		closeButton.setName("close");
+		this.add(closeButton);
+		
+		
 		tablePanel.setSize(bg.getIconWidth()-123,  bg.getIconHeight()-36);
 		tablePanel.setLocation(122,35);
 		tablePanel.setOpaque(false);
@@ -140,6 +164,8 @@ public class PlayerFrame extends JFrame implements ActionListener{
 
 
 		listToShow = new ArrayList<String>();
+		listToShow.add("ID");
+		listToShow.add("名字");
 		
 		//refreshData();
 		
@@ -181,6 +207,10 @@ public class PlayerFrame extends JFrame implements ActionListener{
 						add();
 					}
 				});
+			}else if("close".equals(name)){
+				  this.setVisible(false);
+				  this.dispose();
+				  System.exit(0);
 			}
 		}
 	}
@@ -194,8 +224,12 @@ public class PlayerFrame extends JFrame implements ActionListener{
 	}
 	//设置LIST的值
 	public void setList(ArrayList<String> list){
-		
-		listToShow.addAll(list);
+
+			for(int i = 0;i<list.size();i++){
+				if(listToShow.contains(list.get(i)) == false){
+					listToShow.add(list.get(i));
+				}
+			}
 	}
 	
 	//把List转为String[]
@@ -210,9 +244,14 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		}
 		
 	}
-	//TODO 表头改变不了。
+	
 	public void refreshData() {
-		listToShow.set(0, "ID");
+		
+	}
+	
+	public void changeTableColumns(){
+	
+//		listToShow.set(0, "ID");
 		this.setString();
 		model.COLUMNS = stringToShow;
 		tablePanel.removeAll();
@@ -223,7 +262,7 @@ public class PlayerFrame extends JFrame implements ActionListener{
 //		tableContain.add(tablePanel);
 		revalidate();
 		repaint();
-		System.out.println(model.getColumnName(2));
+		
 	}
 	
 	

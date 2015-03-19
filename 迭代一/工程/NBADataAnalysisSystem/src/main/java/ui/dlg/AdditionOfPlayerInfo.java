@@ -279,6 +279,7 @@ public class AdditionOfPlayerInfo extends InputDialog implements ItemListener {
 		frame.setList(this.getList());
 		frame.setString();
 		frame.refreshData();
+		frame.changeTableColumns();
 		
 	}
 
