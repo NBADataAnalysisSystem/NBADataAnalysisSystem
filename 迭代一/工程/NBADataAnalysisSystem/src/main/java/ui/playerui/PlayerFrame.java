@@ -8,7 +8,6 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -21,8 +20,6 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-
-import com.sun.xml.internal.bind.v2.model.core.Adapter;
 
 import ui.dlg.AdditionOfPlayerInfo;
 
