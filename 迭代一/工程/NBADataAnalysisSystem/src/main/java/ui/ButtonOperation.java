@@ -3,21 +3,14 @@ package ui;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MediaTracker;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Toolkit;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 import java.awt.geom.Area;
-import java.awt.image.BufferedImage;
 import java.awt.image.PixelGrabber;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageInputStream;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
@@ -32,6 +25,7 @@ public class ButtonOperation extends JButton{
 	  int rateOfHeight;
 	  JFrame frame;
 	
+	@SuppressWarnings("static-access")
 	public ButtonOperation(String source,JFrame frame){
 		  super();
 		  

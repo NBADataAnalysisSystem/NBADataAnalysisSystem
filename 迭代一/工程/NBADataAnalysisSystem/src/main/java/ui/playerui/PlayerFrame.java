@@ -1,7 +1,6 @@
 package ui.playerui;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -21,10 +20,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import ui.ButtonOperation;
 import ui.dlg.AdditionOfPlayerInfo;
-
-import com.sun.awt.AWTUtilities;
 
 @SuppressWarnings("serial")
 public class PlayerFrame extends JFrame implements ActionListener{
@@ -40,7 +36,7 @@ public class PlayerFrame extends JFrame implements ActionListener{
 	int tableHeight;
 	
 	
-	@SuppressWarnings("static-access")
+	@SuppressWarnings({ "static-access", "unused" })
 	public PlayerFrame(){
 		super();
 
@@ -132,7 +128,8 @@ public class PlayerFrame extends JFrame implements ActionListener{
 
 		//this.add(tableContain);
 		//tableContain.setVisible(true);
-		tablePanel.setSize(500, 500);
+		tablePanel.setSize(bg.getIconWidth()-123,  bg.getIconHeight()-36);
+		tablePanel.setLocation(122,35);
 		tablePanel.setOpaque(false);
 		this.add(playerPanel);
 		playerPanel.setVisible(true);
@@ -188,7 +185,6 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void add(){
 		
 		AdditionOfPlayerInfo addition = new AdditionOfPlayerInfo(this);
