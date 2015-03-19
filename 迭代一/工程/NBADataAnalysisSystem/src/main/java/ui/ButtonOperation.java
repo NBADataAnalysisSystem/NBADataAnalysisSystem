@@ -50,7 +50,7 @@ public class ButtonOperation extends JButton{
 			  e.printStackTrace();
 		  }    
 	}
-	
+	//的
 	//设定倍率
 	public void setRate(int rateOfWidth,int rateOfHeight){
 		
