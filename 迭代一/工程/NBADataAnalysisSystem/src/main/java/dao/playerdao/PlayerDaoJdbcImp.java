@@ -1,4 +1,4 @@
-package dao;
+package dao.playerdao;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,8 +22,10 @@ import java.util.regex.Pattern;
 
 
 
-import entity.Player;
-import entity.PlayerInfo;
+
+
+import entity.player.Player;
+import entity.player.PlayerInfo;
 
 public class PlayerDaoJdbcImp implements PlayerDao {
 

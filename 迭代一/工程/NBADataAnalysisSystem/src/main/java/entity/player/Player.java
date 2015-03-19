@@ -1,4 +1,4 @@
-package entity;
+package entity.player;
 
 import java.util.Map;
 

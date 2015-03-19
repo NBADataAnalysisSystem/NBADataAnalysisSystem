@@ -1,4 +1,4 @@
-package dao;
+package dao.initializedao;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -29,7 +29,7 @@ public class InitializeDatabase {
 		BufferedReader reader = new BufferedReader(
 				new InputStreamReader(
 						new FileInputStream(
-								new File("./src/main/java/dao/database.sql"))));
+								new File("./src/main/java/dao/initializedao/database.sql"))));
 		String sql = "";
 		String strTemp = "";
 		while((strTemp = reader.readLine()) != null){

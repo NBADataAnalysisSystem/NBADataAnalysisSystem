@@ -1,4 +1,4 @@
-package entity;
+package entity.team;
 
 import java.util.Map;
 

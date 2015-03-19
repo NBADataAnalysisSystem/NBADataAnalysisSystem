@@ -16,7 +16,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import entity.Player;
+import dao.playerdao.PlayerDaoJdbcImp;
+import entity.player.Player;
 
 public class PlayerDaoJdbcImpTest {
 

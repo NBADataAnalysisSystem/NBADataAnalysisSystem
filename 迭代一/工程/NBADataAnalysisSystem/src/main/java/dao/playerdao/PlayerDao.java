@@ -1,8 +1,8 @@
-package dao;
+package dao.playerdao;
 
 import java.sql.SQLException;
 
-import entity.Player;
+import entity.player.Player;
 
 public interface PlayerDao {
 
