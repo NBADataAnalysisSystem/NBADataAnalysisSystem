@@ -272,12 +272,19 @@ public class PlayerFrame extends JFrame implements ActionListener{
 	}
 	//设置LIST的值
 	public void setList(ArrayList<String> list){
-
+			listToShow.removeAll(listToShow);
+			listToShow.add("ID");
+			listToShow.add("名字");
 			for(int i = 0;i<list.size();i++){
 				if(listToShow.contains(list.get(i)) == false){
 					listToShow.add(list.get(i));
 				}
 			}
+//			for(int i = 0;i<listToShow.size();i++){
+//				if(list.contains(listToShow.get(i)) == true&&listToShow.get(i).equals("ID") == false && listToShow.get(i).equals("名字") == false){
+//					listToShow.remove(i);
+//				}
+//			}
 	}
 	
 	//把List转为String[]

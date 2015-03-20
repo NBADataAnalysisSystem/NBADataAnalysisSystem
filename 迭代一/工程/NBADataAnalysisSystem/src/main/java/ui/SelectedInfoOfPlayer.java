@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class SelectedInfoOfPlayer {
 	
-	private static ArrayList<String> selectedInfo;
+	private static  ArrayList<String> selectedInfo;
 	private String IDOfPlayer;
 	private String nameOfPlayer;
 	private String numOfPlayer;
@@ -44,7 +44,7 @@ public class SelectedInfoOfPlayer {
 		 expOfPlayer = "球龄";
 		 schoolOfPlayer = "学校";
 		 filePathOfPlayer = "";
-		 teamOfPlayer = "球队";
+		 teamOfPlayer = "所在球队";
 		 numOfEntryField = "参赛场数";
 		 numOfStartingField = "先发场数";
 		numOfRebound = "篮板数";

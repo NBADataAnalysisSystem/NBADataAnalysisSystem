@@ -2,8 +2,6 @@ package ui.dlg;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -17,7 +15,7 @@ import ui.SelectedInfoOfPlayer;
 import ui.playerui.PlayerFrame;
 
 @SuppressWarnings("serial")
-public class AdditionOfPlayerInfo extends InputDialog implements ItemListener {
+public class AdditionOfPlayerInfo extends InputDialog  {
 	
 	private JCheckBox numOfPlayer;
 	private JCheckBox positionOfPlayer;
@@ -74,7 +72,7 @@ public class AdditionOfPlayerInfo extends InputDialog implements ItemListener {
 		ageOfPlayer = new JCheckBox("年龄");
 		ageOfPlayer.setSelected(false);
 		
-		expOfPlayer = new JCheckBox("经验");
+		expOfPlayer = new JCheckBox("球龄");
 		expOfPlayer.setSelected(false);
 		
 		schoolOfPlayer = new JCheckBox("学校");
@@ -139,26 +137,26 @@ public class AdditionOfPlayerInfo extends InputDialog implements ItemListener {
 		checkPanel.add(scorling);
 		checkPanel.setSize(500, 500);
 		
-		 numOfPlayer.addItemListener(this);
-		 positionOfPlayer.addItemListener(this);
-		 heightOfPlayer.addItemListener(this);
-		 weightOfPlayer.addItemListener(this);
-		 birthOfPlayer.addItemListener(this);
-		 ageOfPlayer.addItemListener(this);
-		 expOfPlayer.addItemListener(this);
-		 schoolOfPlayer.addItemListener(this);
-		 teamOfPlayer.addItemListener(this);
-		 numOfEntryField.addItemListener(this);
-		 numOfStartingField.addItemListener(this);
-		 numOfRebound.addItemListener(this);
-		 numOfAssist.addItemListener(this);
-		 timeOfPresence.addItemListener(this);
-		 numOfOffense.addItemListener(this);
-		 numOfSteal.addItemListener(this);
-		 numOfBlockShot.addItemListener(this);
-		 numOfTurnOver.addItemListener(this);
-		 numOfFoul.addItemListener(this);
-		 scorling.addItemListener(this);
+		 //numOfPlayer.addItemListener(this);
+//		 positionOfPlayer.addItemListener(this);
+//		 heightOfPlayer.addItemListener(this);
+//		 weightOfPlayer.addItemListener(this);
+//		 birthOfPlayer.addItemListener(this);
+//		 ageOfPlayer.addItemListener(this);
+//		 expOfPlayer.addItemListener(this);
+//		 schoolOfPlayer.addItemListener(this);
+//		 teamOfPlayer.addItemListener(this);
+//		 numOfEntryField.addItemListener(this);
+//		 numOfStartingField.addItemListener(this);
+//		 numOfRebound.addItemListener(this);
+//		 numOfAssist.addItemListener(this);
+//		 timeOfPresence.addItemListener(this);
+//		 numOfOffense.addItemListener(this);
+//		 numOfSteal.addItemListener(this);
+//		 numOfBlockShot.addItemListener(this);
+//		 numOfTurnOver.addItemListener(this);
+//		 numOfFoul.addItemListener(this);
+//		 scorling.addItemListener(this);
 		
 		checkPanel.setBorder(BorderFactory.createEtchedBorder());
 		this.add(checkPanel);
@@ -196,7 +194,7 @@ public class AdditionOfPlayerInfo extends InputDialog implements ItemListener {
 				birthOfPlayer.setSelected(true);
 			}if(alreadySelected.contains("年龄")){
 				ageOfPlayer.setSelected(true);
-			}if(alreadySelected.contains("经验")){
+			}if(alreadySelected.contains("球龄")){
 				expOfPlayer.setSelected(true);
 			}if(alreadySelected.contains("学校")){
 				schoolOfPlayer.setSelected(true);
@@ -227,92 +225,92 @@ public class AdditionOfPlayerInfo extends InputDialog implements ItemListener {
 			}	
 	}
 	@Override
-	public void itemStateChanged(ItemEvent e) {
+	public void checkBoxSelected() {
 	      //获取改变的复选按键
-	       Object source = e.getItemSelectable();
-	       if (source == numOfPlayer) {
+	      // Object source = e.getItemSelectable();
+	       if (numOfPlayer.isSelected() == true) {
 	    	   
 	    	   selectedItem.selectNumOfPlayer();
 	    	   
-	       } else if(source == positionOfPlayer){
+	       }  if(positionOfPlayer.isSelected() == true){
 	    	   
 	    	   selectedItem.selectPositionOfPlayer();
 	        
-	       }else if(source == heightOfPlayer){
+	       }if(heightOfPlayer.isSelected() == true){
 	      
 	    	   selectedItem.selectHeightOfPlayer();
 	    	   
-	       }else if(source ==  weightOfPlayer){
+	       }if(weightOfPlayer.isSelected() == true){
 	    	   
 	    	   selectedItem.selectWeightOfPlayer();
 	  
-	       }else if(source == birthOfPlayer){
+	       }if(birthOfPlayer.isSelected() == true){
 	    	   
 	    	   selectedItem.selectBirthOfPlayer();
 	  
-	       }else if(source == ageOfPlayer){
+	       }if(ageOfPlayer.isSelected() == true){
 	    	   
 	    	   selectedItem.selectAgeOfPlayer();
 	  
-	       }else if(source == expOfPlayer){
+	       }if(expOfPlayer.isSelected() == true){
 	    	   
 	    	   selectedItem.selectExpOfPlayer();
 	  
-	       }else if(source ==  schoolOfPlayer){
+	       }if(schoolOfPlayer.isSelected() == true){
 	    	   
 	    	   selectedItem.selectSchoolOfPlayer();
 	  
-	       }else if(source ==teamOfPlayer){
+	       }if(teamOfPlayer.isSelected() == true){
 	    	   
 	    	   selectedItem.selectTeamOfPlayer();
 	  
-	       }else if(source == numOfEntryField){
+	       }if(numOfEntryField.isSelected() == true){
 	    	   
 	    	   selectedItem.selectNumOfEntryField();
 	  
-	       }else if(source == numOfStartingField){
+	       }if(numOfStartingField.isSelected() == true){
 	    	   
 	    	   selectedItem.selectNumOfStartingField();
 	  
-	       }else if(source ==numOfRebound){
+	       }if(numOfRebound.isSelected() == true){
 	    	   
 	    	   selectedItem.selectNumOfRebound();
 	  
-	       }else if(source == numOfAssist){
+	       }if(numOfAssist.isSelected() == true){
 	    	   
 	    	   selectedItem.selectNumOfAssist();
 	  
-	       }else if(source == timeOfPresence){
+	       }if(timeOfPresence.isSelected() == true){
 	    	   
 	    	   selectedItem.selectTimeOfPresence();
 	  
-	       }else if(source == numOfOffense){
+	       }if(numOfOffense.isSelected() == true){
 	    	   
 	    	   selectedItem.selectNumOfOffense();
 	  
-	       }else if(source ==  numOfSteal){
+	       }if(numOfSteal.isSelected() == true){
 	    	   
 	    	   selectedItem.selectNumOfSteal();
 	  
-	       }else if(source == numOfBlockShot){
+	       }if(numOfBlockShot.isSelected() == true){
 	    	   
 	    	   selectedItem.selectNumOfBlockShot();
 	  
-	       }else if(source == numOfTurnOver){
+	       }if(numOfTurnOver.isSelected() == true){
 	    	   
 	    	   selectedItem.selectNumOfTurnOver();
 	  
-	       }else if(source == numOfFoul){
+	       }if(numOfFoul.isSelected() == true){
 	    	   
 	    	   selectedItem.selectNumOfFoul();
 	  
-	       }else if(source == scorling){
+	       }if(scorling.isSelected() == true){
 	    	   
 	    	   selectedItem.selectScorling();
 	  
 	       }
 	       
-	       ArrayList<String> tempList = selectedItem.getSelectedList();
+		ArrayList<String> tempList = selectedItem.getSelectedList();
 	       selectedInfo = tempList;
 	      
 	        
@@ -330,7 +328,20 @@ public class AdditionOfPlayerInfo extends InputDialog implements ItemListener {
 	}
 	
 	public void apply(){
-		frame.setList(this.getList());
+		
+		checkBoxSelected();
+//		ArrayList<String> tempList = new ArrayList<>(); 
+//		tempList = frame.getList();
+//		for (int i = 0;i<selectedInfo.size();i++){
+//			if( frame.getList().contains(selectedInfo.get(i)) ){
+//				//tempList.remove(tempList.indexOf(selectedInfo.get(i)));
+//				selectedInfo.remove(i);
+//				i--;
+//			}
+//		}
+		//System.out.println(this.getList().get(0));
+//		selectedInfo = tempList;
+		frame.setList(selectedInfo);
 		frame.setString();
 		frame.refreshData();
 		frame.changeTableColumns();
