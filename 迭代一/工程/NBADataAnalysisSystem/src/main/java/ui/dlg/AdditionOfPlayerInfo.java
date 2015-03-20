@@ -173,7 +173,7 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 	}
 	
 	PlayerFrame frame;
-	@SuppressWarnings("unchecked")
+
 	public void setPlayerFrame(PlayerFrame frame){
 		this.frame = frame;
 		alreadySelected = frame.getList();
@@ -224,7 +224,7 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 				scorling.setSelected(true);
 			}	
 	}
-	@Override
+
 	public void checkBoxSelected() {
 	      //获取改变的复选按键
 	      // Object source = e.getItemSelectable();
