@@ -49,6 +49,7 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 		
 		this.setTitle("π¥—°–≈œ¢");
 		this.setSize(500,250);
+		this.setUndecorated(true);
 		resetLocation();
 
 		selectedItem = new SelectedInfoOfPlayer();

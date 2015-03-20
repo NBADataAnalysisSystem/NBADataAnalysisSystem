@@ -1,6 +1,7 @@
 package ui.playerui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -24,6 +25,7 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 import com.sun.awt.AWTUtilities;
 
@@ -83,7 +85,7 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		JButton btn_Add = new JButton();
 		btn_Add.setName("add");
 		btn_Add.addActionListener(this);
-		ImageIcon selectIcon = new ImageIcon("resource/SelectInfo.jpg");
+		ImageIcon selectIcon = new ImageIcon("resource/SelectInfoButton.jpg");
 		Image tempSelect = selectIcon.getImage().getScaledInstance(selectIcon.getIconWidth(),selectIcon.getIconHeight(),Image.SCALE_DEFAULT);  
 		selectIcon.setImage(tempSelect);
 		btn_Add.setMargin(new Insets(0,0,0,0));
@@ -110,6 +112,11 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		//playerPanel.add(new JScrollPane(table), BorderLayout.CENTER);
 		//TODO 用于存放表格的Frame ，无法存放在原Frame中。窗口为绝对位置。
 		table.setEnabled(false);
+		table.setForeground(Color.decode("#fa1428"));
+		table.setGridColor(Color.decode("#fa1428"));
+		JTableHeader tableHeader ;
+		tableHeader = table.getTableHeader();
+		tableHeader.setBackground(Color.decode("#f0949c"));
 		tablePanel.setLayout(new BorderLayout());
 		tablePanel.add(sp, BorderLayout.CENTER);
 		tablePanel.setOpaque(true);
@@ -312,6 +319,9 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		tablePanel.removeAll();
 		sp.getViewport().removeAll();
 		table = new JTable(model);
+		JTableHeader tableHeader ;
+		tableHeader = table.getTableHeader();
+		tableHeader.setBackground(Color.decode("#f0949c"));
 		sp.getViewport().add(table);
 		tablePanel.add(sp);
 //		tableContain.add(tablePanel);
