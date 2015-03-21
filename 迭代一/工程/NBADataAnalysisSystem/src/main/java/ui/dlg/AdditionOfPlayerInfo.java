@@ -11,8 +11,8 @@ import javax.swing.JPanel;
 
 import com.sun.awt.AWTUtilities;
 
-import ui.SelectedInfoOfPlayer;
 import ui.playerui.PlayerFrame;
+import ui.playerui.SelectedInfoOfPlayer;
 
 @SuppressWarnings("serial")
 public class AdditionOfPlayerInfo extends InputDialog  {
