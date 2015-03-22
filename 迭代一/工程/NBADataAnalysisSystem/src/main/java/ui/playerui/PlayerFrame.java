@@ -28,6 +28,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 
 import com.sun.awt.AWTUtilities;
 
@@ -52,7 +53,7 @@ public class PlayerFrame extends JFrame implements ActionListener{
 	private static Point origin = new Point();
 	
 	
-	@SuppressWarnings({ "static-access", "unused" })
+	@SuppressWarnings({ "static-access" })
 	public PlayerFrame(){
 		super();
 
@@ -106,8 +107,11 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		sp = new JScrollPane();
 		
 		//TODO
-		table.setOpaque(true);
+		table.setOpaque(false);
 		DefaultTableCellRenderer render = new DefaultTableCellRenderer();
+		render.setOpaque(false); //将渲染器设置为透明  
+     
+        table.setDefaultRenderer(Object.class,render);  
 		Dimension viewSize = new Dimension();
 		viewSize.width = table.getColumnModel().getTotalColumnWidth();;
 		viewSize.height = 10*table.getRowHeight();
@@ -116,17 +120,35 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		sp.getViewport().setOpaque(false);  //jScrollPanel 为table存放的容器，一般在Swing创    //  建表格时，它自动生成，原代码为：jScrollPane1 = new javax.swing.JScrollPane();
 		sp.setOpaque(false);     //将中间的viewport设置为透明
 		sp.setViewportView(table); //装载表格 
+		sp.setColumnHeaderView(table.getTableHeader());//设置头部（HeaderView部分）  
+	    sp.getColumnHeader().setOpaque(false);//再取出头部，并设置为透明 
 		//playerPanel.add(new JScrollPane(table), BorderLayout.CENTER);
 		//TODO 用于存放表格的Frame ，无法存放在原Frame中。窗口为绝对位置。
 		table.setEnabled(false);
-		table.setForeground(Color.decode("#fa1428"));
-		table.setGridColor(Color.decode("#fa1428"));
+		table.setForeground(Color.decode("#7CFC00"));
 		JTableHeader tableHeader ;
 		tableHeader = table.getTableHeader();
-		tableHeader.setBackground(Color.decode("#f0949c"));
+//		tableHeader.setForeground(Color.decode("#f0949c"));
+		tableHeader.setPreferredSize(new Dimension(30, 26));   
+		tableHeader.setOpaque(false);//设置头部为透明  
+		tableHeader.getTable().setOpaque(false);//设置头部里面的表格透明  
+		render = new DefaultTableCellRenderer();
+		render.setOpaque(false); //将渲染器设置为透明  
+		/* 
+		 * 头部的表格也像前面的表格设置一样，还需要将里面的单元项设置为透明 
+		 * 因此同样需要对头部单元项进行透明度设置，这里还是用渲染器。 
+		 */  
+		tableHeader.setDefaultRenderer(render);  
+		TableCellRenderer headerRenderer = tableHeader.getDefaultRenderer();   
+		if (headerRenderer instanceof JLabel)   
+		{  
+			((JLabel) headerRenderer).setHorizontalAlignment(JLabel.CENTER);   
+			((JLabel) headerRenderer).setOpaque(false);   
+		}  
+		//table.setGridColor(Color.decode("#fa1428"));
 		tablePanel.setLayout(new BorderLayout());
 		tablePanel.add(sp, BorderLayout.CENTER);
-		tablePanel.setOpaque(true);
+		tablePanel.setOpaque(false);
 		tableWidth = bg.getIconWidth()-123;
 		tableHeight =  bg.getIconHeight()-36;
 		
@@ -230,6 +252,7 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		columnList.add(PlayerInfo.NAME);
 		GetPlayerResponse response = (GetPlayerResponse) controller.processRequest(
 				new GetPlayerRequest(columnList));
+		@SuppressWarnings("unchecked")
 		ArrayList<Map<PlayerInfo, String>> tempList = response.getList();
 		for (Map<PlayerInfo, String> map:tempList) {
 			data.add(map.get(PlayerInfo.PLAYER_ID)+";"+map.get(PlayerInfo.NAME));
