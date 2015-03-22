@@ -14,6 +14,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -40,6 +41,7 @@ public class PlayerFrame extends JFrame implements ActionListener{
 	static JTable table;
 	JPanel 	tablePanel;
 	static ArrayList<String> listToShow;
+	static ArrayList<String> data;
 	int tableWidth;
 	int tableHeight;
 	private static Point origin = new Point();
@@ -215,8 +217,9 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		listToShow = new ArrayList<String>();
 		listToShow.add("ID");
 		listToShow.add("Ãû×Ö");
+		data = new ArrayList<String>();
 		
-		//refreshData();
+		refreshData();
 		
 	}
 	
@@ -262,6 +265,21 @@ public class PlayerFrame extends JFrame implements ActionListener{
 				  System.exit(0);
 			}
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void showPlayerData() {
+		
+		model.getDataVector().clear();
+		for (String vo : data) {
+			Vector<String> v = new Vector<String>();
+			String[] temp = vo.split(";");
+			v.add(temp[0]);
+			v.add(temp[1]);
+			model.getDataVector().add(v);
+		}
+		table.updateUI();
+		
 	}
 	
 	public void add(){
