@@ -14,6 +14,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -30,6 +31,10 @@ import javax.swing.table.JTableHeader;
 
 import com.sun.awt.AWTUtilities;
 
+import controller.playercontroller.GetPlayerRequest;
+import controller.playercontroller.GetPlayerResponse;
+import controller.playercontroller.PlayerController;
+import entity.player.PlayerInfo;
 import ui.dlg.AdditionOfPlayerInfo;
 
 @SuppressWarnings("serial")
@@ -218,6 +223,18 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		listToShow.add("ID");
 		listToShow.add("Ãû×Ö");
 		data = new ArrayList<String>();
+		
+		PlayerController controller = new PlayerController();
+		ArrayList<PlayerInfo> columnList = new ArrayList<PlayerInfo>();
+		columnList.add(PlayerInfo.PLAYER_ID);
+		columnList.add(PlayerInfo.NAME);
+		GetPlayerResponse response = (GetPlayerResponse) controller.processRequest(
+				new GetPlayerRequest(columnList));
+		ArrayList<Map<PlayerInfo, String>> tempList = response.getList();
+		for (Map<PlayerInfo, String> map:tempList) {
+			data.add(map.get(PlayerInfo.PLAYER_ID)+";"+map.get(PlayerInfo.NAME));
+		}
+		showPlayerData();
 		
 		refreshData();
 		
