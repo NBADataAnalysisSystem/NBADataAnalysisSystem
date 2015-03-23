@@ -301,8 +301,9 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		for (String vo : data) {
 			Vector<String> v = new Vector<String>();
 			String[] temp = vo.split(";");
-			v.add(temp[0]);
-			v.add(temp[1]);
+			for (String string:temp) {
+				v.add(string);
+			}
 			model.getDataVector().add(v);
 		}
 		table.updateUI();
