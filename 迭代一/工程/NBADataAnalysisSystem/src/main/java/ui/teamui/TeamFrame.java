@@ -1,4 +1,4 @@
-package ui.playerui;
+package ui.teamui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,8 +14,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -28,45 +26,39 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableCellRenderer;
 
 import com.sun.awt.AWTUtilities;
 
-import controller.playercontroller.GetPlayerRequest;
-import controller.playercontroller.GetPlayerResponse;
-import controller.playercontroller.PlayerController;
-import entity.player.PlayerInfo;
-import ui.dlg.AdditionOfPlayerInfo;
+import ui.dlg.AdditionOfTeamInfo;
 
 @SuppressWarnings("serial")
-public class PlayerFrame extends JFrame implements ActionListener{
+public class TeamFrame extends JFrame implements ActionListener{
 	
-	JPanel playerPanel;
+	JPanel teamPanel;
 	static JScrollPane sp ;
-	static PlayerModel model;
+	static TeamModel model;
 	static JTable table;
 	JPanel 	tablePanel;
 	static ArrayList<String> listToShow;
-	static ArrayList<String> data;
 	int tableWidth;
 	int tableHeight;
 	private static Point origin = new Point();
 	
 	
-	@SuppressWarnings({ "static-access" })
-	public PlayerFrame(){
+	@SuppressWarnings({ "static-access", "unused" })
+	public TeamFrame(){
 		super();
 
 		this.setUndecorated(true);
-		this.setSize(1000, 562);
+		this.setSize(1125, 633);
 		this.setLocation(500,200);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.center(this);
 		this.setLayout(null);
 		
 		//设置背景图片 TODO
-		ImageIcon bg = new ImageIcon("resource/BackgroundOfPlayerChecking.png"); // 把背景图片显示在一个标签里
-		Image temp = bg.getImage().getScaledInstance(2*bg.getIconWidth(),2* bg.getIconHeight(), bg.getImage().SCALE_DEFAULT);  
+		ImageIcon bg = new ImageIcon("resource/BackgroundOfTeamChecking.png"); // 把背景图片显示在一个标签里
+		Image temp = bg.getImage().getScaledInstance(3*bg.getIconWidth()/2, 3*bg.getIconHeight()/2, bg.getImage().SCALE_DEFAULT);  
         bg = new ImageIcon(temp);
 		JLabel label = new JLabel(bg); //把标签的大小位置设置为图片刚好填充整个面
 		label.setBounds(0,0,bg.getIconWidth(),bg.getIconHeight()); //添加图片到frame的第二层 
@@ -75,14 +67,14 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		jp.setOpaque(false);//设置透明 
 		//jp.setVisible(true);
 		
-		playerPanel = new JPanel();
-		playerPanel.setLayout(new BorderLayout());
-		playerPanel.setBounds(0, 0, bg.getIconWidth(),  bg.getIconHeight());
-		playerPanel.setOpaque(false);//设置透明 	
+		teamPanel = new JPanel();
+		teamPanel.setLayout(new BorderLayout());
+		teamPanel.setBounds(0, 0, bg.getIconWidth(),  bg.getIconHeight());
+		teamPanel.setOpaque(false);//设置透明 	
 		
 		JPanel xp = new JPanel();
 		xp.setOpaque(false);//设置透明 
-		playerPanel.add(xp, BorderLayout.WEST);
+		teamPanel.add(xp, BorderLayout.WEST);
 		
 		JPanel leftPane = new JPanel();
 		leftPane.setLayout(new GridLayout(0,1));
@@ -102,16 +94,13 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		leftPane.add(btn_Add);
 		
 		tablePanel = new JPanel();
-		model = new PlayerModel();
+		model = new TeamModel();
 		table  = new JTable(model);
 		sp = new JScrollPane();
 		
 		//TODO
-		table.setOpaque(false);
+		table.setOpaque(true);
 		DefaultTableCellRenderer render = new DefaultTableCellRenderer();
-		render.setOpaque(false); //将渲染器设置为透明  
-     
-        table.setDefaultRenderer(Object.class,render);  
 		Dimension viewSize = new Dimension();
 		viewSize.width = table.getColumnModel().getTotalColumnWidth();;
 		viewSize.height = 10*table.getRowHeight();
@@ -119,64 +108,18 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		//将JScrollPane设置为透明
 		sp.getViewport().setOpaque(false);  //jScrollPanel 为table存放的容器，一般在Swing创    //  建表格时，它自动生成，原代码为：jScrollPane1 = new javax.swing.JScrollPane();
 		sp.setOpaque(false);     //将中间的viewport设置为透明
-		sp.setViewportView(table); //装载表格 
-		sp.setColumnHeaderView(table.getTableHeader());//设置头部（HeaderView部分）  
-	    sp.getColumnHeader().setOpaque(false);//再取出头部，并设置为透明 
-		//playerPanel.add(new JScrollPane(table), BorderLayout.CENTER);
-		//TODO 用于存放表格的Frame ，无法存放在原Frame中。窗口为绝对位置。
+		sp.setViewportView(table); //装载表格 。
 		table.setEnabled(false);
-		table.setForeground(Color.decode("#7CFC00"));
+		table.setForeground(Color.decode("#fa1428"));
+		table.setGridColor(Color.decode("#fa1428"));
 		JTableHeader tableHeader ;
 		tableHeader = table.getTableHeader();
-//		tableHeader.setForeground(Color.decode("#f0949c"));
-		tableHeader.setPreferredSize(new Dimension(30, 26));   
-		tableHeader.setOpaque(false);//设置头部为透明  
-		tableHeader.getTable().setOpaque(false);//设置头部里面的表格透明  
-		render = new DefaultTableCellRenderer();
-		render.setOpaque(false); //将渲染器设置为透明  
-		/* 
-		 * 头部的表格也像前面的表格设置一样，还需要将里面的单元项设置为透明 
-		 * 因此同样需要对头部单元项进行透明度设置，这里还是用渲染器。 
-		 */  
-		tableHeader.setDefaultRenderer(render);  
-		TableCellRenderer headerRenderer = tableHeader.getDefaultRenderer();   
-		if (headerRenderer instanceof JLabel)   
-		{  
-			((JLabel) headerRenderer).setHorizontalAlignment(JLabel.CENTER);   
-			((JLabel) headerRenderer).setOpaque(false);   
-		}  
-		//table.setGridColor(Color.decode("#fa1428"));
+		tableHeader.setBackground(Color.decode("#f0949c"));
 		tablePanel.setLayout(new BorderLayout());
 		tablePanel.add(sp, BorderLayout.CENTER);
-		tablePanel.setOpaque(false);
+		tablePanel.setOpaque(true);
 		tableWidth = bg.getIconWidth()-123;
 		tableHeight =  bg.getIconHeight()-36;
-		
-
-		
-		//TODO TABLE透明度设置
-		//tableContain.add(tablePanel);
-		//设置位置和大小
-		//tableContain.setLocation(300, 133);
-		//tableContain.setSize(bg.getIconWidth()-123,  bg.getIconHeight()-36);
-		//去除边框等装饰，才能用AWTUtilities.setWindowOpacity
-		//tableContain.setUndecorated(true);
-		//方法弊端：不支持跨平台
-		//AWTUtilities.setWindowOpacity(tableContain, 0.4F);
-		//让表格始终位于最前端
-		//tableContain.setAlwaysOnTop(true);
-		//tableContain.setLocationRelativeTo(null);
-		
-//		String  CloseImg="resource/UntouchedClose.png";
-//		ButtonOperation CloseButton = new ButtonOperation(CloseImg,this);
-//		//CloseButton.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		//CloseButton.setAlwaysOnTop(true);
-//		this.add(CloseButton);
-//		CloseButton.setVisible(true);
-		
-
-		//this.add(tableContain);
-		//tableContain.setVisible(true);
 		
 		JButton closeButton = new JButton();
 		ImageIcon closeIcon = new ImageIcon("resource/CloseButton.jpg");
@@ -184,7 +127,7 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		closeIcon.setImage(tempClose);
 		closeButton.setMargin(new Insets(0,0,0,0));
 		closeButton.setIcon(closeIcon);
-		closeButton.setBounds(950,0,closeIcon.getIconWidth(), closeIcon.getIconHeight());
+		closeButton.setBounds(1020,0,closeIcon.getIconWidth(), closeIcon.getIconHeight());
 		closeButton.addActionListener(this);
 		closeButton.setName("close");
 		this.add(closeButton);
@@ -195,7 +138,7 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		reduceIcon.setImage(tempReduce);
 		reduceButton.setMargin(new Insets(0,0,0,0));
 		reduceButton.setIcon(reduceIcon);
-		reduceButton.setBounds(900,0,reduceIcon.getIconWidth(), reduceIcon.getIconHeight());
+		reduceButton.setBounds(970,0,reduceIcon.getIconWidth(), reduceIcon.getIconHeight());
 		reduceButton.addActionListener(this);
 		reduceButton.addActionListener(new ActionListener(){
 	        @Override public void actionPerformed(ActionEvent e){
@@ -208,8 +151,8 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		tablePanel.setSize(bg.getIconWidth()-123,  bg.getIconHeight()-36);
 		tablePanel.setLocation(122,35);
 		tablePanel.setOpaque(false);
-		this.add(playerPanel);
-		playerPanel.setVisible(true);
+		this.add(teamPanel);
+		teamPanel.setVisible(true);
 		this.add(tablePanel);//TODO
 		tablePanel.setVisible(true);
 		this.setVisible(true);
@@ -243,10 +186,10 @@ public class PlayerFrame extends JFrame implements ActionListener{
 
 		listToShow = new ArrayList<String>();
 		listToShow.add("ID");
-		listToShow.add("名字");
-		data = new ArrayList<String>();
-
-		refreshData();
+		listToShow.add("全称");
+		listToShow.add("简称");
+		
+		//refreshData();
 		
 	}
 	
@@ -259,9 +202,9 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		
 	}
 
-	class PlayerModel extends DefaultTableModel {
+	class TeamModel extends DefaultTableModel {
 		private String[] COLUMNS = new String[]{
-				"ID","名字"
+				"ID","全称","简称"
 				
 		};
 		public boolean isCellEditable(int row, int column) {
@@ -294,26 +237,10 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
-	public void showPlayerData() {
-		
-		model.getDataVector().clear();
-		for (String vo : data) {
-			Vector<String> v = new Vector<String>();
-			String[] temp = vo.split(";");
-			for (String string:temp) {
-				v.add(string);
-			}
-			model.getDataVector().add(v);
-		}
-		table.updateUI();
-		
-	}
-	
 	public void add(){
 		AWTUtilities.setWindowOpacity(this, 0.5f);
-		AdditionOfPlayerInfo addition = new AdditionOfPlayerInfo(this);
-		addition.setPlayerFrame(this);
+		AdditionOfTeamInfo addition = new AdditionOfTeamInfo(this);
+		addition.setTeamFrame(this);
 		addition.setVisible(true);	
 		
 	}
@@ -327,7 +254,8 @@ public class PlayerFrame extends JFrame implements ActionListener{
 	public void setList(ArrayList<String> list){
 			listToShow.removeAll(listToShow);
 			listToShow.add("ID");
-			listToShow.add("名字");
+			listToShow.add("全称");
+			listToShow.add("简称");
 			for(int i = 0;i<list.size();i++){
 				if(listToShow.contains(list.get(i)) == false){
 					listToShow.add(list.get(i));
@@ -354,24 +282,7 @@ public class PlayerFrame extends JFrame implements ActionListener{
 	}
 	
 	public void refreshData() {
-		PlayerController controller = new PlayerController();
-		ArrayList<PlayerInfo> columnList = new ArrayList<PlayerInfo>();
-		PlayerTableTranslation playerTableTranslation = new PlayerTableTranslation();
-		for (String string:listToShow) {
-			columnList.add(playerTableTranslation.translation(string));
-		}
-		GetPlayerResponse response = (GetPlayerResponse) controller.processRequest(
-				new GetPlayerRequest(columnList));
-		ArrayList<Map<PlayerInfo, String>> tempList = response.getList();
-		for (Map<PlayerInfo, String> map:tempList) {
-			String tempString = "";
-			for (String string:listToShow) {
-				tempString+=map.get(playerTableTranslation.translation(string));
-				tempString+=";";
-			}
-			data.add(tempString);
-		}
-		showPlayerData();
+		
 	}
 	
 	public void changeTableColumns(){
@@ -396,7 +307,7 @@ public class PlayerFrame extends JFrame implements ActionListener{
 	
 	@SuppressWarnings("unused")
 	public static void main(String[] args){
-		PlayerFrame test = new PlayerFrame();
+		TeamFrame test = new TeamFrame();
 	}
 
 }
