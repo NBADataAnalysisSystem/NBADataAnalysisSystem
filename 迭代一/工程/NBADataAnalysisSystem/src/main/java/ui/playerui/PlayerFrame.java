@@ -245,20 +245,7 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		listToShow.add("ID");
 		listToShow.add("Ãû×Ö");
 		data = new ArrayList<String>();
-		
-		PlayerController controller = new PlayerController();
-		ArrayList<PlayerInfo> columnList = new ArrayList<PlayerInfo>();
-		columnList.add(PlayerInfo.PLAYER_ID);
-		columnList.add(PlayerInfo.NAME);
-		GetPlayerResponse response = (GetPlayerResponse) controller.processRequest(
-				new GetPlayerRequest(columnList));
-		@SuppressWarnings("unchecked")
-		ArrayList<Map<PlayerInfo, String>> tempList = response.getList();
-		for (Map<PlayerInfo, String> map:tempList) {
-			data.add(map.get(PlayerInfo.PLAYER_ID)+";"+map.get(PlayerInfo.NAME));
-		}
-		showPlayerData();
-		
+
 		refreshData();
 		
 	}
@@ -366,7 +353,24 @@ public class PlayerFrame extends JFrame implements ActionListener{
 	}
 	
 	public void refreshData() {
-		
+		PlayerController controller = new PlayerController();
+		ArrayList<PlayerInfo> columnList = new ArrayList<PlayerInfo>();
+		PlayerTableTranslation playerTableTranslation = new PlayerTableTranslation();
+		for (String string:listToShow) {
+			columnList.add(playerTableTranslation.translation(string));
+		}
+		GetPlayerResponse response = (GetPlayerResponse) controller.processRequest(
+				new GetPlayerRequest(columnList));
+		ArrayList<Map<PlayerInfo, String>> tempList = response.getList();
+		for (Map<PlayerInfo, String> map:tempList) {
+			String tempString = "";
+			for (String string:listToShow) {
+				tempString+=map.get(playerTableTranslation.translation(string));
+				tempString+=";";
+			}
+			data.add(tempString);
+		}
+		showPlayerData();
 	}
 	
 	public void changeTableColumns(){
