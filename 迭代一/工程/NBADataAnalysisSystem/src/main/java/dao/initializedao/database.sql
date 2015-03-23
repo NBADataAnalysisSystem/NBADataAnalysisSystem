@@ -76,7 +76,7 @@ birth varchar(4),
 age varchar(4),
 exp varchar(4),
 school varchar(4),
-team_id int,
+team varchar(10),
 num_of_match varchar(4),
 num_of_start varchar(4),
 rebounds varchar(6),
@@ -89,7 +89,7 @@ block_shots varchar(6),
 turn_overs varchar(6),
 fouls varchar(6),
 score varchar(10),
-unique (player_name,team_id)
+unique (player_name,team)
 );
 
 

@@ -6,8 +6,6 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -252,7 +250,7 @@ public class InitializeDatabase {
 	}
 
 	//计算球员的赛场数据
-	public ArrayList<String> calculatePlayerInformation(String path) throws Exception{
+	public void calculatePlayerInformation(String path) throws Exception{
 		connectToDatabase();//测试使用。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
 		
 		ArrayList<String[]> resultTemp = new ArrayList<String[]>();
@@ -260,7 +258,7 @@ public class InitializeDatabase {
 		
 		PreparedStatement prep = connection.prepareStatement("update players set offences = ?,defences = ?"
 				+ ",rebounds = ? ,assists = ?,steals = ? ,block_shots = ? , turn_overs = ? ,fouls = ? ,"
-				+ "score = ? where player_name = ? ;");
+				+ "score = ? ,num_of_match = ? , num_of_start = ? ,team = ? ,presence_time = ? where player_name = ? ;");
 		
 		File[] fileList = new File(path).listFiles();
 		BufferedReader br ;
@@ -273,15 +271,31 @@ public class InitializeDatabase {
 			while(!isTeam(strTemp)){
 				strTemp = br.readLine();
 			}
-			
+			String team = strTemp;
+			int numOfStartPlayer = 5;
 			strTemp = br.readLine();
 			while(strTemp != null){
+
+				
 				if(!isTeam(strTemp)){
 					String[] oneRecord = strTemp.split(";");
 					int index = playerNameList.indexOf(oneRecord[0]);
-					
 					//如果该球员已经存在
 					if(index > 0 ){
+						//计算上场时间
+						String[] time = resultTemp.get(index)[2].split(":");
+						
+						if(oneRecord[2].equals("null") || oneRecord[2].equals("None")){
+							oneRecord[2] = "0:0";
+						}
+						
+						time[0] = "" + (Integer.parseInt(oneRecord[2].split(":")[0]) + Integer.parseInt(time[0])+
+								 (Integer.parseInt(oneRecord[2].split(":")[1]) + Integer.parseInt(time[1]))/60);
+						time[1] = "" + (Integer.parseInt(oneRecord[2].split(":")[1]) + Integer.parseInt(time[1]))%60;
+						resultTemp.get(index)[2] = time[0] + ":" + time[1];
+						
+						//计算球员投篮命中数，投篮出手数，三分命中数，三分出手数，罚球命中数，罚球出手数，进攻篮板数，防守篮板数，
+						//总篮板数，助攻数，抢断数，盖帽数，失误数，犯规数，的分数
 						for(int i = 3 ;i < oneRecord.length; i ++){
 							if(resultTemp.get(index)[i].equals("null")){
 								resultTemp.get(index)[i] = 0+"";
@@ -292,12 +306,44 @@ public class InitializeDatabase {
 							resultTemp.get(index)[i] = (Integer.parseInt(oneRecord[i])+
 									Integer.parseInt(resultTemp.get(index)[i]))+"";
 						}
+						
+						//计算上场数，先发场数，所属球队
+						resultTemp.get(index)[18] = (Integer.parseInt(resultTemp.get(index)[18])+1) + "";
+						
+						if(numOfStartPlayer > 0 ){
+							resultTemp.get(index)[19] = (Integer.parseInt(resultTemp.get(index)[19])+1) + "";
+							numOfStartPlayer--;
+						}
+						
 					}
 					//该球员不存在
 					else{
+						
 						playerNameList.add(oneRecord[0]);
-						resultTemp.add(oneRecord);
+						//resultTemp.add(oneRecord);
+						String[] oneResult = new String[21];
+						for(int i = 0 ;i < 18 ; i ++){
+							oneResult[i] = oneRecord[i]; 
+						}
+						
+						//出场数
+						oneResult[18] = "1";
+						//先发场数
+						if(numOfStartPlayer > 0){
+							oneResult[19] = "1";
+							numOfStartPlayer-- ;
+						}
+						else{
+							oneResult[19] = "0";
+						}
+						
+						//所属球队的缩写
+						oneResult[20] = team;
+						resultTemp.add(oneResult);
 					}
+				}else{
+					team = strTemp;
+					numOfStartPlayer = 5;
 				}
 				
 				strTemp = br.readLine();
@@ -316,7 +362,11 @@ public class InitializeDatabase {
 			prep.setString(7,resultTemp.get(i)[15]);
 			prep.setString(8,resultTemp.get(i)[16]);
 			prep.setString(9,resultTemp.get(i)[17]);
-			prep.setString(10,resultTemp.get(i)[0]);
+			prep.setString(10,resultTemp.get(i)[18]);
+			prep.setString(11,resultTemp.get(i)[19]);
+			prep.setString(12,resultTemp.get(i)[20]);
+			prep.setString(13,resultTemp.get(i)[2]);
+			prep.setString(14,resultTemp.get(i)[0]);
 			prep.addBatch();
 		}
 		
@@ -324,7 +374,6 @@ public class InitializeDatabase {
 		prep.executeBatch();
 		connection.setAutoCommit(true);
 		
-		return null;
 	}
 	
 
