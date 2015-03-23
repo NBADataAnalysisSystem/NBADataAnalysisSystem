@@ -6,7 +6,10 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.sql.PreparedStatement;
@@ -43,13 +46,14 @@ public class InitializeDatabase {
 	public void fileToDatabase(String path) throws Exception{
 		connectToDatabase();
 		
+		pathToDatabase(path);
+		
 		playerFileToDatabase(path+"/players/info/");
 		
 		teamFileToDatabase(path+"/teams/teams");
 		
 		matchFileToDatabase(path+"/matches");
 		
-		pathToDatabase(path);
 	}
 	
 	//连接到数据库
@@ -246,4 +250,82 @@ public class InitializeDatabase {
 		}
 		prep.addBatch();
 	}
+
+	//计算球员的赛场数据
+	public ArrayList<String> calculatePlayerInformation(String path) throws Exception{
+		connectToDatabase();//测试使用。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
+		
+		ArrayList<String[]> resultTemp = new ArrayList<String[]>();
+		ArrayList<String> playerNameList = new ArrayList<String>();
+		
+		PreparedStatement prep = connection.prepareStatement("update players set offences = ?,defences = ?"
+				+ ",rebounds = ? ,assists = ?,steals = ? ,block_shots = ? , turn_overs = ? ,fouls = ? ,"
+				+ "score = ? where player_name = ? ;");
+		
+		File[] fileList = new File(path).listFiles();
+		BufferedReader br ;
+		String strTemp;
+		
+		
+		for(File file : fileList){
+			br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));	
+			strTemp = br.readLine();
+			while(!isTeam(strTemp)){
+				strTemp = br.readLine();
+			}
+			
+			strTemp = br.readLine();
+			while(strTemp != null){
+				if(!isTeam(strTemp)){
+					String[] oneRecord = strTemp.split(";");
+					int index = playerNameList.indexOf(oneRecord[0]);
+					
+					//如果该球员已经存在
+					if(index > 0 ){
+						for(int i = 3 ;i < oneRecord.length; i ++){
+							if(resultTemp.get(index)[i].equals("null")){
+								resultTemp.get(index)[i] = 0+"";
+							}
+							if(oneRecord[i].equals("null")){
+								oneRecord[i] = 0 + "";
+							}
+							resultTemp.get(index)[i] = (Integer.parseInt(oneRecord[i])+
+									Integer.parseInt(resultTemp.get(index)[i]))+"";
+						}
+					}
+					//该球员不存在
+					else{
+						playerNameList.add(oneRecord[0]);
+						resultTemp.add(oneRecord);
+					}
+				}
+				
+				strTemp = br.readLine();
+			}
+			br.close();
+		}
+		
+		
+		for( int i = 0 ; i < resultTemp.size() ; i ++ ){
+			prep.setString(1,resultTemp.get(i)[9]);
+			prep.setString(2,resultTemp.get(i)[10]);
+			prep.setString(3,resultTemp.get(i)[11]);
+			prep.setString(4,resultTemp.get(i)[12]);
+			prep.setString(5,resultTemp.get(i)[13]);
+			prep.setString(6,resultTemp.get(i)[14]);
+			prep.setString(7,resultTemp.get(i)[15]);
+			prep.setString(8,resultTemp.get(i)[16]);
+			prep.setString(9,resultTemp.get(i)[17]);
+			prep.setString(10,resultTemp.get(i)[0]);
+			prep.addBatch();
+		}
+		
+		connection.setAutoCommit(false);
+		prep.executeBatch();
+		connection.setAutoCommit(true);
+		
+		return null;
+	}
+	
+
 }
