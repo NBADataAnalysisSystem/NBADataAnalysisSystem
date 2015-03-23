@@ -303,6 +303,7 @@ public class PlayerFrame extends JFrame implements ActionListener{
 			String[] temp = vo.split(";");
 			for (String string:temp) {
 				v.add(string);
+				System.out.println(string);
 			}
 			model.getDataVector().add(v);
 		}
