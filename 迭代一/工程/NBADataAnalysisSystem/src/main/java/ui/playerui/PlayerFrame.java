@@ -260,19 +260,22 @@ public class PlayerFrame extends JFrame implements ActionListener{
 	}
 
 	class PlayerModel extends DefaultTableModel {
-		private String[] COLUMNS = new String[]{
-				"ID","Ãû×Ö"
-				
-		};
+//		private String[] COLUMNS = new String[]{
+//				"ID","Ãû×Ö"
+//				
+//		};
+		{
+			setColumnIdentifiers(new String[]{"ID", "Ãû×Ö"});
+		}
 		public boolean isCellEditable(int row, int column) {
 			return false;
 		}
-		public int getColumnCount() {
-			return COLUMNS.length;
-		}
-		public String getColumnName(int column) {
-			return COLUMNS[column];
-		}
+//		public int getColumnCount() {
+//			return COLUMNS.length;
+//		}
+//		public String getColumnName(int column) {
+//			return COLUMNS[column];
+//		}
 	}
 
 	@Override
@@ -354,6 +357,7 @@ public class PlayerFrame extends JFrame implements ActionListener{
 	}
 	
 	public void refreshData() {
+		data.clear();
 		PlayerController controller = new PlayerController();
 		ArrayList<PlayerInfo> columnList = new ArrayList<PlayerInfo>();
 		PlayerTableTranslation playerTableTranslation = new PlayerTableTranslation();
@@ -378,9 +382,17 @@ public class PlayerFrame extends JFrame implements ActionListener{
 	
 //		listToShow.set(0, "ID");
 		this.setString();
-		model.COLUMNS = stringToShow;
+//		model.COLUMNS = stringToShow;
+//		model = new PlayerModel();
+		model.setColumnIdentifiers(stringToShow);
+		//model.setColumnIdentifiers(stringToShow);
 		tablePanel.removeAll();
 		sp.getViewport().removeAll();
+//		table.getTableHeader().
+//		for (String c : model.COLUMNS) {
+//			model.addColumn(c);
+//		}
+//		System.out.println(model.getColumnCount());
 		table = new JTable(model);
 		sp.getViewport().add(table);
 		//TODO
