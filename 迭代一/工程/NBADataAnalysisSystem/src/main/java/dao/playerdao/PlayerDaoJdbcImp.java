@@ -40,6 +40,7 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 			}
 			result.add(map);
 		}
+		statement.close();
 		return result;
 	}
 	
