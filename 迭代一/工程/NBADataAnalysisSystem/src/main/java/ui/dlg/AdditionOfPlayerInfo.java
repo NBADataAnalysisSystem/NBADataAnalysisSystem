@@ -344,9 +344,9 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 //		selectedInfo = tempList;
 		frame.setList(selectedInfo);
 		frame.setString();
-		frame.refreshData();
 		frame.changeTableColumns();
 		AWTUtilities.setWindowOpacity(frame, 1f);
+		frame.refreshData();
 		dispose();
 		
 	}
