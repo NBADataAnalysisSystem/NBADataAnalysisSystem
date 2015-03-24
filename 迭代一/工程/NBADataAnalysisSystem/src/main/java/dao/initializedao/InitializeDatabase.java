@@ -66,7 +66,7 @@ public class InitializeDatabase {
 				+ "insert into players values("
 				+ "?,?,?,?,?,?,?,?,?,?,"
 				+ "?,?,?,?,?,?,?,?,?,?,"
-				+ "?,?,?)");
+				+ "?,?,?,?,?,?,?,?,?)");
 		File[] fileList = new File(path).listFiles();	
 		String[] strList = new String[9];
 		for(File file : fileList){
@@ -86,7 +86,9 @@ public class InitializeDatabase {
 	private void teamFileToDatabase(String path) throws Exception{
 		PreparedStatement prep = connection.prepareStatement(""
 				+ "insert into teams values("
-				+ "?,?,?,?,?,?,?,?)");
+				+ "?,?,?,?,?,?,?,?,?,?,"
+				+ "?,?,?,?,?,?,?,?,?,?,"
+				+ "?,?,?,?,?)");
 		Pattern pattern = Pattern.compile("║([\\w\\t\\(\\)\\& │]*)║");
 		
 		File file = new File(path);
@@ -255,11 +257,19 @@ public class InitializeDatabase {
 		
 		ArrayList<String[]> resultTemp = new ArrayList<String[]>();
 		ArrayList<String> playerNameList = new ArrayList<String>();
+		ArrayList<String> teamNameList = new ArrayList<String>();
+		ArrayList<String[]> resultTeam = new ArrayList<String[]>();
 		
 		PreparedStatement prep = connection.prepareStatement("update players set offences = ?,defences = ?"
 				+ ",rebounds = ? ,assists = ?,steals = ? ,block_shots = ? , turn_overs = ? ,fouls = ? ,"
-				+ "score = ? ,num_of_match = ? , num_of_start = ? ,team = ? ,presence_time = ? where player_name = ? ;");
+				+ "score = ? ,num_of_match = ? , num_of_start = ? ,team = ? ,presence_time = ? ,"
+				+ "shootings = ?, shots = ?,three_point_shootings = ?,three_point_shots = ?,free_throw_shootings = ?,"
+				+ "free_throw_shots = ? where player_name = ? ;");
 		
+		PreparedStatement prepTeam = connection.prepareStatement("update teams set num_of_match = ?,presence_time = ?,"
+				+ "shootings = ?,shots = ?,three_point_shootings = ?,three_point_shots = ?,free_throw_shootings = ?,"
+				+ "free_throw_shots = ?, offences = ?,defences = ?, rebounds = ?,assists = ?,steals = ?,block_shots = ?,"
+				+ "turn_overs = ?,fouls = ?,score = ? where abbreviation = ?; ");
 		File[] fileList = new File(path).listFiles();
 		BufferedReader br ;
 		String strTemp;
@@ -268,15 +278,16 @@ public class InitializeDatabase {
 		for(File file : fileList){
 			br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));	
 			strTemp = br.readLine();
+			String[] teamScore = strTemp.split(";")[2].split("-");
 			while(!isTeam(strTemp)){
 				strTemp = br.readLine();
 			}
 			String team = strTemp;
 			int numOfStartPlayer = 5;
-			strTemp = br.readLine();
+			int teamIndex = 0;
+			int numOfTeam = 0;
 			while(strTemp != null){
 
-				
 				if(!isTeam(strTemp)){
 					String[] oneRecord = strTemp.split(";");
 					int index = playerNameList.indexOf(oneRecord[0]);
@@ -341,7 +352,57 @@ public class InitializeDatabase {
 						oneResult[20] = team;
 						resultTemp.add(oneResult);
 					}
-				}else{
+					
+					//汇总球员信息到球队信息
+					if(oneRecord[2].equals("null") || oneRecord[2].equals("None")){
+						
+					}else{
+						String[] teamPresenceTime = new String[2];
+						teamPresenceTime[0] = (Integer.parseInt(resultTeam.get(teamIndex)[2].split(":")[0]) + 
+								Integer.parseInt(oneRecord[2].split(":")[0])+(
+								Integer.parseInt(resultTeam.get(teamIndex)[2].split(":")[1]) + 
+								Integer.parseInt(oneRecord[2].split(":")[1]))/60) + "";
+						teamPresenceTime[1] = (Integer.parseInt(resultTeam.get(teamIndex)[2].split(":")[1]) + 
+								Integer.parseInt(oneRecord[2].split(":")[1]))%60 + "";
+						resultTeam.get(teamIndex)[2] = teamPresenceTime[0] + ":" + teamPresenceTime[1];
+					}
+					
+					
+					for(int i = 3; i < 17;i ++){
+						if(oneRecord[i].equals("null") || oneRecord[i].equals("None")){
+							//do nothing
+						}else{
+							resultTeam.get(teamIndex)[i] = (Integer.parseInt(oneRecord[i])+Integer.parseInt(
+									resultTeam.get(teamIndex)[i])) + "";
+						}
+					}
+				}
+				//如果是球队
+				else{
+					teamIndex = teamNameList.indexOf(strTemp);
+					//球队尚不存在
+					if(teamIndex < 0){
+						teamNameList.add(strTemp);
+						String[] oneTeamRecord = new String[18];
+						oneTeamRecord[0] = strTemp;
+						oneTeamRecord[1] = "1";
+						oneTeamRecord[2] = "0:0";
+						for(int i = 3 ;i < 17 ;i ++){
+							oneTeamRecord[i] = "0";
+						}
+						oneTeamRecord[17] = teamScore[numOfTeam];
+						numOfTeam ++;
+						resultTeam.add(oneTeamRecord);
+						teamIndex = teamNameList.indexOf(strTemp);
+					}
+					//球队已经存在
+					else{
+						resultTeam.get(teamIndex)[1] = (Integer.parseInt(resultTeam.get(teamIndex)[1]) +
+								1) + "";
+						resultTeam.get(teamIndex)[17] = (Integer.parseInt(resultTeam.get(teamIndex)[17]) +
+								Integer.parseInt(teamScore[numOfTeam])) + "";
+						numOfTeam ++;
+					}
 					team = strTemp;
 					numOfStartPlayer = 5;
 				}
@@ -366,12 +427,41 @@ public class InitializeDatabase {
 			prep.setString(11,resultTemp.get(i)[19]);
 			prep.setString(12,resultTemp.get(i)[20]);
 			prep.setString(13,resultTemp.get(i)[2]);
-			prep.setString(14,resultTemp.get(i)[0]);
+			prep.setString(14,resultTemp.get(i)[3]);
+			prep.setString(15,resultTemp.get(i)[4]);
+			prep.setString(16,resultTemp.get(i)[5]);
+			prep.setString(17,resultTemp.get(i)[6]);
+			prep.setString(18,resultTemp.get(i)[7]);
+			prep.setString(19,resultTemp.get(i)[8]);
+			prep.setString(20,resultTemp.get(i)[0]);
 			prep.addBatch();
 		}
 		
+		for(int i = 0 ;i < resultTeam.size(); i++ ){
+			prepTeam.setString(1,resultTeam.get(i)[1]);
+			prepTeam.setString(2,resultTeam.get(i)[2]);
+			prepTeam.setString(3,resultTeam.get(i)[3]);
+			prepTeam.setString(4,resultTeam.get(i)[4]);
+			prepTeam.setString(5,resultTeam.get(i)[5]);
+			prepTeam.setString(6,resultTeam.get(i)[6]);
+			prepTeam.setString(7,resultTeam.get(i)[7]);
+			prepTeam.setString(8,resultTeam.get(i)[8]);
+			prepTeam.setString(9,resultTeam.get(i)[9]);
+			prepTeam.setString(10,resultTeam.get(i)[10]);
+			prepTeam.setString(11,resultTeam.get(i)[11]);
+			prepTeam.setString(12,resultTeam.get(i)[12]);
+			prepTeam.setString(13,resultTeam.get(i)[13]);
+			prepTeam.setString(14,resultTeam.get(i)[14]);
+			prepTeam.setString(15,resultTeam.get(i)[15]);
+			prepTeam.setString(16,resultTeam.get(i)[16]);
+			prepTeam.setString(17,resultTeam.get(i)[17]);
+			prepTeam.setString(18,resultTeam.get(i)[0]);
+			prepTeam.addBatch();
+		}
+
 		connection.setAutoCommit(false);
 		prep.executeBatch();
+		prepTeam.executeBatch();
 		connection.setAutoCommit(true);
 		
 	}

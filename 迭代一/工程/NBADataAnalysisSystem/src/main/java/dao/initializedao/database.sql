@@ -89,6 +89,12 @@ block_shots varchar(6),
 turn_overs varchar(6),
 fouls varchar(6),
 score varchar(10),
+shootings varchar(10),
+shots varchar(10),
+three_point_shots varchar(6),
+three_point_shootings varchar(10),
+free_throw_shots varchar(10),
+free_throw_shootings varchar(10),
 unique (player_name,team)
 );
 
@@ -105,7 +111,24 @@ location varchar(40),
 division varchar(40),
 section varchar(40),
 home_court varchar(40),
-setup_time varchar(20)
+setup_time varchar(20),
+rebounds varchar(6),
+assists varchar(6),
+presence_time varchar(10),
+offences varchar(6),
+defences varchar(6),
+steals varchar(6),
+block_shots varchar(6),
+turn_overs varchar(6),
+fouls varchar(6),
+score varchar(10),
+shootings varchar(10),
+shots varchar(10),
+three_point_shots varchar(6),
+three_point_shootings varchar(10),
+free_throw_shots varchar(10),
+free_throw_shootings varchar(10),
+num_of_match varchar(6)
 );
 
 
