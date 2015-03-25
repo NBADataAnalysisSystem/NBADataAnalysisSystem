@@ -3,6 +3,7 @@ package ui.playerui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
@@ -139,6 +140,8 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		//TODO 用于存放表格的Frame ，无法存放在原Frame中。窗口为绝对位置。
 		table.setEnabled(false);
 		table.setForeground(Color.decode("#7CFC00"));
+		table.setRowHeight(25);//设置表格每行大小
+		table.setFont(new Font("宋体",1, 20));//设置字体
 		JTableHeader tableHeader ;
 		tableHeader = table.getTableHeader();
 //		tableHeader.setForeground(Color.decode("#f0949c"));
