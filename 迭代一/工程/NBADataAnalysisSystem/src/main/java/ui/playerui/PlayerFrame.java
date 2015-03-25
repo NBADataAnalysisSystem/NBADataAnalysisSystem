@@ -37,6 +37,7 @@ import controller.playercontroller.GetPlayerResponse;
 import controller.playercontroller.PlayerController;
 import entity.player.PlayerInfo;
 import ui.dlg.AdditionOfPlayerInfo;
+import ui.dlg.SiftingOfPlayer;
 
 @SuppressWarnings("serial")
 public class PlayerFrame extends JFrame implements ActionListener{
@@ -100,6 +101,18 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		btn_Add.setIcon(selectIcon);
 		btn_Add.setBounds(950,0,selectIcon.getIconWidth(), selectIcon.getIconHeight());
 		leftPane.add(btn_Add);
+
+		//TODO
+		JButton btn_Sift = new JButton();
+		btn_Sift.setName("sift");
+		ImageIcon siftIcon = new ImageIcon("resource/SiftingButton.jpg");
+		Image tempSift = siftIcon.getImage().getScaledInstance(siftIcon.getIconWidth(),siftIcon.getIconHeight(),Image.SCALE_DEFAULT);  
+		siftIcon.setImage(tempSift);
+		btn_Sift.setMargin(new Insets(0,0,0,0));
+		btn_Sift.setIcon(siftIcon);
+		btn_Sift.setBounds(900,0,siftIcon.getIconWidth(), siftIcon.getIconHeight());
+		btn_Sift.addActionListener(this);
+		leftPane.add(btn_Sift);
 		
 		tablePanel = new JPanel();
 		model = new PlayerModel();
@@ -152,32 +165,6 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		tableWidth = bg.getIconWidth()-123;
 		tableHeight =  bg.getIconHeight()-36;
 		
-
-		
-		//TODO TABLE透明度设置
-		//tableContain.add(tablePanel);
-		//设置位置和大小
-		//tableContain.setLocation(300, 133);
-		//tableContain.setSize(bg.getIconWidth()-123,  bg.getIconHeight()-36);
-		//去除边框等装饰，才能用AWTUtilities.setWindowOpacity
-		//tableContain.setUndecorated(true);
-		//方法弊端：不支持跨平台
-		//AWTUtilities.setWindowOpacity(tableContain, 0.4F);
-		//让表格始终位于最前端
-		//tableContain.setAlwaysOnTop(true);
-		//tableContain.setLocationRelativeTo(null);
-		
-//		String  CloseImg="resource/UntouchedClose.png";
-//		ButtonOperation CloseButton = new ButtonOperation(CloseImg,this);
-//		//CloseButton.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		//CloseButton.setAlwaysOnTop(true);
-//		this.add(CloseButton);
-//		CloseButton.setVisible(true);
-		
-
-		//this.add(tableContain);
-		//tableContain.setVisible(true);
-		
 		JButton closeButton = new JButton();
 		ImageIcon closeIcon = new ImageIcon("resource/CloseButton.jpg");
 		Image tempClose = closeIcon.getImage().getScaledInstance(closeIcon.getIconWidth()/3,closeIcon.getIconHeight()/3,Image.SCALE_DEFAULT);  
@@ -203,6 +190,7 @@ public class PlayerFrame extends JFrame implements ActionListener{
 	        }
 	    });
 		this.add(reduceButton);
+		
 		
 		
 		tablePanel.setSize(bg.getIconWidth()-123,  bg.getIconHeight()-36);
@@ -289,6 +277,12 @@ public class PlayerFrame extends JFrame implements ActionListener{
 						add();
 					}
 				});
+			}else if("sift".equals(name)){
+				SwingUtilities.invokeLater(new Runnable(){
+					public void run(){
+						sift();
+					}
+				});
 			}else if("close".equals(name)){
 				  this.setVisible(false);
 				  this.dispose();
@@ -318,6 +312,14 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		AdditionOfPlayerInfo addition = new AdditionOfPlayerInfo(this);
 		addition.setPlayerFrame(this);
 		addition.setVisible(true);	
+		
+	}
+	
+	public void sift(){
+		AWTUtilities.setWindowOpacity(this, 0.5f);
+		SiftingOfPlayer sifting = new SiftingOfPlayer(this);
+		sifting.setPlayerFrame(this);
+		sifting.setVisible(true);	
 		
 	}
 	
