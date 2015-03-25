@@ -14,6 +14,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -29,7 +31,12 @@ import javax.swing.table.JTableHeader;
 
 import com.sun.awt.AWTUtilities;
 
+import controller.teamcontroller.GetTeamRequest;
+import controller.teamcontroller.GetTeamResponse;
+import controller.teamcontroller.TeamController;
+import entity.team.TeamInfo;
 import ui.dlg.AdditionOfTeamInfo;
+import ui.teamui.TeamTableTranslation;
 
 @SuppressWarnings("serial")
 public class TeamFrame extends JFrame implements ActionListener{
@@ -42,6 +49,7 @@ public class TeamFrame extends JFrame implements ActionListener{
 	static ArrayList<String> listToShow;
 	int tableWidth;
 	int tableHeight;
+	static ArrayList<String> data;
 	private static Point origin = new Point();
 	
 	
@@ -189,7 +197,8 @@ public class TeamFrame extends JFrame implements ActionListener{
 		listToShow.add("È«³Æ");
 		listToShow.add("¼ò³Æ");
 		
-		//refreshData();
+		data = new ArrayList<String>();
+		refreshData();
 		
 	}
 	
@@ -237,6 +246,22 @@ public class TeamFrame extends JFrame implements ActionListener{
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
+	public void showTeamData() {
+		
+		model.getDataVector().clear();
+		for (String vo : data) {
+			Vector<String> v = new Vector<String>();
+			String[] temp = vo.split(";");
+			for (String string:temp) {
+				v.add(string);
+			}
+			model.getDataVector().add(v);
+		}
+		table.updateUI();
+		
+	}
+	
 	public void add(){
 		AWTUtilities.setWindowOpacity(this, 0.5f);
 		AdditionOfTeamInfo addition = new AdditionOfTeamInfo(this);
@@ -282,7 +307,25 @@ public class TeamFrame extends JFrame implements ActionListener{
 	}
 	
 	public void refreshData() {
-		
+		data.clear();
+		TeamController controller = new TeamController();
+		ArrayList<TeamInfo> columnList = new ArrayList<TeamInfo>();
+		TeamTableTranslation teamTableTranslation = new TeamTableTranslation();
+		for (String string:listToShow) {
+			columnList.add(teamTableTranslation.translation(string));
+		}
+		GetTeamResponse response = (GetTeamResponse) controller.processRequest(
+				new GetTeamRequest(columnList));
+		ArrayList<Map<TeamInfo, String>> tempList = response.getList();
+		for (Map<TeamInfo, String> map:tempList) {
+			String tempString = "";
+			for (String string:listToShow) {
+				tempString+=map.get(teamTableTranslation.translation(string));
+				tempString+=";";
+			}
+			data.add(tempString);
+		}
+		showTeamData();
 	}
 	
 	public void changeTableColumns(){
