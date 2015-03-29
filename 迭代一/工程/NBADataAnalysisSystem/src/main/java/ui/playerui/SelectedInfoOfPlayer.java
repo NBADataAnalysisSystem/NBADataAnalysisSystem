@@ -2,6 +2,8 @@ package ui.playerui;
 
 import java.util.ArrayList;
 
+import javax.swing.JComboBox;
+
 public class SelectedInfoOfPlayer {
 	
 	private static  ArrayList<String> selectedInfo;
@@ -28,6 +30,7 @@ public class SelectedInfoOfPlayer {
 	private String numOfTurnOver;
 	private String numOfFoul;
 	private String scorling;
+	
 	
 	public SelectedInfoOfPlayer(){
 		
