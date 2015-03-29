@@ -2,6 +2,8 @@ package ui.playerui;
 
 import java.util.ArrayList;
 
+import javax.swing.JComboBox;
+
 public class SelectedInfoOfPlayer {
 	
 	private static  ArrayList<String> selectedInfo;
@@ -28,6 +30,13 @@ public class SelectedInfoOfPlayer {
 	private String numOfTurnOver;
 	private String numOfFoul;
 	private String scorling;
+	private String numOfShoot;
+	private String numOfShot;
+	private String numOfThreePointShoot;
+	private String numOfThreePointShot;
+	private String numOfFreeThrowShoot;
+	private String numOfFreeThrowShot;
+	
 	
 	public SelectedInfoOfPlayer(){
 		
@@ -56,6 +65,12 @@ public class SelectedInfoOfPlayer {
 		 numOfTurnOver = "失误数";
 		 numOfFoul = "犯规数";
 		 scorling = "得分";
+		numOfShoot = "投篮命中数";
+		numOfShot = "投篮数";
+		numOfThreePointShoot  = "三分球命中数";
+		numOfThreePointShot = "三分球总数";
+		numOfFreeThrowShoot = "罚球命中数";
+		numOfFreeThrowShot = "罚球总数";
 	}
 
 		public void selectIDOfPlayer(){
@@ -209,8 +224,43 @@ public class SelectedInfoOfPlayer {
 			selectedInfo.add(numOfFoul);
 			
 		}
-		
 	
+		public void selectNumOfShoot(){
+			
+			selectedInfo.add(numOfShoot);
+			
+		}
+		
+		public void selectNumOfShot(){
+			
+			selectedInfo.add(numOfShot);
+			
+		}
+		
+		public void selectNumOfThreePointShoot (){
+			
+			selectedInfo.add(numOfThreePointShoot );
+			
+		}
+		
+		public void selectNumOfThreePointShot(){
+			
+			selectedInfo.add(numOfThreePointShot);
+			
+		}
+		
+		public void selectNumOfFreeThrowShoot (){
+			
+			selectedInfo.add(numOfFreeThrowShoot );
+			
+		}
+		
+		public void selectNumOfFreeThrowShot(){
+			
+			selectedInfo.add(numOfFreeThrowShot);
+			
+		}
+		
 		public void selectScorling(){
 			
 			selectedInfo.add(scorling);

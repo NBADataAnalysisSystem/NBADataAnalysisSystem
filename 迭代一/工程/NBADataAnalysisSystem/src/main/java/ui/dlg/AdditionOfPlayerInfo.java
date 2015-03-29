@@ -6,7 +6,9 @@ import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.sun.awt.AWTUtilities;
@@ -37,6 +39,17 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 	private JCheckBox numOfTurnOver;
 	private JCheckBox numOfFoul;
 	private JCheckBox scorling;
+	private JCheckBox numOfShoot ;
+	private JCheckBox numOfShot;
+	private JCheckBox numOfThreePointShoot  ;
+	private JCheckBox numOfThreePointShot ;
+	private JCheckBox numOfFreeThrowShoot ;
+	private JCheckBox numOfFreeThrowShot ;
+	
+	JComboBox<String> sort = new JComboBox<String>();
+	JComboBox<String> infoOfSort = new JComboBox<String>();
+	JLabel sortLabel = new JLabel("升/降序依据");
+	String sortTrans = new String();
 	
 	SelectedInfoOfPlayer selectedItem;
 	
@@ -115,6 +128,13 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 		scorling = new JCheckBox("得分");
 		scorling.setSelected(false);
 		
+		numOfShoot = new JCheckBox("投篮命中数");
+		numOfShot = new JCheckBox("投篮数");
+		numOfThreePointShoot  =new JCheckBox( "三分球命中数");
+		numOfThreePointShot =new JCheckBox( "三分球总数");
+		numOfFreeThrowShoot = new JCheckBox("罚球命中数");
+		numOfFreeThrowShot = new JCheckBox("罚球总数");
+		
 		JPanel checkPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		checkPanel.add(numOfPlayer);
 		checkPanel.add(positionOfPlayer);
@@ -136,6 +156,12 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 		checkPanel.add(numOfTurnOver);
 		checkPanel.add(numOfFoul);
 		checkPanel.add(scorling);
+		checkPanel.add(numOfShoot);
+		checkPanel.add(numOfShot);
+		checkPanel.add(numOfThreePointShoot);
+		checkPanel.add(numOfThreePointShot );
+		checkPanel.add(numOfFreeThrowShoot);
+		checkPanel.add(numOfFreeThrowShot);
 		checkPanel.setSize(500, 500);
 		
 		 //numOfPlayer.addItemListener(this);
@@ -158,14 +184,53 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 //		 numOfTurnOver.addItemListener(this);
 //		 numOfFoul.addItemListener(this);
 //		 scorling.addItemListener(this);
+		sort.addItem("升序");
+		sort.addItem("降序");
+		sort.addItem("字母序");
+
+		infoOfSort.addItem("ID");
+		infoOfSort.addItem("号数");
+		infoOfSort.addItem("身高");
+		infoOfSort.addItem("体重");	
+		infoOfSort.addItem("出生日期");
+		infoOfSort.addItem("年龄");	
+		infoOfSort.addItem("球龄");	
+		infoOfSort.addItem("参赛场数");
+		infoOfSort.addItem("先发场数");
+		infoOfSort.addItem("篮板数");
+		infoOfSort.addItem("助攻数");
+		infoOfSort.addItem("在场时间");
+		infoOfSort.addItem("防守数");
+		infoOfSort.addItem("抢断数");
+		infoOfSort.addItem("盖帽数");
+		infoOfSort.addItem("失误数");
+		infoOfSort.addItem("犯规数");
+		infoOfSort.addItem("得分");
+		infoOfSort.addItem("投篮命中数");
+		infoOfSort.addItem("投篮数");
+		infoOfSort.addItem( "三分球命中数");
+		infoOfSort.addItem( "三分球总数");
+		infoOfSort.addItem("罚球命中数");
+		infoOfSort.addItem("罚球总数");
+		
+		
 		
 		checkPanel.setBorder(BorderFactory.createEtchedBorder());
-		this.add(checkPanel);
+		this.add(checkPanel,BorderLayout.CENTER);
 		checkPanel.setVisible(true);
 		this.setAlwaysOnTop(true);
 		
+		JPanel sortPanel = new JPanel();
+		sortPanel.setBorder(BorderFactory.createEtchedBorder());
+		sortPanel.add(sortLabel);
+		sortPanel.add(sort);
+		sortPanel.add(infoOfSort);
+		sortPanel.setSize(500, 20);
+		
+		
 		JPanel bp = new JPanel();
 		bp.setBorder(BorderFactory.createEtchedBorder());
+		bp.add(sortPanel,BorderLayout.NORTH);
 		bp.add(btn_apply);
 		bp.add(btn_cancel);
 		this.add(bp, BorderLayout.SOUTH);
@@ -223,7 +288,20 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 				numOfFoul.setSelected(true);
 			}if(alreadySelected.contains("得分")){
 				scorling.setSelected(true);
-			}	
+			}if(alreadySelected.contains("投篮命中数")){
+				numOfShoot.setSelected(true);
+			}if(alreadySelected.contains("投篮数")){
+				numOfShot.setSelected(true);
+			}if(alreadySelected.contains("三分球命中数")){
+				numOfThreePointShoot.setSelected(true);
+			}if(alreadySelected.contains("三分球总数")){
+				numOfThreePointShot .setSelected(true);
+			}if(alreadySelected.contains("罚球命中数")){
+				numOfFreeThrowShoot.setSelected(true);
+			}if(alreadySelected.contains("罚球总数")){
+				numOfFreeThrowShot.setSelected(true);
+			}
+			
 	}
 
 	public void checkBoxSelected() {
@@ -309,6 +387,30 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 	    	   
 	    	   selectedItem.selectScorling();
 	  
+	       }if(numOfShoot.isSelected() == true){
+	    	   
+	    	   selectedItem.selectNumOfShoot();
+	  
+	       }if(numOfShot.isSelected() == true){
+	    	   
+	    	   selectedItem.selectNumOfShot();
+	  
+	       }if(numOfThreePointShoot.isSelected() == true){
+	    	   
+	    	   selectedItem.selectNumOfThreePointShoot();
+	  
+	       }if(numOfThreePointShot .isSelected() == true){
+	    	   
+	    	   selectedItem.selectNumOfThreePointShot ();
+	  
+	       }if(numOfFreeThrowShoot.isSelected() == true){
+	    	   
+	    	   selectedItem.selectNumOfFreeThrowShoot();
+	  
+	       }if(numOfFreeThrowShot.isSelected() == true){
+	    	   
+	    	   selectedItem.selectNumOfFreeThrowShot();
+	  
 	       }
 	       
 		ArrayList<String> tempList = selectedItem.getSelectedList();
@@ -328,8 +430,21 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 		
 	}
 	
+	public void setSort(){
+	
+		sortTrans = sort.getSelectedItem().toString() + ";" + infoOfSort.getSelectedItem().toString();
+		
+	}
+	
+	public String getSort(){
+		
+		return sortTrans;
+		
+	}
+	
 	public void apply(){
 		
+		this.setSort();
 		checkBoxSelected();
 //		ArrayList<String> tempList = new ArrayList<>(); 
 //		tempList = frame.getList();

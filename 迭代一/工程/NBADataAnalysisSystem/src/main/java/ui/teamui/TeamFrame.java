@@ -380,6 +380,9 @@ public class TeamFrame extends JFrame implements ActionListener{
 		//TODO 用于存放表格的Frame ，无法存放在原Frame中。窗口为绝对位置。
 		table.setEnabled(false);
 		table.setForeground(Color.decode("#7CFC00"));
+		table.setForeground(Color.decode("#FFFF00"));
+		table.setRowHeight(40);//设置表格每行大小
+		table.setFont(new Font("宋体",1, 25));//设置字体
 		JTableHeader tableHeader ;
 		tableHeader = table.getTableHeader();
 //		tableHeader.setForeground(Color.decode("#f0949c"));

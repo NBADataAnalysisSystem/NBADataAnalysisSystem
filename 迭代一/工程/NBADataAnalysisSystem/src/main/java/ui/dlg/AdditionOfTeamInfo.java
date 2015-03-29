@@ -17,8 +17,8 @@ import ui.teamui.TeamFrame;
 @SuppressWarnings("serial")
 public class AdditionOfTeamInfo extends InputDialog  {
 	
-	private JCheckBox fullName;
-	private JCheckBox abeerName;
+//	private JCheckBox fullName;
+//	private JCheckBox abeerName;
 	private JCheckBox location;
 	private JCheckBox zone;
 	private JCheckBox division;
@@ -42,11 +42,11 @@ public class AdditionOfTeamInfo extends InputDialog  {
 		selectedItem = new SelectedInfoOfTeam();
 		selectedInfo = new ArrayList<>();
 		
-		fullName = new JCheckBox("全称");
-		fullName.setSelected(false);
-		
-		abeerName = new JCheckBox("简称");
-		abeerName.setSelected(false);
+//		fullName = new JCheckBox("全称");
+//		fullName.setSelected(false);
+//		
+//		abeerName = new JCheckBox("简称");
+//		abeerName.setSelected(false);
 		
 		location = new JCheckBox("位置");
 		location.setSelected(false);
@@ -64,8 +64,8 @@ public class AdditionOfTeamInfo extends InputDialog  {
 		builtTime.setSelected(false);
 		
 		JPanel checkPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		checkPanel.add(fullName);
-		checkPanel.add(abeerName);
+//		checkPanel.add(fullName);
+//		checkPanel.add(abeerName);
 		checkPanel.add(location);
 		checkPanel.add(zone);
 		checkPanel.add(division);
@@ -118,11 +118,12 @@ public class AdditionOfTeamInfo extends InputDialog  {
 	}
 
 	public void judgeSelect(){
-			if(alreadySelected.contains("全称")){
-				fullName.setSelected(true);
-			}if(alreadySelected.contains("简称")){
-				abeerName.setSelected(true);
-			} if(alreadySelected.contains("位置")){
+//			if(alreadySelected.contains("全称")){
+//				fullName.setSelected(true);
+//			}if(alreadySelected.contains("简称")){
+//				abeerName.setSelected(true);
+//			}
+		if(alreadySelected.contains("位置")){
 				location.setSelected(true);
 			}if(alreadySelected.contains("赛区")){
 				zone.setSelected(true);
@@ -138,15 +139,16 @@ public class AdditionOfTeamInfo extends InputDialog  {
 	public void checkBoxSelected() {
 	      //获取改变的复选按键
 	      // Object source = e.getItemSelectable();
-	       if (fullName.isSelected() == true) {
-	    	   
-	    	   selectedItem.selectFullName();
-	    	   
-	       }  if(abeerName.isSelected() == true){
-	    	   
-	    	   selectedItem.selectAbeerName();
-	        
-	       }if(location.isSelected() == true){
+//	       if (fullName.isSelected() == true) {
+//	    	   
+//	    	   selectedItem.selectFullName();
+//	    	   
+//	       }  if(abeerName.isSelected() == true){
+//	    	   
+//	    	   selectedItem.selectAbeerName();
+//	        
+//	       }
+		if(location.isSelected() == true){
 	      
 	    	   selectedItem.selectLocation();
 	    	   
