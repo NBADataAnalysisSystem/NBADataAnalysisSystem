@@ -81,26 +81,6 @@ public class Player {
 	}
 
 	/**
-	 * @return the actionURL
-	 */
-	public String getActionURL() {
-		String actionURL = playerInfo.get(PlayerInfo.FILE_PATH)
-				+ "players\\action" 
-				+ playerInfo.get(PlayerInfo.NAME);
-		return actionURL;
-	}
-
-	/**
-	 * @return the portraitURL
-	 */
-	public String getPortraitURL() {
-		String portraitURL = playerInfo.get(PlayerInfo.FILE_PATH)
-				+ "players\\portrait" 
-				+ playerInfo.get(PlayerInfo.NAME);
-		return portraitURL;
-	}
-
-	/**
 	 * @return the team
 	 */
 	public String getTeam() {
@@ -190,5 +170,5 @@ public class Player {
 	public String getScoring() {
 		return playerInfo.get(PlayerInfo.SCORING);
 	}
-			
+	
 }

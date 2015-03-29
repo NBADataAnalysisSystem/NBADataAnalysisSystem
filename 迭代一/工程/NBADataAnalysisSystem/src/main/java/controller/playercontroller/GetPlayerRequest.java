@@ -9,6 +9,10 @@ public class GetPlayerRequest implements Request {
 
 	private ArrayList<PlayerInfo> columnList;
 	
+	public GetPlayerRequest(ArrayList<PlayerInfo> columnList) {
+		this.columnList = columnList;
+	}
+	
 	public String getName() {
 		return "GetPlayer";
 	}

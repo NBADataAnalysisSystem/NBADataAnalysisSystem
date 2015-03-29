@@ -3,6 +3,7 @@ package ui.playerui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
@@ -14,6 +15,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,10 +29,16 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 
 import com.sun.awt.AWTUtilities;
 
+import controller.playercontroller.GetPlayerRequest;
+import controller.playercontroller.GetPlayerResponse;
+import controller.playercontroller.PlayerController;
+import entity.player.PlayerInfo;
 import ui.dlg.AdditionOfPlayerInfo;
+import ui.dlg.SiftingOfPlayer;
 
 @SuppressWarnings("serial")
 public class PlayerFrame extends JFrame implements ActionListener{
@@ -40,12 +49,13 @@ public class PlayerFrame extends JFrame implements ActionListener{
 	static JTable table;
 	JPanel 	tablePanel;
 	static ArrayList<String> listToShow;
+	static ArrayList<String> data;
 	int tableWidth;
 	int tableHeight;
 	private static Point origin = new Point();
 	
 	
-	@SuppressWarnings({ "static-access", "unused" })
+	@SuppressWarnings({ "static-access" })
 	public PlayerFrame(){
 		super();
 
@@ -92,6 +102,18 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		btn_Add.setIcon(selectIcon);
 		btn_Add.setBounds(950,0,selectIcon.getIconWidth(), selectIcon.getIconHeight());
 		leftPane.add(btn_Add);
+
+		//TODO
+		JButton btn_Sift = new JButton();
+		btn_Sift.setName("sift");
+		ImageIcon siftIcon = new ImageIcon("resource/SiftingButton.jpg");
+		Image tempSift = siftIcon.getImage().getScaledInstance(siftIcon.getIconWidth(),siftIcon.getIconHeight(),Image.SCALE_DEFAULT);  
+		siftIcon.setImage(tempSift);
+		btn_Sift.setMargin(new Insets(0,0,0,0));
+		btn_Sift.setIcon(siftIcon);
+		btn_Sift.setBounds(900,0,siftIcon.getIconWidth(), siftIcon.getIconHeight());
+		btn_Sift.addActionListener(this);
+		leftPane.add(btn_Sift);
 		
 		tablePanel = new JPanel();
 		model = new PlayerModel();
@@ -99,8 +121,11 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		sp = new JScrollPane();
 		
 		//TODO
-		table.setOpaque(true);
+		table.setOpaque(false);
 		DefaultTableCellRenderer render = new DefaultTableCellRenderer();
+		render.setOpaque(false); //将渲染器设置为透明  
+     
+        table.setDefaultRenderer(Object.class,render);  
 		Dimension viewSize = new Dimension();
 		viewSize.width = table.getColumnModel().getTotalColumnWidth();;
 		viewSize.height = 10*table.getRowHeight();
@@ -109,45 +134,39 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		sp.getViewport().setOpaque(false);  //jScrollPanel 为table存放的容器，一般在Swing创    //  建表格时，它自动生成，原代码为：jScrollPane1 = new javax.swing.JScrollPane();
 		sp.setOpaque(false);     //将中间的viewport设置为透明
 		sp.setViewportView(table); //装载表格 
+		sp.setColumnHeaderView(table.getTableHeader());//设置头部（HeaderView部分）  
+	    sp.getColumnHeader().setOpaque(false);//再取出头部，并设置为透明 
 		//playerPanel.add(new JScrollPane(table), BorderLayout.CENTER);
 		//TODO 用于存放表格的Frame ，无法存放在原Frame中。窗口为绝对位置。
 		table.setEnabled(false);
-		table.setForeground(Color.decode("#fa1428"));
-		table.setGridColor(Color.decode("#fa1428"));
+		table.setForeground(Color.decode("#7CFC00"));
+		table.setRowHeight(25);//设置表格每行大小
+		table.setFont(new Font("宋体",1, 20));//设置字体
 		JTableHeader tableHeader ;
 		tableHeader = table.getTableHeader();
-		tableHeader.setBackground(Color.decode("#f0949c"));
+//		tableHeader.setForeground(Color.decode("#f0949c"));
+		tableHeader.setPreferredSize(new Dimension(30, 26));   
+		tableHeader.setOpaque(false);//设置头部为透明  
+		tableHeader.getTable().setOpaque(false);//设置头部里面的表格透明  
+		render = new DefaultTableCellRenderer();
+		render.setOpaque(false); //将渲染器设置为透明  
+		/* 
+		 * 头部的表格也像前面的表格设置一样，还需要将里面的单元项设置为透明 
+		 * 因此同样需要对头部单元项进行透明度设置，这里还是用渲染器。 
+		 */  
+		tableHeader.setDefaultRenderer(render);  
+		TableCellRenderer headerRenderer = tableHeader.getDefaultRenderer();   
+		if (headerRenderer instanceof JLabel)   
+		{  
+			((JLabel) headerRenderer).setHorizontalAlignment(JLabel.CENTER);   
+			((JLabel) headerRenderer).setOpaque(false);   
+		}  
+		//table.setGridColor(Color.decode("#fa1428"));
 		tablePanel.setLayout(new BorderLayout());
 		tablePanel.add(sp, BorderLayout.CENTER);
-		tablePanel.setOpaque(true);
+		tablePanel.setOpaque(false);
 		tableWidth = bg.getIconWidth()-123;
 		tableHeight =  bg.getIconHeight()-36;
-		
-
-		
-		//TODO TABLE透明度设置
-		//tableContain.add(tablePanel);
-		//设置位置和大小
-		//tableContain.setLocation(300, 133);
-		//tableContain.setSize(bg.getIconWidth()-123,  bg.getIconHeight()-36);
-		//去除边框等装饰，才能用AWTUtilities.setWindowOpacity
-		//tableContain.setUndecorated(true);
-		//方法弊端：不支持跨平台
-		//AWTUtilities.setWindowOpacity(tableContain, 0.4F);
-		//让表格始终位于最前端
-		//tableContain.setAlwaysOnTop(true);
-		//tableContain.setLocationRelativeTo(null);
-		
-//		String  CloseImg="resource/UntouchedClose.png";
-//		ButtonOperation CloseButton = new ButtonOperation(CloseImg,this);
-//		//CloseButton.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		//CloseButton.setAlwaysOnTop(true);
-//		this.add(CloseButton);
-//		CloseButton.setVisible(true);
-		
-
-		//this.add(tableContain);
-		//tableContain.setVisible(true);
 		
 		JButton closeButton = new JButton();
 		ImageIcon closeIcon = new ImageIcon("resource/CloseButton.jpg");
@@ -174,6 +193,7 @@ public class PlayerFrame extends JFrame implements ActionListener{
 	        }
 	    });
 		this.add(reduceButton);
+		
 		
 		
 		tablePanel.setSize(bg.getIconWidth()-123,  bg.getIconHeight()-36);
@@ -215,8 +235,9 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		listToShow = new ArrayList<String>();
 		listToShow.add("ID");
 		listToShow.add("名字");
-		
-		//refreshData();
+		data = new ArrayList<String>();
+
+		refreshData();
 		
 	}
 	
@@ -230,19 +251,22 @@ public class PlayerFrame extends JFrame implements ActionListener{
 	}
 
 	class PlayerModel extends DefaultTableModel {
-		private String[] COLUMNS = new String[]{
-				"ID","名字"
-				
-		};
+//		private String[] COLUMNS = new String[]{
+//				"ID","名字"
+//				
+//		};
+		{
+			setColumnIdentifiers(new String[]{"ID", "名字"});
+		}
 		public boolean isCellEditable(int row, int column) {
 			return false;
 		}
-		public int getColumnCount() {
-			return COLUMNS.length;
-		}
-		public String getColumnName(int column) {
-			return COLUMNS[column];
-		}
+//		public int getColumnCount() {
+//			return COLUMNS.length;
+//		}
+//		public String getColumnName(int column) {
+//			return COLUMNS[column];
+//		}
 	}
 
 	@Override
@@ -256,6 +280,12 @@ public class PlayerFrame extends JFrame implements ActionListener{
 						add();
 					}
 				});
+			}else if("sift".equals(name)){
+				SwingUtilities.invokeLater(new Runnable(){
+					public void run(){
+						sift();
+					}
+				});
 			}else if("close".equals(name)){
 				  this.setVisible(false);
 				  this.dispose();
@@ -264,11 +294,35 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
+	public void showPlayerData() {
+		
+		model.getDataVector().clear();
+		for (String vo : data) {
+			Vector<String> v = new Vector<String>();
+			String[] temp = vo.split(";");
+			for (String string:temp) {
+				v.add(string);
+			}
+			model.getDataVector().add(v);
+		}
+		table.updateUI();
+		
+	}
+	
 	public void add(){
 		AWTUtilities.setWindowOpacity(this, 0.5f);
 		AdditionOfPlayerInfo addition = new AdditionOfPlayerInfo(this);
 		addition.setPlayerFrame(this);
 		addition.setVisible(true);	
+		
+	}
+	
+	public void sift(){
+		AWTUtilities.setWindowOpacity(this, 0.5f);
+		SiftingOfPlayer sifting = new SiftingOfPlayer(this);
+		sifting.setPlayerFrame(this);
+		sifting.setVisible(true);	
 		
 	}
 	
@@ -308,23 +362,86 @@ public class PlayerFrame extends JFrame implements ActionListener{
 	}
 	
 	public void refreshData() {
-		
+		data.clear();
+		PlayerController controller = new PlayerController();
+		ArrayList<PlayerInfo> columnList = new ArrayList<PlayerInfo>();
+		PlayerTableTranslation playerTableTranslation = new PlayerTableTranslation();
+		for (String string:listToShow) {
+			columnList.add(playerTableTranslation.translation(string));
+		}
+		GetPlayerResponse response = (GetPlayerResponse) controller.processRequest(
+				new GetPlayerRequest(columnList));
+		ArrayList<Map<PlayerInfo, String>> tempList = response.getList();
+		for (Map<PlayerInfo, String> map:tempList) {
+			String tempString = "";
+			for (String string:listToShow) {
+				tempString+=map.get(playerTableTranslation.translation(string));
+				tempString+=";";
+			}
+			data.add(tempString);
+		}
+		showPlayerData();
 	}
 	
 	public void changeTableColumns(){
 	
 //		listToShow.set(0, "ID");
 		this.setString();
-		model.COLUMNS = stringToShow;
+//		model.COLUMNS = stringToShow;
+//		model = new PlayerModel();
+		model.setColumnIdentifiers(stringToShow);
+		//model.setColumnIdentifiers(stringToShow);
 		tablePanel.removeAll();
 		sp.getViewport().removeAll();
+//		table.getTableHeader().
+//		for (String c : model.COLUMNS) {
+//			model.addColumn(c);
+//		}
+//		System.out.println(model.getColumnCount());
 		table = new JTable(model);
+		sp.getViewport().add(table);
+		//TODO
+		table.setOpaque(false);
+		DefaultTableCellRenderer render = new DefaultTableCellRenderer();
+		render.setOpaque(false); //将渲染器设置为透明  
+     
+        table.setDefaultRenderer(Object.class,render);  
+		Dimension viewSize = new Dimension();
+		viewSize.width = table.getColumnModel().getTotalColumnWidth();;
+		viewSize.height = 10*table.getRowHeight();
+		table.setPreferredScrollableViewportSize(viewSize);
+		//将JScrollPane设置为透明
+		sp.getViewport().setOpaque(false);  //jScrollPanel 为table存放的容器，一般在Swing创    //  建表格时，它自动生成，原代码为：jScrollPane1 = new javax.swing.JScrollPane();
+		sp.setOpaque(false);     //将中间的viewport设置为透明
+		sp.setViewportView(table); //装载表格 
+		sp.setColumnHeaderView(table.getTableHeader());//设置头部（HeaderView部分）  
+	    sp.getColumnHeader().setOpaque(false);//再取出头部，并设置为透明 
+		//playerPanel.add(new JScrollPane(table), BorderLayout.CENTER);
+		//TODO 用于存放表格的Frame ，无法存放在原Frame中。窗口为绝对位置。
+		table.setEnabled(false);
+		table.setForeground(Color.decode("#7CFC00"));
 		JTableHeader tableHeader ;
 		tableHeader = table.getTableHeader();
-		tableHeader.setBackground(Color.decode("#f0949c"));
-		sp.getViewport().add(table);
-		tablePanel.add(sp);
-//		tableContain.add(tablePanel);
+//		tableHeader.setForeground(Color.decode("#f0949c"));
+		tableHeader.setPreferredSize(new Dimension(30, 26));   
+		tableHeader.setOpaque(false);//设置头部为透明  
+		tableHeader.getTable().setOpaque(false);//设置头部里面的表格透明  
+		render = new DefaultTableCellRenderer();
+		render.setOpaque(false); //将渲染器设置为透明  
+		/* 
+		 * 头部的表格也像前面的表格设置一样，还需要将里面的单元项设置为透明 
+		 * 因此同样需要对头部单元项进行透明度设置，这里还是用渲染器。 
+		 */  
+		tableHeader.setDefaultRenderer(render);  
+		TableCellRenderer headerRenderer = tableHeader.getDefaultRenderer();   
+		if (headerRenderer instanceof JLabel)   
+		{  
+			((JLabel) headerRenderer).setHorizontalAlignment(JLabel.CENTER);   
+			((JLabel) headerRenderer).setOpaque(false);   
+		}  
+		tablePanel.add(sp, BorderLayout.CENTER);
+		tablePanel.setOpaque(false);
+		//TODO
 		revalidate();
 		repaint();
 		

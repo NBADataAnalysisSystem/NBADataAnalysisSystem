@@ -3,6 +3,7 @@ package ui.teamui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
@@ -14,6 +15,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,10 +29,16 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 
 import com.sun.awt.AWTUtilities;
 
+import controller.teamcontroller.GetTeamRequest;
+import controller.teamcontroller.GetTeamResponse;
+import controller.teamcontroller.TeamController;
+import entity.team.TeamInfo;
 import ui.dlg.AdditionOfTeamInfo;
+import ui.teamui.TeamTableTranslation;
 
 @SuppressWarnings("serial")
 public class TeamFrame extends JFrame implements ActionListener{
@@ -42,6 +51,7 @@ public class TeamFrame extends JFrame implements ActionListener{
 	static ArrayList<String> listToShow;
 	int tableWidth;
 	int tableHeight;
+	static ArrayList<String> data;
 	private static Point origin = new Point();
 	
 	
@@ -99,8 +109,10 @@ public class TeamFrame extends JFrame implements ActionListener{
 		sp = new JScrollPane();
 		
 		//TODO
-		table.setOpaque(true);
+		table.setOpaque(false);
 		DefaultTableCellRenderer render = new DefaultTableCellRenderer();
+		render.setOpaque(false); //将渲染器设置为透明  
+		 table.setDefaultRenderer(Object.class,render);  
 		Dimension viewSize = new Dimension();
 		viewSize.width = table.getColumnModel().getTotalColumnWidth();;
 		viewSize.height = 10*table.getRowHeight();
@@ -109,12 +121,31 @@ public class TeamFrame extends JFrame implements ActionListener{
 		sp.getViewport().setOpaque(false);  //jScrollPanel 为table存放的容器，一般在Swing创    //  建表格时，它自动生成，原代码为：jScrollPane1 = new javax.swing.JScrollPane();
 		sp.setOpaque(false);     //将中间的viewport设置为透明
 		sp.setViewportView(table); //装载表格 。
+		sp.setColumnHeaderView(table.getTableHeader());//设置头部（HeaderView部分）  
+	    sp.getColumnHeader().setOpaque(false);//再取出头部，并设置为透明 
 		table.setEnabled(false);
-		table.setForeground(Color.decode("#fa1428"));
-		table.setGridColor(Color.decode("#fa1428"));
+		table.setForeground(Color.decode("#FFFF00"));
+		table.setRowHeight(40);//设置表格每行大小
+		table.setFont(new Font("宋体",1, 25));//设置字体
 		JTableHeader tableHeader ;
 		tableHeader = table.getTableHeader();
-		tableHeader.setBackground(Color.decode("#f0949c"));
+//		tableHeader.setBackground(Color.decode("#f0949c"));
+		tableHeader.setPreferredSize(new Dimension(30, 26));   
+		tableHeader.setOpaque(false);//设置头部为透明  
+		tableHeader.getTable().setOpaque(false);//设置头部里面的表格透明  
+		render = new DefaultTableCellRenderer();
+		render.setOpaque(false); //将渲染器设置为透明  
+		/* 
+		 * 头部的表格也像前面的表格设置一样，还需要将里面的单元项设置为透明 
+		 * 因此同样需要对头部单元项进行透明度设置，这里还是用渲染器。 
+		 */  
+		tableHeader.setDefaultRenderer(render);  
+		TableCellRenderer headerRenderer = tableHeader.getDefaultRenderer();   
+		if (headerRenderer instanceof JLabel)   
+		{  
+			((JLabel) headerRenderer).setHorizontalAlignment(JLabel.CENTER);   
+			((JLabel) headerRenderer).setOpaque(false);   
+		}  
 		tablePanel.setLayout(new BorderLayout());
 		tablePanel.add(sp, BorderLayout.CENTER);
 		tablePanel.setOpaque(true);
@@ -189,7 +220,10 @@ public class TeamFrame extends JFrame implements ActionListener{
 		listToShow.add("全称");
 		listToShow.add("简称");
 		
-		//refreshData();
+		data = new ArrayList<String>();
+		revalidate();
+		repaint();
+		refreshData();
 		
 	}
 	
@@ -237,6 +271,22 @@ public class TeamFrame extends JFrame implements ActionListener{
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
+	public void showTeamData() {
+		
+		model.getDataVector().clear();
+		for (String vo : data) {
+			Vector<String> v = new Vector<String>();
+			String[] temp = vo.split(";");
+			for (String string:temp) {
+				v.add(string);
+			}
+			model.getDataVector().add(v);
+		}
+		table.updateUI();
+		
+	}
+	
 	public void add(){
 		AWTUtilities.setWindowOpacity(this, 0.5f);
 		AdditionOfTeamInfo addition = new AdditionOfTeamInfo(this);
@@ -282,7 +332,25 @@ public class TeamFrame extends JFrame implements ActionListener{
 	}
 	
 	public void refreshData() {
-		
+		data.clear();
+		TeamController controller = new TeamController();
+		ArrayList<TeamInfo> columnList = new ArrayList<TeamInfo>();
+		TeamTableTranslation teamTableTranslation = new TeamTableTranslation();
+		for (String string:listToShow) {
+			columnList.add(teamTableTranslation.translation(string));
+		}
+		GetTeamResponse response = (GetTeamResponse) controller.processRequest(
+				new GetTeamRequest(columnList));
+		ArrayList<Map<TeamInfo, String>> tempList = response.getList();
+		for (Map<TeamInfo, String> map:tempList) {
+			String tempString = "";
+			for (String string:listToShow) {
+				tempString+=map.get(teamTableTranslation.translation(string));
+				tempString+=";";
+			}
+			data.add(tempString);
+		}
+		showTeamData();
 	}
 	
 	public void changeTableColumns(){
@@ -293,9 +361,44 @@ public class TeamFrame extends JFrame implements ActionListener{
 		tablePanel.removeAll();
 		sp.getViewport().removeAll();
 		table = new JTable(model);
+		table.setOpaque(false);
+		DefaultTableCellRenderer render = new DefaultTableCellRenderer();
+		render.setOpaque(false); //将渲染器设置为透明  
+     
+        table.setDefaultRenderer(Object.class,render);  
+		Dimension viewSize = new Dimension();
+		viewSize.width = table.getColumnModel().getTotalColumnWidth();;
+		viewSize.height = 10*table.getRowHeight();
+		table.setPreferredScrollableViewportSize(viewSize);
+		//将JScrollPane设置为透明
+		sp.getViewport().setOpaque(false);  //jScrollPanel 为table存放的容器，一般在Swing创    //  建表格时，它自动生成，原代码为：jScrollPane1 = new javax.swing.JScrollPane();
+		sp.setOpaque(false);     //将中间的viewport设置为透明
+		sp.setViewportView(table); //装载表格 
+		sp.setColumnHeaderView(table.getTableHeader());//设置头部（HeaderView部分）  
+	    sp.getColumnHeader().setOpaque(false);//再取出头部，并设置为透明 
+		//playerPanel.add(new JScrollPane(table), BorderLayout.CENTER);
+		//TODO 用于存放表格的Frame ，无法存放在原Frame中。窗口为绝对位置。
+		table.setEnabled(false);
+		table.setForeground(Color.decode("#7CFC00"));
 		JTableHeader tableHeader ;
 		tableHeader = table.getTableHeader();
-		tableHeader.setBackground(Color.decode("#f0949c"));
+//		tableHeader.setForeground(Color.decode("#f0949c"));
+		tableHeader.setPreferredSize(new Dimension(30, 26));   
+		tableHeader.setOpaque(false);//设置头部为透明  
+		tableHeader.getTable().setOpaque(false);//设置头部里面的表格透明  
+		render = new DefaultTableCellRenderer();
+		render.setOpaque(false); //将渲染器设置为透明  
+		/* 
+		 * 头部的表格也像前面的表格设置一样，还需要将里面的单元项设置为透明 
+		 * 因此同样需要对头部单元项进行透明度设置，这里还是用渲染器。 
+		 */  
+		tableHeader.setDefaultRenderer(render);  
+		TableCellRenderer headerRenderer = tableHeader.getDefaultRenderer();   
+		if (headerRenderer instanceof JLabel)   
+		{  
+			((JLabel) headerRenderer).setHorizontalAlignment(JLabel.CENTER);   
+			((JLabel) headerRenderer).setOpaque(false);   
+		}  
 		sp.getViewport().add(table);
 		tablePanel.add(sp);
 //		tableContain.add(tablePanel);
