@@ -169,6 +169,7 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 		sort.addItem("降序");
 		sort.addItem("字母序");
 
+		infoOfSort.addItem("ID");
 		infoOfSort.addItem("号数");
 		infoOfSort.addItem("身高");
 		infoOfSort.addItem("体重");	
