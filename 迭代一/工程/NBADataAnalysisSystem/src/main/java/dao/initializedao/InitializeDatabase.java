@@ -466,5 +466,93 @@ public class InitializeDatabase {
 		
 	}
 	
+	public void calculateRivalInformation(String path) throws Exception{
+		ArrayList<String> rivalTeamList = new ArrayList<String>();
+		ArrayList<String[]> rivalTeamInformation = new ArrayList<String[]>();
+		File[] fileList = new File(path).listFiles();
+		
+		//统计对手的在场时间，投篮命中数，投篮出手数，三分命中数，三分出手数，罚球命中数，罚球出手数，进攻篮板数，防守篮板数，总篮板数，助攻数，抢断数，盖帽数，失误数，犯规数，得分
+		for(File file : fileList){
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
+			String strTemp = br.readLine();
+			String[] team = strTemp.split(";")[1].split("-");
+			String[] score = strTemp.split(";")[2].split("-");
+			int[] teamIndex = new int[2];
+			for(int i = 0 ;i < 2;i ++ ){
+				//如果队伍不存在
+				if(rivalTeamList.indexOf(team[i]) < 0){
+					//数组前两项代表队伍名称和胜场数，其他代表在场时间，投篮命中数。。。。
+					String [] originalRecord = new String[18];
+					originalRecord[0] = team[i];
+					originalRecord[1] = "0";
+					if((Integer.parseInt(score[i])>(Integer.parseInt(score[1-i])))){
+						originalRecord[1] = (Integer.parseInt(originalRecord[1])+1) + "";
+					}
+					originalRecord[2] = "0:0";
+					for(int j = 3 ;j < 17 ;j++){
+						originalRecord[j] = "0";
+					}
+					originalRecord[17] = score[1-i];
+					rivalTeamList.add(team[i]);
+					rivalTeamInformation.add(originalRecord);
+					teamIndex[i] = rivalTeamList.indexOf(team[i]);
+				}
+				//如果球队存在
+				else{
+					teamIndex[i] = rivalTeamList.indexOf(team[i]);
+					if((Integer.parseInt(score[i]) > (Integer.parseInt(score[1-i])))){
+						rivalTeamInformation.get(teamIndex[i])[1] = (Integer.parseInt(rivalTeamInformation.get(teamIndex[i])[1]) + 1)
+								+ "";
+					}
+					rivalTeamInformation.get(teamIndex[i])[17] = (Integer.parseInt(rivalTeamInformation.get(teamIndex[i])[17]) + 
+							Integer.parseInt(score[1-i])) + "";
+
+					}
+			}
+			br.readLine();
+			
+			while ((strTemp = br.readLine()) != null){
+				//当前行是队伍的缩写
+				int index = 0 ;
+				if(isTeam(strTemp)){
+					if(strTemp.equals(team[0]))
+						index=0;
+					else
+						index=1;
+				}
+				//当前行是球员数据
+				else{
+					String[] oneRecord = strTemp.split(";");
+					if(oneRecord[2].equals("None") ||
+							(oneRecord[2].equals("null"))){
+						//do nothing
+					}else{
+						String[] presenceTime =new String[2];
+						presenceTime[0] = (Integer.parseInt(rivalTeamInformation.get(teamIndex[1-index])[2].split(":")[0]) + 
+								Integer.parseInt(oneRecord[2].split(":")[0]) + 
+								((Integer.parseInt(rivalTeamInformation.get(teamIndex[1-index])[2].split(":")[1]) + 
+								Integer.parseInt(oneRecord[2].split(":")[1]))/60)) + "";
+						presenceTime[1] = (Integer.parseInt(rivalTeamInformation.get(teamIndex[1-index])[2].split(":")[1]) + 
+								Integer.parseInt(oneRecord[2].split(":")[1]))%60 +"";
+						rivalTeamInformation.get(teamIndex[1-index])[2] = presenceTime[0] + ":" + presenceTime[1];
+					}
+					for(int i = 3 ;i < 17 ;i ++){
+						if(oneRecord[i].equals("None") || 
+								oneRecord[i].equals("null")){
+							//do nothing
+						}else{
+							rivalTeamInformation.get(teamIndex[1-index])[i] = (
+									Integer.parseInt(rivalTeamInformation.get(teamIndex[1-index])[i]) + 
+									Integer.parseInt(oneRecord[i])) + "";
+						}
+
+					}
+				}
+			}//一个文件读取完毕
+			br.close();
+		}//所有文件读取完毕
+		
+
+	}
 
 }
