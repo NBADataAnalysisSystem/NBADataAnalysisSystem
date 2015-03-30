@@ -24,7 +24,24 @@ public class AdditionOfTeamInfo extends InputDialog  {
 	private JCheckBox division;
 	private JCheckBox homeCourt;
 	private JCheckBox builtTime;
-	
+	private JCheckBox rebounds;
+	private JCheckBox assists;
+	private JCheckBox presenceTime;
+	private JCheckBox offences;
+	private JCheckBox defences;
+	private JCheckBox steals;
+	private JCheckBox blockShots;
+	private JCheckBox turnOvers;
+	private JCheckBox fouls;
+	private JCheckBox score;
+	private JCheckBox shootings;
+	private JCheckBox shots;
+	private JCheckBox threePointShots;
+	private JCheckBox threePointShootings;
+	private JCheckBox  freeThrowShots;
+	private JCheckBox freeThrowShoots;
+	private JCheckBox numOfMatch;
+
 	SelectedInfoOfTeam selectedItem;
 	
 	private  ArrayList<String> selectedInfo;
@@ -63,6 +80,25 @@ public class AdditionOfTeamInfo extends InputDialog  {
 		builtTime = new JCheckBox("成立时间");
 		builtTime.setSelected(false);
 		
+		rebounds = new JCheckBox("篮板数");
+		assists = new JCheckBox("助攻数");
+		presenceTime = new JCheckBox("在场时间");
+		offences = new JCheckBox("防守数");
+		defences =new JCheckBox( "进攻数");
+		steals = new JCheckBox("抢断数");
+		blockShots = new JCheckBox("盖帽数");
+		turnOvers = new JCheckBox("失误数");
+		fouls =new JCheckBox( "犯规数");
+		score =new JCheckBox( "得分");
+		shootings = new JCheckBox("投篮命中数");
+		shots =new JCheckBox( "投篮数");
+		threePointShots =new JCheckBox( "三分球数");
+		threePointShootings =new JCheckBox( "三分球命中数");
+		 freeThrowShots = new JCheckBox("罚球数");
+		freeThrowShoots = new JCheckBox("罚球命中数");
+		numOfMatch =new JCheckBox( "比赛数");
+
+		
 		JPanel checkPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 //		checkPanel.add(fullName);
 //		checkPanel.add(abeerName);
@@ -71,6 +107,23 @@ public class AdditionOfTeamInfo extends InputDialog  {
 		checkPanel.add(division);
 		checkPanel.add(homeCourt);
 		checkPanel.add(builtTime);
+		checkPanel.add(rebounds);
+		checkPanel.add(assists);
+		checkPanel.add(presenceTime);
+		checkPanel.add(offences);
+		checkPanel.add(defences);
+		checkPanel.add(steals);
+		checkPanel.add(blockShots);
+		checkPanel.add(turnOvers);
+		checkPanel.add(fouls);
+		checkPanel.add(score);
+		checkPanel.add(shootings);
+		checkPanel.add(shots);
+		checkPanel.add(threePointShots);
+		checkPanel.add(threePointShootings);
+		checkPanel.add(freeThrowShots);
+		checkPanel.add(freeThrowShoots);
+		checkPanel.add(numOfMatch);
 		checkPanel.setSize(500, 500);
 		
 		 //numOfPlayer.addItemListener(this);
@@ -133,6 +186,40 @@ public class AdditionOfTeamInfo extends InputDialog  {
 				homeCourt.setSelected(true);
 			}if(alreadySelected.contains("成立时间")){
 				builtTime.setSelected(true);
+			}if(alreadySelected.contains("篮板数")){
+				rebounds.setSelected(true);
+			}if(alreadySelected.contains("助攻数")){
+				assists.setSelected(true);
+			}if(alreadySelected.contains("在场时间")){
+				presenceTime.setSelected(true);
+			}if(alreadySelected.contains("防守数")){
+				offences.setSelected(true);
+			}if(alreadySelected.contains("进攻数")){
+				defences.setSelected(true);
+			}if(alreadySelected.contains("抢断数")){
+				steals.setSelected(true);
+			}if(alreadySelected.contains("盖帽数")){
+				blockShots.setSelected(true);
+			}if(alreadySelected.contains("失误数")){
+				turnOvers.setSelected(true);
+			}if(alreadySelected.contains("犯规数")){
+				fouls.setSelected(true);
+			}if(alreadySelected.contains("得分")){
+				score.setSelected(true);
+			}if(alreadySelected.contains("投篮命中数")){
+				shootings.setSelected(true);
+			}if(alreadySelected.contains("投篮数")){
+				shots.setSelected(true);
+			}if(alreadySelected.contains("三分球数")){
+				threePointShots.setSelected(true);
+			}if(alreadySelected.contains("三分球命中数")){
+				threePointShootings.setSelected(true);
+			}if(alreadySelected.contains("罚球数")){
+				freeThrowShots.setSelected(true);
+			}if(alreadySelected.contains("罚球命中数")){
+				freeThrowShoots.setSelected(true);
+			}if(alreadySelected.contains("比赛数")){
+				numOfMatch.setSelected(true);
 			}
 	}
 
@@ -167,6 +254,74 @@ public class AdditionOfTeamInfo extends InputDialog  {
 	       }if(builtTime.isSelected() == true){
 	    	   
 	    	   selectedItem.selectBuiltTime();
+	  
+	       }if(rebounds.isSelected() == true){
+	    	   
+	    	   selectedItem.selectRebounds();
+	  
+	       }if(assists.isSelected() == true){
+	    	   
+	    	   selectedItem.selectAssists();
+	  
+	       }if(presenceTime.isSelected() == true){
+	    	   
+	    	   selectedItem.selectPresenceTime();
+	  
+	       }if(offences.isSelected() == true){
+	    	   
+	    	   selectedItem.selectOffences();
+	  
+	       }if(defences.isSelected() == true){
+	    	   
+	    	   selectedItem.selectDefences();
+	  
+	       }if(steals.isSelected() == true){
+	    	   
+	    	   selectedItem.selectSteals();
+	  
+	       }if(blockShots.isSelected() == true){
+	    	   
+	    	   selectedItem.selectBlockShots();
+	  
+	       }if(turnOvers.isSelected() == true){
+	    	   
+	    	   selectedItem.selectTurnOvers();
+	  
+	       }if(fouls.isSelected() == true){
+	    	   
+	    	   selectedItem.selectFouls();
+	  
+	       }if(score.isSelected() == true){
+	    	   
+	    	   selectedItem.selectScore();
+	  
+	       }if(shootings.isSelected() == true){
+	    	   
+	    	   selectedItem.selectShootings();
+	  
+	       }if(shots.isSelected() == true){
+	    	   
+	    	   selectedItem.selectShots();
+	  
+	       }if(threePointShots.isSelected() == true){
+	    	   
+	    	   selectedItem.selectThreePointShots();
+	  
+	       }if(threePointShootings.isSelected() == true){
+	    	   
+	    	   selectedItem.selectThreePointShootings();
+	  
+	       }if(freeThrowShots.isSelected() == true){
+	    	   
+	    	   selectedItem.selectFreeThrowShots();
+	  
+	       }if(freeThrowShoots.isSelected() == true){
+	    	   
+	    	   selectedItem.selectFreeThrowShoots();
+	  
+	       }if(numOfMatch.isSelected() == true){
+	    	   
+	    	   selectedItem.selectNumOfMatch();
 	  
 	       }
 	       
