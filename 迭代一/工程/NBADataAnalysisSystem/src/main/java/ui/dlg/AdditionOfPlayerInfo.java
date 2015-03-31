@@ -280,7 +280,7 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 				numOfRebound.setSelected(true);
 			}if(alreadySelected.contains("助攻数")){
 				numOfAssist.setSelected(true);
-			}if(alreadySelected.contains("在场时间")){
+			}if(alreadySelected.contains("在场时间（秒）")){
 				timeOfPresence.setSelected(true);
 			}if(alreadySelected.contains("进攻数")){
 				numOfOffense.setSelected(true);
