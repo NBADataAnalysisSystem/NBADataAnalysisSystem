@@ -2,6 +2,8 @@ package ui.playerui;
 
 import java.util.ArrayList;
 
+import javax.swing.JCheckBox;
+
 public class SelectedInfoOfPlayer {
 	
 	private static  ArrayList<String> selectedInfo;
@@ -23,6 +25,7 @@ public class SelectedInfoOfPlayer {
 	private String numOfAssist;
 	private String timeOfPresence;
 	private String numOfOffense;
+	private String numOfDffense;
 	private String numOfSteal;
 	private String numOfBlockShot;
 	private String numOfTurnOver;
@@ -57,7 +60,8 @@ public class SelectedInfoOfPlayer {
 		numOfRebound = "篮板数";
 		 numOfAssist = "助攻数";
 		 timeOfPresence = "在场时间";
-		 numOfOffense = "防守数";
+		 numOfOffense = "进攻数";
+		 numOfDffense = "防守数";
 		 numOfSteal = "抢断数"; 
 		 numOfBlockShot = "盖帽数";
 		 numOfTurnOver = "失误数";
@@ -192,6 +196,12 @@ public class SelectedInfoOfPlayer {
 		public void selectNumOfOffense(){
 	 		
 			selectedInfo.add(numOfOffense);
+			
+	 	}
+		
+		public void selectNumOfDffense(){
+	 		
+			selectedInfo.add(numOfDffense);
 			
 	 	}
 	 	

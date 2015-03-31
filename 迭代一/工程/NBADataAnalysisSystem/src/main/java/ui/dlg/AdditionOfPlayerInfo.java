@@ -34,6 +34,7 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 	private JCheckBox numOfAssist;
 	private JCheckBox timeOfPresence;
 	private JCheckBox numOfOffense;
+	private JCheckBox numOfDffense;
 	private JCheckBox numOfSteal;
 	private JCheckBox numOfBlockShot;
 	private JCheckBox numOfTurnOver;
@@ -110,8 +111,11 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 		timeOfPresence = new JCheckBox("在场时间");
 		timeOfPresence.setSelected(false);
 		
-		numOfOffense = new JCheckBox("防守数");
+		numOfOffense = new JCheckBox("进攻数");
 		numOfOffense.setSelected(false);
+		
+		numOfDffense = new JCheckBox("防守数");
+		numOfDffense.setSelected(false);
 		
 		numOfSteal = new JCheckBox("抢断数");
 		numOfSteal.setSelected(false);
@@ -151,6 +155,7 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 		checkPanel.add(numOfAssist);
 		checkPanel.add(timeOfPresence);
 		checkPanel.add(numOfOffense);
+		checkPanel.add(numOfDffense);
 		checkPanel.add(numOfSteal);
 		checkPanel.add(numOfBlockShot);
 		checkPanel.add(numOfTurnOver);
@@ -201,6 +206,7 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 		infoOfSort.addItem("助攻数");
 		infoOfSort.addItem("在场时间");
 		infoOfSort.addItem("防守数");
+		infoOfSort.addItem("进攻数");
 		infoOfSort.addItem("抢断数");
 		infoOfSort.addItem("盖帽数");
 		infoOfSort.addItem("失误数");
@@ -276,8 +282,10 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 				numOfAssist.setSelected(true);
 			}if(alreadySelected.contains("在场时间")){
 				timeOfPresence.setSelected(true);
-			}if(alreadySelected.contains("防守数")){
+			}if(alreadySelected.contains("进攻数")){
 				numOfOffense.setSelected(true);
+			}if(alreadySelected.contains("防守数")){
+				numOfDffense.setSelected(true);
 			}if(alreadySelected.contains("抢断数")){
 				numOfSteal.setSelected(true);
 			}if(alreadySelected.contains("盖帽数")){
@@ -366,6 +374,10 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 	       }if(numOfOffense.isSelected() == true){
 	    	   
 	    	   selectedItem.selectNumOfOffense();
+	  
+	       }if(numOfDffense.isSelected() == true){
+	    	   
+	    	   selectedItem.selectNumOfDffense();
 	  
 	       }if(numOfSteal.isSelected() == true){
 	    	   
