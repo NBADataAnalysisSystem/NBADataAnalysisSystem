@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import entity.SortType;
 import entity.player.PlayerInfo;
 
 public class PlayerDaoJdbcImp implements PlayerDao {
@@ -19,7 +20,7 @@ public class PlayerDaoJdbcImp implements PlayerDao {
     	connection = DriverManager.getConnection("jdbc:sqlite:NBADatabase.db");    
     }
     
-	public ArrayList<Map<PlayerInfo, String>> getPlayer(ArrayList<PlayerInfo> columnList)
+	public ArrayList<Map<PlayerInfo, String>> getPlayer(ArrayList<PlayerInfo> columnList, SortType sortType, PlayerInfo sortBy)
 			throws Exception {
 		String columnsToSearch = "";
 		PlayerTranslation translation = new PlayerTranslation();
@@ -31,7 +32,16 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 		}
 		columnsToSearch = columnsToSearch.substring(0, columnsToSearch.length()-1);
 		Statement statement = connection.createStatement();
-		ResultSet resultSet = statement.executeQuery("SELECT " + columnsToSearch + " FROM players");
+		ResultSet resultSet;
+		if (sortType.equals(SortType.SORT)) {
+			String temp = translation.translation(sortBy);
+			resultSet = statement.executeQuery("SELECT " + columnsToSearch + " FROM players ORDER BY " + temp + " ASC");
+		} else if (sortType.equals(SortType.REVERSE_SORT)) {
+			String temp = translation.translation(sortBy);
+			resultSet = statement.executeQuery("SELECT " + columnsToSearch + " FROM players ORDER BY " + temp + " DESC");
+		} else {
+			resultSet = statement.executeQuery("SELECT " + columnsToSearch + " FROM players");
+		}
 		ArrayList<Map<PlayerInfo, String>> result = new ArrayList<Map<PlayerInfo, String>>();
 		while (resultSet.next()) {
 			Map<PlayerInfo, String> map = new HashMap<PlayerInfo, String>();

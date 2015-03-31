@@ -13,8 +13,12 @@ public class GetPlayerHandler implements RequestHandler {
 		Response response;
 		GetPlayerService getPlayerService = new GetPlayerServiceImp();
 		try {
+			 GetPlayerRequest getPlayerRequest = (GetPlayerRequest) request;
 			response = new GetPlayerResponse(
-					getPlayerService.getPlayer(((GetPlayerRequest) request).getColumnList()));
+					getPlayerService.getPlayer(
+							getPlayerRequest.getColumnList(),
+							getPlayerRequest.getSortType(), 
+							getPlayerRequest.getSortBy()));
 		} catch (Exception e) {
 			response = new ErrorResponse(request, e);
 		}

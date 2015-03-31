@@ -40,7 +40,7 @@ import entity.team.TeamInfo;
 import ui.dlg.AdditionOfTeamInfo;
 import ui.teamui.TeamTableTranslation;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "restriction" })
 public class TeamFrame extends JFrame implements ActionListener{
 	
 	JPanel teamPanel;
@@ -55,7 +55,7 @@ public class TeamFrame extends JFrame implements ActionListener{
 	private static Point origin = new Point();
 	
 	
-	@SuppressWarnings({ "static-access", "unused" })
+	@SuppressWarnings({ "static-access" })
 	public TeamFrame(){
 		super();
 

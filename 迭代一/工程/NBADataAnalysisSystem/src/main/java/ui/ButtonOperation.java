@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 
 import com.sun.awt.AWTUtilities;
 
+@SuppressWarnings("restriction")
 public class ButtonOperation extends JButton{
 	
 	  private static final long serialVersionUID = 1L;

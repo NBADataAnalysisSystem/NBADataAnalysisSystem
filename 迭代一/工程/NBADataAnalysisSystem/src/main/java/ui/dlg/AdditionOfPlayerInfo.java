@@ -16,7 +16,7 @@ import com.sun.awt.AWTUtilities;
 import ui.playerui.PlayerFrame;
 import ui.playerui.SelectedInfoOfPlayer;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "restriction" })
 public class AdditionOfPlayerInfo extends InputDialog  {
 	
 	private JCheckBox numOfPlayer;
@@ -459,6 +459,7 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 //		selectedInfo = tempList;
 		frame.setList(selectedInfo);
 		frame.setString();
+		frame.setSort(sortTrans);
 		frame.changeTableColumns();
 		AWTUtilities.setWindowOpacity(frame, 1f);
 		frame.refreshData();

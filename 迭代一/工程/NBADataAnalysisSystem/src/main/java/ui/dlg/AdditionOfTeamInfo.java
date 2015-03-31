@@ -14,7 +14,7 @@ import com.sun.awt.AWTUtilities;
 import ui.teamui.SelectedInfoOfTeam;
 import ui.teamui.TeamFrame;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "restriction" })
 public class AdditionOfTeamInfo extends InputDialog  {
 	
 //	private JCheckBox fullName;

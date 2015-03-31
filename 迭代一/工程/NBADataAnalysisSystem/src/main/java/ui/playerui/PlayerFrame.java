@@ -36,11 +36,12 @@ import com.sun.awt.AWTUtilities;
 import controller.playercontroller.GetPlayerRequest;
 import controller.playercontroller.GetPlayerResponse;
 import controller.playercontroller.PlayerController;
+import entity.SortType;
 import entity.player.PlayerInfo;
 import ui.dlg.AdditionOfPlayerInfo;
 import ui.dlg.SiftingOfPlayer;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "restriction" })
 public class PlayerFrame extends JFrame implements ActionListener{
 	
 	JPanel playerPanel;
@@ -49,6 +50,8 @@ public class PlayerFrame extends JFrame implements ActionListener{
 	static JTable table;
 	JPanel 	tablePanel;
 	static ArrayList<String> listToShow;
+	static SortType sortType;
+	static PlayerInfo sortBy;
 	static ArrayList<String> data;
 	int tableWidth;
 	int tableHeight;
@@ -235,6 +238,8 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		listToShow = new ArrayList<String>();
 		listToShow.add("ID");
 		listToShow.add("名字");
+		sortType = SortType.SORT;
+		sortBy = PlayerInfo.PLAYER_ID;
 		data = new ArrayList<String>();
 
 		refreshData();
@@ -331,6 +336,15 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		return listToShow;
 		
 	}
+	public void setSort(String string) {
+		if (string.split(";")[0].equals("升序")) {
+			sortType = SortType.SORT;
+		} else {
+			sortType = SortType.REVERSE_SORT;
+		}
+		PlayerTableTranslation playerTableTranslation = new PlayerTableTranslation();
+		sortBy = playerTableTranslation.translation(string.split(";")[1]);
+	}
 	//设置LIST的值
 	public void setList(ArrayList<String> list){
 			listToShow.removeAll(listToShow);
@@ -370,7 +384,7 @@ public class PlayerFrame extends JFrame implements ActionListener{
 			columnList.add(playerTableTranslation.translation(string));
 		}
 		GetPlayerResponse response = (GetPlayerResponse) controller.processRequest(
-				new GetPlayerRequest(columnList));
+				new GetPlayerRequest(columnList, sortType, sortBy));
 		ArrayList<Map<PlayerInfo, String>> tempList = response.getList();
 		for (Map<PlayerInfo, String> map:tempList) {
 			String tempString = "";

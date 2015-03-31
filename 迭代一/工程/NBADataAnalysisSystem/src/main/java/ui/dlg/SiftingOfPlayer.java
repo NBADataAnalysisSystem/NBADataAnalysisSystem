@@ -16,7 +16,7 @@ import ui.playerui.SiftingOfOth;
 import ui.playerui.SiftingOfPosition;
 import ui.playerui.SiftingOfUnion;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "restriction" })
 public class SiftingOfPlayer extends InputDialog{
 	
 	JCheckBox forward = new JCheckBox("Ç°·æ");
