@@ -415,6 +415,7 @@ public class AdditionOfTeamInfo extends InputDialog  {
 //		selectedInfo = tempList;
 		frame.setList(selectedInfo);
 		frame.setString();
+		frame.setSort(sortTrans);
 		frame.refreshData();
 		frame.changeTableColumns();
 		AWTUtilities.setWindowOpacity(frame, 1f);
