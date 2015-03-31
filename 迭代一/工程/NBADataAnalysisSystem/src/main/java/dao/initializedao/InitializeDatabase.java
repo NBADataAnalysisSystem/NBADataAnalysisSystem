@@ -66,7 +66,9 @@ public class InitializeDatabase {
 				+ "insert into players values("
 				+ "?,?,?,?,?,?,?,?,?,?,"
 				+ "?,?,?,?,?,?,?,?,?,?,"
-				+ "?,?,?,?,?,?,?,?,?)");
+				+ "?,?,?,?,?,?,?,?,?,?,"
+				+ "?,?,?,?,?,?,?,?,?,?,"
+				+ "?)");
 		File[] fileList = new File(path).listFiles();	
 		String[] strList = new String[9];
 		for(File file : fileList){
@@ -88,7 +90,10 @@ public class InitializeDatabase {
 				+ "insert into teams values("
 				+ "?,?,?,?,?,?,?,?,?,?,"
 				+ "?,?,?,?,?,?,?,?,?,?,"
-				+ "?,?,?,?,?)");
+				+ "?,?,?,?,?,?,?,?,?,?,"
+				+ "?,?,?,?,?,?,?,?,?,?,"
+				+ "?,?,?,?,?,?,?,?,?,?,"
+				+ "?,?)");
 		Pattern pattern = Pattern.compile("║([\\w\\t\\(\\)\\& │]*)║");
 		
 		File file = new File(path);
@@ -426,6 +431,8 @@ public class InitializeDatabase {
 			prep.setString(10,resultTemp.get(i)[18]);
 			prep.setString(11,resultTemp.get(i)[19]);
 			prep.setString(12,resultTemp.get(i)[20]);
+			resultTemp.get(i)[2] = (Integer.parseInt(resultTemp.get(i)[2].split(":")[0])*60 + 
+					Integer.parseInt(resultTemp.get(i)[2].split(":")[1])) + "";
 			prep.setString(13,resultTemp.get(i)[2]);
 			prep.setString(14,resultTemp.get(i)[3]);
 			prep.setString(15,resultTemp.get(i)[4]);
@@ -439,6 +446,8 @@ public class InitializeDatabase {
 		
 		for(int i = 0 ;i < resultTeam.size(); i++ ){
 			prepTeam.setString(1,resultTeam.get(i)[1]);
+			resultTeam.get(i)[2] = (Integer.parseInt(resultTeam.get(i)[2].split(":")[0])*60 + 
+					Integer.parseInt(resultTeam.get(i)[2].split(":")[1]))+"";
 			prepTeam.setString(2,resultTeam.get(i)[2]);
 			prepTeam.setString(3,resultTeam.get(i)[3]);
 			prepTeam.setString(4,resultTeam.get(i)[4]);
@@ -488,7 +497,7 @@ public class InitializeDatabase {
 					if((Integer.parseInt(score[i])>(Integer.parseInt(score[1-i])))){
 						originalRecord[1] = (Integer.parseInt(originalRecord[1])+1) + "";
 					}
-					originalRecord[2] = "0:0";
+					originalRecord[2] = "0";
 					for(int j = 3 ;j < 17 ;j++){
 						originalRecord[j] = "0";
 					}
@@ -527,14 +536,11 @@ public class InitializeDatabase {
 							(oneRecord[2].equals("null"))){
 						//do nothing
 					}else{
-						String[] presenceTime =new String[2];
-						presenceTime[0] = (Integer.parseInt(rivalTeamInformation.get(teamIndex[1-index])[2].split(":")[0]) + 
-								Integer.parseInt(oneRecord[2].split(":")[0]) + 
-								((Integer.parseInt(rivalTeamInformation.get(teamIndex[1-index])[2].split(":")[1]) + 
-								Integer.parseInt(oneRecord[2].split(":")[1]))/60)) + "";
-						presenceTime[1] = (Integer.parseInt(rivalTeamInformation.get(teamIndex[1-index])[2].split(":")[1]) + 
-								Integer.parseInt(oneRecord[2].split(":")[1]))%60 +"";
-						rivalTeamInformation.get(teamIndex[1-index])[2] = presenceTime[0] + ":" + presenceTime[1];
+						
+						rivalTeamInformation.get(teamIndex[1-index])[2] = 
+								(Integer.parseInt(rivalTeamInformation.get(teamIndex[1-index])[2])+
+								Integer.parseInt(oneRecord[2].split(":")[0])*60 + 
+								Integer.parseInt(oneRecord[2].split(":")[1])) + "";
 					}
 					for(int i = 3 ;i < 17 ;i ++){
 						if(oneRecord[i].equals("None") || 
@@ -552,6 +558,26 @@ public class InitializeDatabase {
 			br.close();
 		}//所有文件读取完毕
 		
+		connectToDatabase();//测试使用。。。。。。。。。。
+		PreparedStatement prep = connection.prepareStatement("update teams set "
+				+ "num_of_win = ?,rival_presence_time =?,rival_shootings = ?,"
+				+ "rival_shots = ?,rival_three_point_shootings = ?,rival_three_point_shots = ?,"
+				+ "rival_free_throw_shootings = ?,rival_free_throw_shots = ?,rival_offences = ?,"
+				+ "rival_defences = ?, rival_rebounds = ?,rival_assists =?,rival_steals =?,"
+				+ "rival_block_shots = ?,rival_turn_overs = ?,rival_fouls = ?,rival_score =? "
+				+ "where abbreviation = ?");
+		
+		for(int i = 0 ;i < rivalTeamInformation.size();i ++){
+			for(int j = 1;j < 18;j ++){
+				prep.setString(j,rivalTeamInformation.get(i)[j]);
+			}
+			prep.setString(18,rivalTeamInformation.get(i)[0]);
+			prep.addBatch();
+		}
+		
+		connection.setAutoCommit(false);
+		prep.executeBatch();
+		connection.setAutoCommit(true);
 
 	}
 
