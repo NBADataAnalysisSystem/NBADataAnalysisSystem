@@ -29,12 +29,19 @@ public class PlayerTableTranslation {
 		map.put("篮板数", PlayerInfo.NUM_OF_REBOUND);
 		map.put("助攻数", PlayerInfo.NUM_OF_ASSIST);
 		map.put("在场时间", PlayerInfo.TIME_OF_PRESENCE);
+		map.put("进攻数", PlayerInfo.NUM_OF_OFFENSE);
 		map.put("防守数", PlayerInfo.NUM_OF_DEFENSE);
 		map.put("抢断数", PlayerInfo.NUM_OF_STEAL);
 		map.put("盖帽数", PlayerInfo.NUM_OF_BLOCK_SHOT);
 		map.put("失误数", PlayerInfo.NUM_OF_FOUL);
 		map.put("犯规数", PlayerInfo.NUM_OF_TURN_OVER);
 		map.put("得分", PlayerInfo.SCORING);
+		map.put("投篮命中数", PlayerInfo.NUM_OF_SHOOTING);
+		map.put("投篮数", PlayerInfo.NUM_OF_SHOT);
+		map.put("三分球命中数", PlayerInfo.NUM_OF_THREE_POINT_SHOOTING);
+		map.put("三分球总数", PlayerInfo.NUM_OF_THREE_POINT_SHOT);
+		map.put("罚球命中数", PlayerInfo.NUM_OF_FREE_THROW_SHOOTING);
+		map.put("罚球总数", PlayerInfo.NUM_OF_FREE_THROW_SHOT);
 	}
 	
 	public PlayerInfo translation(String string) {

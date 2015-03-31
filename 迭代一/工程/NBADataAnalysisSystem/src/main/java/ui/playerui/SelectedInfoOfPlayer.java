@@ -2,8 +2,6 @@ package ui.playerui;
 
 import java.util.ArrayList;
 
-import javax.swing.JCheckBox;
-
 public class SelectedInfoOfPlayer {
 	
 	private static  ArrayList<String> selectedInfo;
