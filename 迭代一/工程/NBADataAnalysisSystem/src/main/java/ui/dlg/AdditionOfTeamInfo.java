@@ -89,7 +89,7 @@ public class AdditionOfTeamInfo extends InputDialog  {
 		
 		rebounds = new JCheckBox("篮板数");
 		assists = new JCheckBox("助攻数");
-		presenceTime = new JCheckBox("在场时间");
+		presenceTime = new JCheckBox("在场时间（秒）");
 		offences = new JCheckBox("防守数");
 		defences =new JCheckBox( "进攻数");
 		steals = new JCheckBox("抢断数");

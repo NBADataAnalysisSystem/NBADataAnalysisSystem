@@ -204,7 +204,7 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 		infoOfSort.addItem("先发场数");
 		infoOfSort.addItem("篮板数");
 		infoOfSort.addItem("助攻数");
-		infoOfSort.addItem("在场时间");
+		infoOfSort.addItem("在场时间（秒）");
 		infoOfSort.addItem("防守数");
 		infoOfSort.addItem("进攻数");
 		infoOfSort.addItem("抢断数");
