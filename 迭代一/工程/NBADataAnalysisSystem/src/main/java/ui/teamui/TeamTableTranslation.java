@@ -23,7 +23,7 @@ public class TeamTableTranslation {
 		map.put("赛区", TeamInfo.ZONE);
 		map.put("篮板数", TeamInfo.REBOUNDS);
 		map.put("助攻数", TeamInfo.ASSISTS);
-		map.put("在场时间", TeamInfo.PRESENCE_TIME);
+		map.put("在场时间（秒）", TeamInfo.PRESENCE_TIME);
 		map.put("防守数", TeamInfo.DEFENCES);
 		map.put("进攻数", TeamInfo.OFFENCES);
 		map.put("抢断数", TeamInfo.STEALS);

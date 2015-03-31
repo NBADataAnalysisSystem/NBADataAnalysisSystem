@@ -28,7 +28,7 @@ public class PlayerTableTranslation {
 		map.put("先发场数", PlayerInfo.NUM_OF_STARTING_FIELD);
 		map.put("篮板数", PlayerInfo.NUM_OF_REBOUND);
 		map.put("助攻数", PlayerInfo.NUM_OF_ASSIST);
-		map.put("在场时间", PlayerInfo.TIME_OF_PRESENCE);
+		map.put("在场时间（秒）", PlayerInfo.TIME_OF_PRESENCE);
 		map.put("进攻数", PlayerInfo.NUM_OF_OFFENSE);
 		map.put("防守数", PlayerInfo.NUM_OF_DEFENSE);
 		map.put("抢断数", PlayerInfo.NUM_OF_STEAL);

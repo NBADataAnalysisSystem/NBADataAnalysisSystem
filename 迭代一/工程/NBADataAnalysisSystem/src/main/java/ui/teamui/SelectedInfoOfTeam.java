@@ -45,7 +45,7 @@ public class SelectedInfoOfTeam {
 		 builtTime = "成立时间";
 		rebounds = "篮板数";
 		assists = "助攻数";
-		presenceTime = "在场时间";
+		presenceTime = "在场时间（秒）";
 		offences = "防守数";
 		defences = "进攻数";
 		steals = "抢断数";

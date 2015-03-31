@@ -57,7 +57,7 @@ public class SelectedInfoOfPlayer {
 		 numOfStartingField = "先发场数";
 		numOfRebound = "篮板数";
 		 numOfAssist = "助攻数";
-		 timeOfPresence = "在场时间";
+		 timeOfPresence = "在场时间（秒）";
 		 numOfOffense = "进攻数";
 		 numOfDffense = "防守数";
 		 numOfSteal = "抢断数"; 
