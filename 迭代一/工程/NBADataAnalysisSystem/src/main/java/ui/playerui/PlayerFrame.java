@@ -25,6 +25,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -133,12 +134,17 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		viewSize.width = table.getColumnModel().getTotalColumnWidth();;
 		viewSize.height = 10*table.getRowHeight();
 		table.setPreferredScrollableViewportSize(viewSize);
+		
+		//table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		for(int i = 0;i<table.getColumnCount();i++){//TODO
+		table.getColumn(table.getColumnName(i)).setMinWidth(200);}
 		//将JScrollPane设置为透明
 		sp.getViewport().setOpaque(false);  //jScrollPanel 为table存放的容器，一般在Swing创    //  建表格时，它自动生成，原代码为：jScrollPane1 = new javax.swing.JScrollPane();
 		sp.setOpaque(false);     //将中间的viewport设置为透明
 		sp.setViewportView(table); //装载表格 
 		sp.setColumnHeaderView(table.getTableHeader());//设置头部（HeaderView部分）  
 	    sp.getColumnHeader().setOpaque(false);//再取出头部，并设置为透明 
+	    sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		//playerPanel.add(new JScrollPane(table), BorderLayout.CENTER);
 		//TODO 用于存放表格的Frame ，无法存放在原Frame中。窗口为绝对位置。
 		table.setEnabled(false);
@@ -151,6 +157,8 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		tableHeader.setPreferredSize(new Dimension(30, 26));   
 		tableHeader.setOpaque(false);//设置头部为透明  
 		tableHeader.getTable().setOpaque(false);//设置头部里面的表格透明  
+		
+//		sp.setViewportView(tableHeader); //装载表头
 		render = new DefaultTableCellRenderer();
 		render.setOpaque(false); //将渲染器设置为透明  
 		/* 
@@ -161,10 +169,11 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		TableCellRenderer headerRenderer = tableHeader.getDefaultRenderer();   
 		if (headerRenderer instanceof JLabel)   
 		{  
-			((JLabel) headerRenderer).setHorizontalAlignment(JLabel.CENTER);   
+			//((JLabel) headerRenderer).setHorizontalAlignment(JLabel.CENTER);   
 			((JLabel) headerRenderer).setOpaque(false);   
 		}  
 		//table.setGridColor(Color.decode("#fa1428"));
+		table.setTableHeader(tableHeader);
 		tablePanel.setLayout(new BorderLayout());
 		tablePanel.add(sp, BorderLayout.CENTER);
 		tablePanel.setOpaque(false);
@@ -424,6 +433,8 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		viewSize.width = table.getColumnModel().getTotalColumnWidth();;
 		viewSize.height = 10*table.getRowHeight();
 		table.setPreferredScrollableViewportSize(viewSize);
+		if (table.getColumnCount()>=5){
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);}
 		//将JScrollPane设置为透明
 		sp.getViewport().setOpaque(false);  //jScrollPanel 为table存放的容器，一般在Swing创    //  建表格时，它自动生成，原代码为：jScrollPane1 = new javax.swing.JScrollPane();
 		sp.setOpaque(false);     //将中间的viewport设置为透明
@@ -432,6 +443,9 @@ public class PlayerFrame extends JFrame implements ActionListener{
 	    sp.getColumnHeader().setOpaque(false);//再取出头部，并设置为透明 
 		//playerPanel.add(new JScrollPane(table), BorderLayout.CENTER);
 		//TODO 用于存放表格的Frame ，无法存放在原Frame中。窗口为绝对位置。
+	    for(int i = 0;i<table.getColumnCount();i++){//TODO
+	    	table.getColumn(table.getColumnName(i)).setMinWidth(200);}
+	    sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		table.setEnabled(false);
 		table.setForeground(Color.decode("#7CFC00"));
 		table.setRowHeight(25);//设置表格每行大小
@@ -439,20 +453,22 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		JTableHeader tableHeader ;
 		tableHeader = table.getTableHeader();
 //		tableHeader.setForeground(Color.decode("#f0949c"));
-		tableHeader.setPreferredSize(new Dimension(30, 26));   
+//		tableHeader.setPreferredSize(new Dimension(30, 26));   
 		tableHeader.setOpaque(false);//设置头部为透明  
-		tableHeader.getTable().setOpaque(false);//设置头部里面的表格透明  
+		tableHeader.getTable().setOpaque(false);//设置头部里面的表格透明
+	//	sp.setViewportView(tableHeader); //装载表头
 		render = new DefaultTableCellRenderer();
 		render.setOpaque(false); //将渲染器设置为透明  
 		/* 
 		 * 头部的表格也像前面的表格设置一样，还需要将里面的单元项设置为透明 
 		 * 因此同样需要对头部单元项进行透明度设置，这里还是用渲染器。 
 		 */  
+//		((DefaultTableCellRenderer) tableHeader.getDefaultRenderer()).setOpaque(false);
 		tableHeader.setDefaultRenderer(render);  
 		TableCellRenderer headerRenderer = tableHeader.getDefaultRenderer();   
 		if (headerRenderer instanceof JLabel)   
 		{  
-			((JLabel) headerRenderer).setHorizontalAlignment(JLabel.CENTER);   
+			//((JLabel) headerRenderer).setHorizontalAlignment(JLabel.CENTER);   
 			((JLabel) headerRenderer).setOpaque(false);   
 		}  
 		tablePanel.add(sp, BorderLayout.CENTER);

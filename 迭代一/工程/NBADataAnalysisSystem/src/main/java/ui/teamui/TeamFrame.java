@@ -25,6 +25,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -384,6 +385,11 @@ public class TeamFrame extends JFrame implements ActionListener{
 		viewSize.height = 10*table.getRowHeight();
 		table.setPreferredScrollableViewportSize(viewSize);
 		//将JScrollPane设置为透明
+		if (table.getColumnCount()>=7){
+			table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);}
+		 for(int i = 0;i<table.getColumnCount();i++){//TODO
+		    	table.getColumn(table.getColumnName(i)).setMinWidth(150);}
+		    sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		sp.getViewport().setOpaque(false);  //jScrollPanel 为table存放的容器，一般在Swing创    //  建表格时，它自动生成，原代码为：jScrollPane1 = new javax.swing.JScrollPane();
 		sp.setOpaque(false);     //将中间的viewport设置为透明
 		sp.setViewportView(table); //装载表格 
@@ -399,7 +405,7 @@ public class TeamFrame extends JFrame implements ActionListener{
 		JTableHeader tableHeader ;
 		tableHeader = table.getTableHeader();
 //		tableHeader.setForeground(Color.decode("#f0949c"));
-		tableHeader.setPreferredSize(new Dimension(30, 26));   
+		//tableHeader.setPreferredSize(new Dimension(30, 26));   
 		tableHeader.setOpaque(false);//设置头部为透明  
 		tableHeader.getTable().setOpaque(false);//设置头部里面的表格透明  
 		render = new DefaultTableCellRenderer();
