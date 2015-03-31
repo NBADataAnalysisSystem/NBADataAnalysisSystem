@@ -6,7 +6,9 @@ import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.sun.awt.AWTUtilities;
@@ -41,6 +43,11 @@ public class AdditionOfTeamInfo extends InputDialog  {
 	private JCheckBox  freeThrowShots;
 	private JCheckBox freeThrowShoots;
 	private JCheckBox numOfMatch;
+	
+	JComboBox<String> sort = new JComboBox<String>();
+	JComboBox<String> infoOfSort = new JComboBox<String>();
+	JLabel sortLabel = new JLabel("升/降序依据");
+	String sortTrans = new String();
 
 	SelectedInfoOfTeam selectedItem;
 	
@@ -146,14 +153,51 @@ public class AdditionOfTeamInfo extends InputDialog  {
 //		 numOfTurnOver.addItemListener(this);
 //		 numOfFoul.addItemListener(this);
 //		 scorling.addItemListener(this);
+		sort.addItem("升序");
+		sort.addItem("降序");
+		sort.addItem("字母序");
+
+		infoOfSort.addItem("ID");
+		infoOfSort.addItem("全称");
+		infoOfSort.addItem("简称");
+		infoOfSort.addItem("位置");	
+		infoOfSort.addItem("赛区");
+		infoOfSort.addItem("联盟");	
+		infoOfSort.addItem("主场");	
+		infoOfSort.addItem("成立时间");
+		infoOfSort.addItem("篮板数");
+		infoOfSort.addItem("助攻数");
+		infoOfSort.addItem("在场时间");
+		infoOfSort.addItem("防守数");
+		infoOfSort.addItem("进攻数");
+		infoOfSort.addItem("抢断数");
+		infoOfSort.addItem("盖帽数");
+		infoOfSort.addItem("失误数");
+		infoOfSort.addItem("犯规数");
+		infoOfSort.addItem("得分");
+		infoOfSort.addItem("投篮命中数");
+		infoOfSort.addItem("投篮数");
+		infoOfSort.addItem( "三分球命中数");
+		infoOfSort.addItem( "三分球总数");
+		infoOfSort.addItem("罚球命中数");
+		infoOfSort.addItem("罚球总数");
+		infoOfSort.addItem("比赛数");
 		
 		checkPanel.setBorder(BorderFactory.createEtchedBorder());
 		this.add(checkPanel);
 		checkPanel.setVisible(true);
 		this.setAlwaysOnTop(true);
 		
+		JPanel sortPanel = new JPanel();
+		sortPanel.setBorder(BorderFactory.createEtchedBorder());
+		sortPanel.add(sortLabel);
+		sortPanel.add(sort);
+		sortPanel.add(infoOfSort);
+		sortPanel.setSize(500, 20);
+		
 		JPanel bp = new JPanel();
 		bp.setBorder(BorderFactory.createEtchedBorder());
+		bp.add(sortPanel,BorderLayout.NORTH);
 		bp.add(btn_apply);
 		bp.add(btn_cancel);
 		this.add(bp, BorderLayout.SOUTH);
@@ -336,6 +380,18 @@ public class AdditionOfTeamInfo extends InputDialog  {
 		
 	}
 	
+	public void setSort(){
+		
+		sortTrans = sort.getSelectedItem().toString() + ";" + infoOfSort.getSelectedItem().toString();
+		
+	}
+	
+	public String getSort(){
+		
+		return sortTrans;
+		
+	}
+	
 	public ArrayList<String> getList(){
 		
 		return selectedInfo;
@@ -344,6 +400,7 @@ public class AdditionOfTeamInfo extends InputDialog  {
 	
 	public void apply(){
 		
+		this.setSort();
 		checkBoxSelected();
 //		ArrayList<String> tempList = new ArrayList<>(); 
 //		tempList = frame.getList();
