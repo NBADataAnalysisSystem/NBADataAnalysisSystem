@@ -36,6 +36,7 @@ import com.sun.awt.AWTUtilities;
 import controller.teamcontroller.GetTeamRequest;
 import controller.teamcontroller.GetTeamResponse;
 import controller.teamcontroller.TeamController;
+import entity.SortType;
 import entity.TeamInfo;
 import ui.dlg.AdditionOfTeamInfo;
 import ui.teamui.TeamTableTranslation;
@@ -49,6 +50,8 @@ public class TeamFrame extends JFrame implements ActionListener{
 	static JTable table;
 	JPanel 	tablePanel;
 	static ArrayList<String> listToShow;
+	static SortType sortType;
+	static TeamInfo sortBy;
 	int tableWidth;
 	int tableHeight;
 	static ArrayList<String> data;
@@ -219,7 +222,8 @@ public class TeamFrame extends JFrame implements ActionListener{
 		listToShow.add("ID");
 		listToShow.add("全称");
 		listToShow.add("简称");
-		
+		sortType = SortType.SORT;
+		sortBy = TeamInfo.TEAM_ID;
 		data = new ArrayList<String>();
 		revalidate();
 		repaint();
@@ -300,6 +304,15 @@ public class TeamFrame extends JFrame implements ActionListener{
 		return listToShow;
 		
 	}
+	public void setSort(String string) {
+		if (string.split(";")[0].equals("升序")) {
+			sortType = SortType.SORT;
+		} else {
+			sortType = SortType.REVERSE_SORT;
+		}
+		TeamTableTranslation teamTableTranslation = new TeamTableTranslation();
+		sortBy = teamTableTranslation.translation(string.split(";")[1]);
+	}
 	//设置LIST的值
 	public void setList(ArrayList<String> list){
 			listToShow.removeAll(listToShow);
@@ -340,7 +353,7 @@ public class TeamFrame extends JFrame implements ActionListener{
 			columnList.add(teamTableTranslation.translation(string));
 		}
 		GetTeamResponse response = (GetTeamResponse) controller.processRequest(
-				new GetTeamRequest(columnList));
+				new GetTeamRequest(columnList, sortType, sortBy));
 		ArrayList<Map<TeamInfo, String>> tempList = response.getList();
 		for (Map<TeamInfo, String> map:tempList) {
 			String tempString = "";

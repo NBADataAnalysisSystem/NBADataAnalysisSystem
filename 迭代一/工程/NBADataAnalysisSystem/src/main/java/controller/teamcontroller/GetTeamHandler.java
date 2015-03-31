@@ -13,8 +13,12 @@ public class GetTeamHandler implements RequestHandler {
 		Response response;
 		GetTeamService getTeamService = new GetTeamServiceImp();
 		try {
+			GetTeamRequest getTeamRequest = (GetTeamRequest) request;
 			response = new GetTeamResponse(
-					getTeamService.getTeam(((GetTeamRequest) request).getColumnList()));
+					getTeamService.getTeam(
+							getTeamRequest.getColumnList(), 
+							getTeamRequest.getSortType(),
+							getTeamRequest.getSortBy()));
 		} catch (Exception e) {
 			response = new ErrorResponse(request, e);
 		}

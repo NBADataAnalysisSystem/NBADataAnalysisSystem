@@ -13,7 +13,7 @@ public class GetPlayerHandler implements RequestHandler {
 		Response response;
 		GetPlayerService getPlayerService = new GetPlayerServiceImp();
 		try {
-			 GetPlayerRequest getPlayerRequest = (GetPlayerRequest) request;
+			GetPlayerRequest getPlayerRequest = (GetPlayerRequest) request;
 			response = new GetPlayerResponse(
 					getPlayerService.getPlayer(
 							getPlayerRequest.getColumnList(),
