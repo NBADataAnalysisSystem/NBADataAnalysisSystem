@@ -21,6 +21,23 @@ public class TeamTableTranslation {
 		map.put("位置", TeamInfo.LOCATION);
 		map.put("ID", TeamInfo.TEAM_ID);
 		map.put("赛区", TeamInfo.ZONE);
+		map.put("篮板数", TeamInfo.REBOUNDS);
+		map.put("助攻数", TeamInfo.ASSISTS);
+		map.put("在场时间", TeamInfo.PRESENCE_TIME);
+		map.put("防守数", TeamInfo.DEFENCES);
+		map.put("进攻数", TeamInfo.OFFENCES);
+		map.put("抢断数", TeamInfo.STEALS);
+		map.put("盖帽数", TeamInfo.BLOCK_SHOTS);
+		map.put("失误数", TeamInfo.TURN_OVERS);
+		map.put("犯规数", TeamInfo.FOULS);
+		map.put("得分", TeamInfo.SCORE);
+		map.put("投篮命中数", TeamInfo.SHOOTINGS);
+		map.put("投篮数", TeamInfo.SHOTS);
+		map.put("三分球数", TeamInfo.THREE_POINT_SHOTS);
+		map.put("三分球命中数", TeamInfo.THREE_POINT_SHOOTINGS);
+		map.put("罚球命中数", TeamInfo.FREE_THROW_SHOOTINGS);
+		map.put("罚球数", TeamInfo.FREE_THROW_SHOTS);
+		map.put("比赛数", TeamInfo.NUM_OF_MATCH);
 	}
 	
 	public TeamInfo translation(String string) {

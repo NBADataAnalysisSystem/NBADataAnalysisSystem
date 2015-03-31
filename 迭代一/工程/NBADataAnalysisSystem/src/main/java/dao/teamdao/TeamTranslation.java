@@ -21,6 +21,23 @@ public class TeamTranslation {
 		map.put(TeamInfo.LOCATION, "location");
 		map.put(TeamInfo.TEAM_ID, "id");
 		map.put(TeamInfo.ZONE, "section");
+		map.put(TeamInfo.REBOUNDS, "rebounds");
+		map.put(TeamInfo.ASSISTS, "assists");
+		map.put(TeamInfo.PRESENCE_TIME, "presence_time");
+		map.put(TeamInfo.OFFENCES, "offences");
+		map.put(TeamInfo.DEFENCES, "defences");
+		map.put(TeamInfo.STEALS, "steals");
+		map.put(TeamInfo.BLOCK_SHOTS, "block_shots");
+		map.put(TeamInfo.TURN_OVERS, "turn_overs");
+		map.put(TeamInfo.FOULS, "fouls");
+		map.put(TeamInfo.SCORE, "score");
+		map.put(TeamInfo.SHOOTINGS, "shootings");
+		map.put(TeamInfo.SHOTS, "shots");
+		map.put(TeamInfo.THREE_POINT_SHOTS, "three_point_shots");
+		map.put(TeamInfo.THREE_POINT_SHOOTINGS, "three_point_shootings");
+		map.put(TeamInfo.FREE_THROW_SHOTS, "free_throw_shots");
+		map.put(TeamInfo.FREE_THROW_SHOOTINGS, "free_throw_shootings");
+		map.put(TeamInfo.NUM_OF_MATCH, "num_of_match");
 	}
 	
 	public String translation(TeamInfo playerInfo) {
