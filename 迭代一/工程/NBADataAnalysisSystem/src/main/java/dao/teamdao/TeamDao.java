@@ -3,7 +3,7 @@ package dao.teamdao;
 import java.util.ArrayList;
 import java.util.Map;
 
-import entity.team.TeamInfo;
+import entity.TeamInfo;
 
 public interface TeamDao {
 

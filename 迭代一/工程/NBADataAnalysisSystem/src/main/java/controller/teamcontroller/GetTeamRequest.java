@@ -3,7 +3,7 @@ package controller.teamcontroller;
 import java.util.ArrayList;
 
 import controller.controller.Request;
-import entity.team.TeamInfo;
+import entity.TeamInfo;
 
 public class GetTeamRequest implements Request {
 

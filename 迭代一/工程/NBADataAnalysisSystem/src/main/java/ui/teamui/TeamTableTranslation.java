@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import entity.team.TeamInfo;
+import entity.TeamInfo;
 
 public class TeamTableTranslation {
 

@@ -1,4 +1,4 @@
-package entity.team;
+package entity;
 
 public enum TeamInfo {
 	TEAM_ID,

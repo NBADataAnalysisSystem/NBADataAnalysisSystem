@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import entity.team.TeamInfo;
+import entity.TeamInfo;
 
 public class TeamDaoJdbcImp implements TeamDao {
 

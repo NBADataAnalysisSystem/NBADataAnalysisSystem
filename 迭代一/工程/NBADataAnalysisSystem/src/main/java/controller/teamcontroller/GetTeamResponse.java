@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import controller.controller.Response;
-import entity.team.TeamInfo;
+import entity.TeamInfo;
 
 public class GetTeamResponse implements Response {
 

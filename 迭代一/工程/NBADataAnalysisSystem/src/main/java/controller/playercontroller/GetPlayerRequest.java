@@ -3,8 +3,8 @@ package controller.playercontroller;
 import java.util.ArrayList;
 
 import controller.controller.Request;
+import entity.PlayerInfo;
 import entity.SortType;
-import entity.player.PlayerInfo;
 
 public class GetPlayerRequest implements Request {
 

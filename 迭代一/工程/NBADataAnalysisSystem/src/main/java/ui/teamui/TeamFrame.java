@@ -36,7 +36,7 @@ import com.sun.awt.AWTUtilities;
 import controller.teamcontroller.GetTeamRequest;
 import controller.teamcontroller.GetTeamResponse;
 import controller.teamcontroller.TeamController;
-import entity.team.TeamInfo;
+import entity.TeamInfo;
 import ui.dlg.AdditionOfTeamInfo;
 import ui.teamui.TeamTableTranslation;
 

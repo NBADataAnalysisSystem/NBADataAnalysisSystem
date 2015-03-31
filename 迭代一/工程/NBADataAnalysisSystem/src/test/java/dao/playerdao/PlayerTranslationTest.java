@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import entity.player.PlayerInfo;
+import entity.PlayerInfo;
 
 public class PlayerTranslationTest {
 

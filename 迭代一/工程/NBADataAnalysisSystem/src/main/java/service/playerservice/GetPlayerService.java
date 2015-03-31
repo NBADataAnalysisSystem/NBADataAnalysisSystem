@@ -3,8 +3,8 @@ package service.playerservice;
 import java.util.ArrayList;
 import java.util.Map;
 
+import entity.PlayerInfo;
 import entity.SortType;
-import entity.player.PlayerInfo;
 
 public interface GetPlayerService {
 

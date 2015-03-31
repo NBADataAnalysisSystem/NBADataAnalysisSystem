@@ -5,8 +5,8 @@ import java.util.Map;
 
 import dao.playerdao.PlayerDao;
 import dao.playerdao.PlayerDaoJdbcImp;
+import entity.PlayerInfo;
 import entity.SortType;
-import entity.player.PlayerInfo;
 import service.playerservice.GetPlayerService;
 
 public class GetPlayerServiceImp implements GetPlayerService {

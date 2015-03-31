@@ -36,8 +36,8 @@ import com.sun.awt.AWTUtilities;
 import controller.playercontroller.GetPlayerRequest;
 import controller.playercontroller.GetPlayerResponse;
 import controller.playercontroller.PlayerController;
+import entity.PlayerInfo;
 import entity.SortType;
-import entity.player.PlayerInfo;
 import ui.dlg.AdditionOfPlayerInfo;
 import ui.dlg.SiftingOfPlayer;
 

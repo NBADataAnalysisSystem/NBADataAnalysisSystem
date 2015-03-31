@@ -1,4 +1,4 @@
-package entity.player;
+package entity;
 
  public enum PlayerInfo {
 	PLAYER_ID,

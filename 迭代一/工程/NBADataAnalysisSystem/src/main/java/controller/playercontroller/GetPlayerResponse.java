@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import controller.controller.Response;
-import entity.player.PlayerInfo;
+import entity.PlayerInfo;
 
 public class GetPlayerResponse implements Response {
 

@@ -5,7 +5,7 @@ import java.util.Map;
 
 import dao.teamdao.TeamDao;
 import dao.teamdao.TeamDaoJdbcImp;
-import entity.team.TeamInfo;
+import entity.TeamInfo;
 import service.teamservice.GetTeamService;
 
 public class GetTeamServiceImp implements GetTeamService {
