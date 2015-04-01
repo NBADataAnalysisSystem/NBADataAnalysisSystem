@@ -357,7 +357,8 @@ public void apply(){
 	//System.out.println(this.getList().get(0));
 //	selectedInfo = tempList;
 	AWTUtilities.setWindowOpacity(frame, 1f);
-	frame.refreshData();
+	frame.setSift(listOfPosition, listOfUnion, listOfOth);
+	frame.siftPlayer();
 	dispose();
 	
 }

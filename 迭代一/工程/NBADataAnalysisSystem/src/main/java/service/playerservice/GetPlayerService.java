@@ -9,4 +9,5 @@ import entity.SortType;
 public interface GetPlayerService {
 
 	public ArrayList<Map<PlayerInfo, String>> getPlayer(ArrayList<PlayerInfo> columnList, SortType sortType, PlayerInfo sortBy) throws Exception;
+	
 }

@@ -37,7 +37,12 @@ import com.sun.awt.AWTUtilities;
 import controller.playercontroller.GetPlayerRequest;
 import controller.playercontroller.GetPlayerResponse;
 import controller.playercontroller.PlayerController;
+import controller.playercontroller.SiftPlayerRequest;
+import controller.playercontroller.SiftPlayerResponse;
 import entity.PlayerInfo;
+import entity.SiftingOfOth;
+import entity.SiftingOfPosition;
+import entity.SiftingOfUnion;
 import entity.SortType;
 import ui.Frontui.FrontFrame;
 import ui.dlg.AdditionOfPlayerInfo;
@@ -54,6 +59,9 @@ public class PlayerFrame extends JFrame implements ActionListener{
 	static ArrayList<String> listToShow;
 	static SortType sortType;
 	static PlayerInfo sortBy;
+	static SiftingOfPosition position;
+	static SiftingOfUnion union;
+	static SiftingOfOth oth;
 	static ArrayList<String> data;
 	int tableWidth;
 	int tableHeight;
@@ -371,6 +379,11 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		PlayerTableTranslation playerTableTranslation = new PlayerTableTranslation();
 		sortBy = playerTableTranslation.translation(string.split(";")[1]);
 	}
+	public void setSift(SiftingOfPosition p, SiftingOfUnion u, SiftingOfOth o) {
+		position = p;
+		union = u;
+		oth = o;
+	}
 	//…Ë÷√LISTµƒ÷µ
 	public void setList(ArrayList<String> list){
 			listToShow.removeAll(listToShow);
@@ -411,6 +424,28 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		}
 		GetPlayerResponse response = (GetPlayerResponse) controller.processRequest(
 				new GetPlayerRequest(columnList, sortType, sortBy));
+		ArrayList<Map<PlayerInfo, String>> tempList = response.getList();
+		for (Map<PlayerInfo, String> map:tempList) {
+			String tempString = "";
+			for (String string:listToShow) {
+				tempString+=map.get(playerTableTranslation.translation(string));
+				tempString+=";";
+			}
+			data.add(tempString);
+		}
+		showPlayerData();
+	}
+	
+	public void siftPlayer() {
+		data.clear();
+		PlayerController controller = new PlayerController();
+		ArrayList<PlayerInfo> columnList = new ArrayList<PlayerInfo>();
+		PlayerTableTranslation playerTableTranslation = new PlayerTableTranslation();
+		for (String string:listToShow) {
+			columnList.add(playerTableTranslation.translation(string));
+		}
+		SiftPlayerResponse response = (SiftPlayerResponse) controller.processRequest(
+				new SiftPlayerRequest(columnList, position, union, oth));
 		ArrayList<Map<PlayerInfo, String>> tempList = response.getList();
 		for (Map<PlayerInfo, String> map:tempList) {
 			String tempString = "";

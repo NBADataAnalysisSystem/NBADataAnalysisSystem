@@ -69,20 +69,54 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 		columnsToSearch = columnsToSearch.substring(0, columnsToSearch.length()-1);
 		Statement statement = connection.createStatement();
 		ResultSet resultSet;
+		String positionString="";
 		switch (position) {
 		case FORWARD:
-			
+			positionString = " position like \"%F%\" ";
 			break;
 		case CENTER:
-			
+			positionString = " position like \"%C%\" ";
 			break;
 		case GUARD:
-			
+			positionString = " position like \"%G%\" ";
 			break;
 		default:
 			break;
 		}
-		resultSet = statement.executeQuery("SELECT " + columnsToSearch + " FROM players");
+		Map<SiftingOfUnion, String> siftingOfUnionToStringMap = new HashMap<SiftingOfUnion, String>();
+		siftingOfUnionToStringMap.put(SiftingOfUnion.ATLANTICDIVISION,
+				" team in (select abbreviation from teams where section=\"Atlantic\")");
+		siftingOfUnionToStringMap.put(SiftingOfUnion.CENTRALDIVISION, 
+				" team in (select abbreviation from teams where section=\"Central\")");
+		siftingOfUnionToStringMap.put(SiftingOfUnion.EASTDIVITION, 
+				" team in (select abbreviation from teams where division=\"E\")");
+		siftingOfUnionToStringMap.put(SiftingOfUnion.NORTHWESTDIVISION, 
+				" team in (select abbreviation from teams where section=\"Northwest\")");
+		siftingOfUnionToStringMap.put(SiftingOfUnion.PACIFICDIVISION, 
+				" team in (select abbreviation from teams where section=\"Parcific\")");
+		siftingOfUnionToStringMap.put(SiftingOfUnion.SOUTHEASTDIVISION, 
+				" team in (select abbreviation from teams where section=\"Southeast\")");
+		siftingOfUnionToStringMap.put(SiftingOfUnion.SOUTHWESTDIVISION, 
+				" team in (select abbreviation from teams where section=\"Southwest\")");
+		siftingOfUnionToStringMap.put(SiftingOfUnion.WESTDIVITION, 
+				" team in (select abbreviation from teams where division=\"W\")");
+		String unionString = siftingOfUnionToStringMap.get(union);
+		if (!positionString.equals("")) {
+			positionString = " where"+positionString;
+			if (unionString!=null) {
+				unionString = "and"+unionString;
+			} else {
+				unionString = "";
+			}
+		} else {
+			positionString = "";
+			if (unionString!=null) {
+				unionString = " where"+unionString;
+			} else {
+				unionString = "";
+			}
+		}
+		resultSet = statement.executeQuery("SELECT " + columnsToSearch + " FROM players"+positionString+unionString);
 		ArrayList<Map<PlayerInfo, String>> result = new ArrayList<Map<PlayerInfo, String>>();
 		while (resultSet.next()) {
 			Map<PlayerInfo, String> map = new HashMap<PlayerInfo, String>();

@@ -16,6 +16,7 @@ public class PlayerController implements Controller {
 	public PlayerController() {
 		requestHandlers = new HashMap<String, RequestHandler>();
 		requestHandlers.put("GetPlayer", new GetPlayerHandler());
+		requestHandlers.put("SiftPlayer", new SiftPlayerHandler());
 	}
 	
 	protected RequestHandler getHandler(Request request) {
