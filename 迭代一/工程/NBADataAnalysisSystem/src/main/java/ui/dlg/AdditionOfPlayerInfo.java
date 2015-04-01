@@ -264,7 +264,7 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 
 		sort.addItem("ÉýÐò");
 		sort.addItem("½µÐò");
-		sort.addItem("×ÖÄ¸Ðò");
+//		sort.addItem("×ÖÄ¸Ðò");
 
 		infoOfSort.addItem("ID");
 		infoOfSort.addItem("ºÅÊý");
