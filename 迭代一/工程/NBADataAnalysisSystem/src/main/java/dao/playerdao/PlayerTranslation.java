@@ -42,6 +42,23 @@ public class PlayerTranslation {
 		map.put(PlayerInfo.NUM_OF_THREE_POINT_SHOT, "three_point_shots");
 		map.put(PlayerInfo.NUM_OF_FREE_THROW_SHOOTING, "free_throw_shootings");
 		map.put(PlayerInfo.NUM_OF_FREE_THROW_SHOT, "free_throw_shots");
+		
+		map.put(PlayerInfo.AVE_NUM_OF_REBOUND, "1.0*rebounds/num_of_match");
+		map.put(PlayerInfo.AVE_NUM_OF_ASSIST, "1.0*assists/num_of_match");
+		map.put(PlayerInfo.AVE_TIME_OF_PRESENCE, "1.0*presence_time/num_of_match");
+		map.put(PlayerInfo.AVE_NUM_OF_OFFENSE, "1.0*offences/num_of_match");
+		map.put(PlayerInfo.AVE_NUM_OF_DEFENSE, "1.0*defences/num_of_match");
+		map.put(PlayerInfo.AVE_NUM_OF_STEAL, "1.0*steals/num_of_match");
+		map.put(PlayerInfo.AVE_NUM_OF_BLOCK_SHOT, "1.0*block_shots/num_of_match");
+		map.put(PlayerInfo.AVE_NUM_OF_FOUL, "1.0*fouls/num_of_match");
+		map.put(PlayerInfo.AVE_NUM_OF_TURN_OVER, "1.0*turn_overs/num_of_match");
+		map.put(PlayerInfo.AVE_SCORING, "1.0*score/num_of_match");
+		map.put(PlayerInfo.AVE_NUM_OF_SHOOTING, "1.0*shootings/num_of_match");
+		map.put(PlayerInfo.AVE_NUM_OF_SHOT, "1.0*shots/num_of_match");
+		map.put(PlayerInfo.AVE_NUM_OF_THREE_POINT_SHOOTING, "1.0*three_point_shootings/num_of_match");
+		map.put(PlayerInfo.AVE_NUM_OF_THREE_POINT_SHOT, "1.0*three_point_shots/num_of_match");
+		map.put(PlayerInfo.AVE_NUM_OF_FREE_THROW_SHOOTING, "1.0*free_throw_shootings/num_of_match");
+		map.put(PlayerInfo.AVE_NUM_OF_FREE_THROW_SHOT, "1.0*free_throw_shots/num_of_match");
 	}
 	
 	public String translation(PlayerInfo playerInfo) {
