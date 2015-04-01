@@ -575,29 +575,29 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 	    	   
 	    	   selectedItem.selectScorling();
 	  
-	       }if(aveNumOfShoot.isSelected() == true){
+	       }if(numOfShoot.isSelected() == true){
 	    	   
-	    	   selectedItem.selectAveNumOfShoot();
+	    	   selectedItem.selectNumOfShoot();
 	  
-	       }if(aveNumOfShot.isSelected() == true){
+	       }if(numOfShot.isSelected() == true){
 	    	   
-	    	   selectedItem.selectAveNumOfShot();
+	    	   selectedItem.selectNumOfShot();
 	  
-	       }if(aveNumOfThreePointShoot.isSelected() == true){
+	       }if(numOfThreePointShoot.isSelected() == true){
 	    	   
-	    	   selectedItem.selectAveNumOfThreePointShoot();
+	    	   selectedItem.selectNumOfThreePointShoot();
 	  
-	       }if(aveNumOfThreePointShot .isSelected() == true){
+	       }if(numOfThreePointShot .isSelected() == true){
 	    	   
-	    	   selectedItem.selectAveNumOfThreePointShot ();
+	    	   selectedItem.selectNumOfThreePointShot ();
 	  
-	       }if(aveNumOfFreeThrowShoot.isSelected() == true){
+	       }if(numOfFreeThrowShoot.isSelected() == true){
 	    	   
-	    	   selectedItem.selectAveNumOfFreeThrowShoot();
+	    	   selectedItem.selectNumOfFreeThrowShoot();
 	  
-	       }if(aveNumOfFreeThrowShot.isSelected() == true){
+	       }if(numOfFreeThrowShot.isSelected() == true){
 	    	   
-	    	   selectedItem.selectAveNumOfFreeThrowShot();
+	    	   selectedItem.selectNumOfFreeThrowShot();
 	  
 	       }if(aveNumOfRebound.isSelected() == true){
 	    	   
@@ -650,6 +650,18 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 	       }if(aveNumOfThreePointShoot.isSelected() == true){
 	    	   
 	    	   selectedItem.selectAveNumOfThreePointShoot();
+	  
+	       }if(aveNumOfThreePointShot .isSelected() == true){
+	    	   
+	    	   selectedItem.selectAveNumOfThreePointShot ();
+	  
+	       }if(aveNumOfFreeThrowShoot.isSelected() == true){
+	    	   
+	    	   selectedItem.selectAveNumOfFreeThrowShoot();
+	  
+	       }if(aveNumOfFreeThrowShot.isSelected() == true){
+	    	   
+	    	   selectedItem.selectAveNumOfFreeThrowShot();
 	  
 	       }if(efficiency .isSelected() == true){
 	    	   
