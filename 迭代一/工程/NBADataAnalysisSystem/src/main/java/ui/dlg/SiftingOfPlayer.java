@@ -5,9 +5,11 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 
 import com.sun.awt.AWTUtilities;
 
@@ -30,22 +32,22 @@ public class SiftingOfPlayer extends InputDialog{
 	JCheckBox northwestDivision = new JCheckBox("西北区");
 	JCheckBox pacificDivision = new JCheckBox("太平洋区");
 
-	JCheckBox scoring = new JCheckBox("得分");
-	JCheckBox numOfRebound = new JCheckBox("篮板数");
-	JCheckBox numOfAssist = new JCheckBox("助攻");
-	JCheckBox scoring_rebound_assist = new JCheckBox("得分/篮板/助攻");
-	JCheckBox numOfBlockShot = new JCheckBox("盖帽");
-	JCheckBox numOfSteal = new JCheckBox("抢断");	
-	JCheckBox numOfFoul = new JCheckBox("犯规");
-	JCheckBox numOfTurnOver = new JCheckBox("失误");
-	JCheckBox minute = new JCheckBox("分钟");
-	JCheckBox efficiency= new JCheckBox("效率");
-	JCheckBox numOfShot = new JCheckBox("投篮");
-	JCheckBox numOfThreePoint = new JCheckBox("三分");
-	JCheckBox numOfFreeThrow = new JCheckBox("罚球");
-	JCheckBox doubleDouble = new JCheckBox("两双");
+	JRadioButton scoring = new JRadioButton("得分");
+	JRadioButton numOfRebound = new JRadioButton("篮板数");
+	JRadioButton numOfAssist = new JRadioButton("助攻");
+	JRadioButton scoring_rebound_assist = new JRadioButton("得分/篮板/助攻");
+	JRadioButton numOfBlockShot = new JRadioButton("盖帽");
+	JRadioButton numOfSteal = new JRadioButton("抢断");	
+	JRadioButton numOfFoul = new JRadioButton("犯规");
+	JRadioButton numOfTurnOver = new JRadioButton("失误");
+	JRadioButton minute = new JRadioButton("分钟");
+	JRadioButton efficiency= new JRadioButton("效率");
+	JRadioButton numOfShot = new JRadioButton("投篮");
+	JRadioButton numOfThreePoint = new JRadioButton("三分");
+	JRadioButton numOfFreeThrow = new JRadioButton("罚球");
+	JRadioButton doubleDouble = new JRadioButton("两双");
 
-	
+	ButtonGroup groupOfOth = new ButtonGroup();
 	ArrayList<SiftingOfPosition> listOfPosition;
 	ArrayList<SiftingOfUnion> listOfUnion;
 	ArrayList<SiftingOfOth> listOfOth;
@@ -129,6 +131,23 @@ public class SiftingOfPlayer extends InputDialog{
 		otherPanel.add(doubleDouble  );
 		doubleDouble .setSelected(false);
 		add(otherPanel);
+		
+		groupOfOth.add(scoring);
+		groupOfOth.add(numOfRebound);
+		groupOfOth.add(numOfAssist );
+		groupOfOth.add(scoring_rebound_assist );
+		groupOfOth.add(numOfBlockShot );
+		groupOfOth.add(numOfSteal );
+		groupOfOth.add(numOfFoul );
+		groupOfOth.add(numOfTurnOver );
+		groupOfOth.add(minute );
+		groupOfOth.add(efficiency);
+		groupOfOth.add(numOfShot );
+		groupOfOth.add(numOfThreePoint );
+		groupOfOth.add(numOfFreeThrow );
+		groupOfOth.add(doubleDouble );
+		
+		
 		
 		JPanel bp = new JPanel();
 		bp.setBorder(BorderFactory.createEtchedBorder());
