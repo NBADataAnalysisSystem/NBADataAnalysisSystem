@@ -114,15 +114,15 @@ public class SelectedInfoOfPlayer {
 		rateOfUse= "使用率";
 		
 		aveNumOfRebound = "场均篮板数";
-		 aveNumOfAssist = "场均助攻数";
-		 aveTimeOfPresence = "场均在场时间（秒）";
-		 aveNumOfOffense = "场均进攻数";
-		 aveNumOfDffense = "场均防守数";
-		 aveNumOfSteal = "场均抢断数"; 
-		 aveNumOfBlockShot = "场均盖帽数";
-		 aveNumOfTurnOver = "场均失误数";
-		 aveNumOfFoul = "场均犯规数";
-		 aveScorling = "场均得分";
+		aveNumOfAssist = "场均助攻数";
+		aveTimeOfPresence = "场均在场时间（秒）";
+		aveNumOfOffense = "场均进攻数";
+		aveNumOfDffense = "场均防守数";
+		aveNumOfSteal = "场均抢断数"; 
+		aveNumOfBlockShot = "场均盖帽数";
+		aveNumOfTurnOver = "场均失误数";
+		aveNumOfFoul = "场均犯规数";
+		aveScorling = "场均得分";
 		aveNumOfShoot = "场均投篮命中数";
 		aveNumOfShot = "场均投篮数";
 		aveNumOfThreePointShoot  = "场均三分球命中数";

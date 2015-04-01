@@ -482,8 +482,8 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 				numOfThreePointShot .setSelected(true);
 			}if(alreadySelected.contains("罚球命中数")){
 				numOfFreeThrowShoot.setSelected(true);
-			}if(alreadySelected.contains("场均罚球总数")){
-				aveNumOfFreeThrowShot.setSelected(true);
+			}if(alreadySelected.contains("罚球总数")){
+				numOfFreeThrowShot.setSelected(true);
 			}
 			
 	}

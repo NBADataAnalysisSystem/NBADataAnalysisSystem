@@ -332,7 +332,7 @@ public class AdditionOfTeamInfo extends InputDialog  {
 				rebounds.setSelected(true);
 			}if(alreadySelected.contains("助攻数")){
 				assists.setSelected(true);
-			}if(alreadySelected.contains("在场时间")){
+			}if(alreadySelected.contains("在场时间（秒）")){
 				presenceTime.setSelected(true);
 			}if(alreadySelected.contains("防守数")){
 				offences.setSelected(true);
