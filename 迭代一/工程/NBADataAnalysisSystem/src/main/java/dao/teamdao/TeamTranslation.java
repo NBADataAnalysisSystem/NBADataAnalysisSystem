@@ -39,8 +39,21 @@ public class TeamTranslation {
 		map.put(TeamInfo.FREE_THROW_SHOOTINGS, "free_throw_shootings");
 		map.put(TeamInfo.NUM_OF_MATCH, "num_of_match");
 
-		String prefix = "round(1.0*";
-		String suffix = "/num_of_match,2)";
+		String prefix = "round(";
+		String suffix = ",2)";
+		map.put(TeamInfo.SHOOTING_PERSENTAGE, prefix+"shooting_persentage"+suffix);
+		map.put(TeamInfo.THREE_POINT_PERSENTAGE, prefix+"three_point_persentage"+suffix);
+		map.put(TeamInfo.FREE_THROW_PERSENTAGE, prefix+"free_throw_persentage"+suffix);
+		map.put(TeamInfo.WIN_RATE, prefix+"win_rate"+suffix);
+		map.put(TeamInfo.ATTACK_ROUND, prefix+"attack_round"+suffix);
+		map.put(TeamInfo.DEFENSIVE_ROUND, prefix+"defensive_round"+suffix);
+		map.put(TeamInfo.OFFENSIVE_EFF, prefix+"offensive_eff"+suffix);
+		map.put(TeamInfo.DEFENSIVE_EFF, prefix+"defensive_eff"+suffix);
+		map.put(TeamInfo.STEAL_EFF, prefix+"steal_eff"+suffix);
+		map.put(TeamInfo.ASSIST_RATE, prefix+"assist_rate"+suffix);
+		
+		prefix = "round(1.0*";
+		suffix = "/num_of_match,2)";
 		map.put(TeamInfo.AVE_REBOUNDS, prefix+"rebounds"+suffix);
 		map.put(TeamInfo.AVE_ASSISTS, prefix+"assists"+suffix);
 		map.put(TeamInfo.AVE_PRESENCE_TIME, prefix+"presence_time"+suffix);

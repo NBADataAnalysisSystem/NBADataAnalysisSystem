@@ -44,6 +44,19 @@ public class PlayerTableTranslation {
 		map.put("三分球总数", PlayerInfo.NUM_OF_THREE_POINT_SHOT);
 		map.put("罚球命中数", PlayerInfo.NUM_OF_FREE_THROW_SHOOTING);
 		map.put("罚球总数", PlayerInfo.NUM_OF_FREE_THROW_SHOT);
+		
+		map.put("效率", PlayerInfo.EFFICIENCY);
+		map.put("GmSc效率", PlayerInfo.GMSC_EFF);
+		map.put("真实投篮命中率", PlayerInfo.TRUE_SHOOTING_PERCENTAGE);
+		map.put("投篮效率", PlayerInfo.SHOOTING_EFF);
+		map.put("篮板率", PlayerInfo.REBOUND_RATE);
+		map.put("进攻篮板率", PlayerInfo.OFFENSIVE_REBOUND_RATE);
+		map.put("防守篮板率", PlayerInfo.DEFENSIVE_REBOUND_RATE);
+		map.put("助攻率", PlayerInfo.ASSIST_RATE);
+		map.put("抢断率", PlayerInfo.STEAL_RATE);
+		map.put("盖帽率", PlayerInfo.BLOCK_SHOT_RATE);
+		map.put("失误率", PlayerInfo.TURN_OVER_RATE);
+		map.put("使用率", PlayerInfo.USE_RATE);
 		//场均数据
 		map.put("场均篮板数", PlayerInfo.AVE_NUM_OF_REBOUND);
 		map.put("场均助攻数", PlayerInfo.AVE_NUM_OF_ASSIST);

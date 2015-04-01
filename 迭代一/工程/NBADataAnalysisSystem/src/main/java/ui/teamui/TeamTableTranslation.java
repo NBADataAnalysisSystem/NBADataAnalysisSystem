@@ -41,6 +41,17 @@ public class TeamTableTranslation {
 		map.put("罚球数", TeamInfo.FREE_THROW_SHOTS);
 		map.put("比赛数", TeamInfo.NUM_OF_MATCH);
 		
+		map.put("投篮命中率", TeamInfo.SHOOTING_PERSENTAGE);
+		map.put("三分球命中率", TeamInfo.THREE_POINT_PERSENTAGE);
+		map.put("罚球命中率", TeamInfo.FREE_THROW_PERSENTAGE);
+		map.put("胜率", TeamInfo.WIN_RATE);
+		map.put("进攻回合", TeamInfo.ATTACK_ROUND);
+		map.put("防守回合", TeamInfo.DEFENSIVE_ROUND);
+		map.put("进攻效率", TeamInfo.OFFENSIVE_EFF);
+		map.put("防守效率", TeamInfo.DEFENSIVE_EFF);
+		map.put("抢断效率", TeamInfo.STEAL_EFF);
+		map.put("助攻率", TeamInfo.ASSIST_RATE);
+		
 		map.put("场均篮板数", TeamInfo.AVE_REBOUNDS);
 		map.put("场均助攻数", TeamInfo.AVE_ASSISTS);
 		map.put("场均在场时间（秒）", TeamInfo.AVE_PRESENCE_TIME);

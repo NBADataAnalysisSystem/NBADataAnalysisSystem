@@ -43,8 +43,23 @@ public class PlayerTranslation {
 		map.put(PlayerInfo.NUM_OF_FREE_THROW_SHOOTING, "free_throw_shootings");
 		map.put(PlayerInfo.NUM_OF_FREE_THROW_SHOT, "free_throw_shots");
 		
-		String prefix = "round(1.0*";
-		String suffix = "/num_of_match,2)";
+		String prefix = "round(";
+		String suffix = ",2)";
+		map.put(PlayerInfo.EFFICIENCY, prefix+"efficiency"+suffix);
+		map.put(PlayerInfo.GMSC_EFF, prefix+"GmSc_eff"+suffix);
+		map.put(PlayerInfo.TRUE_SHOOTING_PERCENTAGE, prefix+"true_shooting_persentage"+suffix);
+		map.put(PlayerInfo.SHOOTING_EFF, prefix+"shooting_eff"+suffix);
+		map.put(PlayerInfo.REBOUND_RATE, prefix+"rebound_rate"+suffix);
+		map.put(PlayerInfo.OFFENSIVE_REBOUND_RATE, prefix+"offensive_rebound_rate"+suffix);
+		map.put(PlayerInfo.DEFENSIVE_REBOUND_RATE, prefix+"defensive_rebound_rate"+suffix);
+		map.put(PlayerInfo.ASSIST_RATE, prefix+"assist_rate"+suffix);
+		map.put(PlayerInfo.STEAL_RATE, prefix+"steal_rate"+suffix);
+		map.put(PlayerInfo.BLOCK_SHOT_RATE, prefix+"block_shot_rate"+suffix);
+		map.put(PlayerInfo.TURN_OVER_RATE, prefix+"turn_over_rate"+suffix);
+		map.put(PlayerInfo.USE_RATE, prefix+"use_rate"+suffix);
+		
+		prefix = "round(1.0*";
+		suffix = "/num_of_match,2)";
 		map.put(PlayerInfo.AVE_NUM_OF_REBOUND, prefix+"rebounds"+suffix);
 		map.put(PlayerInfo.AVE_NUM_OF_ASSIST, prefix+"assists"+suffix);
 		map.put(PlayerInfo.AVE_TIME_OF_PRESENCE, prefix+"presence_time"+suffix);
