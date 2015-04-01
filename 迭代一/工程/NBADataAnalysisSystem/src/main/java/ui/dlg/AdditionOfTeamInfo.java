@@ -218,7 +218,7 @@ public class AdditionOfTeamInfo extends InputDialog  {
 		
 		sort.addItem("升序");
 		sort.addItem("降序");
-		sort.addItem("字母序");
+//		sort.addItem("字母序");
 
 		infoOfSort.addItem("ID");
 		infoOfSort.addItem("全称");
@@ -241,9 +241,9 @@ public class AdditionOfTeamInfo extends InputDialog  {
 		infoOfSort.addItem("投篮命中数");
 		infoOfSort.addItem("投篮数");
 		infoOfSort.addItem( "三分球命中数");
-		infoOfSort.addItem( "三分球总数");
+		infoOfSort.addItem( "三分球数");
 		infoOfSort.addItem("罚球命中数");
-		infoOfSort.addItem("罚球总数");
+		infoOfSort.addItem("罚球数");
 		infoOfSort.addItem("比赛数");
 		infoOfSort.addItem("投篮命中率"  );
 		infoOfSort.addItem("三分球命中率");
@@ -271,7 +271,7 @@ public class AdditionOfTeamInfo extends InputDialog  {
 		infoOfSort.addItem( "场均三分球命中数");
 		infoOfSort.addItem( "场均三分球总数");
 		infoOfSort.addItem("场均罚球命中数");
-		infoOfSort.addItem("场均罚球总数");
+		infoOfSort.addItem("场均罚球数");
 		
 		JPanel totalPanel = new JPanel(new GridLayout(4,1));
 //		basicInfoPanel.setBorder(BorderFactory.createEtchedBorder());
