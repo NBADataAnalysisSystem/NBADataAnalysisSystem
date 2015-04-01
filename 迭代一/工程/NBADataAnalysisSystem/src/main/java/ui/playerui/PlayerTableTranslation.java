@@ -13,6 +13,7 @@ public class PlayerTableTranslation {
 	
 	public PlayerTableTranslation() {
 		map = new HashMap<String, PlayerInfo>();
+		//基本信息
 		map.put("ID", PlayerInfo.PLAYER_ID);
 		map.put("名字", PlayerInfo.NAME);
 		map.put("号数", PlayerInfo.NUMBER);
@@ -26,6 +27,7 @@ public class PlayerTableTranslation {
 		map.put("所在球队", PlayerInfo.TEAM);
 		map.put("参赛场数", PlayerInfo.NUM_OF_ENTRY_FIELD);
 		map.put("先发场数", PlayerInfo.NUM_OF_STARTING_FIELD);
+		//赛季数据
 		map.put("篮板数", PlayerInfo.NUM_OF_REBOUND);
 		map.put("助攻数", PlayerInfo.NUM_OF_ASSIST);
 		map.put("在场时间（秒）", PlayerInfo.TIME_OF_PRESENCE);
@@ -42,6 +44,23 @@ public class PlayerTableTranslation {
 		map.put("三分球总数", PlayerInfo.NUM_OF_THREE_POINT_SHOT);
 		map.put("罚球命中数", PlayerInfo.NUM_OF_FREE_THROW_SHOOTING);
 		map.put("罚球总数", PlayerInfo.NUM_OF_FREE_THROW_SHOT);
+		//场均数据
+		map.put("场均篮板数", PlayerInfo.AVE_NUM_OF_REBOUND);
+		map.put("场均助攻数", PlayerInfo.AVE_NUM_OF_ASSIST);
+		map.put("场均在场时间（秒）", PlayerInfo.AVE_TIME_OF_PRESENCE);
+		map.put("场均进攻数", PlayerInfo.AVE_NUM_OF_OFFENSE);
+		map.put("场均防守数", PlayerInfo.AVE_NUM_OF_DEFENSE);
+		map.put("场均抢断数", PlayerInfo.AVE_NUM_OF_STEAL);
+		map.put("场均盖帽数", PlayerInfo.AVE_NUM_OF_BLOCK_SHOT);
+		map.put("场均失误数", PlayerInfo.AVE_NUM_OF_FOUL);
+		map.put("场均犯规数", PlayerInfo.AVE_NUM_OF_TURN_OVER);
+		map.put("场均得分", PlayerInfo.AVE_SCORING);
+		map.put("场均投篮命中数", PlayerInfo.AVE_NUM_OF_SHOOTING);
+		map.put("场均投篮数", PlayerInfo.AVE_NUM_OF_SHOT);
+		map.put("场均三分球命中数", PlayerInfo.AVE_NUM_OF_THREE_POINT_SHOOTING);
+		map.put("场均三分球总数", PlayerInfo.AVE_NUM_OF_THREE_POINT_SHOT);
+		map.put("场均罚球命中数", PlayerInfo.AVE_NUM_OF_FREE_THROW_SHOOTING);
+		map.put("场均罚球总数", PlayerInfo.AVE_NUM_OF_FREE_THROW_SHOT);
 	}
 	
 	public PlayerInfo translation(String string) {
