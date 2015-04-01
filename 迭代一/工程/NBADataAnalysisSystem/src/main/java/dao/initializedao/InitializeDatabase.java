@@ -3,9 +3,7 @@ package dao.initializedao;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -265,7 +263,6 @@ public class InitializeDatabase {
 
 	//柴麻白埀議琵魁方象
 	private void calculatePlayerInformation(String path) throws Exception{
-		//connectToDatabase();//霞編聞喘。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
 		
 		ArrayList<String[]> resultTemp = new ArrayList<String[]>();
 		ArrayList<String> playerNameList = new ArrayList<String>();
@@ -565,7 +562,6 @@ public class InitializeDatabase {
 			br.close();
 		}//侭嗤猟周響函頼穎
 		
-		//connectToDatabase();//霞編聞喘。。。。。。。。。。
 		PreparedStatement prep = connection.prepareStatement("update teams set "
 				+ "num_of_win = ?,rival_presence_time =?,rival_shootings = ?,"
 				+ "rival_shots = ?,rival_three_point_shootings = ?,rival_three_point_shots = ?,"
@@ -597,9 +593,9 @@ public class InitializeDatabase {
     		str=br.readLine();
     	}
     	
-    	//connectToDatabase();//霞編聞喘。。。。。。。。
     	
     	Statement stat =connection.createStatement();
     	stat.executeUpdate(sql);
+    	br.close();
     }
 }
