@@ -106,6 +106,39 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 					" team in (select abbreviation from teams where division=\"W\")");
 			unionString = siftingOfUnionToStringMap.get(union);
 		}
+		String sortString = "";
+		if (sortBy!=null) {
+			Map<SiftingOfOth, String> siftingOfOthToStringMap = new HashMap<SiftingOfOth, String>();
+			siftingOfOthToStringMap.put(SiftingOfOth.DOUBLE_DOUBLE,
+					"");
+			siftingOfOthToStringMap.put(SiftingOfOth.EFFICIENCY, 
+					" ORDER BY efficiency DESC");
+			siftingOfOthToStringMap.put(SiftingOfOth.MINUTE, 
+					" ORDER BY presence_time DESC");
+			siftingOfOthToStringMap.put(SiftingOfOth.NUM_OF_ASSIST, 
+					" ORDER BY assists DESC");
+			siftingOfOthToStringMap.put(SiftingOfOth.NUM_OF_BLOCK_SHOT, 
+					" ORDER BY block_shots DESC");
+			siftingOfOthToStringMap.put(SiftingOfOth.NUM_OF_FOUL, 
+					" ORDER BY fouls DESC");
+			siftingOfOthToStringMap.put(SiftingOfOth.NUM_OF_FREE_THROW, 
+					" ORDER BY free_throw_shots DESC");
+			siftingOfOthToStringMap.put(SiftingOfOth.NUM_OF_REBOUND, 
+					" ORDER BY rebounds DESC");
+			siftingOfOthToStringMap.put(SiftingOfOth.NUM_OF_SHOT, 
+					" ORDER BY shots DESC");
+			siftingOfOthToStringMap.put(SiftingOfOth.NUM_OF_STEAL, 
+					" ORDER BY steals DESC");
+			siftingOfOthToStringMap.put(SiftingOfOth.NUM_OF_THREE_POINT, 
+					" ORDER BY three_point_shots DESC");
+			siftingOfOthToStringMap.put(SiftingOfOth.NUM_OF_TURN_OVER, 
+					" ORDER BY turn_overs DESC");
+			siftingOfOthToStringMap.put(SiftingOfOth.SCORING, 
+					" ORDER BY score DESC");
+			siftingOfOthToStringMap.put(SiftingOfOth.SCORING_REBOUND_ASSIST, 
+					" ORDER BY (score+rebounds+assists)/3.0 DESC");
+			sortString = siftingOfOthToStringMap.get(sortBy);
+		}
 		if (!positionString.equals("")) {
 			positionString = " where"+positionString;
 			if (!unionString.equals("")) {
@@ -121,7 +154,10 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 				unionString = "";
 			}
 		}
-		resultSet = statement.executeQuery("SELECT " + columnsToSearch + " FROM players"+positionString+unionString);
+		if (sortString==null) {
+			sortString="";
+		}
+		resultSet = statement.executeQuery("SELECT " + columnsToSearch + " FROM players"+positionString+unionString+sortString);
 		ArrayList<Map<PlayerInfo, String>> result = new ArrayList<Map<PlayerInfo, String>>();
 		int i = 0;
 		while (resultSet.next()) {
