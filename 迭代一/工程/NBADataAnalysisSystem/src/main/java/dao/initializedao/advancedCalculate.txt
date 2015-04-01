@@ -12,7 +12,7 @@ update teams set three_point_persentage = 1.0*three_point_shootings/three_point_
 update teams set free_throw_persentage = 1.0*free_throw_shootings/free_throw_shots;
 update players set efficiency = (score+rebounds+assists+steals+block_shots)-(shots-shootings)-(free_throw_shots-free_throw_shootings)-turn_overs;
 update players set GmSc_eff = score+0.4*shootings-0.7*shots-0.4*(free_throw_shots-free_throw_shootings)+0.7*offences+0.3*defences+steals+0.7*assists+0.7*block_shots-0.4*fouls-turn_overs;
-update players set ture_shooting_persentage = score/(2.0*(shots+0.44*free_throw_shots));
+update players set true_shooting_persentage = score/(2.0*(shots+0.44*free_throw_shots));
 update players set shooting_eff = (shootings+0.5*three_point_shootings)/shots;
 create table tem as select players.player_name,team,rebounds,offences,defences,assists,steals,block_shots,turn_overs,shots,free_throw_shots,three_point_shots from players;
 alter table tem add rival_presence_time integer;
