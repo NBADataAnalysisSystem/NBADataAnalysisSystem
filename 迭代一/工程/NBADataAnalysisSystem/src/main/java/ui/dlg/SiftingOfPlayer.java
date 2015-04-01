@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -20,17 +19,17 @@ import ui.playerui.SiftingOfUnion;
 
 @SuppressWarnings({ "serial", "restriction" })
 public class SiftingOfPlayer extends InputDialog{
-	
-	JCheckBox forward = new JCheckBox("前锋");
-	JCheckBox center = new JCheckBox("中锋");
-	JCheckBox guard = new JCheckBox("后卫");
-	
-	JCheckBox atlanticDivision = new JCheckBox("大西洋区");
-	JCheckBox centralDivision = new JCheckBox("中央区");
-	JCheckBox southeastDivision = new JCheckBox("东南区");
-	JCheckBox southwestDivision = new JCheckBox("西南区");
-	JCheckBox northwestDivision = new JCheckBox("西北区");
-	JCheckBox pacificDivision = new JCheckBox("太平洋区");
+
+	JRadioButton forward = new JRadioButton("前锋");
+	JRadioButton center = new JRadioButton("中锋");
+	JRadioButton guard = new JRadioButton("后卫");
+
+	JRadioButton atlanticDivision = new JRadioButton("大西洋区");
+	JRadioButton centralDivision = new JRadioButton("中央区");
+	JRadioButton southeastDivision = new JRadioButton("东南区");
+	JRadioButton southwestDivision = new JRadioButton("西南区");
+	JRadioButton northwestDivision = new JRadioButton("西北区");
+	JRadioButton pacificDivision = new JRadioButton("太平洋区");
 
 	JRadioButton scoring = new JRadioButton("得分");
 	JRadioButton numOfRebound = new JRadioButton("篮板数");
@@ -47,7 +46,10 @@ public class SiftingOfPlayer extends InputDialog{
 	JRadioButton numOfFreeThrow = new JRadioButton("罚球");
 	JRadioButton doubleDouble = new JRadioButton("两双");
 
+	ButtonGroup groupOfPosition = new ButtonGroup();
+	ButtonGroup groupOfUnion = new ButtonGroup();
 	ButtonGroup groupOfOth = new ButtonGroup();
+	
 	ArrayList<SiftingOfPosition> listOfPosition;
 	ArrayList<SiftingOfUnion> listOfUnion;
 	ArrayList<SiftingOfOth> listOfOth;
@@ -131,6 +133,17 @@ public class SiftingOfPlayer extends InputDialog{
 		otherPanel.add(doubleDouble  );
 		doubleDouble .setSelected(false);
 		add(otherPanel);
+		
+		groupOfPosition.add(forward); 
+		groupOfPosition.add(center) ;
+		groupOfPosition.add(guard); 
+		
+		groupOfUnion.add(atlanticDivision) ;
+		groupOfUnion.add(centralDivision);
+		groupOfUnion.add(southeastDivision) ;
+		groupOfUnion.add(southwestDivision);
+		groupOfUnion.add(northwestDivision);
+		groupOfUnion.add(pacificDivision );
 		
 		groupOfOth.add(scoring);
 		groupOfOth.add(numOfRebound);
