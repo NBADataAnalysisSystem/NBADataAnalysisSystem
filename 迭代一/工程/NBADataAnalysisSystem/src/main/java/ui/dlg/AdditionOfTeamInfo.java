@@ -86,7 +86,7 @@ public class AdditionOfTeamInfo extends InputDialog  {
 		super(parent);
 		
 		this.setTitle("π¥—°–≈œ¢");
-		this.setSize(500,500);
+		this.setSize(500,600);
 		this.setUndecorated(true);
 		resetLocation();
 

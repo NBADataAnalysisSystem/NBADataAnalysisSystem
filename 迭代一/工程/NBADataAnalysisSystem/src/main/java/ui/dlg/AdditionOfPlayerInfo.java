@@ -90,7 +90,7 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 		super(parent);
 		
 		this.setTitle("π¥—°–≈œ¢");
-		this.setSize(500,500);
+		this.setSize(500,700);
 		this.setUndecorated(true);
 		resetLocation();
 
