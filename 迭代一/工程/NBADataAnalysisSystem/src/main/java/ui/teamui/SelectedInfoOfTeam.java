@@ -31,6 +31,23 @@ public class SelectedInfoOfTeam {
 	private String freeThrowShoots;
 	private String numOfMatch;
 	
+	private String aveRebounds;
+	private String aveAssists;
+	private String avePresenceTime;
+	private String aveOffences;
+	private String aveDefences;
+	private String aveSteals;
+	private String aveBlockShots;
+	private String aveTurnOvers;
+	private String aveFouls;
+	private String aveScore;
+	private String aveShootings;
+	private String aveShots;
+	private String aveThreePointShots;
+	private String aveThreePointShootings;
+	private String aveFreeThrowShots;
+	private String aveFreeThrowShoots;
+	
 	public SelectedInfoOfTeam(){
 		
 		 selectedInfo = new ArrayList<>();
@@ -60,6 +77,25 @@ public class SelectedInfoOfTeam {
 		 freeThrowShots = "罚球数";
 		freeThrowShoots = "罚球命中数";
 		numOfMatch = "比赛数";
+		
+		aveRebounds = "场均篮板数";
+		aveAssists = "场均助攻数";
+		avePresenceTime = "场均在场时间（秒）";
+		aveOffences = "场均防守数";
+		aveDefences = "场均进攻数";
+		aveSteals = "场均抢断数";
+		aveBlockShots = "场均盖帽数";
+		aveTurnOvers = "场均失误数";
+		aveFouls = "场均犯规数";
+		aveScore = "场均得分";
+		aveShootings = "场均投篮命中数";
+		aveShots = "场均投篮数";
+		aveThreePointShots = "场均三分球数";
+		aveThreePointShootings = "场均三分球命中数";
+		aveFreeThrowShots = "场均罚球数";
+		aveFreeThrowShoots = "场均罚球命中数";
+		
+
 
 	}
 
@@ -216,6 +252,103 @@ public class SelectedInfoOfTeam {
 		public void selectBuiltTime(){
 			
 			selectedInfo.add(builtTime);
+		
+		}
+		
+
+		public void selectAveRebounds(){
+			
+			selectedInfo.add(aveRebounds);
+		
+		}
+		
+		public void selectAveAssists(){
+			
+			selectedInfo.add(aveAssists);
+		
+		}
+		
+		public void selectAvePresenceTime(){
+			
+			selectedInfo.add(avePresenceTime);
+		
+		}
+		
+		public void selectAveOffences(){
+			
+			selectedInfo.add(aveOffences);
+		
+		}
+		
+		public void selectAveDefences(){
+			
+			selectedInfo.add(aveDefences);
+		
+		}
+		
+		public void selectAveSteals(){
+			
+			selectedInfo.add(aveSteals);
+		
+		}
+		
+		public void selectAveBlockShots(){
+			
+			selectedInfo.add(aveBlockShots);
+		
+		}
+		
+		public void selectAveTurnOvers(){
+			
+			selectedInfo.add(aveTurnOvers);
+		
+		}
+		
+		public void selectAveFouls(){
+			
+			selectedInfo.add(aveFouls);
+		
+		}
+		
+		public void selectAveScore(){
+			
+			selectedInfo.add(aveScore);
+		
+		}
+		
+		public void selectAveShootings(){
+			
+			selectedInfo.add(aveShootings);
+		
+		}
+		
+		public void selectAveShots(){
+			
+			selectedInfo.add(aveShots);
+		
+		}
+		
+		public void selectAveThreePointShots(){
+			
+			selectedInfo.add(aveThreePointShots);
+		
+		}
+		public void selectAveThreePointShootings(){
+			
+			selectedInfo.add(aveThreePointShootings);
+			
+		}
+		
+		public void selectAveFreeThrowShots(){
+			
+			selectedInfo.add(aveFreeThrowShots);
+		
+		}
+		
+		
+		public void selectAveFreeThrowShoots(){
+			
+			selectedInfo.add(aveFreeThrowShoots);
 		
 		}
 		

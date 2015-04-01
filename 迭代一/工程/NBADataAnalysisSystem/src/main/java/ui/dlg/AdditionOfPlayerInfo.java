@@ -1,7 +1,6 @@
 package ui.dlg;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
@@ -52,6 +51,7 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 	private JCheckBox aveNumOfAssist;
 	private JCheckBox aveNumOfOffense;
 	private JCheckBox aveNumOfDffense;
+	private JCheckBox aveTimeOfPresence;
 	private JCheckBox aveNumOfSteal;
 	private JCheckBox aveNumOfBlockShot;
 	private JCheckBox aveNumOfTurnOver;
@@ -156,6 +156,23 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 		numOfFreeThrowShoot = new JCheckBox("罚球命中数");
 		numOfFreeThrowShot = new JCheckBox("罚球总数");
 		
+		aveNumOfRebound = new JCheckBox( "场均篮板数");
+		aveNumOfAssist= new JCheckBox("场均助攻数");
+		aveNumOfOffense= new JCheckBox("场均进攻数");
+		aveNumOfDffense= new JCheckBox("场均防守数");
+		aveNumOfSteal= new JCheckBox("场均抢断数");
+		aveNumOfBlockShot= new JCheckBox( "场均盖帽数");
+		aveNumOfTurnOver= new JCheckBox( "场均失误数");
+		aveNumOfFoul= new JCheckBox("场均犯规数");
+		aveTimeOfPresence = new JCheckBox("场均在场时间");
+		aveScorling= new JCheckBox("场均得分");
+		aveNumOfShoot = new JCheckBox("场均投篮命中数");
+		aveNumOfShot= new JCheckBox("场均投篮数");
+		aveNumOfThreePointShoot  = new JCheckBox("场均三分球命中数");
+		aveNumOfThreePointShot = new JCheckBox( "场均三分球总数");
+		aveNumOfFreeThrowShoot = new JCheckBox("场均罚球命中数");
+		aveNumOfFreeThrowShot = new JCheckBox("场均罚球总数");
+		
 		JPanel basicInfoPanel = new JPanel(new GridLayout(3,3));
 		basicInfoPanel.setBorder(BorderFactory.createTitledBorder("基础信息"));
 		basicInfoPanel.add(numOfPlayer);
@@ -189,6 +206,25 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 		seasonInfoPanel.add(numOfFreeThrowShoot);
 		seasonInfoPanel.add(numOfFreeThrowShot);
 		
+		JPanel aveSeasonInfoPanel = new JPanel(new GridLayout(6,3));
+		aveSeasonInfoPanel.setBorder(BorderFactory.createTitledBorder("场均信息"));
+		aveSeasonInfoPanel.add(aveNumOfRebound);
+		aveSeasonInfoPanel.add(aveNumOfAssist);
+		aveSeasonInfoPanel.add(aveNumOfOffense);
+		aveSeasonInfoPanel.add(aveNumOfDffense);
+		seasonInfoPanel.add(aveTimeOfPresence);
+		aveSeasonInfoPanel.add(aveNumOfSteal);
+		aveSeasonInfoPanel.add(aveNumOfBlockShot);
+		aveSeasonInfoPanel.add(aveNumOfTurnOver);
+		aveSeasonInfoPanel.add(aveNumOfFoul);
+		aveSeasonInfoPanel.add(aveScorling);
+		aveSeasonInfoPanel.add(aveNumOfShoot);
+		aveSeasonInfoPanel.add(aveNumOfShot);
+		aveSeasonInfoPanel.add(aveNumOfThreePointShoot);
+		aveSeasonInfoPanel.add(aveNumOfThreePointShot );
+		aveSeasonInfoPanel.add(aveNumOfFreeThrowShoot);
+		aveSeasonInfoPanel.add(aveNumOfFreeThrowShot);
+		
 		JPanel totalPanel = new JPanel(new GridLayout(4,1));
 
 		sort.addItem("升序");
@@ -221,6 +257,23 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 		infoOfSort.addItem("罚球命中数");
 		infoOfSort.addItem("罚球总数");
 		
+		infoOfSort.addItem("场均篮板数");
+		infoOfSort.addItem("场均助攻数");
+		infoOfSort.addItem("场均在场时间（秒）");
+		infoOfSort.addItem("场均防守数");
+		infoOfSort.addItem("场均进攻数");
+		infoOfSort.addItem("场均抢断数");
+		infoOfSort.addItem("场均盖帽数");
+		infoOfSort.addItem("场均失误数");
+		infoOfSort.addItem("场均犯规数");
+		infoOfSort.addItem("场均得分");
+		infoOfSort.addItem("场均投篮命中数");
+		infoOfSort.addItem("场均投篮数");
+		infoOfSort.addItem( "场均三分球命中数");
+		infoOfSort.addItem( "场均三分球总数");
+		infoOfSort.addItem("场均罚球命中数");
+		infoOfSort.addItem("场均罚球总数");
+		
 		
 		
 		//basicInfoPanel.setBorder(BorderFactory.createEtchedBorder());
@@ -243,6 +296,7 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 		
 		totalPanel.add(basicInfoPanel);
 		totalPanel.add(seasonInfoPanel);
+		totalPanel.add(aveSeasonInfoPanel);
 		totalPanel.add(bp);
 
 		this.add(totalPanel);
@@ -302,18 +356,50 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 				numOfFoul.setSelected(true);
 			}if(alreadySelected.contains("得分")){
 				scorling.setSelected(true);
-			}if(alreadySelected.contains("投篮命中数")){
-				numOfShoot.setSelected(true);
-			}if(alreadySelected.contains("投篮数")){
-				numOfShot.setSelected(true);
-			}if(alreadySelected.contains("三分球命中数")){
-				numOfThreePointShoot.setSelected(true);
-			}if(alreadySelected.contains("三分球总数")){
-				numOfThreePointShot .setSelected(true);
-			}if(alreadySelected.contains("罚球命中数")){
-				numOfFreeThrowShoot.setSelected(true);
-			}if(alreadySelected.contains("罚球总数")){
-				numOfFreeThrowShot.setSelected(true);
+			}if(alreadySelected.contains("场均投篮命中数")){
+				aveNumOfShoot.setSelected(true);
+			}if(alreadySelected.contains("场均投篮数")){
+				aveNumOfShot.setSelected(true);
+			}if(alreadySelected.contains("场均三分球命中数")){
+				aveNumOfThreePointShoot.setSelected(true);
+			}if(alreadySelected.contains("场均三分球总数")){
+				aveNumOfThreePointShot .setSelected(true);
+			}if(alreadySelected.contains("场均罚球命中数")){
+				aveNumOfFreeThrowShoot.setSelected(true);
+			}if(alreadySelected.contains("场均罚球总数")){
+				aveNumOfFreeThrowShot.setSelected(true);
+			}if(alreadySelected.contains("场均篮板数")){
+				aveNumOfRebound.setSelected(true);
+			}if(alreadySelected.contains("场均助攻数")){
+				aveNumOfAssist.setSelected(true);
+			}if(alreadySelected.contains("场均在场时间（秒）")){
+				aveTimeOfPresence.setSelected(true);
+			}if(alreadySelected.contains("场均进攻数")){
+				aveNumOfOffense.setSelected(true);
+			}if(alreadySelected.contains("场均防守数")){
+				aveNumOfDffense.setSelected(true);
+			}if(alreadySelected.contains("场均抢断数")){
+				aveNumOfSteal.setSelected(true);
+			}if(alreadySelected.contains("场均盖帽数")){
+				aveNumOfBlockShot.setSelected(true);
+			}if(alreadySelected.contains("场均失误数")){
+				aveNumOfTurnOver.setSelected(true);
+			}if(alreadySelected.contains("场均犯规数")){
+				aveNumOfFoul.setSelected(true);
+			}if(alreadySelected.contains("场均得分")){
+				aveScorling.setSelected(true);
+			}if(alreadySelected.contains("场均投篮命中数")){
+				aveNumOfShoot.setSelected(true);
+			}if(alreadySelected.contains("场均投篮数")){
+				aveNumOfShot.setSelected(true);
+			}if(alreadySelected.contains("场均三分球命中数")){
+				aveNumOfThreePointShoot.setSelected(true);
+			}if(alreadySelected.contains("场均三分球总数")){
+				aveNumOfThreePointShot .setSelected(true);
+			}if(alreadySelected.contains("场均罚球命中数")){
+				aveNumOfFreeThrowShoot.setSelected(true);
+			}if(alreadySelected.contains("场均罚球总数")){
+				aveNumOfFreeThrowShot.setSelected(true);
 			}
 			
 	}
@@ -405,29 +491,93 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 	    	   
 	    	   selectedItem.selectScorling();
 	  
-	       }if(numOfShoot.isSelected() == true){
+	       }if(aveNumOfShoot.isSelected() == true){
 	    	   
-	    	   selectedItem.selectNumOfShoot();
+	    	   selectedItem.selectAveNumOfShoot();
 	  
-	       }if(numOfShot.isSelected() == true){
+	       }if(aveNumOfShot.isSelected() == true){
 	    	   
-	    	   selectedItem.selectNumOfShot();
+	    	   selectedItem.selectAveNumOfShot();
 	  
-	       }if(numOfThreePointShoot.isSelected() == true){
+	       }if(aveNumOfThreePointShoot.isSelected() == true){
 	    	   
-	    	   selectedItem.selectNumOfThreePointShoot();
+	    	   selectedItem.selectAveNumOfThreePointShoot();
 	  
-	       }if(numOfThreePointShot .isSelected() == true){
+	       }if(aveNumOfThreePointShot .isSelected() == true){
 	    	   
-	    	   selectedItem.selectNumOfThreePointShot ();
+	    	   selectedItem.selectAveNumOfThreePointShot ();
 	  
-	       }if(numOfFreeThrowShoot.isSelected() == true){
+	       }if(aveNumOfFreeThrowShoot.isSelected() == true){
 	    	   
-	    	   selectedItem.selectNumOfFreeThrowShoot();
+	    	   selectedItem.selectAveNumOfFreeThrowShoot();
 	  
-	       }if(numOfFreeThrowShot.isSelected() == true){
+	       }if(aveNumOfFreeThrowShot.isSelected() == true){
 	    	   
-	    	   selectedItem.selectNumOfFreeThrowShot();
+	    	   selectedItem.selectAveNumOfFreeThrowShot();
+	  
+	       }if(aveNumOfRebound.isSelected() == true){
+	    	   
+	    	   selectedItem.selectAveNumOfRebound();
+	  
+	       }if(aveNumOfAssist.isSelected() == true){
+	    	   
+	    	   selectedItem.selectAveNumOfAssist();
+	  
+	       }if(aveTimeOfPresence.isSelected() == true){
+	    	   
+	    	   selectedItem.selectAveTimeOfPresence();
+	  
+	       }if(aveNumOfOffense.isSelected() == true){
+	    	   
+	    	   selectedItem.selectAveNumOfOffense();
+	  
+	       }if(aveNumOfDffense.isSelected() == true){
+	    	   
+	    	   selectedItem.selectAveNumOfDffense();
+	  
+	       }if(aveNumOfSteal.isSelected() == true){
+	    	   
+	    	   selectedItem.selectAveNumOfSteal();
+	  
+	       }if(aveNumOfBlockShot.isSelected() == true){
+	    	   
+	    	   selectedItem.selectAveNumOfBlockShot();
+	  
+	       }if(aveNumOfTurnOver.isSelected() == true){
+	    	   
+	    	   selectedItem.selectAveNumOfTurnOver();
+	  
+	       }if(aveNumOfFoul.isSelected() == true){
+	    	   
+	    	   selectedItem.selectAveNumOfFoul();
+	  
+	       }if(aveScorling.isSelected() == true){
+	    	   
+	    	   selectedItem.selectAveScorling();
+	  
+	       }if(aveNumOfShoot.isSelected() == true){
+	    	   
+	    	   selectedItem.selectAveNumOfShoot();
+	  
+	       }if(aveNumOfShot.isSelected() == true){
+	    	   
+	    	   selectedItem.selectAveNumOfShot();
+	  
+	       }if(aveNumOfThreePointShoot.isSelected() == true){
+	    	   
+	    	   selectedItem.selectAveNumOfThreePointShoot();
+	  
+	       }if(aveNumOfThreePointShot .isSelected() == true){
+	    	   
+	    	   selectedItem.selectAveNumOfThreePointShot ();
+	  
+	       }if(aveNumOfFreeThrowShoot.isSelected() == true){
+	    	   
+	    	   selectedItem.selectAveNumOfFreeThrowShoot();
+	  
+	       }if(aveNumOfFreeThrowShot.isSelected() == true){
+	    	   
+	    	   selectedItem.selectAveNumOfFreeThrowShot();
 	  
 	       }
 	       

@@ -39,6 +39,7 @@ public class SelectedInfoOfPlayer {
 	private String aveNumOfRebound;
 	private String aveNumOfAssist;
 	private String aveNumOfOffense;
+	private String aveTimeOfPresence;
 	private String aveNumOfDffense;
 	private String aveNumOfSteal;
 	private String aveNumOfBlockShot;
@@ -90,6 +91,7 @@ public class SelectedInfoOfPlayer {
 		
 		aveNumOfRebound = "场均篮板数";
 		 aveNumOfAssist = "场均助攻数";
+		 aveTimeOfPresence = "场均在场时间（秒）";
 		 aveNumOfOffense = "场均进攻数";
 		 aveNumOfDffense = "场均防守数";
 		 aveNumOfSteal = "场均抢断数"; 
@@ -257,6 +259,12 @@ public class SelectedInfoOfPlayer {
 			
 	 	}
 	 	
+		
+		public void selectAveTimeOfPresence(){
+	 		
+			selectedInfo.add(aveTimeOfPresence);
+			
+	 	}
 	
 		public void selectNumOfFoul(){
 			
