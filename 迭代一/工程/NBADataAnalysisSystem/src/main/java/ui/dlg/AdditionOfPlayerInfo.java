@@ -2,6 +2,7 @@ package ui.dlg;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -62,7 +63,7 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 		super(parent);
 		
 		this.setTitle("勾选信息");
-		this.setSize(500,250);
+		this.setSize(500,500);
 		this.setUndecorated(true);
 		resetLocation();
 
@@ -139,56 +140,41 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 		numOfFreeThrowShoot = new JCheckBox("罚球命中数");
 		numOfFreeThrowShot = new JCheckBox("罚球总数");
 		
-		JPanel checkPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		checkPanel.add(numOfPlayer);
-		checkPanel.add(positionOfPlayer);
-		checkPanel.add(heightOfPlayer);
-		checkPanel.add(weightOfPlayer);
-		checkPanel.add(birthOfPlayer);
-		checkPanel.add(ageOfPlayer);
-		checkPanel.add(expOfPlayer);
-		checkPanel.add(schoolOfPlayer);
-		checkPanel.add(teamOfPlayer);
-		checkPanel.add(numOfEntryField);
-		checkPanel.add(numOfStartingField);
-		checkPanel.add(numOfRebound);
-		checkPanel.add(numOfAssist);
-		checkPanel.add(timeOfPresence);
-		checkPanel.add(numOfOffense);
-		checkPanel.add(numOfDffense);
-		checkPanel.add(numOfSteal);
-		checkPanel.add(numOfBlockShot);
-		checkPanel.add(numOfTurnOver);
-		checkPanel.add(numOfFoul);
-		checkPanel.add(scorling);
-		checkPanel.add(numOfShoot);
-		checkPanel.add(numOfShot);
-		checkPanel.add(numOfThreePointShoot);
-		checkPanel.add(numOfThreePointShot );
-		checkPanel.add(numOfFreeThrowShoot);
-		checkPanel.add(numOfFreeThrowShot);
-		checkPanel.setSize(500, 500);
+		JPanel basicInfoPanel = new JPanel(new GridLayout(3,3));
+		basicInfoPanel.setBorder(BorderFactory.createTitledBorder("基础信息"));
+		basicInfoPanel.add(numOfPlayer);
+		basicInfoPanel.add(positionOfPlayer);
+		basicInfoPanel.add(heightOfPlayer);
+		basicInfoPanel.add(weightOfPlayer);
+		basicInfoPanel.add(birthOfPlayer);
+		basicInfoPanel.add(ageOfPlayer);
+		basicInfoPanel.add(expOfPlayer);
+		basicInfoPanel.add(schoolOfPlayer);
+		basicInfoPanel.add(teamOfPlayer);
 		
-		 //numOfPlayer.addItemListener(this);
-//		 positionOfPlayer.addItemListener(this);
-//		 heightOfPlayer.addItemListener(this);
-//		 weightOfPlayer.addItemListener(this);
-//		 birthOfPlayer.addItemListener(this);
-//		 ageOfPlayer.addItemListener(this);
-//		 expOfPlayer.addItemListener(this);
-//		 schoolOfPlayer.addItemListener(this);
-//		 teamOfPlayer.addItemListener(this);
-//		 numOfEntryField.addItemListener(this);
-//		 numOfStartingField.addItemListener(this);
-//		 numOfRebound.addItemListener(this);
-//		 numOfAssist.addItemListener(this);
-//		 timeOfPresence.addItemListener(this);
-//		 numOfOffense.addItemListener(this);
-//		 numOfSteal.addItemListener(this);
-//		 numOfBlockShot.addItemListener(this);
-//		 numOfTurnOver.addItemListener(this);
-//		 numOfFoul.addItemListener(this);
-//		 scorling.addItemListener(this);
+		JPanel seasonInfoPanel = new JPanel(new GridLayout(6,3));
+		seasonInfoPanel.setBorder(BorderFactory.createTitledBorder("赛季信息"));
+		seasonInfoPanel.add(numOfEntryField);
+		seasonInfoPanel.add(numOfStartingField);
+		seasonInfoPanel.add(numOfRebound);
+		seasonInfoPanel.add(numOfAssist);
+		seasonInfoPanel.add(timeOfPresence);
+		seasonInfoPanel.add(numOfOffense);
+		seasonInfoPanel.add(numOfDffense);
+		seasonInfoPanel.add(numOfSteal);
+		seasonInfoPanel.add(numOfBlockShot);
+		seasonInfoPanel.add(numOfTurnOver);
+		seasonInfoPanel.add(numOfFoul);
+		seasonInfoPanel.add(scorling);
+		seasonInfoPanel.add(numOfShoot);
+		seasonInfoPanel.add(numOfShot);
+		seasonInfoPanel.add(numOfThreePointShoot);
+		seasonInfoPanel.add(numOfThreePointShot );
+		seasonInfoPanel.add(numOfFreeThrowShoot);
+		seasonInfoPanel.add(numOfFreeThrowShot);
+		
+		JPanel totalPanel = new JPanel(new GridLayout(4,1));
+
 		sort.addItem("升序");
 		sort.addItem("降序");
 		sort.addItem("字母序");
@@ -221,9 +207,8 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 		
 		
 		
-		checkPanel.setBorder(BorderFactory.createEtchedBorder());
-		this.add(checkPanel,BorderLayout.CENTER);
-		checkPanel.setVisible(true);
+		//basicInfoPanel.setBorder(BorderFactory.createEtchedBorder());
+		basicInfoPanel.setVisible(true);
 		this.setAlwaysOnTop(true);
 		
 		JPanel sortPanel = new JPanel();
@@ -239,7 +224,12 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 		bp.add(sortPanel,BorderLayout.NORTH);
 		bp.add(btn_apply);
 		bp.add(btn_cancel);
-		this.add(bp, BorderLayout.SOUTH);
+		
+		totalPanel.add(basicInfoPanel);
+		totalPanel.add(seasonInfoPanel);
+		totalPanel.add(bp);
+
+		this.add(totalPanel);
 		
 		
 	}

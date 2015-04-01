@@ -2,6 +2,7 @@ package ui.dlg;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -59,7 +60,7 @@ public class AdditionOfTeamInfo extends InputDialog  {
 		super(parent);
 		
 		this.setTitle("勾选信息");
-		this.setSize(500,250);
+		this.setSize(500,500);
 		this.setUndecorated(true);
 		resetLocation();
 
@@ -106,53 +107,34 @@ public class AdditionOfTeamInfo extends InputDialog  {
 		numOfMatch =new JCheckBox( "比赛数");
 
 		
-		JPanel checkPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-//		checkPanel.add(fullName);
-//		checkPanel.add(abeerName);
-		checkPanel.add(location);
-		checkPanel.add(zone);
-		checkPanel.add(division);
-		checkPanel.add(homeCourt);
-		checkPanel.add(builtTime);
-		checkPanel.add(rebounds);
-		checkPanel.add(assists);
-		checkPanel.add(presenceTime);
-		checkPanel.add(offences);
-		checkPanel.add(defences);
-		checkPanel.add(steals);
-		checkPanel.add(blockShots);
-		checkPanel.add(turnOvers);
-		checkPanel.add(fouls);
-		checkPanel.add(score);
-		checkPanel.add(shootings);
-		checkPanel.add(shots);
-		checkPanel.add(threePointShots);
-		checkPanel.add(threePointShootings);
-		checkPanel.add(freeThrowShots);
-		checkPanel.add(freeThrowShoots);
-		checkPanel.add(numOfMatch);
-		checkPanel.setSize(500, 500);
+		JPanel basicInfoPanel = new JPanel(new GridLayout(2,3));
+		basicInfoPanel.setBorder(BorderFactory.createTitledBorder("基础信息"));
+		basicInfoPanel.add(location);
+		basicInfoPanel.add(zone);
+		basicInfoPanel.add(division);
+		basicInfoPanel.add(homeCourt);
+		basicInfoPanel.add(builtTime);
 		
-		 //numOfPlayer.addItemListener(this);
-//		 positionOfPlayer.addItemListener(this);
-//		 heightOfPlayer.addItemListener(this);
-//		 weightOfPlayer.addItemListener(this);
-//		 birthOfPlayer.addItemListener(this);
-//		 ageOfPlayer.addItemListener(this);
-//		 expOfPlayer.addItemListener(this);
-//		 schoolOfPlayer.addItemListener(this);
-//		 teamOfPlayer.addItemListener(this);
-//		 numOfEntryField.addItemListener(this);
-//		 numOfStartingField.addItemListener(this);
-//		 numOfRebound.addItemListener(this);
-//		 numOfAssist.addItemListener(this);
-//		 timeOfPresence.addItemListener(this);
-//		 numOfOffense.addItemListener(this);
-//		 numOfSteal.addItemListener(this);
-//		 numOfBlockShot.addItemListener(this);
-//		 numOfTurnOver.addItemListener(this);
-//		 numOfFoul.addItemListener(this);
-//		 scorling.addItemListener(this);
+		JPanel seasonInfoPanel = new JPanel(new GridLayout(6,3));
+		seasonInfoPanel.setBorder(BorderFactory.createTitledBorder("赛季信息"));
+		seasonInfoPanel.add(rebounds);
+		seasonInfoPanel.add(assists);
+		seasonInfoPanel.add(presenceTime);
+		seasonInfoPanel.add(offences);
+		seasonInfoPanel.add(defences);
+		seasonInfoPanel.add(steals);
+		seasonInfoPanel.add(blockShots);
+		seasonInfoPanel.add(turnOvers);
+		seasonInfoPanel.add(fouls);
+		seasonInfoPanel.add(score);
+		seasonInfoPanel.add(shootings);
+		seasonInfoPanel.add(shots);
+		seasonInfoPanel.add(threePointShots);
+		seasonInfoPanel.add(threePointShootings);
+		seasonInfoPanel.add(freeThrowShots);
+		seasonInfoPanel.add(freeThrowShoots);
+		seasonInfoPanel.add(numOfMatch);
+		
 		sort.addItem("升序");
 		sort.addItem("降序");
 		sort.addItem("字母序");
@@ -183,9 +165,9 @@ public class AdditionOfTeamInfo extends InputDialog  {
 		infoOfSort.addItem("罚球总数");
 		infoOfSort.addItem("比赛数");
 		
-		checkPanel.setBorder(BorderFactory.createEtchedBorder());
-		this.add(checkPanel);
-		checkPanel.setVisible(true);
+		JPanel totalPanel = new JPanel(new GridLayout(4,1));
+//		basicInfoPanel.setBorder(BorderFactory.createEtchedBorder());
+		basicInfoPanel.setVisible(true);
 		this.setAlwaysOnTop(true);
 		
 		JPanel sortPanel = new JPanel();
@@ -200,7 +182,14 @@ public class AdditionOfTeamInfo extends InputDialog  {
 		bp.add(sortPanel,BorderLayout.NORTH);
 		bp.add(btn_apply);
 		bp.add(btn_cancel);
-		this.add(bp, BorderLayout.SOUTH);
+		
+		totalPanel.add(basicInfoPanel);
+		totalPanel.add(seasonInfoPanel);
+		totalPanel.add(bp);
+
+		this.add(totalPanel);
+
+
 		
 		
 	}
