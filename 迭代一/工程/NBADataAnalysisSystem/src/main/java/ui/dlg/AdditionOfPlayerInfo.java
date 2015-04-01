@@ -212,7 +212,7 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 		aveSeasonInfoPanel.add(aveNumOfAssist);
 		aveSeasonInfoPanel.add(aveNumOfOffense);
 		aveSeasonInfoPanel.add(aveNumOfDffense);
-		seasonInfoPanel.add(aveTimeOfPresence);
+		aveSeasonInfoPanel.add(aveTimeOfPresence);
 		aveSeasonInfoPanel.add(aveNumOfSteal);
 		aveSeasonInfoPanel.add(aveNumOfBlockShot);
 		aveSeasonInfoPanel.add(aveNumOfTurnOver);
