@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import entity.PlayerInfo;
+import entity.SiftingOfOth;
+import entity.SiftingOfPosition;
+import entity.SiftingOfUnion;
 import entity.SortType;
 
 public class PlayerDaoJdbcImp implements PlayerDao {
@@ -42,6 +45,44 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 		} else {
 			resultSet = statement.executeQuery("SELECT " + columnsToSearch + " FROM players");
 		}
+		ArrayList<Map<PlayerInfo, String>> result = new ArrayList<Map<PlayerInfo, String>>();
+		while (resultSet.next()) {
+			Map<PlayerInfo, String> map = new HashMap<PlayerInfo, String>();
+			for (String string:columnStrList) {
+				map.put(translation.reverseTranslation(string), resultSet.getString(string));
+			}
+			result.add(map);
+		}
+		statement.close();
+		return result;
+	}
+	
+	public ArrayList<Map<PlayerInfo, String>> siftPlayer(ArrayList<PlayerInfo> columnList, SiftingOfPosition position, SiftingOfUnion union, SiftingOfOth sortBy) throws Exception {
+		String columnsToSearch = "";
+		PlayerTranslation translation = new PlayerTranslation();
+		ArrayList<String> columnStrList = new ArrayList<String>();
+		for (PlayerInfo playerInfo:columnList) {
+			String temp = translation.translation(playerInfo);
+			columnsToSearch = columnsToSearch + temp + ",";
+			columnStrList.add(temp);
+		}
+		columnsToSearch = columnsToSearch.substring(0, columnsToSearch.length()-1);
+		Statement statement = connection.createStatement();
+		ResultSet resultSet;
+		switch (position) {
+		case FORWARD:
+			
+			break;
+		case CENTER:
+			
+			break;
+		case GUARD:
+			
+			break;
+		default:
+			break;
+		}
+		resultSet = statement.executeQuery("SELECT " + columnsToSearch + " FROM players");
 		ArrayList<Map<PlayerInfo, String>> result = new ArrayList<Map<PlayerInfo, String>>();
 		while (resultSet.next()) {
 			Map<PlayerInfo, String> map = new HashMap<PlayerInfo, String>();

@@ -2,7 +2,6 @@ package ui.dlg;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -12,10 +11,10 @@ import javax.swing.JRadioButton;
 
 import com.sun.awt.AWTUtilities;
 
+import entity.SiftingOfOth;
+import entity.SiftingOfPosition;
+import entity.SiftingOfUnion;
 import ui.playerui.PlayerFrame;
-import ui.playerui.SiftingOfOth;
-import ui.playerui.SiftingOfPosition;
-import ui.playerui.SiftingOfUnion;
 
 @SuppressWarnings({ "serial", "restriction" })
 public class SiftingOfPlayer extends InputDialog{
@@ -52,18 +51,14 @@ public class SiftingOfPlayer extends InputDialog{
 	ButtonGroup groupOfUnion = new ButtonGroup();
 	ButtonGroup groupOfOth = new ButtonGroup();
 	
-	ArrayList<SiftingOfPosition> listOfPosition;
-	ArrayList<SiftingOfUnion> listOfUnion;
-	ArrayList<SiftingOfOth> listOfOth;
+	SiftingOfPosition listOfPosition;
+	SiftingOfUnion listOfUnion;
+	SiftingOfOth listOfOth;
 	
 	//private ArrayList<String> alreadySelected = new ArrayList<>();
 	
 	public SiftingOfPlayer(JFrame parent) {
 		super(parent);
-		
-		listOfPosition = new ArrayList<>();
-		listOfUnion = new ArrayList<>();
-		listOfOth = new ArrayList<>();
 		
 		this.setTitle("…∏—°–≈œ¢");
 		this.setSize(400, 500);
@@ -245,91 +240,91 @@ public void checkBoxSelected() {
 
        if ( forward.isSelected() == true) {
     	   
-    	   listOfPosition.add(SiftingOfPosition.FORWARD);
+    	   listOfPosition = SiftingOfPosition.FORWARD;
     	   
        }  if(center.isSelected() == true){
     	   
-    	   listOfPosition.add(SiftingOfPosition.CENTER);
+    	   listOfPosition = SiftingOfPosition.CENTER;
         
        }if(guard.isSelected() == true){
       
-    	   listOfPosition.add(SiftingOfPosition.GUARD);
+    	   listOfPosition = SiftingOfPosition.GUARD;
     	   
        }if(atlanticDivision.isSelected() == true){
     	   
-    	   listOfUnion.add(SiftingOfUnion.ATLANTICDIVISION);
+    	   listOfUnion = SiftingOfUnion.ATLANTICDIVISION;
   
        }if(centralDivision .isSelected() == true){
     	   
-    	   listOfUnion.add(SiftingOfUnion.CENTRALDIVISION);
+    	   listOfUnion = SiftingOfUnion.CENTRALDIVISION;
   
        }if( southeastDivision.isSelected() == true){
     	   
-    	   listOfUnion.add(SiftingOfUnion.SOUTHEASTDIVISION);
+    	   listOfUnion = SiftingOfUnion.SOUTHEASTDIVISION;
   
        }if(southwestDivision.isSelected() == true){
     	   
-    	   listOfUnion.add(SiftingOfUnion.SOUTHWESTDIVISION);
+    	   listOfUnion = SiftingOfUnion.SOUTHWESTDIVISION;
   
        }if(northwestDivision.isSelected() == true){
     	   
-    	   listOfUnion.add(SiftingOfUnion.NORTHWESTDIVISION);
+    	   listOfUnion = SiftingOfUnion.NORTHWESTDIVISION;
   
        }if(pacificDivision .isSelected() == true){
     	   
-    	   listOfUnion.add(SiftingOfUnion.PACIFICDIVISION);
+    	   listOfUnion = SiftingOfUnion.PACIFICDIVISION;
   
        }if(scoring.isSelected() == true){
     	   
-    	   listOfOth.add(SiftingOfOth.SCORING);
+    	   listOfOth = SiftingOfOth.SCORING;
   
        }if(numOfRebound.isSelected() == true){
     	   
-    	   listOfOth.add(SiftingOfOth.NUM_OF_REBOUND);
+    	   listOfOth = SiftingOfOth.NUM_OF_REBOUND;
   
        }if(numOfAssist.isSelected() == true){
     	   
-    	   listOfOth.add(SiftingOfOth.NUM_OF_ASSIST);
+    	   listOfOth = SiftingOfOth.NUM_OF_ASSIST;
   
        }if(scoring_rebound_assist.isSelected() == true){
     	   
-    	   listOfOth.add(SiftingOfOth.SCORING_REBOUND_ASSIST);
+    	   listOfOth = SiftingOfOth.SCORING_REBOUND_ASSIST;
   
        }if(numOfBlockShot.isSelected() == true){
     	   
-    	   listOfOth.add(SiftingOfOth.NUM_OF_BLOCK_SHOT);
+    	   listOfOth = SiftingOfOth.NUM_OF_BLOCK_SHOT;
   
        }if(numOfSteal .isSelected() == true){
     	   
-    	   listOfOth.add(SiftingOfOth.NUM_OF_STEAL);
+    	   listOfOth = SiftingOfOth.NUM_OF_STEAL;
   
        }if( numOfFoul .isSelected() == true){
     	   
-    	   listOfOth.add(SiftingOfOth.NUM_OF_FOUL);
+    	   listOfOth = SiftingOfOth.NUM_OF_FOUL;
   
        }if(numOfTurnOver.isSelected() == true){
     	   
-    	   listOfOth.add(SiftingOfOth.NUM_OF_TURN_OVER);
+    	   listOfOth = SiftingOfOth.NUM_OF_TURN_OVER;
   
        }if(efficiency.isSelected() == true){
     	   
-    	   listOfOth.add(SiftingOfOth.EFFICIENCY);
+    	   listOfOth = SiftingOfOth.EFFICIENCY;
   
        }if(numOfShot .isSelected() == true){
     	   
-    	   listOfOth.add(SiftingOfOth.NUM_OF_SHOT);
+    	   listOfOth = SiftingOfOth.NUM_OF_SHOT;
   
        }if(numOfThreePoint.isSelected() == true){
     	   
-    	   listOfOth.add(SiftingOfOth.NUM_OF_THREE_POINT);
+    	   listOfOth = SiftingOfOth.NUM_OF_THREE_POINT;
   
        }if(numOfFreeThrow.isSelected() == true){
     	   
-    	   listOfOth.add(SiftingOfOth.NUM_OF_FREE_THROW);
+    	   listOfOth = SiftingOfOth.NUM_OF_FREE_THROW;
   
        }if(doubleDouble.isSelected() == true){
     	   
-    	   listOfOth.add(SiftingOfOth.DOUBLE_DOUBLE);
+    	   listOfOth = SiftingOfOth.DOUBLE_DOUBLE;
   
        }
 //       

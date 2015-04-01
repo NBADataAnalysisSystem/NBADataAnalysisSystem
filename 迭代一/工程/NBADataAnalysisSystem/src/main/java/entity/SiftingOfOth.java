@@ -1,4 +1,4 @@
-package ui.playerui;
+package entity;
 
 public enum SiftingOfOth {
 
