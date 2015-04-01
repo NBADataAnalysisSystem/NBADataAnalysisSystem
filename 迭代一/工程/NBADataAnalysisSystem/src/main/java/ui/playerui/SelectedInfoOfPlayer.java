@@ -36,6 +36,22 @@ public class SelectedInfoOfPlayer {
 	private String numOfFreeThrowShoot;
 	private String numOfFreeThrowShot;
 	
+	private String aveNumOfRebound;
+	private String aveNumOfAssist;
+	private String aveNumOfOffense;
+	private String aveNumOfDffense;
+	private String aveNumOfSteal;
+	private String aveNumOfBlockShot;
+	private String aveNumOfTurnOver;
+	private String aveNumOfFoul;
+	private String aveScorling;
+	private String aveNumOfShoot;
+	private String aveNumOfShot;
+	private String aveNumOfThreePointShoot;
+	private String aveNumOfThreePointShot;
+	private String aveNumOfFreeThrowShoot;
+	private String aveNumOfFreeThrowShot;
+	
 	
 	public SelectedInfoOfPlayer(){
 		
@@ -71,6 +87,23 @@ public class SelectedInfoOfPlayer {
 		numOfThreePointShot = "三分球总数";
 		numOfFreeThrowShoot = "罚球命中数";
 		numOfFreeThrowShot = "罚球总数";
+		
+		aveNumOfRebound = "场均篮板数";
+		 aveNumOfAssist = "场均助攻数";
+		 aveNumOfOffense = "场均进攻数";
+		 aveNumOfDffense = "场均防守数";
+		 aveNumOfSteal = "场均抢断数"; 
+		 aveNumOfBlockShot = "场均盖帽数";
+		 aveNumOfTurnOver = "场均失误数";
+		 aveNumOfFoul = "场均犯规数";
+		 aveScorling = "场均得分";
+		aveNumOfShoot = "场均投篮命中数";
+		aveNumOfShot = "场均投篮数";
+		aveNumOfThreePointShoot  = "场均三分球命中数";
+		aveNumOfThreePointShot = "场均三分球总数";
+		aveNumOfFreeThrowShoot = "场均罚球命中数";
+		aveNumOfFreeThrowShot = "场均罚球总数";
+
 	}
 
 		public void selectIDOfPlayer(){
@@ -270,6 +303,104 @@ public class SelectedInfoOfPlayer {
 		public void selectScorling(){
 			
 			selectedInfo.add(scorling);
+			
+		}
+		
+		//
+
+		public void selectAveNumOfRebound (){
+	 		
+			selectedInfo.add(aveNumOfRebound);
+			
+	 	}
+	 	
+	
+		public void selectAveNumOfAssist(){
+	 		
+			selectedInfo.add(aveNumOfAssist);
+			
+	 	}
+	 	
+	
+		public void selectAveNumOfOffense(){
+	 		
+			selectedInfo.add(aveNumOfOffense);
+			
+	 	}
+		
+		public void selectAveNumOfDffense(){
+	 		
+			selectedInfo.add(aveNumOfDffense);
+			
+	 	}
+	 	
+	
+		public void selectAveNumOfSteal(){
+	 		
+			selectedInfo.add(aveNumOfSteal);
+			
+	 	}
+	 	
+	
+		public void selectAveNumOfBlockShot (){
+	 		
+			selectedInfo.add(aveNumOfBlockShot);
+			
+	 	}
+	 	
+	
+		public void selectAveNumOfTurnOver (){
+	 		
+			selectedInfo.add(aveNumOfTurnOver);
+			
+	 	}
+	 	
+	
+		public void selectAveNumOfFoul(){
+			
+			selectedInfo.add(aveNumOfFoul);
+			
+		}
+	
+		public void selectAveNumOfShoot(){
+			
+			selectedInfo.add(aveNumOfShoot);
+			
+		}
+		
+		public void selectAveNumOfShot(){
+			
+			selectedInfo.add(aveNumOfShot);
+			
+		}
+		
+		public void selectAveNumOfThreePointShoot (){
+			
+			selectedInfo.add(aveNumOfThreePointShoot );
+			
+		}
+		
+		public void selectAveNumOfThreePointShot(){
+			
+			selectedInfo.add(aveNumOfThreePointShot);
+			
+		}
+		
+		public void selectAveNumOfFreeThrowShoot (){
+			
+			selectedInfo.add(aveNumOfFreeThrowShoot );
+			
+		}
+		
+		public void selectAveNumOfFreeThrowShot(){
+			
+			selectedInfo.add(aveNumOfFreeThrowShot);
+			
+		}
+		
+		public void selectAveScorling(){
+			
+			selectedInfo.add(aveScorling);
 			
 		}
 		

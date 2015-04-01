@@ -48,6 +48,22 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 	private JCheckBox numOfFreeThrowShoot ;
 	private JCheckBox numOfFreeThrowShot ;
 	
+	private JCheckBox aveNumOfRebound;
+	private JCheckBox aveNumOfAssist;
+	private JCheckBox aveNumOfOffense;
+	private JCheckBox aveNumOfDffense;
+	private JCheckBox aveNumOfSteal;
+	private JCheckBox aveNumOfBlockShot;
+	private JCheckBox aveNumOfTurnOver;
+	private JCheckBox aveNumOfFoul;
+	private JCheckBox aveScorling;
+	private JCheckBox aveNumOfShoot ;
+	private JCheckBox aveNumOfShot;
+	private JCheckBox aveNumOfThreePointShoot  ;
+	private JCheckBox aveNumOfThreePointShot ;
+	private JCheckBox aveNumOfFreeThrowShoot ;
+	private JCheckBox aveNumOfFreeThrowShot ;
+	
 	JComboBox<String> sort = new JComboBox<String>();
 	JComboBox<String> infoOfSort = new JComboBox<String>();
 	JLabel sortLabel = new JLabel("Éý/½µÐòÒÀ¾Ý");
