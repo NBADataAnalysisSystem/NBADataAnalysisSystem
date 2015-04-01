@@ -174,7 +174,7 @@ public class TeamFrame extends JFrame implements ActionListener{
 		backIcon.setImage(tempBack);
 		backButton.setMargin(new Insets(0,0,0,0));
 		backButton.setIcon(backIcon);
-		backButton.setBounds(850,0,backIcon.getIconWidth(), backIcon.getIconHeight());
+		backButton.setBounds(920,0,backIcon.getIconWidth(), backIcon.getIconHeight());
 		backButton.addActionListener(this);
 		backButton.setName("back");
 		this.add(backButton);

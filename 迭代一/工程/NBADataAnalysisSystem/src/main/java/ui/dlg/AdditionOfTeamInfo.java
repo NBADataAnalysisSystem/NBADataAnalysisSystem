@@ -366,7 +366,7 @@ public class AdditionOfTeamInfo extends InputDialog  {
 				aveRebounds.setSelected(true);
 			}if(alreadySelected.contains("场均助攻数")){
 				aveAssists.setSelected(true);
-			}if(alreadySelected.contains("场均在场时间")){
+			}if(alreadySelected.contains("场均在场时间（秒）")){
 				avePresenceTime.setSelected(true);
 			}if(alreadySelected.contains("场均防守数")){
 				aveOffences.setSelected(true);

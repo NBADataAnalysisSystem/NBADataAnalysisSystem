@@ -136,7 +136,7 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 		numOfAssist = new JCheckBox("助攻数");
 		numOfAssist.setSelected(false);
 		
-		timeOfPresence = new JCheckBox("在场时间");
+		timeOfPresence = new JCheckBox("在场时间（秒）");
 		timeOfPresence.setSelected(false);
 		
 		numOfOffense = new JCheckBox("进攻数");
@@ -187,7 +187,7 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 		aveNumOfBlockShot= new JCheckBox( "场均盖帽数");
 		aveNumOfTurnOver= new JCheckBox( "场均失误数");
 		aveNumOfFoul= new JCheckBox("场均犯规数");
-		aveTimeOfPresence = new JCheckBox("场均在场时间");
+		aveTimeOfPresence = new JCheckBox("场均在场时间（秒）");
 		aveScorling= new JCheckBox("场均得分");
 		aveNumOfShoot = new JCheckBox("场均投篮命中数");
 		aveNumOfShot= new JCheckBox("场均投篮数");
