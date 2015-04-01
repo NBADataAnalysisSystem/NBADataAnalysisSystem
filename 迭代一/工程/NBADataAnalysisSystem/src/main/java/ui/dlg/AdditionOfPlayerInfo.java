@@ -472,6 +472,18 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 				rateOfTurnOver .setSelected(true);
 			}if(alreadySelected.contains("使用率")){
 				rateOfUse .setSelected(true);
+			}if(alreadySelected.contains("投篮命中数")){
+				numOfShoot.setSelected(true);
+			}if(alreadySelected.contains("投篮数")){
+				numOfShot.setSelected(true);
+			}if(alreadySelected.contains("三分球命中数")){
+				numOfThreePointShoot.setSelected(true);
+			}if(alreadySelected.contains("三分球总数")){
+				numOfThreePointShot .setSelected(true);
+			}if(alreadySelected.contains("罚球命中数")){
+				numOfFreeThrowShoot.setSelected(true);
+			}if(alreadySelected.contains("场均罚球总数")){
+				aveNumOfFreeThrowShot.setSelected(true);
 			}
 			
 	}
