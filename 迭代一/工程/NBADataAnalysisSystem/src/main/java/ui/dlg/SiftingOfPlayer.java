@@ -30,6 +30,8 @@ public class SiftingOfPlayer extends InputDialog{
 	JRadioButton southwestDivision = new JRadioButton("西南区");
 	JRadioButton northwestDivision = new JRadioButton("西北区");
 	JRadioButton pacificDivision = new JRadioButton("太平洋区");
+	JRadioButton eastDivision = new JRadioButton("东部");
+	JRadioButton westDivision = new JRadioButton("西部");
 
 	JRadioButton scoring = new JRadioButton("得分");
 	JRadioButton numOfRebound = new JRadioButton("篮板数");
@@ -83,7 +85,7 @@ public class SiftingOfPlayer extends InputDialog{
 		add(positionPanel);
 		
 		JPanel unionPanel = new JPanel();
-		unionPanel.setLayout(new GridLayout(2,3));
+		unionPanel.setLayout(new GridLayout(3,3));
 		unionPanel.setBorder(BorderFactory.createTitledBorder("球员联盟"));// 定义一个面板的边框显示条
 		unionPanel.add(atlanticDivision);
 		atlanticDivision.setSelected(false);
@@ -97,6 +99,10 @@ public class SiftingOfPlayer extends InputDialog{
 		northwestDivision.setSelected(false);	
 		unionPanel.add(pacificDivision);
 		pacificDivision.setSelected(false);
+		unionPanel.add(eastDivision);
+		eastDivision.setSelected(false);
+		unionPanel.add(westDivision);
+		westDivision.setSelected(false);
 		add(unionPanel);
 		
 		JPanel otherPanel = new JPanel();
@@ -144,6 +150,8 @@ public class SiftingOfPlayer extends InputDialog{
 		groupOfUnion.add(southwestDivision);
 		groupOfUnion.add(northwestDivision);
 		groupOfUnion.add(pacificDivision );
+		groupOfUnion.add(westDivision );
+		groupOfUnion.add(eastDivision );
 		
 		groupOfOth.add(scoring);
 		groupOfOth.add(numOfRebound);
