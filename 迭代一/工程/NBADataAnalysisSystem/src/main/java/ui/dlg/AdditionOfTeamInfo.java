@@ -269,7 +269,7 @@ public class AdditionOfTeamInfo extends InputDialog  {
 		infoOfSort.addItem("场均投篮命中数");
 		infoOfSort.addItem("场均投篮数");
 		infoOfSort.addItem( "场均三分球命中数");
-		infoOfSort.addItem( "场均三分球总数");
+		infoOfSort.addItem( "场均三分球数");
 		infoOfSort.addItem("场均罚球命中数");
 		infoOfSort.addItem("场均罚球数");
 		
