@@ -274,6 +274,14 @@ public void checkBoxSelected() {
     	   
     	   listOfUnion = SiftingOfUnion.PACIFICDIVISION;
   
+       }if(westDivision .isSelected() == true){
+    	   
+    	   listOfUnion = SiftingOfUnion.WESTDIVITION;
+  
+       }if(eastDivision .isSelected() == true){
+    	   
+    	   listOfUnion = SiftingOfUnion.EASTDIVITION;
+  
        }if(scoring.isSelected() == true){
     	   
     	   listOfOth = SiftingOfOth.SCORING;
