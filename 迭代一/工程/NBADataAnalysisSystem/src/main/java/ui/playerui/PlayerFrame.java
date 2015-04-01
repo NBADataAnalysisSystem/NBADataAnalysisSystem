@@ -39,6 +39,7 @@ import controller.playercontroller.GetPlayerResponse;
 import controller.playercontroller.PlayerController;
 import entity.PlayerInfo;
 import entity.SortType;
+import ui.Frontui.FrontFrame;
 import ui.dlg.AdditionOfPlayerInfo;
 import ui.dlg.SiftingOfPlayer;
 
@@ -191,6 +192,17 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		closeButton.setName("close");
 		this.add(closeButton);
 		
+		JButton backButton = new JButton();
+		ImageIcon backIcon = new ImageIcon("resource/BackButton.jpg");
+		Image tempBack = backIcon.getImage().getScaledInstance(backIcon.getIconWidth()/3,backIcon.getIconHeight()/3,Image.SCALE_DEFAULT);  
+		backIcon.setImage(tempBack);
+		backButton.setMargin(new Insets(0,0,0,0));
+		backButton.setIcon(backIcon);
+		backButton.setBounds(850,0,backIcon.getIconWidth(), backIcon.getIconHeight());
+		backButton.addActionListener(this);
+		backButton.setName("back");
+		this.add(backButton);
+		
 		JButton reduceButton = new JButton();
 		ImageIcon reduceIcon = new ImageIcon("resource/ReduceButton.jpg");
 		Image tempReduce = reduceIcon.getImage().getScaledInstance(reduceIcon.getIconWidth()/3,reduceIcon.getIconHeight()/3,Image.SCALE_DEFAULT);  
@@ -304,6 +316,11 @@ public class PlayerFrame extends JFrame implements ActionListener{
 				  this.setVisible(false);
 				  this.dispose();
 				  System.exit(0);
+			}else if("back".equals(name)){
+				  this.setVisible(false);
+				  this.dispose();
+				  @SuppressWarnings("unused")
+				FrontFrame front = new FrontFrame();
 			}
 		}
 	}
