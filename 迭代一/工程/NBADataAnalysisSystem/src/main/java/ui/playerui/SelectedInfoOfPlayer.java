@@ -35,6 +35,18 @@ public class SelectedInfoOfPlayer {
 	private String numOfThreePointShot;
 	private String numOfFreeThrowShoot;
 	private String numOfFreeThrowShot;
+	private String efficiency;
+	private String effOfGmSc;
+	private String truePersentageOfShooting ;
+	private String effOfShooting ;
+	private String rateOfRound ;
+	private String rateOfOffensiveRound ;
+	private String rateOfDefensiveRound ;
+	private String rateOfSteal ;
+	private String rateOfAssist;
+	private String rateOfBlockShot;
+	private String rateOfTurnOver;
+	private String rateOfUse;
 	
 	private String aveNumOfRebound;
 	private String aveNumOfAssist;
@@ -88,6 +100,18 @@ public class SelectedInfoOfPlayer {
 		numOfThreePointShot = "三分球总数";
 		numOfFreeThrowShoot = "罚球命中数";
 		numOfFreeThrowShot = "罚球总数";
+		efficiency= "效率";
+		effOfGmSc= "GmSc效率";
+		truePersentageOfShooting= "真实投篮命中率" ;
+		effOfShooting = "投篮效率";
+		rateOfRound = "篮板率";
+		rateOfOffensiveRound = "进攻篮板率";
+		rateOfDefensiveRound = "防守篮板率";
+		rateOfAssist= "助攻率";
+		rateOfSteal= "抢断率";
+		rateOfBlockShot= "盖帽率";
+		rateOfTurnOver= "失误率";
+		rateOfUse= "使用率";
 		
 		aveNumOfRebound = "场均篮板数";
 		 aveNumOfAssist = "场均助攻数";
@@ -411,6 +435,80 @@ public class SelectedInfoOfPlayer {
 			selectedInfo.add(aveScorling);
 			
 		}
+		
+		public void selectEfficiency (){
+			
+			selectedInfo.add(efficiency );
+			
+		}
+		
+		public void selectEffOfGmSc (){
+			
+			selectedInfo.add(effOfGmSc );
+			
+		}
+		
+		public void selectTruePersentageOfShooting (){
+			
+			selectedInfo.add(truePersentageOfShooting );
+			
+		}
+		
+		public void selectEffOfShooting (){
+			
+			selectedInfo.add(effOfShooting );
+			
+		}
+		
+		public void selectRateOfRound (){
+			
+			selectedInfo.add(rateOfRound );
+			
+		}
+		
+		public void selectRateOfOffensiveRound (){
+			
+			selectedInfo.add(rateOfOffensiveRound );
+			
+		}
+		
+		public void selectRateOfDefensiveRound (){
+			
+			selectedInfo.add(rateOfDefensiveRound );
+			
+		}
+		
+		public void selectRateOfSteal (){
+			
+			selectedInfo.add(rateOfSteal );
+			
+		}
+		
+		public void selectRateOfAssist (){
+			
+			selectedInfo.add(rateOfAssist );
+			
+		}
+		
+		public void selectRateOfBlockShot (){
+			
+			selectedInfo.add(rateOfBlockShot );
+			
+		}
+		
+		public void selectRateOfTurnOver (){
+			
+			selectedInfo.add(rateOfTurnOver );
+			
+		}
+		
+		public void selectRateOfUse (){
+			
+			selectedInfo.add(rateOfUse );
+			
+		}
+		
+		
 		
 	
 		public ArrayList<String> getSelectedList(){

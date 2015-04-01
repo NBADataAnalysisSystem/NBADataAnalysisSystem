@@ -46,7 +46,18 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 	private JCheckBox numOfThreePointShot ;
 	private JCheckBox numOfFreeThrowShoot ;
 	private JCheckBox numOfFreeThrowShot ;
-	
+	private JCheckBox efficiency;
+	private JCheckBox effOfGmSc;
+	private JCheckBox truePersentageOfShooting ;
+	private JCheckBox effOfShooting ;
+	private JCheckBox rateOfRound ;
+	private JCheckBox rateOfOffensiveRound ;
+	private JCheckBox rateOfDefensiveRound ;
+	private JCheckBox rateOfSteal ;
+	private JCheckBox rateOfAssist;
+	private JCheckBox rateOfBlockShot;
+	private JCheckBox rateOfTurnOver;
+	private JCheckBox rateOfUse;
 	private JCheckBox aveNumOfRebound;
 	private JCheckBox aveNumOfAssist;
 	private JCheckBox aveNumOfOffense;
@@ -155,6 +166,18 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 		numOfThreePointShot =new JCheckBox( "三分球总数");
 		numOfFreeThrowShoot = new JCheckBox("罚球命中数");
 		numOfFreeThrowShot = new JCheckBox("罚球总数");
+		efficiency=new JCheckBox( "效率");
+		effOfGmSc=new JCheckBox( "GmSc效率");
+		truePersentageOfShooting= new JCheckBox("真实投篮命中率") ;
+		effOfShooting = new JCheckBox("投篮效率");
+		rateOfRound = new JCheckBox("篮板率");
+		rateOfOffensiveRound = new JCheckBox("进攻篮板率");
+		rateOfDefensiveRound =new JCheckBox( "防守篮板率");
+		rateOfAssist = new JCheckBox("助攻率");
+		rateOfSteal=new JCheckBox( "抢断率");
+		rateOfBlockShot=new JCheckBox( "盖帽率");
+		rateOfTurnOver=new JCheckBox( "失误率");
+		rateOfUse= new JCheckBox("使用率");
 		
 		aveNumOfRebound = new JCheckBox( "场均篮板数");
 		aveNumOfAssist= new JCheckBox("场均助攻数");
@@ -185,7 +208,7 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 		basicInfoPanel.add(schoolOfPlayer);
 		basicInfoPanel.add(teamOfPlayer);
 		
-		JPanel seasonInfoPanel = new JPanel(new GridLayout(6,3));
+		JPanel seasonInfoPanel = new JPanel(new GridLayout(10,3));
 		seasonInfoPanel.setBorder(BorderFactory.createTitledBorder("赛季信息"));
 		seasonInfoPanel.add(numOfEntryField);
 		seasonInfoPanel.add(numOfStartingField);
@@ -205,6 +228,18 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 		seasonInfoPanel.add(numOfThreePointShot );
 		seasonInfoPanel.add(numOfFreeThrowShoot);
 		seasonInfoPanel.add(numOfFreeThrowShot);
+		seasonInfoPanel.add(efficiency);
+		seasonInfoPanel.add(effOfGmSc);
+		seasonInfoPanel.add(truePersentageOfShooting) ;
+		seasonInfoPanel.add(effOfShooting);
+		seasonInfoPanel.add(rateOfRound );
+		seasonInfoPanel.add(rateOfOffensiveRound );
+		seasonInfoPanel.add(rateOfDefensiveRound);
+		seasonInfoPanel.add(rateOfSteal );
+		seasonInfoPanel.add(rateOfAssist);
+		seasonInfoPanel.add(rateOfBlockShot);
+		seasonInfoPanel.add(rateOfTurnOver);
+		seasonInfoPanel.add(rateOfUse);
 		
 		JPanel aveSeasonInfoPanel = new JPanel(new GridLayout(6,3));
 		aveSeasonInfoPanel.setBorder(BorderFactory.createTitledBorder("场均信息"));
@@ -256,6 +291,19 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 		infoOfSort.addItem( "三分球总数");
 		infoOfSort.addItem("罚球命中数");
 		infoOfSort.addItem("罚球总数");
+		
+		infoOfSort.addItem( "效率");
+		infoOfSort.addItem( "GmSc效率");
+		infoOfSort.addItem("真实投篮命中率") ;
+		infoOfSort.addItem("投篮效率");
+		infoOfSort.addItem("篮板率");
+		infoOfSort.addItem("进攻篮板率");
+		infoOfSort.addItem( "防守篮板率");
+		infoOfSort.addItem("助攻率");
+		infoOfSort.addItem( "抢断率");
+		infoOfSort.addItem( "盖帽率");
+		infoOfSort.addItem( "失误率");
+		infoOfSort.addItem("使用率");
 		
 		infoOfSort.addItem("场均篮板数");
 		infoOfSort.addItem("场均助攻数");
@@ -400,6 +448,30 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 				aveNumOfFreeThrowShoot.setSelected(true);
 			}if(alreadySelected.contains("场均罚球总数")){
 				aveNumOfFreeThrowShot.setSelected(true);
+			}if(alreadySelected.contains("效率")){
+				efficiency .setSelected(true);
+			}if(alreadySelected.contains("GmSc效率")){
+				effOfGmSc .setSelected(true);
+			}if(alreadySelected.contains("真实投篮命中率")){
+				truePersentageOfShooting .setSelected(true);
+			}if(alreadySelected.contains("投篮效率")){
+				effOfShooting .setSelected(true);
+			}if(alreadySelected.contains("篮板率")){
+				rateOfRound .setSelected(true);
+			}if(alreadySelected.contains("进攻篮板率")){
+				rateOfOffensiveRound .setSelected(true);
+			}if(alreadySelected.contains("防守篮板率")){
+				rateOfDefensiveRound .setSelected(true);
+			}if(alreadySelected.contains("助攻率")){
+				rateOfAssist .setSelected(true);
+			}if(alreadySelected.contains("抢断率")){
+				rateOfSteal .setSelected(true);
+			}if(alreadySelected.contains("盖帽率")){
+				rateOfBlockShot .setSelected(true);
+			}if(alreadySelected.contains("失误率")){
+				rateOfTurnOver .setSelected(true);
+			}if(alreadySelected.contains("使用率")){
+				rateOfUse .setSelected(true);
 			}
 			
 	}
@@ -567,17 +639,53 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 	    	   
 	    	   selectedItem.selectAveNumOfThreePointShoot();
 	  
-	       }if(aveNumOfThreePointShot .isSelected() == true){
+	       }if(efficiency .isSelected() == true){
 	    	   
-	    	   selectedItem.selectAveNumOfThreePointShot ();
+	    	   selectedItem.selectEfficiency  ();
 	  
-	       }if(aveNumOfFreeThrowShoot.isSelected() == true){
+	       }if(effOfGmSc .isSelected() == true){
 	    	   
-	    	   selectedItem.selectAveNumOfFreeThrowShoot();
+	    	   selectedItem.selectEffOfGmSc ();
 	  
-	       }if(aveNumOfFreeThrowShot.isSelected() == true){
+	       }if(truePersentageOfShooting .isSelected() == true){
 	    	   
-	    	   selectedItem.selectAveNumOfFreeThrowShot();
+	    	   selectedItem.selectTruePersentageOfShooting ();
+	  
+	       }if(effOfShooting .isSelected() == true){
+	    	   
+	    	   selectedItem.selectEffOfShooting ();
+	  
+	       }if(rateOfRound .isSelected() == true){
+	    	   
+	    	   selectedItem.selectRateOfRound ();
+	  
+	       }if(rateOfOffensiveRound .isSelected() == true){
+	    	   
+	    	   selectedItem.selectRateOfOffensiveRound ();
+	  
+	       }if(rateOfDefensiveRound .isSelected() == true){
+	    	   
+	    	   selectedItem.selectRateOfDefensiveRound ();
+	  
+	       }if(rateOfAssist .isSelected() == true){
+	    	   
+	    	   selectedItem.selectRateOfAssist ();
+	  
+	       }if(rateOfSteal .isSelected() == true){
+	    	   
+	    	   selectedItem.selectRateOfSteal ();
+	  
+	       }if(rateOfBlockShot .isSelected() == true){
+	    	   
+	    	   selectedItem.selectRateOfBlockShot ();
+	  
+	       }if(rateOfTurnOver .isSelected() == true){
+	    	   
+	    	   selectedItem.selectRateOfTurnOver ();
+	  
+	       }if(rateOfUse .isSelected() == true){
+	    	   
+	    	   selectedItem.selectRateOfUse ();
 	  
 	       }
 	       
