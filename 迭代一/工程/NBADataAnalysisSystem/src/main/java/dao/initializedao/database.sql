@@ -163,9 +163,11 @@ three_point_persentage float,
 free_throw_persentage float,
 win_rate float,
 attack_round float,
+defensive_round float,
 offensive_eff float,
 defensive_eff float,
-rebound_eff float,
+offensive_rebound_eff float,
+defensive_rebound_eff float,
 steal_eff float,
 assist_rate float
 );

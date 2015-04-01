@@ -3,7 +3,9 @@ package dao.initializedao;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -52,6 +54,11 @@ public class InitializeDatabase {
 		
 		matchFileToDatabase(path+"/matches");
 		
+		calculatePlayerInformation(path+"/matches/");
+		
+		calculateRivalInformation(path+"/matches/");
+		
+		calcualteAdvancedData();
 	}
 	
 	//连接到数据库
@@ -93,7 +100,7 @@ public class InitializeDatabase {
 				+ "?,?,?,?,?,?,?,?,?,?,"
 				+ "?,?,?,?,?,?,?,?,?,?,"
 				+ "?,?,?,?,?,?,?,?,?,?,"
-				+ "?,?)");
+				+ "?,?,?,?)");
 		Pattern pattern = Pattern.compile("║([\\w\\t\\(\\)\\& │]*)║");
 		
 		File file = new File(path);
@@ -257,8 +264,8 @@ public class InitializeDatabase {
 	}
 
 	//计算球员的赛场数据
-	public void calculatePlayerInformation(String path) throws Exception{
-		connectToDatabase();//测试使用。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
+	private void calculatePlayerInformation(String path) throws Exception{
+		//connectToDatabase();//测试使用。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
 		
 		ArrayList<String[]> resultTemp = new ArrayList<String[]>();
 		ArrayList<String> playerNameList = new ArrayList<String>();
@@ -475,7 +482,7 @@ public class InitializeDatabase {
 		
 	}
 	
-	public void calculateRivalInformation(String path) throws Exception{
+	private void calculateRivalInformation(String path) throws Exception{
 		ArrayList<String> rivalTeamList = new ArrayList<String>();
 		ArrayList<String[]> rivalTeamInformation = new ArrayList<String[]>();
 		File[] fileList = new File(path).listFiles();
@@ -558,7 +565,7 @@ public class InitializeDatabase {
 			br.close();
 		}//所有文件读取完毕
 		
-		connectToDatabase();//测试使用。。。。。。。。。。
+		//connectToDatabase();//测试使用。。。。。。。。。。
 		PreparedStatement prep = connection.prepareStatement("update teams set "
 				+ "num_of_win = ?,rival_presence_time =?,rival_shootings = ?,"
 				+ "rival_shots = ?,rival_three_point_shootings = ?,rival_three_point_shots = ?,"
@@ -581,4 +588,18 @@ public class InitializeDatabase {
 
 	}
 
+    private void calcualteAdvancedData() throws Exception{
+    	BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File("./src/main/java/dao/initializedao/advancedCalculate.txt")),"UTF-8"));
+    	String sql="";
+    	String str=br.readLine();
+    	while(str != null){
+    		sql+=str;
+    		str=br.readLine();
+    	}
+    	
+    	//connectToDatabase();//测试使用。。。。。。。。
+    	
+    	Statement stat =connection.createStatement();
+    	stat.executeUpdate(sql);
+    }
 }
