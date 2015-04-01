@@ -30,6 +30,17 @@ public class SelectedInfoOfTeam {
 	private String freeThrowShots;
 	private String freeThrowShoots;
 	private String numOfMatch;
+	private String persentageOfShooting ;
+	private String persentageOfThreePoint;
+	private String persentageOfFree ;
+	private String rateOfWin ;
+	private String roungOfArrack ;
+	private String roundOfDefensive ;
+	private String effOfOffensive ;
+	private String effOfDefensive ;
+	private String effOfSteal ;
+	private String rateOfAssist;
+
 	
 	private String aveRebounds;
 	private String aveAssists;
@@ -77,6 +88,17 @@ public class SelectedInfoOfTeam {
 		 freeThrowShots = "罚球数";
 		freeThrowShoots = "罚球命中数";
 		numOfMatch = "比赛数";
+		
+		persentageOfShooting ="投篮命中率"  ;
+		persentageOfThreePoint = "三分球命中率";
+		persentageOfFree ="罚球命中率" ;
+		rateOfWin  ="胜率" ;
+		roungOfArrack ="进攻回合";
+		roundOfDefensive="防守回合" ;
+		effOfOffensive ="进攻效率";
+		effOfDefensive ="防守效率";
+		effOfSteal ="抢断效率";
+		rateOfAssist="助攻率";
 		
 		aveRebounds = "场均篮板数";
 		aveAssists = "场均助攻数";
@@ -346,12 +368,64 @@ public class SelectedInfoOfTeam {
 		}
 		
 		
+		public void selectPersentageOfShooting (){
+			
+			selectedInfo.add(persentageOfShooting );
+		
+		}
+		
+		public void selectPersentageOfThreePoint (){
+			
+			selectedInfo.add(persentageOfThreePoint );
+		
+		}
+	
+		public void selectPersentageOfFree (){
+			
+			selectedInfo.add(persentageOfFree );
+		
+		}
+		public void selectRateOfWin  (){
+			
+			selectedInfo.add(rateOfWin  );
+		
+		}
+		public void selectRoungOfArrack (){
+			
+			selectedInfo.add(roungOfArrack );
+		
+		}
+		public void selectRoundOfDefensive(){
+			
+			selectedInfo.add(roundOfDefensive);
+		
+		}
+		public void selectEffOfOffensive (){
+			
+			selectedInfo.add(effOfOffensive );
+		
+		}
 		public void selectAveFreeThrowShoots(){
 			
 			selectedInfo.add(aveFreeThrowShoots);
 		
 		}
+		public void selectEffOfDefensive (){
+			
+			selectedInfo.add(effOfDefensive );
 		
+		}
+		public void selectEffOfSteal (){
+			
+			selectedInfo.add(effOfSteal );
+		
+		}
+		public void selectRateOfAssist(){
+			
+			selectedInfo.add(rateOfAssist);
+		
+		}
+	
 		
 		
 		

@@ -43,6 +43,16 @@ public class AdditionOfTeamInfo extends InputDialog  {
 	private JCheckBox  freeThrowShots;
 	private JCheckBox freeThrowShoots;
 	private JCheckBox numOfMatch;
+	private JCheckBox persentageOfShooting ;
+	private JCheckBox persentageOfThreePoint;
+	private JCheckBox persentageOfFree ;
+	private JCheckBox rateOfWin ;
+	private JCheckBox roungOfArrack ;
+	private JCheckBox roundOfDefensive ;
+	private JCheckBox effOfOffensive ;
+	private JCheckBox effOfDefensive ;
+	private JCheckBox effOfSteal ;
+	private JCheckBox rateOfAssist;
 	
 	private JCheckBox aveRebounds;
 	private JCheckBox aveAssists;
@@ -121,6 +131,16 @@ public class AdditionOfTeamInfo extends InputDialog  {
 		 freeThrowShots = new JCheckBox("罚球数");
 		freeThrowShoots = new JCheckBox("罚球命中数");
 		numOfMatch =new JCheckBox( "比赛数");
+		persentageOfShooting =new JCheckBox( "投篮命中率" ) ;
+		persentageOfThreePoint =new JCheckBox(  "三分球命中率");
+		persentageOfFree =new JCheckBox( "罚球命中率" );
+		rateOfWin  =new JCheckBox( "胜率" );
+		roungOfArrack =new JCheckBox( "进攻回合");
+		roundOfDefensive=new JCheckBox( "防守回合") ;
+		effOfOffensive =new JCheckBox( "进攻效率");
+		effOfDefensive =new JCheckBox( "防守效率");
+		effOfSteal =new JCheckBox( "抢断效率");
+		rateOfAssist=new JCheckBox( "助攻率");
 
 		aveRebounds = new JCheckBox( "场均篮板数");
 		aveAssists = new JCheckBox( "场均助攻数");
@@ -166,6 +186,16 @@ public class AdditionOfTeamInfo extends InputDialog  {
 		seasonInfoPanel.add(freeThrowShots);
 		seasonInfoPanel.add(freeThrowShoots);
 		seasonInfoPanel.add(numOfMatch);
+		seasonInfoPanel.add(persentageOfShooting) ;
+		seasonInfoPanel.add(persentageOfThreePoint);
+		seasonInfoPanel.add(persentageOfFree );
+		seasonInfoPanel.add(rateOfWin );
+		seasonInfoPanel.add(roungOfArrack) ;
+		seasonInfoPanel.add(roundOfDefensive) ;
+		seasonInfoPanel.add(effOfOffensive );
+		seasonInfoPanel.add(effOfDefensive );
+		seasonInfoPanel.add(effOfSteal );
+		seasonInfoPanel.add(rateOfAssist);
 		
 		JPanel aveInfoPanel = new JPanel(new GridLayout(6,3));
 		aveInfoPanel.setBorder(BorderFactory.createTitledBorder("场均信息"));
@@ -215,6 +245,16 @@ public class AdditionOfTeamInfo extends InputDialog  {
 		infoOfSort.addItem("罚球命中数");
 		infoOfSort.addItem("罚球总数");
 		infoOfSort.addItem("比赛数");
+		infoOfSort.addItem("投篮命中率"  );
+		infoOfSort.addItem("三分球命中率");
+		infoOfSort.addItem("罚球命中率" );
+		infoOfSort.addItem("胜率" );
+		infoOfSort.addItem("进攻回合");
+		infoOfSort.addItem("防守回合" );
+		infoOfSort.addItem("进攻效率");
+		infoOfSort.addItem("防守效率");
+		infoOfSort.addItem("抢断效率");
+		infoOfSort.addItem("助攻率");
 		
 		infoOfSort.addItem("场均篮板数");
 		infoOfSort.addItem("场均助攻数");
@@ -354,6 +394,26 @@ public class AdditionOfTeamInfo extends InputDialog  {
 				aveFreeThrowShots.setSelected(true);
 			}if(alreadySelected.contains("场均罚球命中数")){
 				aveFreeThrowShoots.setSelected(true);
+			}if(alreadySelected.contains("投篮命中率")){
+				persentageOfShooting .setSelected(true);
+			}if(alreadySelected.contains("三分球命中率")){
+				persentageOfThreePoint .setSelected(true);
+			}if(alreadySelected.contains("罚球命中率")){
+				persentageOfFree .setSelected(true);
+			}if(alreadySelected.contains("胜率")){
+				rateOfWin  .setSelected(true);
+			}if(alreadySelected.contains("进攻回合")){
+				roungOfArrack .setSelected(true);
+			}if(alreadySelected.contains("防守回合")){
+				roundOfDefensive .setSelected(true);
+			}if(alreadySelected.contains("进攻效率")){
+				effOfOffensive .setSelected(true);
+			}if(alreadySelected.contains("防守效率")){
+				effOfDefensive .setSelected(true);
+			}if(alreadySelected.contains("抢断效率")){
+				effOfSteal  .setSelected(true);
+			}if(alreadySelected.contains("助攻率")){
+				rateOfAssist .setSelected(true);
 			}
 	}
 
@@ -517,9 +577,49 @@ public class AdditionOfTeamInfo extends InputDialog  {
 	    	   
 	    	   selectedItem.selectAveFreeThrowShots();
 	  
+	       }if(persentageOfShooting .isSelected() == true){
+	    	   
+	    	   selectedItem.selectPersentageOfShooting ();
+	  
+	       }if(persentageOfThreePoint .isSelected() == true){
+	    	   
+	    	   selectedItem.selectPersentageOfThreePoint ();
+	  
+	       }if(persentageOfFree .isSelected() == true){
+	    	   
+	    	   selectedItem.selectPersentageOfFree ();
+	  
+	       }if(rateOfWin  .isSelected() == true){
+	    	   
+	    	   selectedItem.selectRateOfWin  ();
+	  
+	       }if(roungOfArrack .isSelected() == true){
+	    	   
+	    	   selectedItem.selectRoungOfArrack ();
+	  
+	       }if(roundOfDefensive .isSelected() == true){
+	    	   
+	    	   selectedItem.selectRoundOfDefensive ();
+	  
 	       }if(aveFreeThrowShoots.isSelected() == true){
 	    	   
 	    	   selectedItem.selectAveFreeThrowShoots();
+	  
+	       }if(effOfOffensive .isSelected() == true){
+	    	   
+	    	   selectedItem.selectEffOfOffensive ();
+	  
+	       }if(effOfDefensive .isSelected() == true){
+	    	   
+	    	   selectedItem.selectEffOfDefensive ();
+	  
+	       }if(effOfSteal  .isSelected() == true){
+	    	   
+	    	   selectedItem.selectEffOfSteal  ();
+	  
+	       }if(rateOfAssist .isSelected() == true){
+	    	   
+	    	   selectedItem.selectRateOfAssist ();
 	  
 	       }
 	       
