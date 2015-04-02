@@ -71,7 +71,7 @@ public class TeamFrame extends JFrame implements ActionListener{
 		this.center(this);
 		this.setLayout(null);
 		
-		//设置背景图片 TODO
+	//设置背景图片
 		ImageIcon bg = new ImageIcon("resource/BackgroundOfTeamChecking.png"); // 把背景图片显示在一个标签里
 		Image temp = bg.getImage().getScaledInstance(3*bg.getIconWidth()/2, 3*bg.getIconHeight()/2, bg.getImage().SCALE_DEFAULT);  
         bg = new ImageIcon(temp);
