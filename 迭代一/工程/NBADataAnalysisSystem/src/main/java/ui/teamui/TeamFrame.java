@@ -2,6 +2,7 @@ package ui.teamui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -13,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
 import java.util.Map;
@@ -129,9 +131,16 @@ public class TeamFrame extends JFrame implements ActionListener{
 		sp.setColumnHeaderView(table.getTableHeader());//设置头部（HeaderView部分）  
 	    sp.getColumnHeader().setOpaque(false);//再取出头部，并设置为透明 
 		table.setEnabled(false);
-		table.setForeground(Color.decode("#FFFF00"));
+		table.setForeground(Color.decode("#000000"));
 		table.setRowHeight(40);//设置表格每行大小
 		table.setFont(new Font("宋体",1, 25));//设置字体
+//		table.addMouseMotionListener(
+//		          new MouseMotionAdapter(){
+//			            public void mouseClicked(MouseEvent e){
+//			            	//table.setRowSelectionInterval(table.getSelectedRow(), table.getSelectedRow());
+//			            }          
+//			          }
+//			      );    
 		JTableHeader tableHeader ;
 		tableHeader = table.getTableHeader();
 //		tableHeader.setBackground(Color.decode("#f0949c"));
@@ -348,6 +357,7 @@ public class TeamFrame extends JFrame implements ActionListener{
 //				}
 //			}
 	}
+
 	
 	//把List转为String[]
 	static String[] stringToShow;

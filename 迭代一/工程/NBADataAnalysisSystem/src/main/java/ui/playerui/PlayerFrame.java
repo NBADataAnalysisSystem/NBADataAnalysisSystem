@@ -105,27 +105,36 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		xp.add(leftPane);
 		
 		
-		JButton btn_Add = new JButton();
+		JButton btn_Add = new JButton("自定义");
 		btn_Add.setName("add");
 		btn_Add.addActionListener(this);
-		ImageIcon selectIcon = new ImageIcon("resource/SelectInfoButton.jpg");
-		Image tempSelect = selectIcon.getImage().getScaledInstance(selectIcon.getIconWidth(),selectIcon.getIconHeight(),Image.SCALE_DEFAULT);  
-		selectIcon.setImage(tempSelect);
-		btn_Add.setMargin(new Insets(0,0,0,0));
-		btn_Add.setIcon(selectIcon);
-		btn_Add.setBounds(950,0,selectIcon.getIconWidth(), selectIcon.getIconHeight());
-		leftPane.add(btn_Add);
+//		ImageIcon selectIcon = new ImageIcon("resource/SelectInfoButton.jpg");
+//		Image tempSelect = selectIcon.getImage().getScaledInstance(selectIcon.getIconWidth(),selectIcon.getIconHeight(),Image.SCALE_DEFAULT);  
+//		selectIcon.setImage(tempSelect);
+//		btn_Add.setMargin(new Insets(0,0,0,0));
+//		btn_Add.setIcon(selectIcon);
 
+		btn_Add.setContentAreaFilled(false);
+		btn_Add.setForeground(Color.decode("#FF0000"));
+		btn_Add.setFont(new Font("宋体",1, 20));//设置字体
+//		btn_Add.setBounds(950,0,30,20);
+		leftPane.add(btn_Add);
 		//TODO
-		JButton btn_Sift = new JButton();
+		
+		JButton btn_Sift = new JButton("筛  选");
 		btn_Sift.setName("sift");
-		ImageIcon siftIcon = new ImageIcon("resource/SiftingButton.jpg");
-		Image tempSift = siftIcon.getImage().getScaledInstance(siftIcon.getIconWidth(),siftIcon.getIconHeight(),Image.SCALE_DEFAULT);  
-		siftIcon.setImage(tempSift);
-		btn_Sift.setMargin(new Insets(0,0,0,0));
-		btn_Sift.setIcon(siftIcon);
-		btn_Sift.setBounds(900,0,siftIcon.getIconWidth(), siftIcon.getIconHeight());
+//		ImageIcon siftIcon = new ImageIcon("resource/SiftingButton.jpg");
+//		Image tempSift = siftIcon.getImage().getScaledInstance(siftIcon.getIconWidth(),siftIcon.getIconHeight(),Image.SCALE_DEFAULT);  
+//		siftIcon.setImage(tempSift);
+//		btn_Sift.setMargin(new Insets(0,0,0,0));
+//		btn_Sift.setIcon(siftIcon);
+//		btn_Sift.setBounds(900,0,siftIcon.getIconWidth(), siftIcon.getIconHeight());
 		btn_Sift.addActionListener(this);
+		
+		btn_Sift.setContentAreaFilled(false);
+		btn_Sift.setForeground(Color.decode("#FF0000"));
+		btn_Sift.setFont(new Font("宋体",1, 20));//设置字体
+//		btn_Add.setBounds(950,0,30,20);
 		leftPane.add(btn_Sift);
 		
 		tablePanel = new JPanel();
@@ -157,7 +166,7 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		//playerPanel.add(new JScrollPane(table), BorderLayout.CENTER);
 		//TODO 用于存放表格的Frame ，无法存放在原Frame中。窗口为绝对位置。
 		table.setEnabled(false);
-		table.setForeground(Color.decode("#7CFC00"));
+		table.setForeground(Color.decode("#000000"));
 		table.setRowHeight(25);//设置表格每行大小
 		table.setFont(new Font("宋体",1, 20));//设置字体
 		JTableHeader tableHeader ;
@@ -189,41 +198,55 @@ public class PlayerFrame extends JFrame implements ActionListener{
 		tableWidth = bg.getIconWidth()-123;
 		tableHeight =  bg.getIconHeight()-36;
 		
-		JButton closeButton = new JButton();
-		ImageIcon closeIcon = new ImageIcon("resource/CloseButton.jpg");
-		Image tempClose = closeIcon.getImage().getScaledInstance(closeIcon.getIconWidth()/3,closeIcon.getIconHeight()/3,Image.SCALE_DEFAULT);  
-		closeIcon.setImage(tempClose);
+		JButton closeButton = new JButton("×");
+//		ImageIcon closeIcon = new ImageIcon("resource/CloseButton.jpg");
+//		Image tempClose = closeIcon.getImage().getScaledInstance(closeIcon.getIconWidth()/3,closeIcon.getIconHeight()/3,Image.SCALE_DEFAULT);  
+//		closeIcon.setImage(tempClose);
 		closeButton.setMargin(new Insets(0,0,0,0));
-		closeButton.setIcon(closeIcon);
-		closeButton.setBounds(950,0,closeIcon.getIconWidth(), closeIcon.getIconHeight());
+//		closeButton.setIcon(closeIcon);
+		closeButton.setBounds(950,0,30, 30);
 		closeButton.addActionListener(this);
 		closeButton.setName("close");
+		
+		
+		closeButton.setContentAreaFilled(false);
+		closeButton.setForeground(Color.decode("#3A5FCD"));
+		closeButton.setFont(new Font("Serif",0, 30));//设置字体
+//		btn_Add.setBounds(950,0,30,20);
 		this.add(closeButton);
 		
-		JButton backButton = new JButton();
-		ImageIcon backIcon = new ImageIcon("resource/BackButton.jpg");
-		Image tempBack = backIcon.getImage().getScaledInstance(backIcon.getIconWidth()/3,backIcon.getIconHeight()/3,Image.SCALE_DEFAULT);  
-		backIcon.setImage(tempBack);
+		JButton backButton = new JButton("←");
+//		ImageIcon backIcon = new ImageIcon("resource/BackButton.jpg");
+//		Image tempBack = backIcon.getImage().getScaledInstance(backIcon.getIconWidth()/3,backIcon.getIconHeight()/3,Image.SCALE_DEFAULT);  
+//		backIcon.setImage(tempBack);
 		backButton.setMargin(new Insets(0,0,0,0));
-		backButton.setIcon(backIcon);
-		backButton.setBounds(850,0,backIcon.getIconWidth(), backIcon.getIconHeight());
+//		backButton.setIcon(backIcon);
+		backButton.setBounds(850,0,30, 30);
 		backButton.addActionListener(this);
 		backButton.setName("back");
+		
+		backButton.setContentAreaFilled(false);
+		backButton.setForeground(Color.decode("#3A5FCD"));
+		backButton.setFont(new Font("Serif",0, 20));//设置字体
 		this.add(backButton);
 		
-		JButton reduceButton = new JButton();
-		ImageIcon reduceIcon = new ImageIcon("resource/ReduceButton.jpg");
-		Image tempReduce = reduceIcon.getImage().getScaledInstance(reduceIcon.getIconWidth()/3,reduceIcon.getIconHeight()/3,Image.SCALE_DEFAULT);  
-		reduceIcon.setImage(tempReduce);
+		JButton reduceButton = new JButton("—");
+//		ImageIcon reduceIcon = new ImageIcon("resource/ReduceButton.jpg");
+//		Image tempReduce = reduceIcon.getImage().getScaledInstance(reduceIcon.getIconWidth()/3,reduceIcon.getIconHeight()/3,Image.SCALE_DEFAULT);  
+//		reduceIcon.setImage(tempReduce);
 		reduceButton.setMargin(new Insets(0,0,0,0));
-		reduceButton.setIcon(reduceIcon);
-		reduceButton.setBounds(900,0,reduceIcon.getIconWidth(), reduceIcon.getIconHeight());
+//		reduceButton.setIcon(reduceIcon);
+		reduceButton.setBounds(900,0,30,30);
 		reduceButton.addActionListener(this);
 		reduceButton.addActionListener(new ActionListener(){
 	        @Override public void actionPerformed(ActionEvent e){
 	            setExtendedState(JFrame.ICONIFIED);
 	        }
 	    });
+		
+		reduceButton.setContentAreaFilled(false);
+		reduceButton.setForeground(Color.decode("#3A5FCD"));
+		reduceButton.setFont(new Font("Serif",0, 20));//设置字体
 		this.add(reduceButton);
 		
 		
