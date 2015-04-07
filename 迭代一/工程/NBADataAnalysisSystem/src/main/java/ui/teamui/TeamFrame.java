@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -22,6 +23,7 @@ import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -117,8 +119,8 @@ public class TeamFrame extends JFrame implements ActionListener{
 		
 		//TODO
 		table.setOpaque(false);
-		DefaultTableCellRenderer render = new DefaultTableCellRenderer();
-		render.setOpaque(false); //将渲染器设置为透明  
+		MyTableCellRenderrer render = new MyTableCellRenderrer();
+//		render.setOpaque(false); //将渲染器设置为透明   TODO
 		 table.setDefaultRenderer(Object.class,render);  
 		Dimension viewSize = new Dimension();
 		viewSize.width = table.getColumnModel().getTotalColumnWidth();;
@@ -147,7 +149,7 @@ public class TeamFrame extends JFrame implements ActionListener{
 		tableHeader.setPreferredSize(new Dimension(30, 26));   
 		tableHeader.setOpaque(false);//设置头部为透明  
 		tableHeader.getTable().setOpaque(false);//设置头部里面的表格透明  
-		render = new DefaultTableCellRenderer();
+		render = new MyTableCellRenderrer();
 		render.setOpaque(false); //将渲染器设置为透明  
 		/* 
 		 * 头部的表格也像前面的表格设置一样，还需要将里面的单元项设置为透明 
@@ -277,6 +279,28 @@ public class TeamFrame extends JFrame implements ActionListener{
 			return COLUMNS[column];
 		}
 	}
+	
+ //隔行换色
+	 class MyTableCellRenderrer extends DefaultTableCellRenderer{
+	        
+         @Override
+         public Component getTableCellRendererComponent(JTable table,
+                 Object value, boolean isSelected, boolean hasFocus, int row,
+                 int column)
+         {
+             // TODO Auto-generated method stub
+             Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            // 隔行换色
+             if(row%2 ==0){
+                 comp.setBackground(Color.decode("#C6E2FF"));
+             }else if(row%2 ==1){
+
+            	// ((JComponent) comp).setOpaque(false);
+            	  comp.setBackground(Color.WHITE);
+             }
+             return comp;
+         }
+ }
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -425,8 +449,7 @@ public class TeamFrame extends JFrame implements ActionListener{
 		//playerPanel.add(new JScrollPane(table), BorderLayout.CENTER);
 		//TODO 用于存放表格的Frame ，无法存放在原Frame中。窗口为绝对位置。
 		table.setEnabled(false);
-		table.setForeground(Color.decode("#7CFC00"));
-		table.setForeground(Color.decode("#FFFF00"));
+		table.setForeground(Color.decode("#000000"));
 		table.setRowHeight(40);//设置表格每行大小
 		table.setFont(new Font("宋体",1, 25));//设置字体
 		JTableHeader tableHeader ;
