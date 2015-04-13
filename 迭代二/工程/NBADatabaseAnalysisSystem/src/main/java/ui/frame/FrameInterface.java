@@ -1,4 +1,8 @@
 package ui.frame;
+
+import javax.swing.Icon;
+import javax.swing.JLabel;
+
 /**
  * 提供球员和球队主要界面的接口
  * @author L.Y.C
@@ -19,5 +23,8 @@ public interface FrameInterface {
 	public void setList(String[] list);
 	//更新数据
 	public void refreshData();
-
+	//设置图片
+	public JLabel setLabelIcon(Icon icon);
+	public void setBtnPanel();
+	public void setTablePanel();
 }
