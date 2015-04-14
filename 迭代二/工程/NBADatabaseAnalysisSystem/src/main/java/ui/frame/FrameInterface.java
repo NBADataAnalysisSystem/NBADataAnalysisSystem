@@ -18,7 +18,7 @@ public interface FrameInterface {
 	//显示数据
 	public void showData();
 	//获取表头信息
-	public void getList();
+	public String[] getList();
 	//设置表头信息
 	public void setList(String[] list);
 	//更新数据

@@ -27,8 +27,11 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 
+import com.sun.awt.AWTUtilities;
+
 import ui.component.MyTableHeaderPanel;
 import ui.component.MyTablePanel;
+import ui.dlg.AdditionOfPlayerInfo;
 
 public class PlayerFrame extends JFrame implements FrameInterface, ActionListener {
 
@@ -285,16 +288,40 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 
 	}
 
-	public void getList() {
+	public String[] getList() {
+		return tableHeader;
 		// TODO Auto-generated method stub
 
 	}
 
 	public void setList(String[] list) {
-		// TODO Auto-generated method stub
+		tableHeader = new String[list.length+2];
+		tableHeader[0]="ID";
+		tableHeader[1]="名字";
+//		for(int i = 0;i<list.length;i++){
+//			if(tableHeader == false){
+//				tableHeader.add(list.get(i));
+//			}
+//		}//TODO
+		boolean contain = false;
+		for(int i = 0;i<tableHeader.length;i++){
+			for(int j = 0;j<list.length;j++){
+				if(tableHeader[i].equals(list[j])){
+					contain = true;
+				}
+			}
+		}
 
 	}
 
+	public void add(){
+		AWTUtilities.setWindowOpacity(this, 0.5f);
+		AdditionOfPlayerInfo addition = new AdditionOfPlayerInfo(this);
+		addition.setPlayerFrame(this);
+		addition.setVisible(true);	
+		
+	}
+	
 	public void refreshData() {
 		// TODO Auto-generated method stub
 
@@ -317,7 +344,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 			if("add".equals(name)){
 				SwingUtilities.invokeLater(new Runnable(){
 					public void run(){
-					//	add();
+						add();
 					}
 				});
 			}else if("sift".equals(name)){
