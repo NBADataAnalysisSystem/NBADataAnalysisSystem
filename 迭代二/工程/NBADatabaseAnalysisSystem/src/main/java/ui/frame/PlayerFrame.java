@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
@@ -294,23 +295,29 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 
 	}
 
-	public void setList(String[] list) {
-		tableHeader = new String[list.length+2];
-		tableHeader[0]="ID";
-		tableHeader[1]="名字";
+	public void setList(ArrayList<String> list) {
+
+		ArrayList<String> temp = new ArrayList<String>();
+		for(int i = 0 ;i<tableHeader.length;i++){
+			temp.add(tableHeader[i]);
+		}
+		
+		for(int i = 0 ;i<list.size() ;i++){
+			if(temp.contains(list.get(i)) == false){
+				temp.add(list.get(i));
+			}
+		}
+		
+		tableHeader = new String[temp.size()];
+		for(int i = 0 ; i<temp.size();i++){
+			tableHeader[i] = temp.get(i);
+		}
 //		for(int i = 0;i<list.length;i++){
 //			if(tableHeader == false){
 //				tableHeader.add(list.get(i));
 //			}
 //		}//TODO
-		boolean contain = false;
-		for(int i = 0;i<tableHeader.length;i++){
-			for(int j = 0;j<list.length;j++){
-				if(tableHeader[i].equals(list[j])){
-					contain = true;
-				}
-			}
-		}
+
 
 	}
 
@@ -366,6 +373,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		}
 		
 	}
+
 
 
 }

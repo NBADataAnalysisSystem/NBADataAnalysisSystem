@@ -369,6 +369,7 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 	      
 	        
 	    }
+	
 	public void setList(ArrayList<String> temp){
 		
 		infoToShow = new String[temp.size()];
@@ -401,7 +402,7 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 		this.setSort();
 		checkBoxSelected();
 		this.setList(selectedInfo);
-		frame.setList(infoToShow);
+		frame.setList(selectedInfo);
 	//	frame.setString();
 	//	frame.setSort(sortTrans);
 	//	frame.changeTableColumns();

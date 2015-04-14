@@ -1,5 +1,7 @@
 package ui.frame;
 
+import java.util.ArrayList;
+
 import javax.swing.Icon;
 import javax.swing.JLabel;
 
@@ -20,7 +22,7 @@ public interface FrameInterface {
 	//获取表头信息
 	public String[] getList();
 	//设置表头信息
-	public void setList(String[] list);
+	public void setList(ArrayList<String> list);
 	//更新数据
 	public void refreshData();
 	//设置图片
