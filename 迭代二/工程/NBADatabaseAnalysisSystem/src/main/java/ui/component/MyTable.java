@@ -1,6 +1,7 @@
 package ui.component;
 
 import java.awt.Color;
+import java.awt.Font;
 
 import javax.swing.Icon;
 import javax.swing.JLabel;
@@ -103,6 +104,14 @@ public class MyTable {
 		}
 
 	}
+	//设置字体大小
+	protected void setTableFont(Font font){
+		for(int i = 0; i < row; i++){
+			for(int j = 0; j < column; j++){
+				table[i][j][0].setFont(font);
+			}
+		}
+	}
 	//设置字体颜色
 	protected void setFontColor(Color c){
 		for(int i = 0; i < row; i++){
@@ -111,6 +120,7 @@ public class MyTable {
 			}
 		}
 	}
+	
 	//设置某列字体颜色
 	protected void setFontColorColumn(Color c, int column){
 		if(column >= this.column || column < 0) return;

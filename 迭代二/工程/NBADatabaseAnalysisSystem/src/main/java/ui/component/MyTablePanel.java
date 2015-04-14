@@ -1,6 +1,7 @@
 package ui.component;
 
 import java.awt.Color;
+import java.awt.Font;
 
 import javax.swing.Icon;
 import javax.swing.JPanel;
@@ -74,6 +75,10 @@ public class MyTablePanel  extends JPanel{
 		}
 		this.setTableContent();
 	
+	}
+	
+	public void setTableFont(Font font){
+		table.setTableFont(font);
 	}
 	//设置表格行背景图片
 	public void setRowBackground(Icon icon, int row){

@@ -243,6 +243,9 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 	}
 		tableHeaderList.setRowBackground(tableHeaderIcon, 0);
 		
+		table.setTableFont(new Font("Serif",0, 20));
+		tableHeaderList.setTableFont(new Font("Serif",1, 20));
+		
 		
 	}
 
