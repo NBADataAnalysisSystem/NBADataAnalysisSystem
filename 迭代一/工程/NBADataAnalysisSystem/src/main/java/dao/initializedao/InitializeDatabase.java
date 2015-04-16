@@ -56,7 +56,7 @@ public class InitializeDatabase {
 		
 		calculateRivalInformation(path+"/matches/");
 		
-		calcualteAdvancedData();
+		//calcualteAdvancedData();
 	}
 	
 	//连接到数据库
