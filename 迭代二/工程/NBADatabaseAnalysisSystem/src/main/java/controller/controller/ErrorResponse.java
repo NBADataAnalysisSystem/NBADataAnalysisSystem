@@ -1,4 +1,4 @@
-package controller;
+package controller.controller;
 
 public class ErrorResponse implements Response {
 
