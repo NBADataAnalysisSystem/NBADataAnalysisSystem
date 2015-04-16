@@ -1,11 +1,13 @@
 package ui.component;
 
-import java.util.ArrayList;
-
 import javax.swing.JLabel;
 
 public class MyTableHeaderPanel extends MyTablePanel{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1533827499842103220L;
 	JLabel[] header;
 	final static int allRow = 1;
 	final static int pageRow = 1;

@@ -1,11 +1,8 @@
 package ui.frame;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Point;
@@ -17,7 +14,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
 
-import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -36,6 +32,10 @@ import ui.dlg.AdditionOfPlayerInfo;
 
 public class PlayerFrame extends JFrame implements FrameInterface, ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5980271968002702909L;
 	private static Point origin = new Point();
 	//设置窗体大小
 	private int height=0;
@@ -55,10 +55,15 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 	public MyTablePanel table;
 	public MyTableHeaderPanel tableHeaderList;
 	
+	@SuppressWarnings("unused")
 	private JButton btn_add;
+	@SuppressWarnings("unused")
 	private JButton btn_sift;
+	@SuppressWarnings("unused")
 	private JButton btn_close;
+	@SuppressWarnings("unused")
 	private JButton btn_reduce;
+	@SuppressWarnings("unused")
 	private JButton btn_back;
 	
 	private String[] tableHeader;
@@ -341,6 +346,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 	
 	public static void main(String[] args){
 		
+		@SuppressWarnings("unused")
 		PlayerFrame test = new PlayerFrame();
 	}
 

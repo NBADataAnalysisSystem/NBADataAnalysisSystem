@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 
 import com.sun.awt.AWTUtilities;
 
-@SuppressWarnings({ "serial", "restriction" })
+@SuppressWarnings({ "serial" })
 public class InputDialog extends JDialog implements ActionListener{
 
 	
@@ -21,12 +21,12 @@ public class InputDialog extends JDialog implements ActionListener{
 	public InputDialog(JFrame parent){
 		super(parent);
 		frame = parent;
-		btn_apply = new JButton("确定");
+		btn_apply = new JButton("确锟斤拷");
 		btn_apply.setName("apply");
 		btn_apply.addActionListener(this);
 		
 		
-		btn_cancel = new JButton("取消");
+		btn_cancel = new JButton("取锟斤拷");
 		btn_cancel.setName("cancel");
 		btn_cancel.addActionListener(this);
 		
