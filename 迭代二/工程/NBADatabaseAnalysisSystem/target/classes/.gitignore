@@ -1,6 +1,1 @@
-/ui/
-<<<<<<< HEAD
-/dao/
-=======
-/controller/
->>>>>>> branch 'master' of https://github.com/NBADataAnalysisSystem/NBADataAnalysisSystem.git
+/entity/
