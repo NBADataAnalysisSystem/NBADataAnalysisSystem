@@ -1,6 +1,6 @@
 package entity;
 
-public enum PlayerInfo { 
+public enum PlayerEntity { 
 	//编号，唯一
 	ID,
 	
