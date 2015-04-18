@@ -350,7 +350,7 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 	
 	public void setPlayerFrame(PlayerFrame frame){
 		this.frame = frame;
-		//alreadySelected = frame.getList();
+		alreadySelected = frame.getList();
 		judgeSelect();
 		
 	}
@@ -404,7 +404,7 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 		this.setList(selectedInfo);
 		frame.setList(selectedInfo);
 	//	frame.setString();
-	//	frame.setSort(sortTrans);
+		frame.setSort(sortTrans);
 	//	frame.changeTableColumns();
 		AWTUtilities.setWindowOpacity(frame, 1f);
 		frame.refreshData();

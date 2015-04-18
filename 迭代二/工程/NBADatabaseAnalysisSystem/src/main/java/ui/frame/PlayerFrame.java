@@ -52,7 +52,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 	private JPanel backgroundPanel;
 	public JScrollPane sp;
 	
-	public MyTablePanel table;
+	public MyTablePanel table ;
 	public MyTableHeaderPanel tableHeaderList;
 	
 	@SuppressWarnings("unused")
@@ -66,13 +66,14 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 	@SuppressWarnings("unused")
 	private JButton btn_back;
 	
+	ArrayList<String> temp= new ArrayList<String>();;
 	private String[] tableHeader;
 	private String[][] tableContent;
 	
 	public PlayerFrame(){
 		
 		backgroundPanel = new JPanel();
-		
+		tablePanel = new JPanel();
 		height = Toolkit.getDefaultToolkit().getScreenSize().height*3/4;
 		width = Toolkit.getDefaultToolkit().getScreenSize().width*3/4;
 		//设置Frame原点d
@@ -98,23 +99,14 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		placeBackgroundIcon.setOpaque(false);
 
 		//TODO 测试用内容
-		tableContent = new String[30][30];
-		for(int i = 0; i < 30; i++){
-			for(int j = 0; j < 30; j++){
-				tableContent[i][j] = new String(i + "  " + j);
-			}
-		}
-		tableHeader = new String[30];
-		tableHeader = tableContent[0];
+//		tableContent = new String[30][30];
+////		for(int i = 0; i < 30; i++){
+////			for(int j = 0; j < 30; j++){
+////				tableContent[i][j] = new String(i + "  " + j);
+////			}
+////		}
+//		tableHeader = new String[30];
 		
-		setBtnPanel();
-		setTablePanel();
-		
-		backgroundPanel.add(tablePanel);
-		backgroundPanel.add(btnPanel);
-		backgroundPanel.add(placeBackgroundIcon);
-		this.add(backgroundPanel);
-		this.setVisible(true);
 		
 		this. addMouseListener( 
 		        new MouseAdapter(){
@@ -142,8 +134,22 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		          }
 		      );    
 		
+		     // setList(null);
+
+		      setBtnPanel();
+		      setList(temp);
+		      refreshData();
+		      
+		      setTablePanel();
+		      
+		      backgroundPanel.add(btnPanel);
+		      backgroundPanel.add(tablePanel);
+		      backgroundPanel.add(placeBackgroundIcon);
+		      this.add(backgroundPanel);
+		      this.setVisible(true);
+		      
 	}
-	
+	//设置主要按钮
 	public void setBtnPanel() {
 
 		btnPanel = new JPanel();
@@ -182,7 +188,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		btn_Close.setContentAreaFilled(false);
 		btn_Close.setForeground(Color.decode("#3A5FCD"));
 		btn_Close.setFont(new Font("Serif",0, 30));//设置字体
-		this.add(btn_Close);
+		btnPanel.add(btn_Close);
 		
 		JButton btn_Back = new JButton("←");
 		btn_Back.setMargin(new Insets(0,0,0,0));
@@ -193,7 +199,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		btn_Back.setContentAreaFilled(false);
 		btn_Back.setForeground(Color.decode("#3A5FCD"));
 		btn_Back.setFont(new Font("Serif",0, 20));//设置字体
-		this.add(btn_Back);
+		btnPanel.add(btn_Back);
 		
 		JButton reduceButton = new JButton("—");
 		reduceButton.setMargin(new Insets(0,0,0,0));
@@ -207,24 +213,28 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		reduceButton.setContentAreaFilled(false);
 		reduceButton.setForeground(Color.decode("#3A5FCD"));
 		reduceButton.setFont(new Font("Serif",0, 20));//设置字体
-		this.add(reduceButton);
+		btnPanel.add(reduceButton);
 
 	}
-	
+	//建立表格区，设定表格大小、颜色等基础信息
 	public void setTablePanel() {
 
-		tablePanel = new JPanel();
 		tablePanel.setSize(width, height*9/10);
 		
 		tableHeight = tablePanel.getHeight()*4/5;
 		tableWidth = tablePanel.getWidth()*4/5;
 		
-		cellHeight = tableHeight/10;
-		cellWidth = tableWidth/6;
-		
-		buidTablePanel(tableContent[0].length,tableHeader.length,10,6);
+		if(tableHeader.length < 6){
+			cellHeight = tableHeight/10;
+			cellWidth = tableWidth/tableHeader.length;
+		}else{
+			cellHeight = tableHeight/10;
+			cellWidth = tableWidth/6;
+		}
+		buidTablePanel(tableContent.length,tableHeader.length,10,6);
 		
 		tablePanel.setLayout(null);
+		tablePanel.removeAll();
 		tablePanel.add(sp);
 		
 		
@@ -258,7 +268,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		
 		
 	}
-
+//建立表头，设定表格内容及SCROLLPANE
 	public void buidTablePanel(int allRow, int allColumn, int pageRow,
 			int pageColumn) {
 		//设置表头
@@ -274,6 +284,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		//TODO 重要，保证testTable大小大于JSCROLLPANE.
 		table.setPreferredSize(new Dimension(cellWidth*allColumn,cellHeight*allRow));
 		//设置JSCROLLPANE
+		tableHeaderList.updateUI();
 		sp = new JScrollPane(table);
 		sp.setColumnHeaderView(tableHeaderList);
 		sp.setSize(tableWidth, tableHeight);
@@ -281,11 +292,17 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		sp.setOpaque(false);
 		sp.getViewport().setOpaque(false); 
 		sp.getColumnHeader().setOpaque(false);//再取出头部，并设置为透明 
-		
 	}
-
-	public void setTableContent() {
-		// TODO Auto-generated method stub
+//更换表头及表格数据
+	public void setTableContent(String [] headerContent,String[][] content) {
+		
+		tableHeader = new String[headerContent.length];
+		tableContent = new String [content.length][headerContent.length];
+		tableHeader = headerContent;
+		tableContent = content;
+		setTablePanel();
+		this.revalidate();
+		this.repaint();
 		
 	}
 
@@ -294,18 +311,19 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 
 	}
 
-	public String[] getList() {
-		return tableHeader;
+	public ArrayList<String> getList() {
+		return temp;
 		// TODO Auto-generated method stub
 
 	}
-
+//设置表头内容，根据自定义中传输的数据设定
 	public void setList(ArrayList<String> list) {
-
-		ArrayList<String> temp = new ArrayList<String>();
-		for(int i = 0 ;i<tableHeader.length;i++){
-			temp.add(tableHeader[i]);
-		}
+		temp.removeAll(temp);
+		temp.add("ID");
+		temp.add("名字");
+//		for(int i = 0 ;i<tableHeader.length;i++){
+//			temp.add(tableHeader[i]);
+//		}
 		
 		for(int i = 0 ;i<list.size() ;i++){
 			if(temp.contains(list.get(i)) == false){
@@ -334,9 +352,21 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		
 	}
 	
+	public void setSort(String string) {
+//		if (string.split(";")[0].equals("升序")) {
+//			sortType = SortType.SORT;
+//		} else {
+//			sortType = SortType.REVERSE_SORT;
+//		}
+//		PlayerTableTranslation playerTableTranslation = new PlayerTableTranslation();
+//		sortBy = playerTableTranslation.translation(string.split(";")[1]);
+	}
+	//刷新信息，并根据信息（由tableHeader（String[]）决定）设定内容@Dalec Gu TODO
 	public void refreshData() {
-		// TODO Auto-generated method stub
-
+		//TODO
+		//传入表格数据,以下30为传入数据行数，根据tableHeader获取数据后更改大小及具体数值（可自己建立ArrayList暂时存储数据，可能较为方便）
+		tableContent = new String[30][tableHeader.length];
+		setTableContent(tableHeader,tableContent);
 	}
 
 	public JLabel setLabelIcon(Icon icon) {

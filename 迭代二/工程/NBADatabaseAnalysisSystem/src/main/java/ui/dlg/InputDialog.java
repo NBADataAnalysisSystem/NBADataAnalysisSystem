@@ -21,12 +21,12 @@ public class InputDialog extends JDialog implements ActionListener{
 	public InputDialog(JFrame parent){
 		super(parent);
 		frame = parent;
-		btn_apply = new JButton("ȷ��");
+		btn_apply = new JButton("确定");
 		btn_apply.setName("apply");
 		btn_apply.addActionListener(this);
 		
 		
-		btn_cancel = new JButton("ȡ��");
+		btn_cancel = new JButton("取消");
 		btn_cancel.setName("cancel");
 		btn_cancel.addActionListener(this);
 		
