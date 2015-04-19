@@ -30,10 +30,10 @@ public class PlayerDaoJdbcImp implements PlayerDao {
     
 	public ArrayList<Map<PlayerEntity, String>> getPlayer(ArrayList<PlayerEntity> columnList) {
 		String columnsToSearch = "";
-		PlayerEntityToField translation = new PlayerEntityToField();
+		PlayerEnumToField translation = new PlayerEnumToField();
 		ArrayList<String> columnStrList = new ArrayList<String>();
 		for (PlayerEntity playerEntity:columnList) {
-			String temp = translation.translation(playerEntity);
+			String temp = translation.translate(playerEntity);
 			columnsToSearch = columnsToSearch + temp + ",";
 			columnStrList.add(temp);
 		}
@@ -48,7 +48,7 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 			while (resultSet.next()) {
 				Map<PlayerEntity, String> map = new HashMap<PlayerEntity, String>();
 				for (String string:columnStrList) {
-					map.put(translation.reverseTranslation(string), resultSet.getString(string));
+					map.put(translation.reverseTranslate(string), resultSet.getString(string));
 				}
 				result.add(map);
 			}

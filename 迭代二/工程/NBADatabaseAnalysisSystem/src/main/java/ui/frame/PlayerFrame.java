@@ -13,6 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -26,6 +27,10 @@ import javax.swing.SwingUtilities;
 
 import com.sun.awt.AWTUtilities;
 
+import controller.playercontroller.GetPlayerRequest;
+import controller.playercontroller.GetPlayerResponse;
+import controller.playercontroller.PlayerController;
+import entity.PlayerEntity;
 import ui.component.MyTableHeaderPanel;
 import ui.component.MyTablePanel;
 import ui.dlg.AdditionOfPlayerInfo;
@@ -366,6 +371,24 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		//TODO
 		//传入表格数据,以下30为传入数据行数，根据tableHeader获取数据后更改大小及具体数值（可自己建立ArrayList暂时存储数据，可能较为方便）
 		tableContent = new String[30][tableHeader.length];
+		PlayerController controller = new PlayerController();
+		PlayerHeaderToEnum translation = new PlayerHeaderToEnum();
+		ArrayList<PlayerEntity> columnList = new ArrayList<PlayerEntity>();
+		for (String string:tableHeader) {
+			columnList.add(translation.translate(string));
+		}
+		GetPlayerResponse response = (GetPlayerResponse) controller.processRequest(
+				new GetPlayerRequest(columnList));
+		ArrayList<Map<PlayerEntity, String>> tempList = response.getList();
+		int i = 0;
+		for (Map<PlayerEntity, String> map:tempList) {
+			int j = 0;
+			for (String string:tableHeader) {
+				tableContent[i][j] = map.get(translation.translate(string));
+				j++;
+			}
+			i++;
+		}
 		setTableContent(tableHeader,tableContent);
 	}
 
