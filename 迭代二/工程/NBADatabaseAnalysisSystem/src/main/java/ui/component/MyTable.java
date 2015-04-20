@@ -2,8 +2,6 @@ package ui.component;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.Icon;
 import javax.swing.JLabel;
@@ -36,6 +34,8 @@ public class MyTable {
 			for(int j = 0; j < column; j++){
 				table[i][j][0] = new JLabel();
 				table[i][j][1] = new JLabel();
+				table[i][j][0] .setName(Integer.toString(i));
+				table[i][j][1].setName(Integer.toString(i));
 				table[i][j][0].setHorizontalAlignment(SwingConstants.CENTER);
 				//设置表格为透明，方便显示图片
 				table[i][j][0].setOpaque(false);
@@ -100,7 +100,6 @@ public class MyTable {
 	}
 	//将表格添加到Panel中
 	protected void addToPanel(JPanel panel){
-		
 		for(int i = 0; i < row; i++){
 			for(int j = 0; j < column; j++){
 				//先添加背景，后添加内容
@@ -108,6 +107,7 @@ public class MyTable {
 				panel.add(table[i][j][0], 0);
 			}
 		}
+	
 
 	}
 	//设置字体大小
@@ -156,27 +156,9 @@ public class MyTable {
 		}
 	}
 	//真是给跪。。。TODO
-	private int getRow;
-	int tempRow = 0;
+	int tempRow = -1;
 	protected int getClicked(){
-		for(int i = 0; i < row; i++){
-			for(int j = 0; j < column; j++){
-					getRow = i;
-				table[i][j][1].addMouseListener( 
-				        new MouseAdapter(){
-				            public void mouseClicked(MouseEvent e){
-				            	tempRow = getRow;
-				            }
-
-				          }
-				      );						
-						
-						
-						
-						
-						
-			}
-		}
+		
 		return tempRow;
 	}
 	

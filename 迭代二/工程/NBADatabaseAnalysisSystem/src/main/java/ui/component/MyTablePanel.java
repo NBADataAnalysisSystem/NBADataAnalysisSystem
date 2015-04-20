@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class MyTablePanel  extends JPanel{
 
-	MyTable table;
+	public MyTable table;
 	//总行、列数
 	int allRows, allColumns;
 	//视图显示行、页数
@@ -160,12 +160,13 @@ public class MyTablePanel  extends JPanel{
 		this.setTableContent();
 	}
 	
-	//设置表格监听
-	public  int getClicked(){
-		int temp=0;
-		temp = table.getClicked();
-		return temp;
-	}
+////	//设置表格监听
+////	int temp=0;
+//	public  void getClicked(MouseEvent e){
+//		for(MouseListener i:this.getMouseListeners()){
+//			i.mouseClicked(e);
+//		}
+//	}
 	
 	
 	

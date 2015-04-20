@@ -56,6 +56,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 	private JPanel tablePanel;
 	private JPanel backgroundPanel;
 	public JScrollPane sp;
+	int selectedRow = 0;
 	
 	public MyTablePanel table ;
 	public MyTableHeaderPanel tableHeaderList;
@@ -236,8 +237,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 			cellHeight = tableHeight/10;
 			cellWidth = tableWidth/6;
 		}
-		buidTablePanel(tableContent.length,tableHeader.length,10,6);
-		
+		buidTablePanel(tableContent.length,tableHeader.length,10,6);		
 		tablePanel.setLayout(null);
 		tablePanel.removeAll();
 		tablePanel.add(sp);
@@ -297,6 +297,17 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		sp.setOpaque(false);
 		sp.getViewport().setOpaque(false); 
 		sp.getColumnHeader().setOpaque(false);//再取出头部，并设置为透明 
+		
+		table.addMouseListener(
+				new MouseAdapter(){
+					public void mouseClicked(MouseEvent e){
+					//	selectedRow = Integer.parseInt(e.getComponent().getName());
+						
+					System.out.println(e.getComponent().getComponentAt(table.getMousePosition()).getName());
+					}          
+				}
+				);    
+
 	}
 //更换表头及表格数据
 	public void setTableContent(String [] headerContent,String[][] content) {
@@ -312,9 +323,10 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 	}
 //显示详细信息。
 	public void showData() {
-		int row = 0;
-		row = table.getClicked();
-		System.out.println(row);
+//		int row = 0;
+//	;	row = table.getClicked();
+//	;		System.out.println(row);
+
 	}
 
 	public ArrayList<String> getList() {
