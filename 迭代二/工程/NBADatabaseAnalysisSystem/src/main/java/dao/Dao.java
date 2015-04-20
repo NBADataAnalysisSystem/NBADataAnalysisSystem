@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -99,7 +100,7 @@ public class Dao implements DaoInterface {
 		return resultString.split(";");
 	}
 	
-	//读取指定路径下的teams文件，并将结果写入数据库中，耗时
+	//读取指定路径下的teams文件，并将结果写入数据库中，耗时0.1s
 	private void readTeamFiles(String path) throws Exception{
 		File file = new File(path);
 		PreparedStatement prep = connection.prepareStatement(""
@@ -125,17 +126,60 @@ public class Dao implements DaoInterface {
 		connection.setAutoCommit(true);
 	};
 	
-	private void readMatchFiles(String path){};
+	private void readMatchFiles(String path){
+		
+	};
+	
+	private int getPlayerId(String n)throws Exception{
+		int playerId;
+		Statement stat = connection.createStatement();
+		String name = checkPlayerName(n);
+		ResultSet rs = stat.executeQuery("select id from players where player_name='"+name+"';");
+		playerId = rs.getInt(1);
+		return playerId;
+	}
+	
+	//检查球员姓名中是否含有',将其改成\'
+	private String checkPlayerName(String name){
+		String result="";
+		for(int i = 0 ; i < name.length();i ++){
+			if(name.charAt(i)=='\''){
+				result+="\\\'";
+			}else{
+				result+=name.charAt(i);
+			}
+		}
+		return result;
+	}
+	
+	//根据队伍缩写名查找队伍Id，结果返回int类型的Id值
+	private int getTeamId(String abb)throws Exception{
+		int teamId;
+		Statement stat = connection.createStatement();
+		ResultSet rs = stat.executeQuery("select id from teams where abbreviation='"+abb+"';");
+		teamId = rs.getInt(1);
+		return teamId;
+	}
+	
+	//根据赛季，比赛日期和主场队伍查找比赛Id，结果返回int类型的Id
+	private int getMatchId(String season,String date,int home_court_team_id)throws Exception{
+		int matchId;
+		Statement stat = connection.createStatement();
+		ResultSet rs = stat.executeQuery("select id from matches where data_of_match='"+
+		date+"',home_court_team_id='"+home_court_team_id+"',season='"+season+"';");
+		matchId = rs.getInt(1);
+		return matchId;
+	};
 	
 	public void refreshFiles() throws Exception{};
 	
 	public static void main(String[] args) throws Exception{
 		Dao dao = new Dao();
-		dao.newDatabase();//3秒
-		dao.readFiles("C:/Users/cross/Documents/CSE/CSEIII data/迭代一数据/");
-		//测试gitignore是否修正
-		//Calendar ca = Calendar.getInstance();
-		//System.out.println(ca.getTimeInMillis());
+		//dao.newDatabase();//3秒
+		//dao.readFiles("C:/Users/cross/Documents/CSE/CSEIII data/迭代一数据/");
+		Class.forName("org.sqlite.JDBC");
+    	dao.connection = DriverManager.getConnection("jdbc:sqlite:NBADatabase.db");
+		System.out.println(dao.getTeamId("LAC"));
 	}
 
 }

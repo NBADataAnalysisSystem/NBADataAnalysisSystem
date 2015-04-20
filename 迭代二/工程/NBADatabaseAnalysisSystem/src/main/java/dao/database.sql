@@ -8,15 +8,15 @@ create table matches(
 id integer primary key autoincrement,
 season varchar(10),
 date_of_match varchar(20),
-home_court_team varchar(10),
-away_team varchar(10),
+home_court_team_id integer,
+away_team_id integer,
 score varchar(10),
 score_of_first_section varchar(10),
 score_of_second_section varchar(10),
 score_of_third_section varchar(10),
 score_of_fourth_section varchar(10),
 is_overtime varchar(5),
-unique (date_of_match,home_court_team,away_team)
+unique (date_of_match,home_court_team_id,away_team_id)
 );
 
 
@@ -25,8 +25,8 @@ unique (date_of_match,home_court_team,away_team)
 创建加时赛表
 */
 create table overtime_matches(
-id varchar（25）,
-serial_number varchar(3),
+id integer,
+serial_number integer,
 score varchar(10),
 primary key(id,serial_number)
 );
@@ -37,27 +37,27 @@ primary key(id,serial_number)
 创建球员比赛成绩表
 */
 create table player_match_performance(
-match_id varchar(25),
-team varchar(10),
-player_name varchar(30),
+match_id integer,
+team_id integer,
+player_id integer,
 player_position varchar(10),
-presence_time varchar(20),
-shootings varchar(4),
-shots varchar(4),
-three_point_shootings varchar(4),
-three_point_shots varchar(4),
-free_throw_shootings varchar(4),
-free_throw_shots varchar(4),
-offensive_rebounds varchar(4),
-defensive_rebounds varchar(4),
-rebounds varchar(4),
-assists varchar(4),
-steals varchar(4),
-block_shots varchar(4),
-turn_overs varchar(4),
-fouls varchar(4),
-score varchar(4),
-primary key (player_name,match_id)
+presence_time integer,
+shootings integer,
+shots integer,
+three_point_shootings integer,
+three_point_shots integer,
+free_throw_shootings integer,
+free_throw_shots integer,
+offensive_rebounds integer,
+defensive_rebounds integer,
+rebounds integer,
+assists integer,
+steals integer,
+block_shots integer,
+turn_overs integer,
+fouls integer,
+score integer,
+primary key (player_id,match_id)
 );
 
 
