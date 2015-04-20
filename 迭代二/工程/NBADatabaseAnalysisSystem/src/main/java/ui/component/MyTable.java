@@ -2,6 +2,8 @@ package ui.component;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.Icon;
 import javax.swing.JLabel;
@@ -152,6 +154,30 @@ public class MyTable {
 		for(int i = 0; i < row; i++){
 			table[i][column][1].setIcon(icon);
 		}
+	}
+	//真是给跪。。。TODO
+	private int getRow;
+	int tempRow = 0;
+	protected int getClicked(){
+		for(int i = 0; i < row; i++){
+			for(int j = 0; j < column; j++){
+					getRow = i;
+				table[i][j][1].addMouseListener( 
+				        new MouseAdapter(){
+				            public void mouseClicked(MouseEvent e){
+				            	tempRow = getRow;
+				            }
+
+				          }
+				      );						
+						
+						
+						
+						
+						
+			}
+		}
+		return tempRow;
 	}
 	
 }

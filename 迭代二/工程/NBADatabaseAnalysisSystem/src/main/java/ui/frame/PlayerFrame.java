@@ -310,10 +310,11 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		this.repaint();
 		
 	}
-
+//显示详细信息。
 	public void showData() {
-		// TODO Auto-generated method stub
-
+		int row = 0;
+		row = table.getClicked();
+		System.out.println(row);
 	}
 
 	public ArrayList<String> getList() {

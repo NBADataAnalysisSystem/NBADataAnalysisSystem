@@ -160,6 +160,12 @@ public class MyTablePanel  extends JPanel{
 		this.setTableContent();
 	}
 	
+	//设置表格监听
+	public  int getClicked(){
+		int temp=0;
+		temp = table.getClicked();
+		return temp;
+	}
 	
 	
 	
