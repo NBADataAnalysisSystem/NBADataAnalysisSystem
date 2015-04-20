@@ -370,7 +370,6 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 	public void refreshData() {
 		//TODO
 		//传入表格数据,以下30为传入数据行数，根据tableHeader获取数据后更改大小及具体数值（可自己建立ArrayList暂时存储数据，可能较为方便）
-		tableContent = new String[30][tableHeader.length];
 		PlayerController controller = new PlayerController();
 		PlayerHeaderToEnum translation = new PlayerHeaderToEnum();
 		ArrayList<PlayerEntity> columnList = new ArrayList<PlayerEntity>();
@@ -380,6 +379,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		GetPlayerResponse response = (GetPlayerResponse) controller.processRequest(
 				new GetPlayerRequest(columnList));
 		ArrayList<Map<PlayerEntity, String>> tempList = response.getList();
+		tableContent = new String[tempList.size()][tableHeader.length];
 		int i = 0;
 		for (Map<PlayerEntity, String> map:tempList) {
 			int j = 0;
