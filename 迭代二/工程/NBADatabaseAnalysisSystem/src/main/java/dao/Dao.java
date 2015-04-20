@@ -133,7 +133,7 @@ public class Dao implements DaoInterface {
 		Dao dao = new Dao();
 		dao.newDatabase();//3秒
 		dao.readFiles("C:/Users/cross/Documents/CSE/CSEIII data/迭代一数据/");
-		
+		//测试gitignore是否修正
 		//Calendar ca = Calendar.getInstance();
 		//System.out.println(ca.getTimeInMillis());
 	}
