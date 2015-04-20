@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,11 +16,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-
 import ui.component.MyTableHeaderPanel;
 import ui.component.MyTablePanel;
 
-public class PlayerDetailInfo extends JFrame  {
+public class PlayerDetailInfo extends JFrame implements ActionListener  {
 
 	private static final long serialVersionUID = 5980271968002702909L;
 	//设置窗体大小
@@ -84,17 +86,27 @@ public class PlayerDetailInfo extends JFrame  {
 		
 		this.setSize(width, height);
 		this.setLocation(x,y);
-
+		this.setUndecorated(true );
 		this.setLayout(null);
-		
+        
 		backPanel.setSize(width,height);
 		backPanel.setLayout(null);
 	
 		JLabel placeBackgroundIcon = new JLabel();
 		placeBackgroundIcon.setBounds(0, 0,backPanel.getWidth() , backPanel.getHeight());
 		
+		JButton closeButton = new JButton("×");
+		closeButton.setMargin(new Insets(0,0,0,0));
+		closeButton.setBounds(685,0,30, 30);
+		closeButton.addActionListener(this);
+		closeButton.setName("close");
 		
 		
+		closeButton.setContentAreaFilled(false);
+		closeButton.setForeground(Color.decode("#3A5FCD"));
+		closeButton.setFont(new Font("Serif",0, 30));//设置字体
+		backPanel.add(closeButton);
+			
 		j1 = new JButton();
 		
 		j1.setBounds(30,30, 150, 300);
@@ -311,8 +323,7 @@ public class PlayerDetailInfo extends JFrame  {
 		this.add(backPanel);
 		this.setVisible(true);
 //		backgroundPanel.setBackground(Color.blue);
-		
-		
+	
 	}
 	
 	public void setTablePanel() {
@@ -321,7 +332,7 @@ public class PlayerDetailInfo extends JFrame  {
 		tablePanel.setSize(width, height*1/3);
 		
 		tableHeight = tablePanel.getHeight()*1/4;
-		tableWidth = tablePanel.getWidth();
+		tableWidth = tablePanel.getWidth()+15;
 		
 		cellHeight = tableHeight/3;
 		cellWidth = tableWidth/6;
@@ -395,7 +406,7 @@ public class PlayerDetailInfo extends JFrame  {
 		TotaltablePanel.setSize(width, height*1/3);
 		
 		tableHeight = TotaltablePanel.getHeight()*1/4;
-		tableWidth = TotaltablePanel.getWidth();
+		tableWidth = TotaltablePanel.getWidth()+15;
 		
 		cellHeight = tableHeight/3;
 		cellWidth = tableWidth/6;
@@ -506,8 +517,8 @@ public class PlayerDetailInfo extends JFrame  {
 		MatchtablePanel = new JPanel();
 		MatchtablePanel.setSize(width, height*1/3);
 		
-		tableHeight = MatchtablePanel.getHeight()*1/2-10;
-		tableWidth = MatchtablePanel.getWidth()-15;
+		tableHeight = MatchtablePanel.getHeight()*1/2+25;
+		tableWidth = MatchtablePanel.getWidth();
 		
 		cellHeight = tableHeight/5;
 		cellWidth = tableWidth/6;
@@ -581,7 +592,20 @@ public class PlayerDetailInfo extends JFrame  {
 		@SuppressWarnings("unused")
 		PlayerDetailInfo test = new PlayerDetailInfo();
 	}
+	
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() instanceof JButton){
+			JButton btn = (JButton)e.getSource();
+			String name = btn.getName();
+			if("close".equals(name)){
+				  this.setVisible(false);
+				  this.dispose();
+				  System.exit(0);
+			}
+		}
+	}
 
+	
 
 
 
