@@ -64,7 +64,11 @@ public class MyTable {
 	}
 	//设置表格整体大小
 	public void setSize(int width, int height){
-		cellH = height / row;
+		if(row !=0){
+			cellH = height / row;
+		}else{
+			cellH = height;
+		}
 		cellW = width / column;
 		this.resetTableBounds();
 	}
