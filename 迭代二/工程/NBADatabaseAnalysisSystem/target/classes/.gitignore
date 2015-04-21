@@ -1,3 +1,6 @@
-/ui/
-/META-INF/
+/controller/
 /dao/
+/entity/
+/service/
+/serviceimp/
+/ui/
