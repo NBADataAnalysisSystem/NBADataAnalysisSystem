@@ -56,7 +56,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 	private JPanel tablePanel;
 	private JPanel backgroundPanel;
 	public JScrollPane sp;
-	int selectedRow = 0;
+	int selectedRow = -1;
 	
 	public MyTablePanel table ;
 	public MyTableHeaderPanel tableHeaderList;
@@ -303,7 +303,8 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 					public void mouseClicked(MouseEvent e){
 					//	selectedRow = Integer.parseInt(e.getComponent().getName());
 						
-					System.out.println(e.getComponent().getComponentAt(table.getMousePosition()).getName());
+						selectedRow=Integer.parseInt(e.getComponent().getComponentAt(table.getMousePosition()).getName());
+						showData();
 					}          
 				}
 				);    
@@ -323,9 +324,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 	}
 //显示详细信息。
 	public void showData() {
-//		int row = 0;
-//	;	row = table.getClicked();
-//	;		System.out.println(row);
+		//selectedRow为选择行数，即二维数组第一维
 
 	}
 
