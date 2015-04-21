@@ -52,8 +52,12 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 	private int x;
 	private int y;
 	
+	private ImageIcon btnChoosedIcon;
+	private ImageIcon btnUnchoosedIcon;
+	
 	private JPanel btnPanel;
 	private JPanel tablePanel;
+	private JPanel mainPanel;
 	private JPanel backgroundPanel;
 	public JScrollPane sp;
 	int selectedRow = -1;
@@ -80,6 +84,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		
 		backgroundPanel = new JPanel();
 		tablePanel = new JPanel();
+		mainPanel = new JPanel();
 		height = Toolkit.getDefaultToolkit().getScreenSize().height*3/4;
 		width = Toolkit.getDefaultToolkit().getScreenSize().width*3/4;
 		//设置Frame原点d
@@ -93,6 +98,8 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		
 		backgroundPanel.setSize(width,height);
 		backgroundPanel.setLayout(null);
+		
+
 
 		//设置背景图片
 		ImageIcon background ;
@@ -104,55 +111,62 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		placeBackgroundIcon.setBounds(0, 0,backgroundPanel.getWidth() , backgroundPanel.getHeight());
 		placeBackgroundIcon.setOpaque(false);
 
-		//TODO 测试用内容
-//		tableContent = new String[30][30];
-////		for(int i = 0; i < 30; i++){
-////			for(int j = 0; j < 30; j++){
-////				tableContent[i][j] = new String(i + "  " + j);
-////			}
-////		}
-//		tableHeader = new String[30];
-		
-		
-		this. addMouseListener( 
-		        new MouseAdapter(){
-		            public void mousePressed(MouseEvent e){
-		              origin.x = e.getX();
-		              origin.y = e.getY();
-		            }
-
-//		            public void mouseReleased(MouseEvent e) {
-//		              ( (MouseListener) this).mouseReleased(e);
-//		            }
-		            @Override
-		            public void mouseEntered(MouseEvent e) {
-		              repaint();              
-		            }            
-		          }
-		      );
-
-		      this.addMouseMotionListener(
-		          new MouseMotionAdapter(){
-		            public void mouseDragged(MouseEvent e){
-		              Point p =    getLocation();
-		              setLocation(p.x + e.getX() - origin.x, p.y + e.getY() - origin.y );
-		            }          
-		          }
-		      );    
-		
-		     // setList(null);
-
 		      setBtnPanel();
+		      
+		      //设置主要界面容器
+		      
+				mainPanel.setSize(width*19/20,height*13/14);
+				mainPanel.setLayout(null);
+				mainPanel.setLocation(width*1/40, btnPanel.getHeight());
+				mainPanel.setOpaque(false);
+				//设置背景图片
+				ImageIcon mainBackground ;
+				mainBackground = new ImageIcon("resource/MainWindow.png");
+				mainBackground.setImage(mainBackground.getImage().getScaledInstance(mainPanel.getWidth(), mainPanel.getHeight(),Image.SCALE_DEFAULT));
+				
+				JLabel placeMainIcon = new JLabel();
+				placeMainIcon.setIcon(mainBackground);
+				placeMainIcon.setBounds(0, 0,mainPanel.getWidth() , mainPanel.getHeight());
+				placeMainIcon.setOpaque(false);
+		      
 		      setList(temp);
 		      refreshData();
 		      
 		      setTablePanel();
 		      
 		      backgroundPanel.add(btnPanel);
-		      backgroundPanel.add(tablePanel);
+		      backgroundPanel.add(mainPanel);
+		     mainPanel.add(tablePanel);
+		      mainPanel.add(placeMainIcon);
 		      backgroundPanel.add(placeBackgroundIcon);
 		      this.add(backgroundPanel);
 		      this.setVisible(true);
+		      
+		  	this. addMouseListener( 
+			        new MouseAdapter(){
+			            public void mousePressed(MouseEvent e){
+			              origin.x = e.getX();
+			              origin.y = e.getY();
+			            }
+
+//			            public void mouseReleased(MouseEvent e) {
+//			              ( (MouseListener) this).mouseReleased(e);
+//			            }
+			            @Override
+			            public void mouseEntered(MouseEvent e) {
+			              repaint();              
+			            }            
+			          }
+			      );
+
+			      this.addMouseMotionListener(
+			          new MouseMotionAdapter(){
+			            public void mouseDragged(MouseEvent e){
+			              Point p =    getLocation();
+			              setLocation(p.x + e.getX() - origin.x, p.y + e.getY() - origin.y );
+			            }          
+			          }
+			      );    
 		      
 	}
 	//设置主要按钮
@@ -160,19 +174,38 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 
 		btnPanel = new JPanel();
 		btnPanel.setLayout(null);
-		btnPanel.setSize(width, height/10);
+		btnPanel.setSize(width, height/14);
 		btnPanel.setLocation(0,0);
 		btnPanel.setOpaque(false);
-		
+		//设置选框
 		JButton btn_Add = new JButton("自定义");
 		btn_Add.setName("add");
 		btn_Add.addActionListener(this);
 
+		btnChoosedIcon = new ImageIcon("resource/BtnChoosed.png");
+		btnChoosedIcon.setImage(btnChoosedIcon.getImage().getScaledInstance(100, 30,Image.SCALE_DEFAULT));
+		
+		JLabel btnChoosedLabel = new JLabel();
+		btnChoosedLabel.setIcon(btnChoosedIcon);
+		btnChoosedLabel.setOpaque(false);
+		
 		btn_Add.setContentAreaFilled(false);
 		btn_Add.setForeground(Color.decode("#FF0000"));
 		btn_Add.setFont(new Font("宋体",1, 20));//设置字体
+		btn_Add.setBorderPainted(false);
+		btn_Add.setFocusPainted(false);
+		//btn_Add.setOpaque(false);
 		btnPanel.add(btn_Add);
-		btn_Add.setBounds(20,(btnPanel.getHeight())/2-10,100,30);
+		btnPanel.add(btnChoosedLabel);
+		btn_Add.setBounds(40,btnPanel.getHeight()-30,100,30);
+		btnChoosedLabel.setBounds(btn_Add.getX(), btn_Add.getY(),100 , 30);
+		//
+		btnUnchoosedIcon = new ImageIcon("resource/BtnUnChoosed.png");
+		btnUnchoosedIcon.setImage(btnUnchoosedIcon.getImage().getScaledInstance(100, 30,Image.SCALE_DEFAULT));
+		
+		JLabel btnUnchoosedLabel = new JLabel();
+		btnUnchoosedLabel.setIcon(btnUnchoosedIcon);
+		btnUnchoosedLabel.setOpaque(false);
 		
 		JButton btn_Sift = new JButton("筛  选");
 		btn_Sift.setName("sift");
@@ -181,8 +214,12 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		btn_Sift.setContentAreaFilled(false);
 		btn_Sift.setForeground(Color.decode("#FF0000"));
 		btn_Sift.setFont(new Font("宋体",1, 20));//设置字体
+		btn_Sift.setBorderPainted(false);
+		btn_Sift.setFocusPainted(false);
 		btnPanel.add(btn_Sift);
-		btn_Sift.setBounds(btn_Add.getWidth()+btn_Add.getX()+20,(btnPanel.getHeight())/2-10,100,30);
+		btnPanel.add(btnUnchoosedLabel);
+		btn_Sift.setBounds(btn_Add.getWidth()+btn_Add.getX()+20,(btnPanel.getHeight())-30,100,30);
+		btnUnchoosedLabel.setBounds(btn_Sift.getX(), btn_Sift.getY(),100 , 30);
 		
 		JButton btn_Close = new JButton("×");
 		btn_Close.setMargin(new Insets(0,0,0,0));
@@ -225,10 +262,10 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 	//建立表格区，设定表格大小、颜色等基础信息
 	public void setTablePanel() {
 
-		tablePanel.setSize(width, height*9/10);
+		tablePanel.setSize(mainPanel.getWidth(), mainPanel.getHeight()*8/10);
 		
-		tableHeight = tablePanel.getHeight()*4/5;
-		tableWidth = tablePanel.getWidth()*4/5;
+		tableHeight = tablePanel.getHeight()*9/10;
+		tableWidth = tablePanel.getWidth()*19/20;
 		
 		if(tableHeader.length < 6){
 			cellHeight = tableHeight/10;
@@ -244,7 +281,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		
 		
 		sp.setLocation((tablePanel.getWidth()-sp.getWidth())/2, (tablePanel.getHeight()-sp.getHeight())/2);
-		tablePanel.setLocation(0,btnPanel.getHeight());
+		tablePanel.setLocation(0,mainPanel.getHeight()*2/11);
 		tablePanel.setOpaque(false);
 		tableHeaderList.setOpaque(false);
 		
