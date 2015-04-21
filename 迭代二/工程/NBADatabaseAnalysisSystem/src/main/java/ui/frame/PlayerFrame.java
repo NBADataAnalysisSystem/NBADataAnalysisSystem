@@ -197,7 +197,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		//btn_Add.setOpaque(false);
 		btnPanel.add(btn_Add);
 		btnPanel.add(btnChoosedLabel);
-		btn_Add.setBounds(40,btnPanel.getHeight()-30,100,30);
+		btn_Add.setBounds(mainPanel.getX()+50,btnPanel.getHeight()-30,100,30);
 		btnChoosedLabel.setBounds(btn_Add.getX(), btn_Add.getY(),100 , 30);
 		//
 		btnUnchoosedIcon = new ImageIcon("resource/BtnUnChoosed.png");
