@@ -20,20 +20,23 @@ import ui.frame.PlayerFrame;
 @SuppressWarnings("serial")
 public class PlayerSeasonInfoPanel extends JPanel{
 	
-	JComboBox<String> selectTeam;
+	JComboBox<String> selectUnion;
 	JComboBox<String> selectPosition;
+	JComboBox<String> selectOth;
+	JComboBox<String> selectYear;
+	JComboBox<String> selectType;
 	ArrayList<String> infoToShow;
 	
 	PlayerFrame frame;
 	
-	ArrayList<JButton> letterList ;
+	JButton submit ;
 	
 	int x;
 	int y;
 	int width;
 	int height;
 	
-	String[] sift = new String[3];
+	String[] sift = new String[5];
 	
 	public PlayerSeasonInfoPanel(int x,int y,int width,int height){
 		this.x = x;
@@ -41,7 +44,6 @@ public class PlayerSeasonInfoPanel extends JPanel{
 		this.width = width;
 		this.height = height;
 		this.setBounds(x, y, width, height);
-		letterList = new ArrayList<JButton>();
 		infoToShow = new ArrayList<String>();
 		//设置26个字母效果
 		for(int i = 0;i < 26;i++){
@@ -108,21 +110,20 @@ public class PlayerSeasonInfoPanel extends JPanel{
 			tempBtn.setFocusPainted(false);
 			this.setOpaque(false);
 			this.add(tempBtn);
-			letterList.add(tempBtn);
 			
 		}
 		
-		selectTeam = new JComboBox<String>();
-		this.add(selectTeam);
-		selectTeam.addItem("根据球队查找");
-		selectTeam.setEditable(false);
-		selectTeam.setOpaque(false);
-		selectTeam.setBounds(30 , (width - 40)/26+10, 200, (width - 40)/26);
-		selectTeam.addMouseListener(       new MouseAdapter(){
+		selectUnion = new JComboBox<String>();
+		this.add(selectUnion);
+		selectUnion.addItem("根据球队查找");
+		selectUnion.setEditable(false);
+		selectUnion.setOpaque(false);
+		selectUnion.setBounds(30 , (width - 40)/26+10, 200, (width - 40)/26);
+		selectUnion.addMouseListener(       new MouseAdapter(){
 			
 			public void mouseClicked(MouseEvent e){
-					if(selectTeam.getSelectedItem().toString().equals("根据球队查找") == false){
-						sift[1] = selectTeam.getSelectedItem().toString();
+					if(selectUnion.getSelectedItem().toString().equals("根据球队查找") == false){
+						sift[1] = selectUnion.getSelectedItem().toString();
 						sift();
 					}
 				}
@@ -155,7 +156,7 @@ public class PlayerSeasonInfoPanel extends JPanel{
 	public void addTeamList(ArrayList<String> team){
 		
 		for(int i = 0;i < team.size() ; i++){
-			selectTeam.addItem(team.get(i));
+			selectUnion.addItem(team.get(i));
 		}
 		
 	}
