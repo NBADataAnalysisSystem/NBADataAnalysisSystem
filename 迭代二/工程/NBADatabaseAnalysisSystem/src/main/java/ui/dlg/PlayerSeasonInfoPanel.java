@@ -1,10 +1,8 @@
 package ui.dlg;
 
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -45,114 +43,165 @@ public class PlayerSeasonInfoPanel extends JPanel{
 		this.height = height;
 		this.setBounds(x, y, width, height);
 		infoToShow = new ArrayList<String>();
-		//设置26个字母效果
-		for(int i = 0;i < 26;i++){
-			
-			int tempW = (width - 40)/26;
-			char temp = (char) ('A' + i);
-			final JButton tempBtn = new JButton();
-			tempBtn.setBounds(20 + i*tempW , 0, tempW, tempW);
-			tempBtn.setFont(new Font("宋体",1, 20));//设置字体
-			tempBtn.setBorderPainted(false);
-			tempBtn.setMargin(new Insets(0,0,0,0));
-			final JPanel panel = this;
-			final JLabel btnChoosedLabel = new JLabel();
-			tempBtn.addMouseListener(       new MouseAdapter(){
-					public void mouseReleased(MouseEvent e){
-		        		ImageIcon btnChoosedIcon = new ImageIcon("resource/LetterButton.png");
-		        		btnChoosedIcon.setImage(btnChoosedIcon.getImage().getScaledInstance(tempBtn.getWidth(), tempBtn.getHeight(),Image.SCALE_DEFAULT));
-		        		
-		        		btnChoosedLabel.setIcon(btnChoosedIcon);
-		        		btnChoosedLabel.setOpaque(false);
-		        		
-		        		panel.add(btnChoosedLabel);
-		        		btnChoosedLabel.setBounds(tempBtn.getX(), tempBtn.getY(), tempBtn.getWidth(), tempBtn.getHeight());
-		        		sift[0] = tempBtn.getText();
-		        		sift();
-					}
-		            public void mouseEntered(MouseEvent e){
-
-		        		ImageIcon btnChoosedIcon = new ImageIcon("resource/LetterButton.png");
-		        		btnChoosedIcon.setImage(btnChoosedIcon.getImage().getScaledInstance(tempBtn.getWidth(), tempBtn.getHeight(),Image.SCALE_DEFAULT));
-		        		
-		        		btnChoosedLabel.setIcon(btnChoosedIcon);
-		        		btnChoosedLabel.setOpaque(false);
-		        		
-		        		panel.add(btnChoosedLabel);
-		        		btnChoosedLabel.setBounds(tempBtn.getX(), tempBtn.getY(), tempBtn.getWidth(), tempBtn.getHeight());
-		            	tempBtn.setForeground(Color.decode("#FF0000"));
-		            }
-		            public void mouseExited(MouseEvent e){
-		            	panel.remove(btnChoosedLabel);
-		            	tempBtn.setBackground(null);
-		            	tempBtn.setForeground(null);
-		            }
-		            public void mousePressed(MouseEvent e){
-		            	
-		            	ImageIcon btnChoosedIcon = new ImageIcon("resource/LetterButtonP.png");
-		        		btnChoosedIcon.setImage(btnChoosedIcon.getImage().getScaledInstance(tempBtn.getWidth(), tempBtn.getHeight(),Image.SCALE_DEFAULT));
-		        		
-		        		btnChoosedLabel.setIcon(btnChoosedIcon);
-		        		btnChoosedLabel.setOpaque(false);
-		        		
-		        		panel.add(btnChoosedLabel);
-		        		btnChoosedLabel.setBounds(tempBtn.getX(), tempBtn.getY(), tempBtn.getWidth(), tempBtn.getHeight());
-		            	
-		            }
-		        
-			}
-   );
-		//	tempBtn.setOpaque(false);
-			tempBtn.setMargin(new Insets(0,0,0,0));
-			tempBtn.setText(temp+"");
-			tempBtn.	setContentAreaFilled(false);
-			tempBtn.setBorderPainted(false);
-			tempBtn.setFocusPainted(false);
-			this.setOpaque(false);
-			this.add(tempBtn);
-			
-		}
+		this.setOpaque(false);
+		this.setLayout(null);
 		
 		selectUnion = new JComboBox<String>();
 		this.add(selectUnion);
-		selectUnion.addItem("根据球队查找");
+		selectUnion.setFont(new Font("Serif",1, 15));
+		selectUnion.addItem("全部联盟");
+		selectUnion.addItem("东部");
+		selectUnion.addItem("大西洋区");
+		selectUnion.addItem("中央区");
+		selectUnion.addItem("东南区");
+		selectUnion.addItem("西部");
+		selectUnion.addItem("西南区");
+		selectUnion.addItem("西北区");
+		selectUnion.addItem("太平洋区");
 		selectUnion.setEditable(false);
 		selectUnion.setOpaque(false);
-		selectUnion.setBounds(30 , (width - 40)/26+10, 200, (width - 40)/26);
+		selectUnion.setBounds(50 ,0, (width - 300)/3, (height-20)/2);
 		selectUnion.addMouseListener(       new MouseAdapter(){
 			
 			public void mouseClicked(MouseEvent e){
-					if(selectUnion.getSelectedItem().toString().equals("根据球队查找") == false){
-						sift[1] = selectUnion.getSelectedItem().toString();
-						sift();
-					}
+						sift[0] = selectUnion.getSelectedItem().toString();
 				}
 			}
 		);
 		
 		selectPosition = new JComboBox<String>();
 		this.add(selectPosition);
-		selectPosition.addItem("根据位置查找");
+		selectPosition.setFont(new Font("Serif",1, 15));
+		selectPosition.addItem("全部位置");
 		selectPosition.addItem("前锋");
 		selectPosition.addItem("中锋");
 		selectPosition.addItem("后卫");
 		selectPosition.setEditable(false);
 		selectPosition.setOpaque(false);
-		selectPosition.setBounds(width-280 , (width - 40)/26+10, 200, (width - 40)/26);
+		selectPosition.setBounds(50 + selectUnion.getWidth()+100 ,0, (width - 300)/3, (height-20)/2);
 		selectPosition.addMouseListener(       new MouseAdapter(){
 			
 			public void mouseClicked(MouseEvent e){
-					if(selectPosition.getSelectedItem().toString().equals("根据位置查找") == false){
-						sift[2] = selectPosition.getSelectedItem().toString();
-						sift();
-					}
+						sift[1] = selectPosition.getSelectedItem().toString();
 				}
 			}
 		);
 		
-		this.setLayout(null);
+		selectOth = new JComboBox<String>();
+		this.add(selectOth);
+		selectOth.setFont(new Font("Serif",1, 15));
+		selectOth.addItem("得分");
+		selectOth.addItem("前锋");
+		selectOth.addItem("中锋");
+		selectOth.addItem("后卫");
+		selectOth.setEditable(false);
+		selectOth.setOpaque(false);
+		selectOth.setBounds(50 + 2*selectUnion.getWidth()+200 ,0, (width - 300)/3, (height-20)/2);
+		selectOth.addMouseListener(       new MouseAdapter(){
+			
+			public void mouseClicked(MouseEvent e){
+						sift[2] = selectOth.getSelectedItem().toString();
+					
+				}
+			}
+		);
+		
+		selectYear = new JComboBox<String>();
+		this.add(selectYear);
+		selectYear.setFont(new Font("Serif",1, 15));
+		selectYear.addItem("2013-2014");
+		selectYear.addItem("2014-2015");
+		selectYear.setEditable(false);
+		selectYear.setOpaque(false);
+		selectYear.setBounds(50 ,height/2, (width - 300)/3, (height-20)/2);
+		selectYear.addMouseListener(       new MouseAdapter(){
+			
+			public void mouseClicked(MouseEvent e){
+						sift[3] = selectYear.getSelectedItem().toString();
+					
+				}
+			}
+		);
+		
+		selectType = new JComboBox<String>();
+		this.add(selectType);
+		selectType.setFont(new Font("Serif",1, 15));
+		selectType.addItem("总数");
+		selectType.addItem("场均");
+		selectType.setEditable(false);
+		selectType.setOpaque(false);
+		selectType.setBounds(50 + selectUnion.getWidth()+100 ,height/2, (width - 300)/3, (height-20)/2);
+		selectType.addMouseListener(       new MouseAdapter(){
+			
+			public void mouseClicked(MouseEvent e){
+						sift[4] = selectType.getSelectedItem().toString();
+					
+				}
+			}
+		);
+		
+		submit = new JButton("提交");
+		submit.setFont(new Font("Serif",1, 15));
+		this.add(submit);
+		submit.setBounds(50 +2* selectUnion.getWidth()+200 ,height/2, (width - 300)/3, (height-20)/2);
+		submit.setOpaque(false);
+		submit.	setContentAreaFilled(false);
+		submit.setBorderPainted(false);
+		submit.setFocusPainted(false);
+		final JPanel panel = this;
+		final JLabel btnChoosedLabel = new JLabel();
+		this.add(btnChoosedLabel);
+		ImageIcon btnChoosedIcon = new ImageIcon("resource/SubmitUn.png");
+		btnChoosedIcon.setImage(btnChoosedIcon.getImage().getScaledInstance(submit.getWidth(), submit.getHeight(),Image.SCALE_DEFAULT));
+		
+		btnChoosedLabel.setIcon(btnChoosedIcon);
+		btnChoosedLabel.setOpaque(false);
+		
+		panel.add(btnChoosedLabel);
+		btnChoosedLabel.setBounds(submit.getX(), submit.getY(), submit.getWidth(), submit.getHeight());
+		submit.addMouseListener(       new MouseAdapter(){
+			
+			public void mouseReleased(MouseEvent e){
+				if(panel.getComponentAt(panel.getMousePosition()) == submit){
+	        		ImageIcon btnChoosedIcon = new ImageIcon("resource/SubmitUn.png");
+	        		btnChoosedIcon.setImage(btnChoosedIcon.getImage().getScaledInstance(submit.getWidth(), submit.getHeight(),Image.SCALE_DEFAULT));
+	        		
+	        		btnChoosedLabel.setIcon(btnChoosedIcon);
+	        		btnChoosedLabel.setOpaque(false);
+	        		
+	        		panel.add(btnChoosedLabel);
+	        		btnChoosedLabel.setBounds(submit.getX(), submit.getY(), submit.getWidth(), submit.getHeight());
+        		}
+			}
+            public void mousePressed(MouseEvent e){
+            	
+            	ImageIcon btnChoosedIcon = new ImageIcon("resource/SubmitP.png");
+        		btnChoosedIcon.setImage(btnChoosedIcon.getImage().getScaledInstance(submit.getWidth(), submit.getHeight(),Image.SCALE_DEFAULT));
+        		
+        		btnChoosedLabel.setIcon(btnChoosedIcon);
+        		btnChoosedLabel.setOpaque(false);
+        		
+        		panel.add(btnChoosedLabel);
+        		btnChoosedLabel.setBounds(submit.getX(), submit.getY(), submit.getWidth(), submit.getHeight());
+            	
+            }
+            
+            public void mouseClicked(MouseEvent e){
+            	
+            	changeInfo();
+            	
+            }
+        
+	}
+		);
+		
 	}
 	
+	protected void changeInfo() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public void addTeamList(ArrayList<String> team){
 		
 		for(int i = 0;i < team.size() ; i++){
@@ -163,15 +212,22 @@ public class PlayerSeasonInfoPanel extends JPanel{
 	
 	public void setList(){
 		
-		infoToShow.add("号数");
-		infoToShow.add("位置");
-		infoToShow.add("身高");
-		infoToShow.add("体重");
-		infoToShow.add("出生日期");
-		infoToShow.add("年龄");
-		infoToShow.add("球龄");
-		infoToShow.add("学校");
-		infoToShow.add("所在球队");
+		infoToShow.add("球队");
+		infoToShow.add("场数");
+		infoToShow.add("先发");
+		infoToShow.add("篮板");
+		infoToShow.add("助攻");
+		infoToShow.add("分钟");
+		infoToShow.add("%");
+		infoToShow.add("三分%");
+		infoToShow.add("罚球%");
+		infoToShow.add("进攻");
+		infoToShow.add("防守");
+		infoToShow.add("抢断");
+		infoToShow.add("盖帽");
+		infoToShow.add("失误");
+		infoToShow.add("犯规");
+		infoToShow.add("得分");
 		
 	}
 	

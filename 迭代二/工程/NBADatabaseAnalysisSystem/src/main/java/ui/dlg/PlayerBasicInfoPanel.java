@@ -115,6 +115,7 @@ public class PlayerBasicInfoPanel extends JPanel{
 		
 		selectTeam = new JComboBox<String>();
 		this.add(selectTeam);
+		selectTeam.setFont(new Font("Serif",1, 15));
 		selectTeam.addItem("根据球队查找");
 		selectTeam.setEditable(false);
 		selectTeam.setOpaque(false);
@@ -132,6 +133,7 @@ public class PlayerBasicInfoPanel extends JPanel{
 		
 		selectPosition = new JComboBox<String>();
 		this.add(selectPosition);
+		selectPosition.setFont(new Font("Serif",1, 15));
 		selectPosition.addItem("根据位置查找");
 		selectPosition.addItem("前锋");
 		selectPosition.addItem("中锋");
@@ -171,7 +173,7 @@ public class PlayerBasicInfoPanel extends JPanel{
 		infoToShow.add("年龄");
 		infoToShow.add("球龄");
 		infoToShow.add("学校");
-		infoToShow.add("所在球队");
+		infoToShow.add("球队");
 		
 	}
 	
