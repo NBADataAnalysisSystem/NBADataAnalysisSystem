@@ -26,12 +26,14 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 
 
+
 import controller.playercontroller.GetPlayerRequest;
 import controller.playercontroller.GetPlayerResponse;
 import controller.playercontroller.PlayerController;
 import entity.PlayerEntity;
 import ui.component.MyTableHeaderPanel;
 import ui.component.MyTablePanel;
+import ui.dlg.PlayerBasicInfoPanel;
 
 public class PlayerFrame extends JFrame implements FrameInterface, ActionListener {
 
@@ -74,10 +76,11 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 	
 	ArrayList<String> temp= new ArrayList<String>();;
 	private String[] tableHeader;
-	private String[][] tableContent;
+	private String[][] tableContent = new String [0][0];
 	
 	static JLabel btnUnchoosedLabel = new JLabel();
 	static JLabel btnChoosedLabel = new JLabel();
+	PlayerBasicInfoPanel playerPanel;
 	
 	public PlayerFrame(){
 		
@@ -97,8 +100,6 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		
 		backgroundPanel.setSize(width,height);
 		backgroundPanel.setLayout(null);
-		
-
 
 		//设置背景图片
 		ImageIcon background ;
@@ -128,14 +129,21 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 				placeMainIcon.setBounds(0, 0,mainPanel.getWidth() , mainPanel.getHeight());
 				placeMainIcon.setOpaque(false);
 		      
-		      setList(temp);
-		      refreshData();
+
+		      //TODO
+				playerPanel  = new PlayerBasicInfoPanel(0,20,mainPanel.getWidth(),mainPanel.getHeight()*2/11);
+				playerPanel.setList();
+				ArrayList<String> tempPlayer = playerPanel.getList();
+				this.setList(tempPlayer);
+				System.out.println(tableHeader.length);
+			//	refreshData();
+				setTablePanel();
 		      
-		      setTablePanel();
-		      
+
 		      backgroundPanel.add(btnPanel);
 		      backgroundPanel.add(mainPanel);
 		      mainPanel.add(tablePanel);
+		      mainPanel.add(playerPanel,0);
 		      mainPanel.add(placeMainIcon);
 		      backgroundPanel.add(placeBackgroundIcon);
 		      this.add(backgroundPanel);
@@ -264,13 +272,15 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		tableHeight = tablePanel.getHeight()*9/10;
 		tableWidth = tablePanel.getWidth()*19/20;
 		
-		if(tableHeader.length < 6){
-			cellHeight = tableHeight/10;
-			cellWidth = tableWidth/tableHeader.length;
-		}else{
-			cellHeight = tableHeight/10;
-			cellWidth = tableWidth/6;
-		}
+//			if(tableHeader.length < 6){
+//				cellHeight = tableHeight/10;
+//				cellWidth = tableWidth/tableHeader.length;
+//			}else{
+//				cellHeight = tableHeight/10;
+//				cellWidth = tableWidth/6;
+//			}
+		cellWidth = tableWidth/tableHeader.length;
+		cellHeight = tableHeight/10;
 		buidTablePanel(tableContent.length,tableHeader.length,10,6);		
 		tablePanel.setLayout(null);
 		tablePanel.removeAll();
@@ -303,7 +313,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		tableHeaderList.setRowBackground(tableHeaderIcon, 0);
 		
 		table.setTableFont(new Font("Serif",0, 20));
-		tableHeaderList.setTableFont(new Font("Serif",1, 20));
+		tableHeaderList.setTableFont(new Font("Serif",1, 15));
 		tableHeaderList.setFontColor(Color.decode("#FFFFFF"));
 		
 		
@@ -328,7 +338,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		sp = new JScrollPane(table);
 		sp.setColumnHeaderView(tableHeaderList);
 		sp.setSize(tableWidth, tableHeight);
-	    sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+	    sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		sp.setOpaque(false);
 		sp.getViewport().setOpaque(false); 
 		sp.getColumnHeader().setOpaque(false);//再取出头部，并设置为透明 
@@ -397,6 +407,13 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 	}
 
 	public void setPlayerPanel(){
+		
+	//	playerPanel  = new PlayerBasicInfoPanel(0,20,mainPanel.getWidth(),mainPanel.getHeight()*2/11);
+		mainPanel.add(playerPanel,0);
+		playerPanel.setList();
+		ArrayList<String> temp = playerPanel.getList();
+		this.setList(temp);
+		refreshData();
 //		AWTUtilities.setWindowOpacity(this, 0.5f);
 //		AdditionOfPlayerInfo addition = new AdditionOfPlayerInfo(this);
 //		addition.setPlayerFrame(this);

@@ -111,6 +111,7 @@ public class AdditionOfPlayerInfo extends InputDialog  {
 		expOfPlayer = new JCheckBox("球龄");
 		schoolOfPlayer = new JCheckBox("学校");
 		teamOfPlayer = new JCheckBox("所在球队");
+		
 		numOfEntryField = new JCheckBox("参赛场数");
 		numOfStartingField = new JCheckBox("先发场数");
 		numOfRebound = new JCheckBox("篮板数");

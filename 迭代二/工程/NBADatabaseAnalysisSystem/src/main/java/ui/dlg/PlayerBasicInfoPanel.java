@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -20,6 +19,7 @@ public class PlayerBasicInfoPanel extends JPanel{
 	
 	JComboBox<String> selectTeam;
 	JComboBox<String> selectPosition;
+	ArrayList<String> infoToShow;
 	
 	ArrayList<JButton> letterList ;
 	
@@ -35,6 +35,7 @@ public class PlayerBasicInfoPanel extends JPanel{
 		this.height = height;
 		this.setBounds(x, y, width, height);
 		letterList = new ArrayList<JButton>();
+		infoToShow = new ArrayList<String>();
 		//设置26个字母效果
 		for(int i = 0;i < 26;i++){
 			
@@ -96,7 +97,7 @@ public class PlayerBasicInfoPanel extends JPanel{
 			tempBtn.	setContentAreaFilled(false);
 			tempBtn.setBorderPainted(false);
 			tempBtn.setFocusPainted(false);
-		//	this.setOpaque(false);
+			this.setOpaque(false);
 			this.add(tempBtn);
 			letterList.add(tempBtn);
 			
@@ -104,31 +105,70 @@ public class PlayerBasicInfoPanel extends JPanel{
 		
 		selectTeam = new JComboBox<String>();
 		this.add(selectTeam);
-		selectTeam.setName("根据球队查找");
+		selectTeam.addItem("根据球队查找");
+		selectTeam.setEditable(false);
 		selectTeam.setOpaque(false);
 		selectTeam.setBounds(30 , (width - 40)/26+10, 200, (width - 40)/26);
+		
+		selectPosition = new JComboBox<String>();
+		this.add(selectPosition);
+		selectPosition.addItem("前锋");
+		selectPosition.addItem("中锋");
+		selectPosition.addItem("后卫");
+		selectPosition.setEditable(false);
+		selectPosition.setOpaque(false);
+		selectPosition.setBounds(width-280 , (width - 40)/26+10, 200, (width - 40)/26);
 		
 		this.setLayout(null);
 	}
 	
-	public static void main(String [] args){
+	public void addTeamList(ArrayList<String> team){
 		
-		JFrame test = new JFrame();
-		test.setSize(972, 97);
-		test.setUndecorated(true);
-		PlayerBasicInfoPanel panel = new PlayerBasicInfoPanel(0,0,972,97);
-		panel.setBackground(Color.decode("#FF0000"));
-	//	panel.setForeground(Color.decode("#FF0000"));
-		panel.setVisible(true);
-		test.add(panel);
-		test.setVisible(true);
-		
-		
-		
-		
-		
+		for(int i = 0;i < team.size() ; i++){
+			selectTeam.addItem(team.get(i));
+		}
 		
 	}
+	
+	public void setList(){
+		
+		infoToShow.add("号数");
+		infoToShow.add("位置");
+		infoToShow.add("身高");
+		infoToShow.add("体重");
+		infoToShow.add("出生日期");
+		infoToShow.add("年龄");
+		infoToShow.add("球龄");
+		infoToShow.add("学校");
+		infoToShow.add("所在球队");
+		
+	}
+	
+	public ArrayList<String> getList(){
+		return infoToShow;
+	}
+	
+
+//	public static void main(String [] args){
+//		
+//		JFrame test = new JFrame();
+//		test.setSize(972, 97);
+//		test.setUndecorated(true);
+//		PlayerBasicInfoPanel panel = new PlayerBasicInfoPanel(0,0,972,97);
+//		panel.setBackground(Color.decode("#FF0000"));
+//	//	panel.setForeground(Color.decode("#FF0000"));
+//		panel.setVisible(true);
+//		test.add(panel);
+//		test.setVisible(true);
+//		
+//		
+//		
+//		
+//		
+//		
+//	}
+//	
+	
 	
 
 
