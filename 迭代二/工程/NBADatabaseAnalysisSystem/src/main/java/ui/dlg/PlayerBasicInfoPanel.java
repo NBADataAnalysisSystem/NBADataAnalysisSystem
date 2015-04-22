@@ -14,6 +14,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import ui.frame.PlayerFrame;
+
 @SuppressWarnings("serial")
 public class PlayerBasicInfoPanel extends JPanel{
 	
@@ -21,12 +23,16 @@ public class PlayerBasicInfoPanel extends JPanel{
 	JComboBox<String> selectPosition;
 	ArrayList<String> infoToShow;
 	
+	PlayerFrame frame;
+	
 	ArrayList<JButton> letterList ;
 	
 	int x;
 	int y;
 	int width;
 	int height;
+	
+	String[] sift = new String[3];
 	
 	public PlayerBasicInfoPanel(int x,int y,int width,int height){
 		this.x = x;
@@ -58,6 +64,8 @@ public class PlayerBasicInfoPanel extends JPanel{
 		        		
 		        		panel.add(btnChoosedLabel);
 		        		btnChoosedLabel.setBounds(tempBtn.getX(), tempBtn.getY(), tempBtn.getWidth(), tempBtn.getHeight());
+		        		sift[0] = tempBtn.getText();
+		        		sift();
 					}
 		            public void mouseEntered(MouseEvent e){
 
@@ -109,15 +117,36 @@ public class PlayerBasicInfoPanel extends JPanel{
 		selectTeam.setEditable(false);
 		selectTeam.setOpaque(false);
 		selectTeam.setBounds(30 , (width - 40)/26+10, 200, (width - 40)/26);
+		selectTeam.addMouseListener(       new MouseAdapter(){
+			
+			public void mouseClicked(MouseEvent e){
+					if(selectTeam.getSelectedItem().toString().equals("根据球队查找") == false){
+						sift[1] = selectTeam.getSelectedItem().toString();
+						sift();
+					}
+				}
+			}
+		);
 		
 		selectPosition = new JComboBox<String>();
 		this.add(selectPosition);
+		selectPosition.addItem("根据位置查找");
 		selectPosition.addItem("前锋");
 		selectPosition.addItem("中锋");
 		selectPosition.addItem("后卫");
 		selectPosition.setEditable(false);
 		selectPosition.setOpaque(false);
 		selectPosition.setBounds(width-280 , (width - 40)/26+10, 200, (width - 40)/26);
+		selectPosition.addMouseListener(       new MouseAdapter(){
+			
+			public void mouseClicked(MouseEvent e){
+					if(selectPosition.getSelectedItem().toString().equals("根据位置查找") == false){
+						sift[2] = selectPosition.getSelectedItem().toString();
+						sift();
+					}
+				}
+			}
+		);
 		
 		this.setLayout(null);
 	}
@@ -144,8 +173,17 @@ public class PlayerBasicInfoPanel extends JPanel{
 		
 	}
 	
+	public void setPlayerFrame(PlayerFrame frame){
+		this.frame = frame;
+		
+	}
+	
 	public ArrayList<String> getList(){
 		return infoToShow;
+	}
+	
+	public void sift(){
+		//根据sift[]对表格进行处理，sift[0]为首字母，sift[1]为球队，sift[2]为位置
 	}
 	
 
