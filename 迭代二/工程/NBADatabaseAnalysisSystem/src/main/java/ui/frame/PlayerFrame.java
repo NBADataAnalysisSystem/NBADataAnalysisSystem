@@ -135,7 +135,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		      
 		      backgroundPanel.add(btnPanel);
 		      backgroundPanel.add(mainPanel);
-		     mainPanel.add(tablePanel);
+		      mainPanel.add(tablePanel);
 		      mainPanel.add(placeMainIcon);
 		      backgroundPanel.add(placeBackgroundIcon);
 		      this.add(backgroundPanel);
@@ -279,6 +279,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		
 		sp.setLocation((tablePanel.getWidth()-sp.getWidth())/2, (tablePanel.getHeight()-sp.getHeight())/2);
 		tablePanel.setLocation(0,mainPanel.getHeight()*2/11);
+		System.out.println(mainPanel.getHeight()*2/11);
 		tablePanel.setOpaque(false);
 		tableHeaderList.setOpaque(false);
 		
