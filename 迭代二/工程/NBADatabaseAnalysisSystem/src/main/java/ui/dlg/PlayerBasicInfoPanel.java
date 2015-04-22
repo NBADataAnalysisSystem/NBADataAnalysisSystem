@@ -56,16 +56,18 @@ public class PlayerBasicInfoPanel extends JPanel{
 			final JLabel btnChoosedLabel = new JLabel();
 			tempBtn.addMouseListener(       new MouseAdapter(){
 					public void mouseReleased(MouseEvent e){
-		        		ImageIcon btnChoosedIcon = new ImageIcon("resource/LetterButton.png");
-		        		btnChoosedIcon.setImage(btnChoosedIcon.getImage().getScaledInstance(tempBtn.getWidth(), tempBtn.getHeight(),Image.SCALE_DEFAULT));
-		        		
-		        		btnChoosedLabel.setIcon(btnChoosedIcon);
-		        		btnChoosedLabel.setOpaque(false);
-		        		
-		        		panel.add(btnChoosedLabel);
-		        		btnChoosedLabel.setBounds(tempBtn.getX(), tempBtn.getY(), tempBtn.getWidth(), tempBtn.getHeight());
-		        		sift[0] = tempBtn.getText();
-		        		sift();
+						if(panel.getComponentAt(panel.getMousePosition()) == tempBtn){
+			        		ImageIcon btnChoosedIcon = new ImageIcon("resource/LetterButton.png");
+			        		btnChoosedIcon.setImage(btnChoosedIcon.getImage().getScaledInstance(tempBtn.getWidth(), tempBtn.getHeight(),Image.SCALE_DEFAULT));
+			        		
+			        		btnChoosedLabel.setIcon(btnChoosedIcon);
+			        		btnChoosedLabel.setOpaque(false);
+			        		
+			        		panel.add(btnChoosedLabel);
+			        		btnChoosedLabel.setBounds(tempBtn.getX(), tempBtn.getY(), tempBtn.getWidth(), tempBtn.getHeight());
+			        		sift[0] = tempBtn.getText();
+			        		sift();
+		        		}
 					}
 		            public void mouseEntered(MouseEvent e){
 
