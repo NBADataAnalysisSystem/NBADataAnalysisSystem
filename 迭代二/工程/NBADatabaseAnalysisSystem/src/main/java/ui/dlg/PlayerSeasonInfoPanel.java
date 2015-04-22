@@ -162,7 +162,6 @@ public class PlayerSeasonInfoPanel extends JPanel{
 		submit.addMouseListener(       new MouseAdapter(){
 			
 			public void mouseReleased(MouseEvent e){
-				if(panel.getComponentAt(panel.getMousePosition()) == submit){
 	        		ImageIcon btnChoosedIcon = new ImageIcon("resource/SubmitUn.png");
 	        		btnChoosedIcon.setImage(btnChoosedIcon.getImage().getScaledInstance(submit.getWidth(), submit.getHeight(),Image.SCALE_DEFAULT));
 	        		
@@ -171,7 +170,7 @@ public class PlayerSeasonInfoPanel extends JPanel{
 	        		
 	        		panel.add(btnChoosedLabel);
 	        		btnChoosedLabel.setBounds(submit.getX(), submit.getY(), submit.getWidth(), submit.getHeight());
-        		}
+      
 			}
             public void mousePressed(MouseEvent e){
             	
