@@ -25,7 +25,6 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 
-import com.sun.awt.AWTUtilities;
 
 import controller.playercontroller.GetPlayerRequest;
 import controller.playercontroller.GetPlayerResponse;
@@ -33,7 +32,6 @@ import controller.playercontroller.PlayerController;
 import entity.PlayerEntity;
 import ui.component.MyTableHeaderPanel;
 import ui.component.MyTablePanel;
-import ui.dlg.AdditionOfPlayerInfo;
 
 public class PlayerFrame extends JFrame implements FrameInterface, ActionListener {
 
@@ -65,10 +63,8 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 	public MyTablePanel table ;
 	public MyTableHeaderPanel tableHeaderList;
 	
-	@SuppressWarnings("unused")
-	private JButton btn_add;
-	@SuppressWarnings("unused")
-	private JButton btn_sift;
+	private JButton btn_Player;
+	private JButton btn_Season;
 	@SuppressWarnings("unused")
 	private JButton btn_close;
 	@SuppressWarnings("unused")
@@ -79,6 +75,9 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 	ArrayList<String> temp= new ArrayList<String>();;
 	private String[] tableHeader;
 	private String[][] tableContent;
+	
+	static JLabel btnUnchoosedLabel = new JLabel();
+	static JLabel btnChoosedLabel = new JLabel();
 	
 	public PlayerFrame(){
 		
@@ -178,48 +177,46 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		btnPanel.setLocation(0,0);
 		btnPanel.setOpaque(false);
 		//设置选框
-		JButton btn_Add = new JButton("自定义");
-		btn_Add.setName("add");
-		btn_Add.addActionListener(this);
+		btn_Player = new JButton("球员");
+		btn_Player.setName("player");
+		btn_Player.addActionListener(this);
 
 		btnChoosedIcon = new ImageIcon("resource/BtnChoosed.png");
-		btnChoosedIcon.setImage(btnChoosedIcon.getImage().getScaledInstance(100, 30,Image.SCALE_DEFAULT));
+		btnChoosedIcon.setImage(btnChoosedIcon.getImage().getScaledInstance(120, 30,Image.SCALE_DEFAULT));
 		
-		JLabel btnChoosedLabel = new JLabel();
 		btnChoosedLabel.setIcon(btnChoosedIcon);
 		btnChoosedLabel.setOpaque(false);
 		
-		btn_Add.setContentAreaFilled(false);
-		btn_Add.setForeground(Color.decode("#FF0000"));
-		btn_Add.setFont(new Font("宋体",1, 20));//设置字体
-		btn_Add.setBorderPainted(false);
-		btn_Add.setFocusPainted(false);
+		btn_Player.setContentAreaFilled(false);
+		btn_Player.setForeground(Color.decode("#FF0000"));
+		btn_Player.setFont(new Font("宋体",1, 20));//设置字体
+		btn_Player.setBorderPainted(false);
+		btn_Player.setFocusPainted(false);
 		//btn_Add.setOpaque(false);
-		btnPanel.add(btn_Add);
+		btnPanel.add(btn_Player);
 		btnPanel.add(btnChoosedLabel);
-		btn_Add.setBounds(mainPanel.getX()+50,btnPanel.getHeight()-30,100,30);
-		btnChoosedLabel.setBounds(btn_Add.getX(), btn_Add.getY(),100 , 30);
+		btn_Player.setBounds(mainPanel.getX()+50,btnPanel.getHeight()-30,120,30);
+		btnChoosedLabel.setBounds(btn_Player.getX(), btn_Player.getY(),120 , 30);
 		//
 		btnUnchoosedIcon = new ImageIcon("resource/BtnUnChoosed.png");
-		btnUnchoosedIcon.setImage(btnUnchoosedIcon.getImage().getScaledInstance(100, 30,Image.SCALE_DEFAULT));
+		btnUnchoosedIcon.setImage(btnUnchoosedIcon.getImage().getScaledInstance(120, 30,Image.SCALE_DEFAULT));
 		
-		JLabel btnUnchoosedLabel = new JLabel();
 		btnUnchoosedLabel.setIcon(btnUnchoosedIcon);
 		btnUnchoosedLabel.setOpaque(false);
 		
-		JButton btn_Sift = new JButton("筛  选");
-		btn_Sift.setName("sift");
-		btn_Sift.addActionListener(this);
+		btn_Season= new JButton("赛季数据");
+		btn_Season.setName("season");
+		btn_Season.addActionListener(this);
 
-		btn_Sift.setContentAreaFilled(false);
-		btn_Sift.setForeground(Color.decode("#FF0000"));
-		btn_Sift.setFont(new Font("宋体",1, 20));//设置字体
-		btn_Sift.setBorderPainted(false);
-		btn_Sift.setFocusPainted(false);
-		btnPanel.add(btn_Sift);
+		btn_Season.setContentAreaFilled(false);
+		btn_Season.setForeground(Color.decode("#FF0000"));
+		btn_Season.setFont(new Font("宋体",1, 20));//设置字体
+		btn_Season.setBorderPainted(false);
+		btn_Season.setFocusPainted(false);
+		btnPanel.add(btn_Season);
 		btnPanel.add(btnUnchoosedLabel);
-		btn_Sift.setBounds(btn_Add.getWidth()+btn_Add.getX()+20,(btnPanel.getHeight())-30,100,30);
-		btnUnchoosedLabel.setBounds(btn_Sift.getX(), btn_Sift.getY(),100 , 30);
+		btn_Season.setBounds(btn_Player.getWidth()+btn_Player.getX()+20,(btnPanel.getHeight())-30,120,30);
+		btnUnchoosedLabel.setBounds(btn_Season.getX(), btn_Season.getY(),120 , 30);
 		
 		JButton btn_Close = new JButton("×");
 		btn_Close.setMargin(new Insets(0,0,0,0));
@@ -398,11 +395,12 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 
 	}
 
-	public void add(){
-		AWTUtilities.setWindowOpacity(this, 0.5f);
-		AdditionOfPlayerInfo addition = new AdditionOfPlayerInfo(this);
-		addition.setPlayerFrame(this);
-		addition.setVisible(true);	
+	public void setPlayerPanel(){
+//		AWTUtilities.setWindowOpacity(this, 0.5f);
+//		AdditionOfPlayerInfo addition = new AdditionOfPlayerInfo(this);
+//		addition.setPlayerFrame(this);
+//		addition.setVisible(true);	
+		
 		
 	}
 	
@@ -456,15 +454,19 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		if(e.getSource() instanceof JButton){
 			JButton btn = (JButton)e.getSource();
 			String name = btn.getName();
-			if("add".equals(name)){
+			if("player".equals(name)){
 				SwingUtilities.invokeLater(new Runnable(){
 					public void run(){
-						add();
+						btnChoosedLabel.setBounds(btn_Player.getX(), btn_Player.getY(),120 , 30);
+						btnUnchoosedLabel.setBounds(btn_Season.getX(), btn_Season.getY(),120 , 30);
+						setPlayerPanel();
 					}
 				});
-			}else if("sift".equals(name)){
+			}else if("season".equals(name)){
 				SwingUtilities.invokeLater(new Runnable(){
 					public void run(){
+						btnUnchoosedLabel.setBounds(btn_Player.getX(), btn_Player.getY(),120 , 30);
+						btnChoosedLabel.setBounds(btn_Season.getX(), btn_Season.getY(),120 , 30);
 						//sift();
 					}
 				});
