@@ -138,6 +138,7 @@ public class Dao implements DaoInterface {
 		connection.setAutoCommit(true);
 	};
 	
+	//读取制定路径下的matches文件，将数据读入数据库中
 	private void readMatchFiles(String path)throws Exception{
 		File[] fileList = new File(path).listFiles();
 		storeMatches(fileList);
@@ -272,6 +273,7 @@ public class Dao implements DaoInterface {
 		return row;
 	}
 	
+	//将一条球员赛场成绩记录添加到PreparedStatement中
 	private int storePlayerPerformance(int matchId,int teamId,String record,int starts,PreparedStatement prep)throws Exception{
 		String[] player = record.split(";");
 		int playerId = getPlayerId(player[0]);
