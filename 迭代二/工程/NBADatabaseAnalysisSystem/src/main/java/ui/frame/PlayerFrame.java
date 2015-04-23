@@ -141,7 +141,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 				ArrayList<String> tempPlayer = playerPanel.getList();
 				this.setList(tempPlayer);
 			//	System.out.println(tableHeader.length);
-			//	refreshData();
+				refreshData();
 				setTablePanel();
 		      
 
@@ -419,8 +419,8 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		playerPanel.setList();
 		ArrayList<String> temp = playerPanel.getList();
 		this.setList(temp);
-		setTableContent(tableHeader,tableContent);//TODO 暂用
-//		refreshData();//数据连接好后使用这个
+		//setTableContent(tableHeader,tableContent);//TODO 暂用
+		refreshData();//数据连接好后使用这个
 //		AWTUtilities.setWindowOpacity(this, 0.5f);
 //		AdditionOfPlayerInfo addition = new AdditionOfPlayerInfo(this);
 //		addition.setPlayerFrame(this);
@@ -437,7 +437,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		seasonPanel.setList();
 		ArrayList<String> temp = seasonPanel.getList();
 		this.setList(temp);
-		setTableContent(tableHeader,tableContent);//TODO 暂用
+		setTableContent(tableHeader,new String[0][]);//TODO 暂用
 		//refreshData();//TODO 数据连接好后使用这个
 //		AWTUtilities.setWindowOpacity(this, 0.5f);
 //		AdditionOfPlayerInfo addition = new AdditionOfPlayerInfo(this);

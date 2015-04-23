@@ -19,6 +19,24 @@ public class PlayerHeaderToEnum {
 		//基本信息
 		//球员名称
 		map.put("名字", PlayerEntity.PLAYER_NAME);
+		//球衣号码
+		map.put("号数", PlayerEntity.JERSEY_NUMBER);
+		//球员位置
+		map.put("位置", PlayerEntity.POSITION);
+		//身高
+		map.put("身高", PlayerEntity.HEIGHT);
+		//体重
+		map.put("体重", PlayerEntity.WEIGHT);
+		//生日
+		map.put("出生日期", PlayerEntity.BIRTH);
+		//年龄
+		map.put("年龄", PlayerEntity.AGE);
+		//球龄
+		map.put("球龄", PlayerEntity.EXP);
+		//毕业学校
+		map.put("学校", PlayerEntity.SCHOOL);
+		//所属球队
+		map.put("球队", PlayerEntity.TEAM);
 	}
 	
 	public PlayerEntity translate(String string) {
