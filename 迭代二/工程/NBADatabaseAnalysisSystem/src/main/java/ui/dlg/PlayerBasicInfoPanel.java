@@ -115,6 +115,7 @@ public class PlayerBasicInfoPanel extends JPanel{
 		
 		selectTeam = new JComboBox<String>();
 		this.add(selectTeam);
+		selectTeam.setBackground(Color.decode("#FFFFFF"));
 		selectTeam.setFont(new Font("Serif",1, 15));
 		selectTeam.addItem("根据球队查找");
 		selectTeam.setEditable(false);
@@ -133,6 +134,7 @@ public class PlayerBasicInfoPanel extends JPanel{
 		
 		selectPosition = new JComboBox<String>();
 		this.add(selectPosition);
+		selectPosition.setBackground(Color.decode("#FFFFFF"));
 		selectPosition.setFont(new Font("Serif",1, 15));
 		selectPosition.addItem("根据位置查找");
 		selectPosition.addItem("前锋");

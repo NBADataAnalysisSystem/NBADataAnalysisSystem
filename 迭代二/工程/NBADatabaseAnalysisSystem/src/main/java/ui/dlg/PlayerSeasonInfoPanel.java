@@ -1,6 +1,7 @@
 package ui.dlg;
 
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
@@ -49,6 +50,7 @@ public class PlayerSeasonInfoPanel extends JPanel{
 		selectUnion = new JComboBox<String>();
 		this.add(selectUnion);
 		selectUnion.setFont(new Font("Serif",1, 15));
+		selectUnion.setBackground(Color.decode("#FFFFFF"));
 		selectUnion.addItem("全部联盟");
 		selectUnion.addItem("东部");
 		selectUnion.addItem("大西洋区");
@@ -72,6 +74,7 @@ public class PlayerSeasonInfoPanel extends JPanel{
 		selectPosition = new JComboBox<String>();
 		this.add(selectPosition);
 		selectPosition.setFont(new Font("Serif",1, 15));
+		selectPosition.setBackground(Color.decode("#FFFFFF"));
 		selectPosition.addItem("全部位置");
 		selectPosition.addItem("前锋");
 		selectPosition.addItem("中锋");
@@ -89,6 +92,7 @@ public class PlayerSeasonInfoPanel extends JPanel{
 		
 		selectOth = new JComboBox<String>();
 		this.add(selectOth);
+		selectOth.setBackground(Color.decode("#FFFFFF"));
 		selectOth.setFont(new Font("Serif",1, 15));
 		selectOth.addItem("得分");
 		selectOth.addItem("前锋");
@@ -108,6 +112,7 @@ public class PlayerSeasonInfoPanel extends JPanel{
 		
 		selectYear = new JComboBox<String>();
 		this.add(selectYear);
+		selectYear.setBackground(Color.decode("#FFFFFF"));
 		selectYear.setFont(new Font("Serif",1, 15));
 		selectYear.addItem("2013-2014");
 		selectYear.addItem("2014-2015");
@@ -125,6 +130,7 @@ public class PlayerSeasonInfoPanel extends JPanel{
 		
 		selectType = new JComboBox<String>();
 		this.add(selectType);
+		selectType.setBackground(Color.decode("#FFFFFF"));
 		selectType.setFont(new Font("Serif",1, 15));
 		selectType.addItem("总数");
 		selectType.addItem("场均");
