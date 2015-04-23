@@ -127,17 +127,22 @@ public class PlayerBasicInfoPanel extends JPanel{
 		selectTeam.setEditable(false);
 		selectTeam.setOpaque(false);
 		selectTeam.setBounds(30 , (width - 40)/26+10, 200, (width - 40)/26);
-		
+		setIcon(selectTeam.getX()-10,selectTeam.getY(),selectTeam.getWidth(),selectTeam.getHeight());
 		selectTeam.setUI(new BasicComboBoxUI() {
 			public void installUI(JComponent comboBox) {
 				super.installUI(comboBox);
-				listBox.setForeground(new Color(0, 0, 0, 0));
+		//		listBox.setForeground(new Color(0, 0, 0, 0));
 				listBox.setSelectionBackground(new Color(0, 0, 0, 0));
 				listBox.setSelectionForeground(Color.BLACK);
 			}
 			
 			protected JButton createArrowButton() {
-				return new BasicArrowButton(BasicArrowButton.SOUTH);
+				BasicArrowButton temp = new BasicArrowButton(BasicArrowButton.SOUTH,new Color(0, 0, 0, 0),new Color(0, 0, 0, 0),new Color(0, 0, 0, 0),new Color(0, 0, 0, 0));
+				temp.setOpaque(false);
+				temp.setFocusPainted(false);
+				temp.	setContentAreaFilled(false);
+				temp.setBorderPainted(false);
+				return temp;
 			}
 		});//me
 		
@@ -154,7 +159,7 @@ public class PlayerBasicInfoPanel extends JPanel{
 		
 		selectPosition = new JComboBox<String>();
 		this.add(selectPosition);
-		selectPosition.setBackground(Color.decode("#FFFFFF"));
+		//selectPosition.setBackground(Color.decode("#FFFFFF"));
 		selectPosition.setFont(new Font("Serif",1, 15));
 		selectPosition.addItem("根据位置查找");
 		selectPosition.addItem("前锋");
@@ -163,6 +168,24 @@ public class PlayerBasicInfoPanel extends JPanel{
 		selectPosition.setEditable(false);
 		selectPosition.setOpaque(false);
 		selectPosition.setBounds(width-280 , (width - 40)/26+10, 200, (width - 40)/26);
+		setIcon(selectPosition.getX()-10,selectPosition.getY(),selectPosition.getWidth(),selectPosition.getHeight());
+		selectPosition.setUI(new BasicComboBoxUI() {
+			public void installUI(JComponent comboBox) {
+				super.installUI(comboBox);
+				listBox.setForeground(new Color(0, 0, 0, 0));
+				listBox.setSelectionBackground(new Color(0, 0, 0, 0));
+				listBox.setSelectionForeground(Color.BLACK);
+			}
+			
+			protected JButton createArrowButton() {
+				BasicArrowButton temp = new BasicArrowButton(BasicArrowButton.SOUTH,new Color(0, 0, 0, 0),new Color(0, 0, 0, 0),new Color(0, 0, 0, 0),new Color(0, 0, 0, 0));
+				temp.setOpaque(false);
+			//	temp.setFocusPainted(false);
+				temp.	setContentAreaFilled(false);
+			//	temp.setBorderPainted(false);
+				return temp;
+			}
+		});//me
 		selectPosition.addMouseListener(       new MouseAdapter(){
 			
 			public void mouseClicked(MouseEvent e){
@@ -175,6 +198,18 @@ public class PlayerBasicInfoPanel extends JPanel{
 		);
 		
 		this.setLayout(null);
+	}
+	
+	public void setIcon(int x,int y,int width,int height){
+		ImageIcon btnChoosedIcon = new ImageIcon("resource/ComboBox.png");
+		btnChoosedIcon.setImage(btnChoosedIcon.getImage().getScaledInstance(width, height,Image.SCALE_DEFAULT));
+		
+		JLabel comboBoxLabel = new JLabel();
+		comboBoxLabel.setIcon(btnChoosedIcon);
+		comboBoxLabel.setOpaque(false);
+		
+		this.add(comboBoxLabel);
+		comboBoxLabel.setBounds(x, y,width, height);
 	}
 	
 	public void addTeamList(ArrayList<String> team){
