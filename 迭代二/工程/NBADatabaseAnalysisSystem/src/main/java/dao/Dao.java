@@ -8,15 +8,22 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.apache.commons.io.filefilter.FileFilterUtils;
+import org.apache.commons.io.monitor.FileAlterationListenerAdaptor;
+import org.apache.commons.io.monitor.FileAlterationMonitor;
+import org.apache.commons.io.monitor.FileAlterationObserver;
 
 public class Dao implements DaoInterface {
 	
 	Connection connection;
-	
+	FileAlterationMonitor monitor;
 	//创建新数据库，运行耗时3秒
 	public void newDatabase() throws Exception{
 		
@@ -368,12 +375,70 @@ public class Dao implements DaoInterface {
 		return matchId;
 	};
 	
-	public void refreshFiles() throws Exception{};
+	public void monitorFiles(String rootDir) throws Exception{
+		//String rootDir = "C:/Users/cross/Desktop";
+		Class.forName("org.sqlite.JDBC");
+    	connection = DriverManager.getConnection("jdbc:sqlite:NBADatabase.db");
+		long interval = TimeUnit.SECONDS.toMillis(1);
+		FileAlterationObserver observer = new FileAlterationObserver(
+				rootDir,FileFilterUtils.and(FileFilterUtils.fileFileFilter()),null);
+		observer.addListener(new MyFileListener());
+		monitor = new FileAlterationMonitor(interval,observer);
+		monitor.start();
+	};
 	
+	public void stopMonitor()throws Exception{
+		monitor.stop();
+	}
+	
+	public class MyFileListener extends FileAlterationListenerAdaptor {
+		public void onFileCreate(File file){
+			PreparedStatement matchPrep;
+			try {
+				matchPrep = connection.prepareStatement(""
+						+ "insert into matches values ("
+						+ "?,?,?,?,?,?,?,?,?,?,"
+						+ "?,?,?,?,?,?)");
+				storeMatches(file,matchPrep);
+				connection.setAutoCommit(false);
+				matchPrep.executeBatch();
+				connection.setAutoCommit(true);
+				matchPrep.close();
+				PreparedStatement overtimePrep = connection.prepareStatement(""
+						+ "insert into overtime_matches values("
+						+ "?,?,?,?)");
+				storeOvertimeMatches(file,overtimePrep);
+				connection.setAutoCommit(false);
+				overtimePrep.executeBatch();
+				connection.setAutoCommit(true);
+				overtimePrep.close();
+				PreparedStatement performancePrep = connection.prepareStatement(""
+						+ "insert into player_match_performance values ("
+						+ "?,?,?,?,?,?,?,?,?,?,"
+						+ "?,?,?,?,?,?,?,?,?,?,"
+						+ "?,?,?)");
+				storePlayerMatchPerformance(file,performancePrep,0);
+				connection.setAutoCommit(false);
+				performancePrep.executeBatch();
+				connection.setAutoCommit(true);
+				performancePrep.close();
+				Calendar c = Calendar.getInstance();
+				System.out.println(c.getTimeInMillis());
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			};
+			
+			
+		}
+	}
+
 	public static void main(String[] args) throws Exception{
 		Dao dao = new Dao();
 		dao.newDatabase();//3秒
 		dao.readFiles("C:/Users/cross/Documents/CSE/CSEIII data/迭代一数据/");
+		dao.monitorFiles("C:/Users/cross/Documents/CSE/CSEIII data/迭代一数据/matches/");
+		//dao.stopMonitor();
 		//Class.forName("org.sqlite.JDBC");
     	//dao.connection = DriverManager.getConnection("jdbc:sqlite:NBADatabase.db");
 		//System.out.println(dao.getPlayerId("Aaron Brosoks"));

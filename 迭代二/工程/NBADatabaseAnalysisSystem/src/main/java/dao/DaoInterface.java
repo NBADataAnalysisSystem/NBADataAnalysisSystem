@@ -9,7 +9,8 @@ public interface DaoInterface {
 	public void readFiles(String path) throws Exception;
 	
 	//从原路径中读取新添加的数据
-	public void refreshFiles() throws Exception;
+	public void monitorFiles(String rootDir) throws Exception;
 		
+	public void stopMonitor() throws Exception;
 
 }
