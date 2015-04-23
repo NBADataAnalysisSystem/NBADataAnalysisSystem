@@ -11,14 +11,17 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.plaf.basic.BasicArrowButton;
+import javax.swing.plaf.basic.BasicComboBoxUI;
 
 import ui.frame.PlayerFrame;
 
 @SuppressWarnings("serial")
 public class PlayerBasicInfoPanel extends JPanel{
-	
 	JComboBox<String> selectTeam;
 	JComboBox<String> selectPosition;
 	ArrayList<String> infoToShow;
@@ -35,6 +38,9 @@ public class PlayerBasicInfoPanel extends JPanel{
 	String[] sift = new String[3];
 	
 	public PlayerBasicInfoPanel(int x,int y,int width,int height){
+		
+		UIManager.put("ComboBox.background", new Color(0,0,0,0));//me
+		
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -102,7 +108,7 @@ public class PlayerBasicInfoPanel extends JPanel{
 			}
    );
 		//	tempBtn.setOpaque(false);
-			tempBtn.setMargin(new Insets(0,0,0,0));
+			tempBtn.setMargin(new Insets(0, 0, 0, 0));
 			tempBtn.setText(temp+"");
 			tempBtn.	setContentAreaFilled(false);
 			tempBtn.setBorderPainted(false);
@@ -115,12 +121,26 @@ public class PlayerBasicInfoPanel extends JPanel{
 		
 		selectTeam = new JComboBox<String>();
 		this.add(selectTeam);
-		selectTeam.setBackground(Color.decode("#FFFFFF"));
+		//selectTeam.setBackground(Color.decode("#FFFFFF"));//me
 		selectTeam.setFont(new Font("Serif",1, 15));
 		selectTeam.addItem("根据球队查找");
 		selectTeam.setEditable(false);
 		selectTeam.setOpaque(false);
 		selectTeam.setBounds(30 , (width - 40)/26+10, 200, (width - 40)/26);
+		
+		selectTeam.setUI(new BasicComboBoxUI() {
+			public void installUI(JComponent comboBox) {
+				super.installUI(comboBox);
+				listBox.setForeground(new Color(0, 0, 0, 0));
+				listBox.setSelectionBackground(new Color(0, 0, 0, 0));
+				listBox.setSelectionForeground(Color.BLACK);
+			}
+			
+			protected JButton createArrowButton() {
+				return new BasicArrowButton(BasicArrowButton.SOUTH);
+			}
+		});//me
+		
 		selectTeam.addMouseListener(       new MouseAdapter(){
 			
 			public void mouseClicked(MouseEvent e){
