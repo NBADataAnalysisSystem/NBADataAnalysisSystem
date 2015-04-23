@@ -225,15 +225,16 @@ public class Dao implements DaoInterface {
 		br.close();
 	}
 	
+	//将match文件中的球员赛场成绩记录添加到数据库中
 	private void storePlayerMatchPerformance(File[] fileList)throws Exception{
 		PreparedStatement prep = connection.prepareStatement(""
 				+ "insert into player_match_performance values ("
 				+ "?,?,?,?,?,?,?,?,?,?,"
 				+ "?,?,?,?,?,?,?,?,?,?,"
 				+ "?,?,?)");
-		
+		int row = 0;
 		for(File file : fileList){
-			storePlayerMatchPerformance(file,prep);
+			row = storePlayerMatchPerformance(file,prep,row);
 		}
 		System.out.println("store");
 		connection.setAutoCommit(false);
@@ -241,7 +242,8 @@ public class Dao implements DaoInterface {
 		connection.setAutoCommit(true);
 	}
 	
-	private void storePlayerMatchPerformance(File file,PreparedStatement prep)throws Exception{
+	//将单个文件中的球员赛场成绩添加到PreparedStatement中，并在PreparedStatement中数据过多时填入数据库中
+	private int storePlayerMatchPerformance(File file,PreparedStatement prep,int row)throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
 		String strTemp = file.getName();
 		int matchId = getMatchId(strTemp.split("_")[0],strTemp.split("_")[1],getTeamId(strTemp.split("_")[2].split("-")[0]));
@@ -249,16 +251,25 @@ public class Dao implements DaoInterface {
 		strTemp = br.readLine();//忽略前两行
 		int starts = 5;
 		int teamId = 0;
+		connection.setAutoCommit(false);
 		while((strTemp = br.readLine())!=null){
 			if(strTemp.split(";").length > 1){
 				starts+=storePlayerPerformance(matchId,teamId,strTemp,starts,prep);
+				row ++ ;
+				if((row % 2000) == 0){
+					prep.executeBatch();
+					connection.commit();
+					prep.clearBatch();
+					
+				}
 			}else{
 				starts = 5;
 				teamId = getTeamId(strTemp);
 			}
 		}
+		connection.setAutoCommit(true);
 		br.close();
-		
+		return row;
 	}
 	
 	private int storePlayerPerformance(int matchId,int teamId,String record,int starts,PreparedStatement prep)throws Exception{
@@ -268,6 +279,8 @@ public class Dao implements DaoInterface {
 		prep.setString(1,matchId+"");
 		prep.setString(2,teamId+"");
 		if(playerId>0){
+			prep.setString(3,playerId+"");
+		}else{
 			prep.setString(3,playerId+"");
 		}
 		prep.setString(4,player[1]);
