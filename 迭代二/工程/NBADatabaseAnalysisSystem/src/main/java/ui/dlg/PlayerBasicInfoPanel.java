@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -147,17 +149,23 @@ public class PlayerBasicInfoPanel extends JPanel{
 				return temp;
 			}
 		});//me
-		
-		selectTeam.addMouseListener(       new MouseAdapter(){
-			
-			public void mouseClicked(MouseEvent e){
-					if(selectTeam.getSelectedItem().toString().equals("根据球队查找") == false){
-						sift[1] = selectTeam.getSelectedItem().toString();
-						frame.refreshData();
-					}
-				}
-			}
-		);
+
+		selectTeam.addItemListener(new ItemListener(){
+		    public void itemStateChanged(ItemEvent arg0) {
+		    	sift[2] = selectTeam.getSelectedItem().toString();
+				frame.refreshData();
+		    }   
+		});
+//		selectTeam.addMouseListener(       new MouseAdapter(){
+//			
+//			public void mouseClicked(MouseEvent e){
+//					if(selectTeam.getSelectedItem().toString().equals("根据球队查找") == false){
+//						sift[1] = selectTeam.getSelectedItem().toString();
+//						frame.refreshData();
+//					}
+//				}
+//			}
+//		);
 		
 		selectPosition = new JComboBox<String>();
 		this.add(selectPosition);
@@ -188,16 +196,24 @@ public class PlayerBasicInfoPanel extends JPanel{
 				return temp;
 			}
 		});//me
-		selectPosition.addMouseListener(       new MouseAdapter(){
-			
-			public void mouseClicked(MouseEvent e){
-					if(selectPosition.getSelectedItem().toString().equals("根据位置查找") == false){
-						sift[2] = selectPosition.getSelectedItem().toString();
-						frame.refreshData();
-					}
-				}
-			}
-		);
+		
+		selectPosition.addItemListener(new ItemListener(){
+		    public void itemStateChanged(ItemEvent arg0) {
+		    	sift[2] = selectPosition.getSelectedItem().toString();
+				frame.refreshData();
+		    }   
+		});
+
+//		selectPosition.addMouseListener(       new MouseAdapter(){
+//			
+//			public void mouseClicked(MouseEvent e){
+//					if(selectPosition.getSelectedItem().toString().equals("根据位置查找") == false){
+//						sift[2] = selectPosition.getSelectedItem().toString();
+//						frame.refreshData();
+//					}
+//				}
+//			}
+//		);
 		
 		this.setLayout(null);
 	}
