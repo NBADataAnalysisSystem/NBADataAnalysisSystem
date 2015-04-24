@@ -7,7 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 import entity.PlayerEntity;
 
 public class PlayerDaoJdbcImp implements PlayerDao {
@@ -26,21 +25,8 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 			e.printStackTrace();
 		}
     }
-
-	public ArrayList<Map<PlayerEntity, String>> getPlayerInfo(PlayerInfoType type) {
-		switch (type) {
-		case PLAYER_BASIC_INFO:
-			return getPlayerBasicInfo();
-		case PLAYER_SEASON_TOTAL_INFO:
-			return getPlayerSeasonTotalInfo();
-		case PLAYER_SEASON_AVG_INFO:
-			return getPlayerSeasonAvgInfo();
-		default:
-			return null;
-		}
-	}
     
-	private ArrayList<Map<PlayerEntity, String>> getPlayerBasicInfo() {
+	public ArrayList<Map<PlayerEntity, String>> getPlayerBasicInfo() {
 		ArrayList<PlayerEntity> columnList = new ArrayList<PlayerEntity>();
 		columnList.add(PlayerEntity.ID);
 		columnList.add(PlayerEntity.PLAYER_NAME);
@@ -85,7 +71,7 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 	}
 
 	//获取球员赛季数据-总数
-	private ArrayList<Map<PlayerEntity, String>> getPlayerSeasonTotalInfo() {
+	public ArrayList<Map<PlayerEntity, String>> getPlayerSeasonTotalInfo() {
 		ArrayList<PlayerEntity> columnList = new ArrayList<PlayerEntity>();
 		columnList.add(PlayerEntity.ID);
 		columnList.add(PlayerEntity.PLAYER_NAME);
@@ -138,7 +124,7 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 	}
 	
 	//获取球员赛季数据-场均
-	private ArrayList<Map<PlayerEntity, String>> getPlayerSeasonAvgInfo() {
+	public ArrayList<Map<PlayerEntity, String>> getPlayerSeasonAvgInfo() {
 		ArrayList<PlayerEntity> columnList = new ArrayList<PlayerEntity>();
 		columnList.add(PlayerEntity.ID);
 		columnList.add(PlayerEntity.PLAYER_NAME);

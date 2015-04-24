@@ -5,17 +5,15 @@ import java.util.Map;
 
 import dao.playerdao.PlayerDao;
 import dao.playerdao.PlayerDaoJdbcImp;
-import dao.playerdao.PlayerInfoType;
 import entity.PlayerEntity;
-import service.playerservice.GetPlayerService;
+import service.playerservice.GetPlayerBasicInfoService;
 
-public class GetPlayerServiceImp implements GetPlayerService {
+public class GetPlayerBasicInfoServiceImp implements GetPlayerBasicInfoService {
 
-	public ArrayList<Map<PlayerEntity, String>> getPlayer(
-			PlayerInfoType type) {
+	public ArrayList<Map<PlayerEntity, String>> getPlayer() {
 		PlayerDao dao = new PlayerDaoJdbcImp();
 		try {
-			return dao.getPlayerInfo(type);
+			return dao.getPlayerBasicInfo();
 		} finally {
 			dao.close();
 		}

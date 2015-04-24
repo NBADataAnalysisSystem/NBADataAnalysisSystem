@@ -1,5 +1,4 @@
 
-
 /*
 创建比赛表
 */
@@ -10,11 +9,16 @@ season varchar(10),
 date_of_match varchar(20),
 home_court_team_id integer,
 away_team_id integer,
-score varchar(10),
-score_of_first_section varchar(10),
-score_of_second_section varchar(10),
-score_of_third_section varchar(10),
-score_of_fourth_section varchar(10),
+hscore integer,
+ascore integer,
+hscore_of_first_section integer,
+ascore_of_first_section integer,
+hscore_of_second_section integer,
+ascore_of_second_section integer,
+hscore_of_third_section integer,
+ascore_of_third_section integer,
+hscore_of_fourth_section integer,
+ascore_of_fourth_section integer,
 is_overtime varchar(5),
 unique (date_of_match,home_court_team_id,away_team_id)
 );
@@ -27,7 +31,8 @@ unique (date_of_match,home_court_team_id,away_team_id)
 create table overtime_matches(
 id integer,
 serial_number integer,
-score varchar(10),
+hscore integer,
+ascore integer,
 primary key(id,serial_number)
 );
 
@@ -57,7 +62,10 @@ block_shots integer,
 turn_overs integer,
 fouls integer,
 score integer,
-primary key (player_id,match_id)
+double_double integer,
+is_start integer,
+player_name varchar(15),
+primary key (player_name,match_id)
 );
 
 
@@ -79,6 +87,7 @@ school varchar(4),
 team varchar(10),
 num_of_match integer,
 num_of_start integer,
+num_of_double_double integer,
 rebounds integer,
 assists integer,
 presence_time integer,
