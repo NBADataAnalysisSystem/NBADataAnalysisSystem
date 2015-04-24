@@ -1,24 +1,22 @@
 package controller.playercontroller;
 
-import java.util.ArrayList;
-
 import controller.controller.Request;
-import entity.PlayerEntity;
+import dao.playerdao.PlayerInfoType;
 
 public class GetPlayerRequest implements Request {
 
-	private ArrayList<PlayerEntity> columnList;
+	private PlayerInfoType type;
 	
-	public GetPlayerRequest(ArrayList<PlayerEntity> columnList) {
-		this.columnList = columnList;
+	public GetPlayerRequest(PlayerInfoType type) {
+		this.type = type;
 	}
 	
 	public String getName() {
 		return "GetPlayer";
 	}
 	
-	public ArrayList<PlayerEntity> getColumnList() {
-		return columnList;
+	public PlayerInfoType getType() {
+		return type;
 	}
 
 }

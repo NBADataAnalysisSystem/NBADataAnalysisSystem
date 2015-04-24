@@ -28,9 +28,11 @@ import javax.swing.SwingUtilities;
 
 
 
+
 import controller.playercontroller.GetPlayerRequest;
 import controller.playercontroller.GetPlayerResponse;
 import controller.playercontroller.PlayerController;
+import dao.playerdao.PlayerInfoType;
 import entity.PlayerEntity;
 import ui.component.MyTableHeaderPanel;
 import ui.component.MyTablePanel;
@@ -461,12 +463,8 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		//传入表格数据,以下30为传入数据行数，根据tableHeader获取数据后更改大小及具体数值（可自己建立ArrayList暂时存储数据，可能较为方便）
 		PlayerController controller = new PlayerController();
 		PlayerHeaderToEnum translation = new PlayerHeaderToEnum();
-		ArrayList<PlayerEntity> columnList = new ArrayList<PlayerEntity>();
-		for (String string:tableHeader) {
-			columnList.add(translation.translate(string));
-		}
 		GetPlayerResponse response = (GetPlayerResponse) controller.processRequest(
-				new GetPlayerRequest(columnList));
+				new GetPlayerRequest(PlayerInfoType.PLAYER_BASIC_INFO));
 		ArrayList<Map<PlayerEntity, String>> tempList = response.getList();
 		tableContent = new String[tempList.size()][tableHeader.length];
 		int i = 0;

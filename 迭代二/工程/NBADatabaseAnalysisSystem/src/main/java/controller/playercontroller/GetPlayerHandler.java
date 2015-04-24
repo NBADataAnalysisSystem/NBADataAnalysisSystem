@@ -16,7 +16,7 @@ public class GetPlayerHandler implements RequestHandler {
 			GetPlayerRequest getPlayerRequest = (GetPlayerRequest) request;
 			response = new GetPlayerResponse(
 					getPlayerService.getPlayer(
-							getPlayerRequest.getColumnList()));
+							getPlayerRequest.getType()));
 		} catch (Exception e) {
 			response = new ErrorResponse(request, e);
 		}

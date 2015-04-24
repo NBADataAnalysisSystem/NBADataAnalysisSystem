@@ -27,8 +27,32 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 			e.printStackTrace();
 		}
     }
+
+	public ArrayList<Map<PlayerEntity, String>> getPlayerInfo(PlayerInfoType type) {
+		ArrayList<PlayerEntity> columnList = new ArrayList<PlayerEntity>();
+		switch (type) {
+		case PLAYER_BASIC_INFO:
+			columnList.add(PlayerEntity.ID);
+			columnList.add(PlayerEntity.PLAYER_NAME);
+			columnList.add(PlayerEntity.JERSEY_NUMBER);
+			columnList.add(PlayerEntity.POSITION);
+			columnList.add(PlayerEntity.HEIGHT);
+			columnList.add(PlayerEntity.WEIGHT);
+			columnList.add(PlayerEntity.BIRTH);
+			columnList.add(PlayerEntity.AGE);
+			columnList.add(PlayerEntity.EXP);
+			columnList.add(PlayerEntity.SCHOOL);
+			columnList.add(PlayerEntity.TEAM);
+			break;
+		case PLAYER_SEASON_INFO:
+			break;
+		default:
+			break;
+		}
+		return getPlayerInfo(columnList);
+	}
     
-	public ArrayList<Map<PlayerEntity, String>> getPlayer(ArrayList<PlayerEntity> columnList) {
+	private ArrayList<Map<PlayerEntity, String>> getPlayerInfo(ArrayList<PlayerEntity> columnList) {
 		String columnsToSearch = "";
 		PlayerEnumToField translation = new PlayerEnumToField();
 		ArrayList<String> columnStrList = new ArrayList<String>();
