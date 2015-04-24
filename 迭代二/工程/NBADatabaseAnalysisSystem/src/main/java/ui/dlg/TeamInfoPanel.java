@@ -196,7 +196,7 @@ public class TeamInfoPanel extends JPanel {
 		sp= new JScrollPane(tablePanel);
 		sp.setColumnHeaderView(headerPanel);
 		//sp.getColumnHeader().setSize(headerPanel.getWidth(), headerPanel.getHeight());
-		sp.setSize(cellWidth*header.length+cellWidth/3, cellHeight*rowNum);
+		sp.setSize(cellWidth*header.length+cellWidth/3+5, cellHeight*rowNum);
 	    sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 	    sp.setOpaque(false);
 		sp.getViewport().setOpaque(false); 
