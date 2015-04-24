@@ -31,12 +31,12 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 		//sift[1] 球队筛选
 		//sift[2] 位置筛选
 		String condition = "";
-		if (sift[0]!=null) {
-			condition = " player_name like '" + sift[0] + "%' ";
-		} else if (sift[1]!=null) {
+		if (sift[1]!=null) {
 			condition = " team = '" + sift[1] + "' ";
 		} else if (sift[2]!=null) {
 			condition = " position like '%" + sift[2] + "%' ";
+		} else if (sift[0]!=null) {
+			condition = " player_name like '" + sift[0] + "%' ";
 		}
 		ArrayList<PlayerEntity> columnList = new ArrayList<PlayerEntity>();
 		columnList.add(PlayerEntity.ID);
