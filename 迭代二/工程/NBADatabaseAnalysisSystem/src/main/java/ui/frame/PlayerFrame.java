@@ -499,6 +499,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 						btnChoosedLabel.setBounds(btn_Player.getX(), btn_Player.getY(),120 , 30);
 						btnUnchoosedLabel.setBounds(btn_Season.getX(), btn_Season.getY(),120 , 30);
 						setPlayerPanel();
+						mainPanel.repaint();
 					}
 				});
 			}else if("season".equals(name)){
@@ -507,6 +508,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 						btnUnchoosedLabel.setBounds(btn_Player.getX(), btn_Player.getY(),120 , 30);
 						btnChoosedLabel.setBounds(btn_Season.getX(), btn_Season.getY(),120 , 30);
 						setSeasonPanel();
+						mainPanel.repaint();
 					}
 				});
 			}else if("close".equals(name)){
