@@ -21,6 +21,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import ui.dlg.TeamListPanel;
+
 public class TeamFrame extends JFrame implements FrameInterface, ActionListener {
 
 	/**
@@ -42,8 +44,8 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 	private JPanel mainPanel;
 	private JPanel backgroundPanel;
 	
-	private JButton btn_Player;
-	private JButton btn_Season;
+	private JButton btn_TeamList;
+	private JButton btn_TeamInfo;
 	@SuppressWarnings("unused")
 	private JButton btn_close;
 	@SuppressWarnings("unused")
@@ -55,6 +57,8 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 	
 	static JLabel btnUnchoosedLabel = new JLabel();
 	static JLabel btnChoosedLabel = new JLabel();
+	
+	TeamListPanel listPanel ;
 	
 	public TeamFrame(){
 		
@@ -105,11 +109,12 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 		      
 
 		      //TODO
-				setTablePanel();
+				listPanel = new TeamListPanel(mainPanel.getWidth()/30,mainPanel.getHeight()/30,mainPanel.getWidth()*14/15,mainPanel.getHeight()*14/15);
 		      
 
 		      backgroundPanel.add(btnPanel);
 		      backgroundPanel.add(mainPanel);
+		      mainPanel.add(listPanel);
 		      mainPanel.add(placeMainIcon);
 		      backgroundPanel.add(placeBackgroundIcon);
 		      this.add(backgroundPanel);
@@ -151,9 +156,9 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 		btnPanel.setLocation(0,0);
 		btnPanel.setOpaque(false);
 		//设置选框
-		btn_Player = new JButton("球员");
-		btn_Player.setName("player");
-		btn_Player.addActionListener(this);
+		btn_TeamList = new JButton("球队列表");
+		btn_TeamList.setName("teamList");
+		btn_TeamList.addActionListener(this);
 
 		btnChoosedIcon = new ImageIcon("resource/BtnChoosed.png");
 		btnChoosedIcon.setImage(btnChoosedIcon.getImage().getScaledInstance(120, 30,Image.SCALE_DEFAULT));
@@ -161,16 +166,16 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 		btnChoosedLabel.setIcon(btnChoosedIcon);
 		btnChoosedLabel.setOpaque(false);
 		
-		btn_Player.setContentAreaFilled(false);
-		btn_Player.setForeground(Color.decode("#FF0000"));
-		btn_Player.setFont(new Font("宋体",1, 20));//设置字体
-		btn_Player.setBorderPainted(false);
-		btn_Player.setFocusPainted(false);
+		btn_TeamList.setContentAreaFilled(false);
+		btn_TeamList.setForeground(Color.decode("#FF0000"));
+		btn_TeamList.setFont(new Font("宋体",1, 20));//设置字体
+		btn_TeamList.setBorderPainted(false);
+		btn_TeamList.setFocusPainted(false);
 		//btn_Add.setOpaque(false);
-		btnPanel.add(btn_Player);
+		btnPanel.add(btn_TeamList);
 		btnPanel.add(btnChoosedLabel);
-		btn_Player.setBounds(mainPanel.getX()+50,btnPanel.getHeight()-30,120,30);
-		btnChoosedLabel.setBounds(btn_Player.getX(), btn_Player.getY(),120 , 30);
+		btn_TeamList.setBounds(mainPanel.getX()+50,btnPanel.getHeight()-30,120,30);
+		btnChoosedLabel.setBounds(btn_TeamList.getX(), btn_TeamList.getY(),120 , 30);
 		//
 		btnUnchoosedIcon = new ImageIcon("resource/BtnUnChoosed.png");
 		btnUnchoosedIcon.setImage(btnUnchoosedIcon.getImage().getScaledInstance(120, 30,Image.SCALE_DEFAULT));
@@ -178,19 +183,19 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 		btnUnchoosedLabel.setIcon(btnUnchoosedIcon);
 		btnUnchoosedLabel.setOpaque(false);
 		
-		btn_Season= new JButton("赛季数据");
-		btn_Season.setName("season");
-		btn_Season.addActionListener(this);
+		btn_TeamInfo= new JButton("球队数据");
+		btn_TeamInfo.setName("teamInfo");
+		btn_TeamInfo.addActionListener(this);
 
-		btn_Season.setContentAreaFilled(false);
-		btn_Season.setForeground(Color.decode("#FF0000"));
-		btn_Season.setFont(new Font("宋体",1, 20));//设置字体
-		btn_Season.setBorderPainted(false);
-		btn_Season.setFocusPainted(false);
-		btnPanel.add(btn_Season);
+		btn_TeamInfo.setContentAreaFilled(false);
+		btn_TeamInfo.setForeground(Color.decode("#FF0000"));
+		btn_TeamInfo.setFont(new Font("宋体",1, 20));//设置字体
+		btn_TeamInfo.setBorderPainted(false);
+		btn_TeamInfo.setFocusPainted(false);
+		btnPanel.add(btn_TeamInfo);
 		btnPanel.add(btnUnchoosedLabel);
-		btn_Season.setBounds(btn_Player.getWidth()+btn_Player.getX()+20,(btnPanel.getHeight())-30,120,30);
-		btnUnchoosedLabel.setBounds(btn_Season.getX(), btn_Season.getY(),120 , 30);
+		btn_TeamInfo.setBounds(btn_TeamList.getWidth()+btn_TeamList.getX()+20,(btnPanel.getHeight())-30,120,30);
+		btnUnchoosedLabel.setBounds(btn_TeamInfo.getX(), btn_TeamInfo.getY(),120 , 30);
 		
 		JButton btn_Close = new JButton("×");
 		btn_Close.setMargin(new Insets(0,0,0,0));
@@ -280,20 +285,21 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 		if(e.getSource() instanceof JButton){
 			JButton btn = (JButton)e.getSource();
 			String name = btn.getName();
-			if("player".equals(name)){
+			if("teamList".equals(name)){
 				SwingUtilities.invokeLater(new Runnable(){
 					public void run(){
-//						btnChoosedLabel.setBounds(btn_Player.getX(), btn_Player.getY(),120 , 30);
-//						btnUnchoosedLabel.setBounds(btn_Season.getX(), btn_Season.getY(),120 , 30);
-//						setPlayerPanel();
+						btnChoosedLabel.setBounds(btn_TeamList.getX(), btn_TeamList.getY(),120 , 30);
+						btnUnchoosedLabel.setBounds(btn_TeamInfo.getX(), btn_TeamInfo.getY(),120 , 30);
+					//	mainPanel.remove(comp);
+						mainPanel.add(listPanel,0);
 					}
 				});
-			}else if("season".equals(name)){
+			}else if("teamInfo".equals(name)){
 				SwingUtilities.invokeLater(new Runnable(){
 					public void run(){
-//						btnUnchoosedLabel.setBounds(btn_Player.getX(), btn_Player.getY(),120 , 30);
-//						btnChoosedLabel.setBounds(btn_Season.getX(), btn_Season.getY(),120 , 30);
-//						setSeasonPanel();
+						btnUnchoosedLabel.setBounds(btn_TeamList.getX(), btn_TeamList.getY(),120 , 30);
+						btnChoosedLabel.setBounds(btn_TeamInfo.getX(), btn_TeamInfo.getY(),120 , 30);
+					//	setSeasonPanel();
 					}
 				});
 			}else if("close".equals(name)){
