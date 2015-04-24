@@ -39,6 +39,8 @@ public class PlayerBasicInfoPanel extends JPanel{
 	
 	public PlayerBasicInfoPanel(int x,int y,int width,int height){
 		
+		sift[0] = "A";
+		
 		UIManager.put("ComboBox.background", new Color(0,0,0,0));//me
 		
 		this.x = x;
@@ -72,7 +74,7 @@ public class PlayerBasicInfoPanel extends JPanel{
 			        		panel.add(btnChoosedLabel);
 			        		btnChoosedLabel.setBounds(tempBtn.getX(), tempBtn.getY(), tempBtn.getWidth(), tempBtn.getHeight());
 			        		sift[0] = tempBtn.getText();
-			        		sift();
+			        		frame.refreshData();
 		        		}
 					}
 		            public void mouseEntered(MouseEvent e){
@@ -151,7 +153,7 @@ public class PlayerBasicInfoPanel extends JPanel{
 			public void mouseClicked(MouseEvent e){
 					if(selectTeam.getSelectedItem().toString().equals("根据球队查找") == false){
 						sift[1] = selectTeam.getSelectedItem().toString();
-						sift();
+						frame.refreshData();
 					}
 				}
 			}
@@ -191,7 +193,7 @@ public class PlayerBasicInfoPanel extends JPanel{
 			public void mouseClicked(MouseEvent e){
 					if(selectPosition.getSelectedItem().toString().equals("根据位置查找") == false){
 						sift[2] = selectPosition.getSelectedItem().toString();
-						sift();
+						frame.refreshData();
 					}
 				}
 			}
@@ -243,8 +245,9 @@ public class PlayerBasicInfoPanel extends JPanel{
 		return infoToShow;
 	}
 	
-	public void sift(){
+	public String[] getSift(){
 		//根据sift[]对表格进行处理，sift[0]为首字母，sift[1]为球队，sift[2]为位置
+		return sift;
 	}
 	
 

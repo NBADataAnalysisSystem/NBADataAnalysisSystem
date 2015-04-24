@@ -10,10 +10,10 @@ import service.playerservice.GetPlayerBasicInfoService;
 
 public class GetPlayerBasicInfoServiceImp implements GetPlayerBasicInfoService {
 
-	public ArrayList<Map<PlayerEntity, String>> getPlayer() {
+	public ArrayList<Map<PlayerEntity, String>> getPlayer(String[] sift) {
 		PlayerDao dao = new PlayerDaoJdbcImp();
 		try {
-			return dao.getPlayerBasicInfo();
+			return dao.getPlayerBasicInfo(sift);
 		} finally {
 			dao.close();
 		}

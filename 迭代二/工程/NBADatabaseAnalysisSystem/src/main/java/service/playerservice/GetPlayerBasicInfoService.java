@@ -7,6 +7,6 @@ import entity.PlayerEntity;
 
 public interface GetPlayerBasicInfoService {
 
-	public ArrayList<Map<PlayerEntity, String>> getPlayer();
+	public ArrayList<Map<PlayerEntity, String>> getPlayer(String[] sift);
 	
 }

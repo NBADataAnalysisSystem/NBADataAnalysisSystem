@@ -470,7 +470,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 			PlayerController controller = new PlayerController();
 			PlayerHeaderToEnum translation = new PlayerHeaderToEnum();
 			GetPlayerBasicInfoResponse response = (GetPlayerBasicInfoResponse) controller.processRequest(
-					new GetPlayerBasicInfoRequest());
+					new GetPlayerBasicInfoRequest(playerPanel.getSift()));
 			ArrayList<Map<PlayerEntity, String>> tempList = response.getList();
 			tableContent = new String[tempList.size()][tableHeader.length];
 			int i = 0;

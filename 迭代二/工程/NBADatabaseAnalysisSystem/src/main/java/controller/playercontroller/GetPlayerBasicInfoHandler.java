@@ -13,9 +13,9 @@ public class GetPlayerBasicInfoHandler implements RequestHandler {
 		Response response;
 		GetPlayerBasicInfoService getPlayerService = new GetPlayerBasicInfoServiceImp();
 		try {
-			//GetPlayerBasicInfoRequest getPlayerRequest = (GetPlayerBasicInfoRequest) request;
+			GetPlayerBasicInfoRequest getPlayerRequest = (GetPlayerBasicInfoRequest) request;
 			response = new GetPlayerBasicInfoResponse(
-					getPlayerService.getPlayer());
+					getPlayerService.getPlayer(getPlayerRequest.getSift()));
 		} catch (Exception e) {
 			response = new ErrorResponse(request, e);
 		}

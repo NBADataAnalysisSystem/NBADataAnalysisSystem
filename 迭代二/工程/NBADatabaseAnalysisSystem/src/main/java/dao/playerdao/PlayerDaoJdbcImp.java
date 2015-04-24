@@ -26,7 +26,18 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 		}
     }
     
-	public ArrayList<Map<PlayerEntity, String>> getPlayerBasicInfo() {
+	public ArrayList<Map<PlayerEntity, String>> getPlayerBasicInfo(String[] sift) {
+		//sift[0] 姓名首字母筛选
+		//sift[1] 球队筛选
+		//sift[2] 位置筛选
+		String condition = "";
+		if (sift[0]!=null) {
+			condition = " player_name like '" + sift[0] + "%' ";
+		} else if (sift[1]!=null) {
+			condition = " team = '" + sift[1] + "' ";
+		} else if (sift[2]!=null) {
+			condition = " position like '%" + sift[2] + "%' ";
+		}
 		ArrayList<PlayerEntity> columnList = new ArrayList<PlayerEntity>();
 		columnList.add(PlayerEntity.ID);
 		columnList.add(PlayerEntity.PLAYER_NAME);
@@ -53,8 +64,13 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 		ArrayList<Map<PlayerEntity, String>> result = new ArrayList<Map<PlayerEntity, String>>();
 		try {
 			statement = connection.createStatement();
-			resultSet = statement.executeQuery(
-					"SELECT " + columnsToSearch + " FROM players");
+			if (condition.equals("")) {
+				resultSet = statement.executeQuery(
+						"SELECT " + columnsToSearch + " FROM players");
+			} else {
+				resultSet = statement.executeQuery(
+						"SELECT " + columnsToSearch + " FROM players" + " where" + condition);
+			}
 			while (resultSet.next()) {
 				Map<PlayerEntity, String> map = new HashMap<PlayerEntity, String>();
 				for (String string:columnStrList) {
