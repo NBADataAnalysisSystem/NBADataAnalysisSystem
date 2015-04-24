@@ -1,5 +1,4 @@
 package dao.playerdao;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -29,30 +28,29 @@ public class PlayerDaoJdbcImp implements PlayerDao {
     }
 
 	public ArrayList<Map<PlayerEntity, String>> getPlayerInfo(PlayerInfoType type) {
-		ArrayList<PlayerEntity> columnList = new ArrayList<PlayerEntity>();
 		switch (type) {
 		case PLAYER_BASIC_INFO:
-			columnList.add(PlayerEntity.ID);
-			columnList.add(PlayerEntity.PLAYER_NAME);
-			columnList.add(PlayerEntity.JERSEY_NUMBER);
-			columnList.add(PlayerEntity.POSITION);
-			columnList.add(PlayerEntity.HEIGHT);
-			columnList.add(PlayerEntity.WEIGHT);
-			columnList.add(PlayerEntity.BIRTH);
-			columnList.add(PlayerEntity.AGE);
-			columnList.add(PlayerEntity.EXP);
-			columnList.add(PlayerEntity.SCHOOL);
-			columnList.add(PlayerEntity.TEAM);
-			break;
+			return getPlayerBasicInfo();
 		case PLAYER_SEASON_INFO:
-			break;
+			return null;
 		default:
-			break;
+			return null;
 		}
-		return getPlayerInfo(columnList);
 	}
     
-	private ArrayList<Map<PlayerEntity, String>> getPlayerInfo(ArrayList<PlayerEntity> columnList) {
+	private ArrayList<Map<PlayerEntity, String>> getPlayerBasicInfo() {
+		ArrayList<PlayerEntity> columnList = new ArrayList<PlayerEntity>();
+		columnList.add(PlayerEntity.ID);
+		columnList.add(PlayerEntity.PLAYER_NAME);
+		columnList.add(PlayerEntity.JERSEY_NUMBER);
+		columnList.add(PlayerEntity.POSITION);
+		columnList.add(PlayerEntity.HEIGHT);
+		columnList.add(PlayerEntity.WEIGHT);
+		columnList.add(PlayerEntity.BIRTH);
+		columnList.add(PlayerEntity.AGE);
+		columnList.add(PlayerEntity.EXP);
+		columnList.add(PlayerEntity.SCHOOL);
+		columnList.add(PlayerEntity.TEAM);
 		String columnsToSearch = "";
 		PlayerEnumToField translation = new PlayerEnumToField();
 		ArrayList<String> columnStrList = new ArrayList<String>();
