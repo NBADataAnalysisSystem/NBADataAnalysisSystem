@@ -41,7 +41,6 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 	private ImageIcon btnUnchoosedIcon;
 	
 	private JPanel btnPanel;
-	private JPanel tablePanel;//TODO 因球队界面较复杂，另外写类分布
 	private JPanel mainPanel;
 	private JPanel backgroundPanel;
 	
@@ -65,7 +64,6 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 	public TeamFrame(){
 		
 			backgroundPanel = new JPanel();
-			tablePanel = new JPanel();
 			mainPanel = new JPanel();
 			height = Toolkit.getDefaultToolkit().getScreenSize().height*3/4;
 			width = Toolkit.getDefaultToolkit().getScreenSize().width*3/4;
@@ -305,7 +303,7 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 						btnChoosedLabel.setBounds(btn_TeamInfo.getX(), btn_TeamInfo.getY(),120 , 30);
 						mainPanel.remove(listPanel);
 						mainPanel.add(infoPanel,0);
-						
+						mainPanel.validate();
 						mainPanel.repaint();
 					//	setSeasonPanel();
 					}

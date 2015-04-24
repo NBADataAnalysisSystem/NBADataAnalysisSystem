@@ -46,7 +46,6 @@ public class TeamListPanel extends JPanel {
 		this.width = widthn;
 		this.height = heightn;
 		this.setBounds(x, y, width, height);
-		this.setOpaque(false);
 		this.setLayout(null);
 		rowNum = 4;
 		

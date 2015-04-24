@@ -45,13 +45,12 @@ public class TeamInfoPanel extends JPanel {
 	MyTablePanel tablePanel ;
 	
 	public TeamInfoPanel(int x,int y,int widthn,int heightn){
-		
+		final JPanel panel = this;
 		this.x = x;
 		this.y = y;
 		this.width = widthn;
 		this.height = heightn;
 		this.setBounds(x, y, width, height);
-		this.setOpaque(false);
 		this.setLayout(null);
 		rowNum = 12;
 		yearSelected = new String();
@@ -78,6 +77,25 @@ public class TeamInfoPanel extends JPanel {
 		type.add(typeAll);
 		type.add(typeAve);
 		typeAve.setSelected(true);
+		
+		typeAve.addMouseListener(     new MouseAdapter(){
+				public void mouseClicked(MouseEvent e){
+					setHeader();
+					table = setTableContent(header);
+					panel.remove(sp);
+					setTable(width/25,height/10,(width - width/12)/header.length,((height) - (height/10)-(height/25))/rowNum,header,table);
+				}	
+			}
+		);
+		typeAll.addMouseListener(     new MouseAdapter(){
+			public void mouseClicked(MouseEvent e){
+				setHeader();
+				table = setTableContent(header);
+				panel.remove(sp);
+				setTable(width/25,height/10,(width - width/12)/header.length,((height) - (height/10)-(height/25))/rowNum,header,table);
+			}	
+		}
+	);
 		this.add(typeAll);
 		this.add(typeAve);
 		
@@ -101,7 +119,6 @@ public class TeamInfoPanel extends JPanel {
 		submit.setFont(new Font("宋体",1, 20));//设置字体
 		submit.setBorderPainted(false);
 		submit.setMargin(new Insets(0,0,0,0));
-		final JPanel panel = this;
 		final JLabel btnChoosedLabel = new JLabel();
 		submit.addMouseListener(       new MouseAdapter(){
 				public void mouseReleased(MouseEvent e){
@@ -201,15 +218,15 @@ public class TeamInfoPanel extends JPanel {
 		headerPanel.setOpaque(false);
 		
 		ImageIcon rowIconA ;
-		rowIconA = new ImageIcon("resource/PlayerRowA.png");
+		rowIconA = new ImageIcon("resource/PlayerRowA1.png");
 		rowIconA.setImage(rowIconA.getImage().getScaledInstance(cellWidth, cellHeight,Image.SCALE_DEFAULT));
 		
 		ImageIcon rowIconB ;
-		rowIconB = new ImageIcon("resource/PlayerRowB.png");
+		rowIconB = new ImageIcon("resource/PlayerRowB1.png");
 		rowIconB.setImage(rowIconB.getImage().getScaledInstance(cellWidth, cellHeight,Image.SCALE_DEFAULT));
 		
 		ImageIcon tableHeaderIcon ;
-		tableHeaderIcon = new ImageIcon("resource/PlayerHeaderRow.png");
+		tableHeaderIcon = new ImageIcon("resource/PlayerHeaderRow1.png");
 		tableHeaderIcon.setImage(tableHeaderIcon.getImage().getScaledInstance(cellWidth, cellHeight,Image.SCALE_DEFAULT));
 		
 		for(int i = 0; i <table.length;){
@@ -218,8 +235,8 @@ public class TeamInfoPanel extends JPanel {
 	}
 		headerPanel.setRowBackground(tableHeaderIcon, 0);
 		
-		tablePanel.setTableFont(new Font("Serif",0, 20));
-		headerPanel.setTableFont(new Font("Serif",1, 12));
+		tablePanel.setTableFont(new Font("Serif",0, 12));
+		headerPanel.setTableFont(new Font("Serif",1, 10));
 		headerPanel.setFontColor(Color.decode("#FFFFFF"));
 		
 	}
@@ -227,7 +244,8 @@ public class TeamInfoPanel extends JPanel {
 	private void setHeader(){
 		if(typeAll.isSelected()){
 			header = new String[]{"排名","球队","场数","命中","出手","三分命中","三分出手","罚球命中","罚球出手","进攻篮板","防守篮板","篮板","助攻","抢断","盖帽","失误","犯规","得分"};
-		}else if(typeAve.isSelected()){
+		}else{
+//			System.out.println();
 			header = new String[]{"排名","球队","场数","%","三分%","罚球%","进攻篮板","防守篮板","场均篮板","场均助攻","场均抢断","场均盖帽","失误","犯规","场均得分"};
 		}
 	}
