@@ -1,4 +1,4 @@
-package dao.playerdao;
+package entity;
 
 public enum PlayerInfoType {
 

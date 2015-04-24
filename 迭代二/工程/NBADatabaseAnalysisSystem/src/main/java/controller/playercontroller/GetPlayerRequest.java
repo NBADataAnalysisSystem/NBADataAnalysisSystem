@@ -1,7 +1,7 @@
 package controller.playercontroller;
 
 import controller.controller.Request;
-import dao.playerdao.PlayerInfoType;
+import entity.PlayerInfoType;
 
 public class GetPlayerRequest implements Request {
 
