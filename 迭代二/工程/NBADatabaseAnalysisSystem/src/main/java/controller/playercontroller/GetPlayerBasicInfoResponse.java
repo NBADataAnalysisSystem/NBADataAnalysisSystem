@@ -6,12 +6,12 @@ import java.util.Map;
 import controller.controller.Response;
 import entity.PlayerEntity;
 
-public class GetPlayerResponse implements Response {
+public class GetPlayerBasicInfoResponse implements Response {
 
 	private static final String NAME = "GetPlayerSuccess";
 	ArrayList<Map<PlayerEntity, String>> list;
 	
-	public GetPlayerResponse(ArrayList<Map<PlayerEntity, String>> list) {
+	public GetPlayerBasicInfoResponse(ArrayList<Map<PlayerEntity, String>> list) {
 		this.list = list;
 	}
 	

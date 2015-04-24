@@ -30,8 +30,8 @@ import javax.swing.SwingUtilities;
 
 
 
-import controller.playercontroller.GetPlayerRequest;
-import controller.playercontroller.GetPlayerResponse;
+import controller.playercontroller.GetPlayerBasicInfoRequest;
+import controller.playercontroller.GetPlayerBasicInfoResponse;
 import controller.playercontroller.PlayerController;
 import entity.PlayerEntity;
 import entity.PlayerInfoType;
@@ -465,22 +465,32 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 	public void refreshData() {
 		//TODO
 		//传入表格数据,以下30为传入数据行数，根据tableHeader获取数据后更改大小及具体数值（可自己建立ArrayList暂时存储数据，可能较为方便）
-		PlayerController controller = new PlayerController();
-		PlayerHeaderToEnum translation = new PlayerHeaderToEnum();
-		GetPlayerResponse response = (GetPlayerResponse) controller.processRequest(
-				new GetPlayerRequest(playerInfoType));
-		ArrayList<Map<PlayerEntity, String>> tempList = response.getList();
-		tableContent = new String[tempList.size()][tableHeader.length];
-		int i = 0;
-		for (Map<PlayerEntity, String> map:tempList) {
-			int j = 0;
-			for (String string:tableHeader) {
-				tableContent[i][j] = map.get(translation.translate(string));
-				j++;
+		switch (playerInfoType) {
+		case PLAYER_BASIC_INFO:
+			PlayerController controller = new PlayerController();
+			PlayerHeaderToEnum translation = new PlayerHeaderToEnum();
+			GetPlayerBasicInfoResponse response = (GetPlayerBasicInfoResponse) controller.processRequest(
+					new GetPlayerBasicInfoRequest());
+			ArrayList<Map<PlayerEntity, String>> tempList = response.getList();
+			tableContent = new String[tempList.size()][tableHeader.length];
+			int i = 0;
+			for (Map<PlayerEntity, String> map:tempList) {
+				int j = 0;
+				for (String string:tableHeader) {
+					tableContent[i][j] = map.get(translation.translate(string));
+					j++;
+				}
+				i++;
 			}
-			i++;
+			setTableContent(tableHeader,tableContent);
+			break;
+		case PLAYER_SEASON_AVG_INFO:
+			break;
+		case PLAYER_SEASON_TOTAL_INFO:
+			break;
+		default:
+			break;
 		}
-		setTableContent(tableHeader,tableContent);
 	}
 
 	public JLabel setLabelIcon(Icon icon) {
