@@ -388,7 +388,6 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 //设置表头内容，根据自定义中传输的数据设定
 	public void setList(ArrayList<String> list) {
 		temp.removeAll(temp);
-		temp.add("ID");
 		temp.add("名字");
 //		for(int i = 0 ;i<tableHeader.length;i++){
 //			temp.add(tableHeader[i]);
