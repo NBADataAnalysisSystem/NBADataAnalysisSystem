@@ -19,8 +19,6 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.plaf.basic.BasicArrowButton;
-import javax.swing.plaf.basic.BasicComboBoxUI;
 
 import ui.component.MyTableHeaderPanel;
 import ui.component.MyTablePanel;
@@ -55,12 +53,12 @@ public class TeamInfoPanel extends JPanel {
 		this.setBounds(x, y, width, height);
 		this.setOpaque(false);
 		this.setLayout(null);
-		rowNum = 10;
+		rowNum = 12;
 		yearSelected = new String();
 		
 		typeAll = new JRadioButton("总数");
 		typeAve = new JRadioButton("平均");
-		typeAll.setBounds(0,0,width/20,height/20);
+		typeAll.setBounds(width/25,0,width/10,height/20);
 		typeAll.setFont(new Font("宋体",1, 15));
 		typeAll.setOpaque(false);
 		typeAll.setMargin(new Insets(0, 0, 0, 0));
@@ -68,7 +66,7 @@ public class TeamInfoPanel extends JPanel {
 		typeAll.setContentAreaFilled(false);
 		typeAll.setBorderPainted(false);
 //		typeAll.setFocusPainted(false);
-		typeAve.setBounds(0,0,width/20,height/20);
+		typeAve.setBounds(width/25,typeAll.getHeight(),width/10,height/20);
 		typeAve.setFont(new Font("宋体",1, 15));
 		typeAve.setOpaque(false);
 		typeAve.setMargin(new Insets(0, 0, 0, 0));
@@ -80,6 +78,8 @@ public class TeamInfoPanel extends JPanel {
 		type.add(typeAll);
 		type.add(typeAve);
 		typeAve.setSelected(true);
+		this.add(typeAll);
+		this.add(typeAve);
 		
 		setHeader();
 		table = setTableContent(header);
@@ -89,7 +89,8 @@ public class TeamInfoPanel extends JPanel {
 		this.add(year);
 		//selectTeam.setBackground(Color.decode("#FFFFFF"));//me
 		year.setFont(new Font("Serif",1, 15));
-		year.addItem("根据球队查找");
+		year.addItem("2013-2014");
+		year.addItem("2014-2015");
 		year.setEditable(false);
 		year.setOpaque(false);
 		year.setBounds(width-width/10 - 200 - 40 ,0, 200, height/15);
@@ -167,17 +168,18 @@ public class TeamInfoPanel extends JPanel {
 
 	private void setTable(int x,int y,int cellWidth,int cellHeight,String[] header,String[][] table){
 
-		headerPanel  = new MyTableHeaderPanel(1,header.length,1,header.length,cellWidth*header.length,cellHeight/2);
+		headerPanel  = new MyTableHeaderPanel(1,header.length,1,header.length,cellWidth*header.length,cellHeight);
 		tablePanel = new MyTablePanel(table.length,header.length,table.length,header.length,cellWidth*header.length,cellHeight*table.length);
 		
 		headerPanel.setContent(header);
 		tablePanel.setContent(table);
-		headerPanel.setPreferredSize(new Dimension(cellWidth*header.length,cellHeight/2));
+		headerPanel.setPreferredSize(new Dimension(cellWidth*header.length,cellHeight));
 		tablePanel.setPreferredSize(new Dimension(cellWidth*header.length,cellHeight*table.length));
 
 		sp= new JScrollPane(tablePanel);
 		sp.setColumnHeaderView(headerPanel);
-		sp.setSize(cellWidth*header.length+cellWidth/10, cellHeight*rowNum);
+		//sp.getColumnHeader().setSize(headerPanel.getWidth(), headerPanel.getHeight());
+		sp.setSize(cellWidth*header.length+cellWidth/3, cellHeight*rowNum);
 	    sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 	    sp.setOpaque(false);
 		sp.getViewport().setOpaque(false); 
@@ -192,10 +194,10 @@ public class TeamInfoPanel extends JPanel {
 					}          
 				}
 				);    
-		this.add(sp);
 		sp.setLocation(x,y);
+		this.add(sp);
 //		System.out.println(mainPanel.getHeight()*2/11);
-	//	tablePanel.setOpaque(false);
+		tablePanel.setOpaque(false);
 		headerPanel.setOpaque(false);
 		
 		ImageIcon rowIconA ;
@@ -232,7 +234,7 @@ public class TeamInfoPanel extends JPanel {
 	
 	private String[][] setTableContent(String[] header){
 		//根据header获取列表信息，其中一维表示二维所代表的分区下的球队,@Dalec Gu
-		String[][] content = new String[30][3];
+		String[][] content = new String[30][header.length];
 		
 		return content;
 	}
@@ -243,7 +245,8 @@ public class TeamInfoPanel extends JPanel {
 	test.setSize(972, 500);
 	test.setUndecorated(true);
 	TeamInfoPanel panel = new TeamInfoPanel(0,0,972,500);
-	panel.setBackground(Color.decode("#FF0000"));
+	//panel.setBackground(Color.decode("#FF0000"));
+	panel.setOpaque(false);
 //	panel.setForeground(Color.decode("#FF0000"));
 	panel.setVisible(true);
 	test.add(panel);

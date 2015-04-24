@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import ui.dlg.TeamInfoPanel;
 import ui.dlg.TeamListPanel;
 
 public class TeamFrame extends JFrame implements FrameInterface, ActionListener {
@@ -59,36 +60,37 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 	static JLabel btnChoosedLabel = new JLabel();
 	
 	TeamListPanel listPanel ;
+	TeamInfoPanel infoPanel;
 	
 	public TeamFrame(){
 		
-		backgroundPanel = new JPanel();
-		tablePanel = new JPanel();
-		mainPanel = new JPanel();
-		height = Toolkit.getDefaultToolkit().getScreenSize().height*3/4;
-		width = Toolkit.getDefaultToolkit().getScreenSize().width*3/4;
+			backgroundPanel = new JPanel();
+			tablePanel = new JPanel();
+			mainPanel = new JPanel();
+			height = Toolkit.getDefaultToolkit().getScreenSize().height*3/4;
+			width = Toolkit.getDefaultToolkit().getScreenSize().width*3/4;
 		//设置Frame原点d
-		x=(Toolkit.getDefaultToolkit().getScreenSize().width-width)/2;
-		y=(Toolkit.getDefaultToolkit().getScreenSize().height-height)/2;
-		this.setUndecorated(true);
-		this.setSize(width, height);
-		this.setLocation(x,y);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setLayout(null);
+			x=(Toolkit.getDefaultToolkit().getScreenSize().width-width)/2;
+			y=(Toolkit.getDefaultToolkit().getScreenSize().height-height)/2;
+			this.setUndecorated(true);
+			this.setSize(width, height);
+			this.setLocation(x,y);
+			this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+			this.setLayout(null);
 		
-		backgroundPanel.setSize(width,height);
-		backgroundPanel.setLayout(null);
+			backgroundPanel.setSize(width,height);
+			backgroundPanel.setLayout(null);
 
-		//设置背景图片
-		ImageIcon background ;
-		background = new ImageIcon("resource/backgroundOfTeamChecking.png");
-		background.setImage(background.getImage().getScaledInstance(backgroundPanel.getWidth(), backgroundPanel.getHeight(),Image.SCALE_DEFAULT));
+			//设置背景图片
+			ImageIcon background ;
+			background = new ImageIcon("resource/backgroundOfTeamChecking.png");
+			background.setImage(background.getImage().getScaledInstance(backgroundPanel.getWidth(), backgroundPanel.getHeight(),Image.SCALE_DEFAULT));
 		
-		JLabel placeBackgroundIcon = new JLabel();
-		placeBackgroundIcon.setIcon(background);
-		placeBackgroundIcon.setBounds(0, 0,backgroundPanel.getWidth() , backgroundPanel.getHeight());
-		placeBackgroundIcon.setOpaque(false);
-
+			JLabel placeBackgroundIcon = new JLabel();
+			placeBackgroundIcon.setIcon(background);
+			placeBackgroundIcon.setBounds(0, 0,backgroundPanel.getWidth() , backgroundPanel.getHeight());
+			placeBackgroundIcon.setOpaque(false);
+		
 		      setBtnPanel();
 		      
 		      //设置主要界面容器
@@ -109,6 +111,7 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 		      
 
 		      //TODO
+				infoPanel = new TeamInfoPanel(mainPanel.getWidth()/30,mainPanel.getHeight()/30,mainPanel.getWidth()*14/15,mainPanel.getHeight()*14/15);
 				listPanel = new TeamListPanel(mainPanel.getWidth()/30,mainPanel.getHeight()/30,mainPanel.getWidth()*14/15,mainPanel.getHeight()*14/15);
 		      
 
@@ -290,8 +293,9 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 					public void run(){
 						btnChoosedLabel.setBounds(btn_TeamList.getX(), btn_TeamList.getY(),120 , 30);
 						btnUnchoosedLabel.setBounds(btn_TeamInfo.getX(), btn_TeamInfo.getY(),120 , 30);
-					//	mainPanel.remove(comp);
+						mainPanel.remove(infoPanel);
 						mainPanel.add(listPanel,0);
+						mainPanel.repaint();
 					}
 				});
 			}else if("teamInfo".equals(name)){
@@ -299,6 +303,10 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 					public void run(){
 						btnUnchoosedLabel.setBounds(btn_TeamList.getX(), btn_TeamList.getY(),120 , 30);
 						btnChoosedLabel.setBounds(btn_TeamInfo.getX(), btn_TeamInfo.getY(),120 , 30);
+						mainPanel.remove(listPanel);
+						mainPanel.add(infoPanel,0);
+						
+						mainPanel.repaint();
 					//	setSeasonPanel();
 					}
 				});
