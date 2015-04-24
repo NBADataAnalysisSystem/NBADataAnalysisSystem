@@ -296,7 +296,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		
 		sp.setLocation((tablePanel.getWidth()-sp.getWidth())/2, (tablePanel.getHeight()-sp.getHeight())/2);
 		tablePanel.setLocation(0,mainPanel.getHeight()*2/11);
-		System.out.println(mainPanel.getHeight()*2/11);
+//		System.out.println(mainPanel.getHeight()*2/11);
 		tablePanel.setOpaque(false);
 		tableHeaderList.setOpaque(false);
 		
