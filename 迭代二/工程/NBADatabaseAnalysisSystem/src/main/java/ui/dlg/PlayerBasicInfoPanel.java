@@ -78,11 +78,11 @@ public class PlayerBasicInfoPanel extends JPanel{
 			        		
 			        		panel.add(btnChoosedLabel);
 			        		btnChoosedLabel.setBounds(tempBtn.getX(), tempBtn.getY(), tempBtn.getWidth(), tempBtn.getHeight());
+			        		selectPosition.setSelectedItem("根据位置查找");
+			        		selectTeam.setSelectedItem("根据球队查找");
 			        		sift[0] = tempBtn.getText();
 			        		sift[1] = null;
 			        		sift[2] = null;
-			        		selectPosition.setSelectedItem("根据位置查找");
-			        		selectTeam.setSelectedItem("根据球队查找");
 			        		frame.refreshData();
 		        		}
 					}
