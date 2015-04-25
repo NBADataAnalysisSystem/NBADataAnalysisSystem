@@ -101,7 +101,7 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 	}
 
 	//获取球员赛季数据-总数
-	public ArrayList<Map<PlayerEntity, String>> getPlayerSeasonTotalInfo() {
+	public ArrayList<Map<PlayerEntity, String>> getPlayerSeasonTotalInfo(String[] sift) {
 		ArrayList<PlayerEntity> columnList = new ArrayList<PlayerEntity>();
 		columnList.add(PlayerEntity.ID);
 		columnList.add(PlayerEntity.PLAYER_NAME);
@@ -122,22 +122,39 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 		columnList.add(PlayerEntity.FOULS);
 		columnList.add(PlayerEntity.SCORE);
 		//columnList是所有需要查找的属性构成的数组
-		String columnsToSearch = "";
 		PlayerEnumToField translation = new PlayerEnumToField();
 		ArrayList<String> columnStrList = new ArrayList<String>();
 		for (PlayerEntity playerEntity:columnList) {
 			String temp = translation.translate(playerEntity);
-			columnsToSearch = columnsToSearch + temp + ",";
 			columnStrList.add(temp);
 		}
-		columnsToSearch = columnsToSearch.substring(0, columnsToSearch.length()-1);
+		String columnsToSearch = "p.id,p.player_name,t4.fn,t1.dmi,t1.sis,t1.sr,t1.sa,"
+				+ "t1.spt,round(1.0*t1.ssing/t1.ss,2),round(1.0*stpsing/stps,2),"
+				+ "round(1.0*sftsing/sfts,2),t1.sor,t1.sdr,t1.sst,t1.sbs,t1.sto,t1.sfo,t1.ssc";
 		Statement statement = null;
 		ResultSet resultSet = null;
 		ArrayList<Map<PlayerEntity, String>> result = new ArrayList<Map<PlayerEntity, String>>();
 		try {
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(
-					"SELECT " + columnsToSearch + " FROM players");
+					"SELECT " + columnsToSearch + " FROM players as p ,(select player_id pi,count(distinct match_id) as dmi, "
+							+ "sum(is_start) as sis,sum(rebounds) as sr,sum(assists) as sa, "
+							+ "sum(presence_time)/60 as spt,sum(shootings) as ssing, "
+							+ "sum(shots) as ss,sum(three_point_shootings) as stpsing, "
+							+ "sum(three_point_shots) as stps,sum(free_throw_shootings) as sftsing, "
+							+ "sum(free_throw_shots) as sfts, sum(offensive_rebounds) as sor, "
+							+ "sum(defensive_rebounds) as sdr, sum(steals) as sst, "
+							+ "sum(block_shots) as sbs,sum(turn_overs) as sto,sum(fouls) as sfo, "
+							+ "sum(score) as ssc "
+							+ "from player_match_performance "
+							+ "group by pi) as t1, "
+							+ "(select pi,fn "
+							+ "from (select player_id pi,full_name fn,date_of_match dom "
+							+ "from player_match_performance p,teams t,matches m "
+							+ "where t.id = p.team_id and p.match_id = m.id) as t3 "
+							+ "group by pi "
+							+ "having dom=max(dom)) as t4 "
+							+ "where t1.pi = p.id and p.position like '%C%' and t4.pi=p.id;");
 			while (resultSet.next()) {
 				Map<PlayerEntity, String> map = new HashMap<PlayerEntity, String>();
 				for (String string:columnStrList) {
@@ -154,7 +171,7 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 	}
 	
 	//获取球员赛季数据-场均
-	public ArrayList<Map<PlayerEntity, String>> getPlayerSeasonAvgInfo() {
+	public ArrayList<Map<PlayerEntity, String>> getPlayerSeasonAvgInfo(String[] sift) {
 		ArrayList<PlayerEntity> columnList = new ArrayList<PlayerEntity>();
 		columnList.add(PlayerEntity.ID);
 		columnList.add(PlayerEntity.PLAYER_NAME);

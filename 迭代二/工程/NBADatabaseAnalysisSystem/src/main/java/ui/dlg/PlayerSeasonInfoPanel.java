@@ -204,7 +204,7 @@ public class PlayerSeasonInfoPanel extends JPanel{
 	
 	protected void changeInfo() {
 		// TODO Auto-generated method stub
-		
+		frame.refreshData();
 	}
 
 	public void addTeamList(ArrayList<String> team){

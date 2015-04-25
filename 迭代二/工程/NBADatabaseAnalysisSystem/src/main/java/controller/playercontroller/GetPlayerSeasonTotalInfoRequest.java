@@ -2,16 +2,16 @@ package controller.playercontroller;
 
 import controller.controller.Request;
 
-public class GetPlayerBasicInfoRequest implements Request {
+public class GetPlayerSeasonTotalInfoRequest implements Request {
 	
 	private String[] sift;
 	
-	public GetPlayerBasicInfoRequest(String[] sift) {
+	public GetPlayerSeasonTotalInfoRequest(String[] sift) {
 		this.sift = sift;
 	}
 	
 	public String getName() {
-		return "GetPlayerBasicInfo";
+		return "GetPlayerSeasonTotalInfo";
 	}
 
 	public String[] getSift() {

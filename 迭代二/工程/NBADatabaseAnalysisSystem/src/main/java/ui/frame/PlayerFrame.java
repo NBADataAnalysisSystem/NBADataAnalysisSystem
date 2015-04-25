@@ -30,8 +30,12 @@ import javax.swing.SwingUtilities;
 
 
 
+
+
 import controller.playercontroller.GetPlayerBasicInfoRequest;
 import controller.playercontroller.GetPlayerBasicInfoResponse;
+import controller.playercontroller.GetPlayerSeasonTotalInfoRequest;
+import controller.playercontroller.GetPlayerSeasonTotalInfoResponse;
 import controller.playercontroller.PlayerController;
 import entity.PlayerEntity;
 import entity.PlayerInfoType;
@@ -443,8 +447,8 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		seasonPanel.setList();
 		ArrayList<String> temp = seasonPanel.getList();
 		this.setList(temp);
-		setTableContent(tableHeader,new String[0][]);//TODO 暂用
-		//refreshData();//TODO 数据连接好后使用这个
+		//setTableContent(tableHeader,new String[0][]);//TODO 暂用
+		refreshData();//TODO 数据连接好后使用这个
 //		AWTUtilities.setWindowOpacity(this, 0.5f);
 //		AdditionOfPlayerInfo addition = new AdditionOfPlayerInfo(this);
 //		addition.setPlayerFrame(this);
@@ -487,6 +491,23 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		case PLAYER_SEASON_AVG_INFO:
 			break;
 		case PLAYER_SEASON_TOTAL_INFO:
+			controller = new PlayerController();
+			translation = new PlayerHeaderToEnum();
+			GetPlayerSeasonTotalInfoResponse getPlayerSeasonTotalInfoResponse = (
+					GetPlayerSeasonTotalInfoResponse) controller.processRequest(
+					new GetPlayerSeasonTotalInfoRequest(playerPanel.getSift()));
+			tempList = getPlayerSeasonTotalInfoResponse.getList();
+			tableContent = new String[tempList.size()][tableHeader.length];
+			i = 0;
+			for (Map<PlayerEntity, String> map:tempList) {
+				int j = 0;
+				for (String string:tableHeader) {
+					tableContent[i][j] = map.get(translation.translate(string));
+					j++;
+				}
+				i++;
+			}
+			setTableContent(tableHeader,tableContent);
 			break;
 		default:
 			break;
