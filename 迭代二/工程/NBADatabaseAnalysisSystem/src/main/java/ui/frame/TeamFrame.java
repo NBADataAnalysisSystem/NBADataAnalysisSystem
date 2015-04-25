@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import ui.dlg.TeamAdvancedPanel;
 import ui.dlg.TeamInfoPanel;
 import ui.dlg.TeamListPanel;
 
@@ -46,6 +47,7 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 	
 	private JButton btn_TeamList;
 	private JButton btn_TeamInfo;
+	private JButton btn_TeamAdvanced;
 	@SuppressWarnings("unused")
 	private JButton btn_close;
 	@SuppressWarnings("unused")
@@ -57,9 +59,10 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 	
 	static JLabel btnUnchoosedLabel = new JLabel();
 	static JLabel btnChoosedLabel = new JLabel();
-	
+	static JLabel btnUnchoosedLabel1 = new JLabel();
 	TeamListPanel listPanel ;
 	TeamInfoPanel infoPanel;
+	TeamAdvancedPanel advancedPanel;
 	
 	public TeamFrame(){
 		
@@ -111,7 +114,7 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 		      //TODO
 				infoPanel = new TeamInfoPanel(mainPanel.getWidth()/30,mainPanel.getHeight()/30,mainPanel.getWidth()*14/15,mainPanel.getHeight()*14/15);
 				listPanel = new TeamListPanel(mainPanel.getWidth()/30,mainPanel.getHeight()/30,mainPanel.getWidth()*14/15,mainPanel.getHeight()*14/15);
-		      
+				advancedPanel = new TeamAdvancedPanel(mainPanel.getWidth()/30,mainPanel.getHeight()/30,mainPanel.getWidth()*14/15,mainPanel.getHeight()*14/15);
 
 		      backgroundPanel.add(btnPanel);
 		      backgroundPanel.add(mainPanel);
@@ -176,13 +179,15 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 		btnPanel.add(btn_TeamList);
 		btnPanel.add(btnChoosedLabel);
 		btn_TeamList.setBounds(mainPanel.getX()+50,btnPanel.getHeight()-30,120,30);
-		btnChoosedLabel.setBounds(btn_TeamList.getX(), btn_TeamList.getY(),120 , 30);
 		//
 		btnUnchoosedIcon = new ImageIcon("resource/BtnUnChoosed.png");
 		btnUnchoosedIcon.setImage(btnUnchoosedIcon.getImage().getScaledInstance(120, 30,Image.SCALE_DEFAULT));
 		
 		btnUnchoosedLabel.setIcon(btnUnchoosedIcon);
 		btnUnchoosedLabel.setOpaque(false);
+		
+		btnUnchoosedLabel1.setIcon(btnUnchoosedIcon);
+		btnUnchoosedLabel1.setOpaque(false);
 		
 		btn_TeamInfo= new JButton("球队数据");
 		btn_TeamInfo.setName("teamInfo");
@@ -196,6 +201,22 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 		btnPanel.add(btn_TeamInfo);
 		btnPanel.add(btnUnchoosedLabel);
 		btn_TeamInfo.setBounds(btn_TeamList.getWidth()+btn_TeamList.getX()+20,(btnPanel.getHeight())-30,120,30);
+		
+		btn_TeamAdvanced= new JButton("高级球队数据");
+		btn_TeamAdvanced.setName("teamAdvanced");
+		btn_TeamAdvanced.addActionListener(this);
+
+		btn_TeamAdvanced.setContentAreaFilled(false);
+		btn_TeamAdvanced.setForeground(Color.decode("#FF0000"));
+		btn_TeamAdvanced.setFont(new Font("宋体",1, 13));//设置字体
+		btn_TeamAdvanced.setBorderPainted(false);
+		btn_TeamAdvanced.setFocusPainted(false);
+		btnPanel.add(btn_TeamAdvanced);
+		btnPanel.add(btnUnchoosedLabel1);
+		btn_TeamAdvanced.setBounds(btn_TeamList.getWidth()*2+btn_TeamList.getX()+40,(btnPanel.getHeight())-30,120,30);
+
+		btnUnchoosedLabel1.setBounds(btn_TeamAdvanced.getX(), btn_TeamAdvanced.getY(),120 , 30);
+		btnChoosedLabel.setBounds(btn_TeamList.getX(), btn_TeamList.getY(),120 , 30);
 		btnUnchoosedLabel.setBounds(btn_TeamInfo.getX(), btn_TeamInfo.getY(),120 , 30);
 		
 		JButton btn_Close = new JButton("×");
@@ -291,8 +312,11 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 					public void run(){
 						btnChoosedLabel.setBounds(btn_TeamList.getX(), btn_TeamList.getY(),120 , 30);
 						btnUnchoosedLabel.setBounds(btn_TeamInfo.getX(), btn_TeamInfo.getY(),120 , 30);
+						btnUnchoosedLabel1.setBounds(btn_TeamAdvanced.getX(), btn_TeamAdvanced.getY(),120 , 30);
 						mainPanel.remove(infoPanel);
+						mainPanel.remove(advancedPanel);
 						mainPanel.add(listPanel,0);
+						mainPanel.validate();
 						mainPanel.repaint();
 					}
 				});
@@ -301,8 +325,28 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 					public void run(){
 						btnUnchoosedLabel.setBounds(btn_TeamList.getX(), btn_TeamList.getY(),120 , 30);
 						btnChoosedLabel.setBounds(btn_TeamInfo.getX(), btn_TeamInfo.getY(),120 , 30);
+						btnUnchoosedLabel1.setBounds(btn_TeamAdvanced.getX(), btn_TeamAdvanced.getY(),120 , 30);
+						btnPanel.setComponentZOrder(btnChoosedLabel, 1);
+						btnPanel.setComponentZOrder(btn_TeamInfo, 0);
 						mainPanel.remove(listPanel);
+						mainPanel.remove(advancedPanel);
 						mainPanel.add(infoPanel,0);
+						mainPanel.validate();
+						mainPanel.repaint();
+					//	setSeasonPanel();
+					}
+				});
+			}else if("teamAdvanced".equals(name)){
+				SwingUtilities.invokeLater(new Runnable(){
+					public void run(){
+						btnUnchoosedLabel1.setBounds(btn_TeamInfo.getX(), btn_TeamInfo.getY(),120 , 30);
+						btnUnchoosedLabel.setBounds(btn_TeamList.getX(), btn_TeamList.getY(),120 , 30);
+						btnChoosedLabel.setBounds(btn_TeamAdvanced.getX(), btn_TeamAdvanced.getY(),120 , 30);
+						btnPanel.setComponentZOrder(btnChoosedLabel, 1);
+						btnPanel.setComponentZOrder(btn_TeamAdvanced, 0);
+						mainPanel.remove(listPanel);
+						mainPanel.remove(infoPanel);
+						mainPanel.add(advancedPanel,0);
 						mainPanel.validate();
 						mainPanel.repaint();
 					//	setSeasonPanel();
