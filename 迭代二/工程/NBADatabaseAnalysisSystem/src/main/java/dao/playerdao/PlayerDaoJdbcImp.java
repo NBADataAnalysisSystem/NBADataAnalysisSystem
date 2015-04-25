@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 import entity.PlayerEntity;
 
 public class PlayerDaoJdbcImp implements PlayerDao {
@@ -197,6 +198,30 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 					map.put(translation.reverseTranslate(string), resultSet.getString(string));
 				}
 				result.add(map);
+			}
+			statement.close();
+		} catch (SQLException e) {
+			System.out.println("SQL错误");
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public ArrayList<String> getTeamList() {
+		Statement statement = null;
+		ResultSet resultSet = null;
+		ArrayList<String> result = new ArrayList<String>();
+		try {
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(
+					"select fn "
+					+ "from (select player_id pi,full_name fn,date_of_match dom "
+					+ "from player_match_performance p,teams t,matches m "
+					+ "where t.id = p.team_id and p.match_id = m.id) as t3 "
+					+ "group by fn "
+					+ "having dom=max(dom)");
+			while (resultSet.next()) {
+				result.add(resultSet.getString("fn"));
 			}
 			statement.close();
 		} catch (SQLException e) {

@@ -20,6 +20,9 @@ import javax.swing.UIManager;
 import javax.swing.plaf.basic.BasicArrowButton;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 
+import controller.playercontroller.GetTeamListRequest;
+import controller.playercontroller.GetTeamListResponse;
+import controller.playercontroller.PlayerController;
 import ui.frame.PlayerFrame;
 
 @SuppressWarnings("serial")
@@ -128,6 +131,14 @@ public class PlayerBasicInfoPanel extends JPanel{
 		//selectTeam.setBackground(Color.decode("#FFFFFF"));//me
 		selectTeam.setFont(new Font("Serif",1, 15));
 		selectTeam.addItem("根据球队查找");
+		
+		PlayerController controller = new PlayerController();
+		GetTeamListResponse response = (GetTeamListResponse) controller.processRequest(
+				new GetTeamListRequest());
+		for (String string:response.getList()) {
+			selectTeam.addItem(string);
+		}
+		
 		selectTeam.setEditable(false);
 		selectTeam.setOpaque(false);
 		selectTeam.setBounds(30 , (width - 40)/26+10, 200, (width - 40)/26);
