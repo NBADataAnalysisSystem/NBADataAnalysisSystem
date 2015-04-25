@@ -33,7 +33,7 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 		//sift[2] 位置筛选
 		String condition = "";
 		if (sift[1]!=null) {
-			condition = " team = '" + sift[1] + "' ";
+			condition = " fn = '" + sift[1] + "' ";
 		} else if (sift[2]!=null) {
 			condition = " position like '%" + sift[2] + "%' ";
 		} else if (sift[0]!=null) {

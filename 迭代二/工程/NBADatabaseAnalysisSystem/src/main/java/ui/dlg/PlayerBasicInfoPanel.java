@@ -79,6 +79,10 @@ public class PlayerBasicInfoPanel extends JPanel{
 			        		panel.add(btnChoosedLabel);
 			        		btnChoosedLabel.setBounds(tempBtn.getX(), tempBtn.getY(), tempBtn.getWidth(), tempBtn.getHeight());
 			        		sift[0] = tempBtn.getText();
+			        		sift[1] = null;
+			        		sift[2] = null;
+			        		selectPosition.setSelectedItem("根据位置查找");
+			        		selectTeam.setSelectedItem("根据球队查找");
 			        		frame.refreshData();
 		        		}
 					}
@@ -163,7 +167,10 @@ public class PlayerBasicInfoPanel extends JPanel{
 
 		selectTeam.addItemListener(new ItemListener(){
 		    public void itemStateChanged(ItemEvent arg0) {
-		    	sift[2] = selectTeam.getSelectedItem().toString();
+		    	sift[0] = null;
+		    	sift[1] = selectTeam.getSelectedItem().toString();
+		    	sift[2] = null;
+        		selectPosition.setSelectedItem("根据位置查找");
 				frame.refreshData();
 		    }   
 		});
@@ -210,7 +217,10 @@ public class PlayerBasicInfoPanel extends JPanel{
 		
 		selectPosition.addItemListener(new ItemListener(){
 		    public void itemStateChanged(ItemEvent arg0) {
+		    	sift[0] = null;
+		    	sift[1] = null;
 		    	sift[2] = selectPosition.getSelectedItem().toString();
+        		selectTeam.setSelectedItem("根据球队查找");
 				frame.refreshData();
 		    }   
 		});
