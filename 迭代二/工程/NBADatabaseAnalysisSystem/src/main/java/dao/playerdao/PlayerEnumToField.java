@@ -37,6 +37,22 @@ public class PlayerEnumToField {
 		map.put(PlayerEntity.SCHOOL, "school");
 		//所属球队
 		map.put(PlayerEntity.TEAM, "fn");
+		
+		map.put(PlayerEntity.NUM_OF_MATCH, "num_of_match");
+		map.put(PlayerEntity.NUM_OF_START, "num_of_start");
+		map.put(PlayerEntity.REBOUNDS, "rebounds");
+		map.put(PlayerEntity.ASSISTS, "assists");
+		map.put(PlayerEntity.PRESENCE_TIME, "presence_time");
+		map.put(PlayerEntity.SHOOTING_PERSENTAGE, "shooting_persentage");
+		map.put(PlayerEntity.THREE_POINT_SHOOTING_PERSENTAGE, "three_point_shooting_persentage");
+		map.put(PlayerEntity.FREE_THROW_SHOOTING_PERSENTAGE, "free_throw_shooting_persentage");
+		map.put(PlayerEntity.OFFENCES, "offences");
+		map.put(PlayerEntity.DEFENCES, "defences");
+		map.put(PlayerEntity.STEALS, "steals");
+		map.put(PlayerEntity.BLOCK_SHOTS, "block_shots");
+		map.put(PlayerEntity.TURN_OVERS, "turn_overs");
+		map.put(PlayerEntity.FOULS, "fouls");
+		map.put(PlayerEntity.SCORE, "score");
 	}
 	
 	public String translate(PlayerEntity playerEntity) {

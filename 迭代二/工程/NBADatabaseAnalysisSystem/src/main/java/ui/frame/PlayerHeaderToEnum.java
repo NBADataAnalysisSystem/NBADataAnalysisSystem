@@ -37,6 +37,23 @@ public class PlayerHeaderToEnum {
 		map.put("学校", PlayerEntity.SCHOOL);
 		//所属球队
 		map.put("球队", PlayerEntity.TEAM);
+		
+		//赛季总数据
+		map.put("场数", PlayerEntity.NUM_OF_MATCH);
+		map.put("先发", PlayerEntity.NUM_OF_START);
+		map.put("篮板", PlayerEntity.REBOUNDS);
+		map.put("助攻", PlayerEntity.ASSISTS);
+		map.put("分钟", PlayerEntity.PRESENCE_TIME);
+		map.put("%", PlayerEntity.SHOOTING_PERSENTAGE);
+		map.put("三分%", PlayerEntity.THREE_POINT_SHOOTING_PERSENTAGE);
+		map.put("罚球%", PlayerEntity.FREE_THROW_SHOOTING_PERSENTAGE);
+		map.put("进攻", PlayerEntity.OFFENCES);
+		map.put("防守", PlayerEntity.DEFENCES);
+		map.put("抢断", PlayerEntity.STEALS);
+		map.put("盖帽", PlayerEntity.BLOCK_SHOTS);
+		map.put("失误", PlayerEntity.TURN_OVERS);
+		map.put("犯规", PlayerEntity.FOULS);
+		map.put("得分", PlayerEntity.SCORE);
 	}
 	
 	public PlayerEntity translate(String string) {

@@ -157,8 +157,10 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 							+ "where t1.pi = p.id and p.position like '%C%' and t4.pi=p.id;");
 			while (resultSet.next()) {
 				Map<PlayerEntity, String> map = new HashMap<PlayerEntity, String>();
+				int i = 1;
 				for (String string:columnStrList) {
-					map.put(translation.reverseTranslate(string), resultSet.getString(string));
+					map.put(translation.reverseTranslate(string), resultSet.getString(i));
+					i++;
 				}
 				result.add(map);
 			}
