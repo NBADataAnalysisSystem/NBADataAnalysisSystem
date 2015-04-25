@@ -10,7 +10,6 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -19,6 +18,7 @@ import javax.swing.ScrollPaneConstants;
 import ui.component.MyTableHeaderPanel;
 import ui.component.MyTablePanel;
 
+@SuppressWarnings("serial")
 public class TeamListPanel extends JPanel {
 	int x;
 	int y;
@@ -45,7 +45,6 @@ public class TeamListPanel extends JPanel {
 		this.width = widthn;
 		this.height = heightn;
 		this.setBounds(x, y, width, height);
-		this.setOpaque(false);
 		this.setLayout(null);
 		rowNum = 4;
 		
@@ -188,17 +187,17 @@ public class TeamListPanel extends JPanel {
 	
 	private void setTable(int x,int y,int cellWidth,int cellHeight,String[] header,String[][] table){
 
-		headerPanel  = new MyTableHeaderPanel(1,header.length,1,header.length,cellWidth*3,cellHeight);
+		headerPanel  = new MyTableHeaderPanel(1,header.length,1,header.length,cellWidth*3,cellHeight/2);
 		tablePanel = new MyTablePanel(table.length,header.length,table.length,header.length,cellWidth*3,cellHeight*table.length);
 		
 		headerPanel.setContent(header);
 		tablePanel.setContent(table);
-		headerPanel.setPreferredSize(new Dimension(cellWidth*3,cellHeight));
+		headerPanel.setPreferredSize(new Dimension(cellWidth*3,cellHeight/2));
 		tablePanel.setPreferredSize(new Dimension(cellWidth*3,cellHeight*table.length));
 
 		sp= new JScrollPane(tablePanel);
 		sp.setColumnHeaderView(headerPanel);
-		sp.setSize(cellWidth*3, cellHeight*rowNum);
+		sp.setSize(cellWidth*3+cellWidth/15, cellHeight*rowNum);
 	    sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 	    sp.setOpaque(false);
 		sp.getViewport().setOpaque(false); 
@@ -250,22 +249,22 @@ public class TeamListPanel extends JPanel {
 		return content;
 	}
 
-	public static void main(String [] args){
-	
-	JFrame test = new JFrame();
-	test.setSize(972, 500);
-	test.setUndecorated(true);
-	TeamListPanel panel = new TeamListPanel(0,0,972,500);
-	panel.setBackground(Color.decode("#FF0000"));
-//	panel.setForeground(Color.decode("#FF0000"));
-	panel.setVisible(true);
-	test.add(panel);
-	test.setVisible(true);
-	
-	
+//	public static void main(String [] args){
+//	
+//	JFrame test = new JFrame();
+//	test.setSize(972, 500);
+//	test.setUndecorated(true);
+//	TeamListPanel panel = new TeamListPanel(0,0,972,500);
+//	panel.setBackground(Color.decode("#FF0000"));
+////	panel.setForeground(Color.decode("#FF0000"));
+//	panel.setVisible(true);
+//	test.add(panel);
+//	test.setVisible(true);
 	
 	
 	
 	
-}
+	
+	
+//}
 }

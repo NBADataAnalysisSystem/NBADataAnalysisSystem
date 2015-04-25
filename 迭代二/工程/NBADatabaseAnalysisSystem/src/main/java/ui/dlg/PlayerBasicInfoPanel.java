@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -39,6 +41,8 @@ public class PlayerBasicInfoPanel extends JPanel{
 	
 	public PlayerBasicInfoPanel(int x,int y,int width,int height){
 		
+		sift[0] = "A";
+		
 		UIManager.put("ComboBox.background", new Color(0,0,0,0));//me
 		
 		this.x = x;
@@ -72,7 +76,7 @@ public class PlayerBasicInfoPanel extends JPanel{
 			        		panel.add(btnChoosedLabel);
 			        		btnChoosedLabel.setBounds(tempBtn.getX(), tempBtn.getY(), tempBtn.getWidth(), tempBtn.getHeight());
 			        		sift[0] = tempBtn.getText();
-			        		sift();
+			        		frame.refreshData();
 		        		}
 					}
 		            public void mouseEntered(MouseEvent e){
@@ -145,17 +149,23 @@ public class PlayerBasicInfoPanel extends JPanel{
 				return temp;
 			}
 		});//me
-		
-		selectTeam.addMouseListener(       new MouseAdapter(){
-			
-			public void mouseClicked(MouseEvent e){
-					if(selectTeam.getSelectedItem().toString().equals("根据球队查找") == false){
-						sift[1] = selectTeam.getSelectedItem().toString();
-						sift();
-					}
-				}
-			}
-		);
+
+		selectTeam.addItemListener(new ItemListener(){
+		    public void itemStateChanged(ItemEvent arg0) {
+		    	sift[2] = selectTeam.getSelectedItem().toString();
+				frame.refreshData();
+		    }   
+		});
+//		selectTeam.addMouseListener(       new MouseAdapter(){
+//			
+//			public void mouseClicked(MouseEvent e){
+//					if(selectTeam.getSelectedItem().toString().equals("根据球队查找") == false){
+//						sift[1] = selectTeam.getSelectedItem().toString();
+//						frame.refreshData();
+//					}
+//				}
+//			}
+//		);
 		
 		selectPosition = new JComboBox<String>();
 		this.add(selectPosition);
@@ -186,16 +196,24 @@ public class PlayerBasicInfoPanel extends JPanel{
 				return temp;
 			}
 		});//me
-		selectPosition.addMouseListener(       new MouseAdapter(){
-			
-			public void mouseClicked(MouseEvent e){
-					if(selectPosition.getSelectedItem().toString().equals("根据位置查找") == false){
-						sift[2] = selectPosition.getSelectedItem().toString();
-						sift();
-					}
-				}
-			}
-		);
+		
+		selectPosition.addItemListener(new ItemListener(){
+		    public void itemStateChanged(ItemEvent arg0) {
+		    	sift[2] = selectPosition.getSelectedItem().toString();
+				frame.refreshData();
+		    }   
+		});
+
+//		selectPosition.addMouseListener(       new MouseAdapter(){
+//			
+//			public void mouseClicked(MouseEvent e){
+//					if(selectPosition.getSelectedItem().toString().equals("根据位置查找") == false){
+//						sift[2] = selectPosition.getSelectedItem().toString();
+//						frame.refreshData();
+//					}
+//				}
+//			}
+//		);
 		
 		this.setLayout(null);
 	}
@@ -243,8 +261,9 @@ public class PlayerBasicInfoPanel extends JPanel{
 		return infoToShow;
 	}
 	
-	public void sift(){
+	public String[] getSift(){
 		//根据sift[]对表格进行处理，sift[0]为首字母，sift[1]为球队，sift[2]为位置
+		return sift;
 	}
 	
 

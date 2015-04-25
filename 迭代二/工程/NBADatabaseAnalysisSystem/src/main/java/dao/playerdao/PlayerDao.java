@@ -7,7 +7,9 @@ import entity.PlayerEntity;
 
 public interface PlayerDao {
 
-	public ArrayList<Map<PlayerEntity, String>> getPlayerInfo(PlayerInfoType type);
+	public ArrayList<Map<PlayerEntity, String>> getPlayerBasicInfo(String[] sift);
+	public ArrayList<Map<PlayerEntity, String>> getPlayerSeasonTotalInfo();
+	public ArrayList<Map<PlayerEntity, String>> getPlayerSeasonAvgInfo();
 	public void close();
 	
 }

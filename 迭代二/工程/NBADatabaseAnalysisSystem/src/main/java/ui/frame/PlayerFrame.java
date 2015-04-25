@@ -29,11 +29,12 @@ import javax.swing.SwingUtilities;
 
 
 
-import controller.playercontroller.GetPlayerRequest;
-import controller.playercontroller.GetPlayerResponse;
+
+import controller.playercontroller.GetPlayerBasicInfoRequest;
+import controller.playercontroller.GetPlayerBasicInfoResponse;
 import controller.playercontroller.PlayerController;
-import dao.playerdao.PlayerInfoType;
 import entity.PlayerEntity;
+import entity.PlayerInfoType;
 import ui.component.MyTableHeaderPanel;
 import ui.component.MyTablePanel;
 import ui.dlg.PlayerBasicInfoPanel;
@@ -87,7 +88,12 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 	PlayerBasicInfoPanel playerPanel;
 	PlayerSeasonInfoPanel seasonPanel;
 	
+	//标签标记
+	PlayerInfoType playerInfoType;
+	
 	public PlayerFrame(){
+		
+		playerInfoType = PlayerInfoType.PLAYER_BASIC_INFO;
 		
 		backgroundPanel = new JPanel();
 		tablePanel = new JPanel();
@@ -181,7 +187,6 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 			            }          
 			          }
 			      );    
-		      
 	}
 	//设置主要按钮
 	public void setBtnPanel() {
@@ -388,7 +393,6 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 //设置表头内容，根据自定义中传输的数据设定
 	public void setList(ArrayList<String> list) {
 		temp.removeAll(temp);
-		temp.add("ID");
 		temp.add("名字");
 //		for(int i = 0 ;i<tableHeader.length;i++){
 //			temp.add(tableHeader[i]);
@@ -461,22 +465,32 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 	public void refreshData() {
 		//TODO
 		//传入表格数据,以下30为传入数据行数，根据tableHeader获取数据后更改大小及具体数值（可自己建立ArrayList暂时存储数据，可能较为方便）
-		PlayerController controller = new PlayerController();
-		PlayerHeaderToEnum translation = new PlayerHeaderToEnum();
-		GetPlayerResponse response = (GetPlayerResponse) controller.processRequest(
-				new GetPlayerRequest(PlayerInfoType.PLAYER_BASIC_INFO));
-		ArrayList<Map<PlayerEntity, String>> tempList = response.getList();
-		tableContent = new String[tempList.size()][tableHeader.length];
-		int i = 0;
-		for (Map<PlayerEntity, String> map:tempList) {
-			int j = 0;
-			for (String string:tableHeader) {
-				tableContent[i][j] = map.get(translation.translate(string));
-				j++;
+		switch (playerInfoType) {
+		case PLAYER_BASIC_INFO:
+			PlayerController controller = new PlayerController();
+			PlayerHeaderToEnum translation = new PlayerHeaderToEnum();
+			GetPlayerBasicInfoResponse response = (GetPlayerBasicInfoResponse) controller.processRequest(
+					new GetPlayerBasicInfoRequest(playerPanel.getSift()));
+			ArrayList<Map<PlayerEntity, String>> tempList = response.getList();
+			tableContent = new String[tempList.size()][tableHeader.length];
+			int i = 0;
+			for (Map<PlayerEntity, String> map:tempList) {
+				int j = 0;
+				for (String string:tableHeader) {
+					tableContent[i][j] = map.get(translation.translate(string));
+					j++;
+				}
+				i++;
 			}
-			i++;
+			setTableContent(tableHeader,tableContent);
+			break;
+		case PLAYER_SEASON_AVG_INFO:
+			break;
+		case PLAYER_SEASON_TOTAL_INFO:
+			break;
+		default:
+			break;
 		}
-		setTableContent(tableHeader,tableContent);
 	}
 
 	public JLabel setLabelIcon(Icon icon) {
@@ -495,19 +509,23 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 			JButton btn = (JButton)e.getSource();
 			String name = btn.getName();
 			if("player".equals(name)){
+				playerInfoType = PlayerInfoType.PLAYER_BASIC_INFO;
 				SwingUtilities.invokeLater(new Runnable(){
 					public void run(){
 						btnChoosedLabel.setBounds(btn_Player.getX(), btn_Player.getY(),120 , 30);
 						btnUnchoosedLabel.setBounds(btn_Season.getX(), btn_Season.getY(),120 , 30);
 						setPlayerPanel();
+						mainPanel.repaint();
 					}
 				});
 			}else if("season".equals(name)){
+				playerInfoType = PlayerInfoType.PLAYER_SEASON_TOTAL_INFO;
 				SwingUtilities.invokeLater(new Runnable(){
 					public void run(){
 						btnUnchoosedLabel.setBounds(btn_Player.getX(), btn_Player.getY(),120 , 30);
 						btnChoosedLabel.setBounds(btn_Season.getX(), btn_Season.getY(),120 , 30);
 						setSeasonPanel();
+						mainPanel.repaint();
 					}
 				});
 			}else if("close".equals(name)){

@@ -7,7 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 import entity.PlayerEntity;
 
 public class PlayerDaoJdbcImp implements PlayerDao {
@@ -26,21 +25,19 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 			e.printStackTrace();
 		}
     }
-
-	public ArrayList<Map<PlayerEntity, String>> getPlayerInfo(PlayerInfoType type) {
-		switch (type) {
-		case PLAYER_BASIC_INFO:
-			return getPlayerBasicInfo();
-		case PLAYER_SEASON_TOTAL_INFO:
-			return getPlayerSeasonTotalInfo();
-		case PLAYER_SEASON_AVG_INFO:
-			return getPlayerSeasonAvgInfo();
-		default:
-			return null;
-		}
-	}
     
-	private ArrayList<Map<PlayerEntity, String>> getPlayerBasicInfo() {
+	public ArrayList<Map<PlayerEntity, String>> getPlayerBasicInfo(String[] sift) {
+		//sift[0] 姓名首字母筛选
+		//sift[1] 球队筛选
+		//sift[2] 位置筛选
+		String condition = "";
+		if (sift[1]!=null) {
+			condition = " team = '" + sift[1] + "' ";
+		} else if (sift[2]!=null) {
+			condition = " position like '%" + sift[2] + "%' ";
+		} else if (sift[0]!=null) {
+			condition = " player_name like '" + sift[0] + "%' ";
+		}
 		ArrayList<PlayerEntity> columnList = new ArrayList<PlayerEntity>();
 		columnList.add(PlayerEntity.ID);
 		columnList.add(PlayerEntity.PLAYER_NAME);
@@ -67,8 +64,26 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 		ArrayList<Map<PlayerEntity, String>> result = new ArrayList<Map<PlayerEntity, String>>();
 		try {
 			statement = connection.createStatement();
-			resultSet = statement.executeQuery(
-					"SELECT " + columnsToSearch + " FROM players");
+			if (condition.equals("")) {
+				resultSet = statement.executeQuery(
+						"SELECT " + columnsToSearch + " "
+								+ "FROM (select player_id pi,full_name fn,date_of_match dom "
+								+ "from player_match_performance p,teams t,matches m "
+								+ "where t.id = p.team_id and p.match_id = m.id) as t3 "
+								+ "join players on players.id=pi "
+								+ "group by pi "
+								+ "having dom=max(dom)");
+			} else {
+				resultSet = statement.executeQuery(
+						"SELECT " + columnsToSearch + " "
+								+ "FROM (select player_id pi,full_name fn,date_of_match dom "
+								+ "from player_match_performance p,teams t,matches m "
+								+ "where t.id = p.team_id and p.match_id = m.id) as t3 "
+								+ "join players on players.id=pi "
+								+ " where" + condition + " "
+								+ "group by pi "
+								+ "having dom=max(dom)");
+			}
 			while (resultSet.next()) {
 				Map<PlayerEntity, String> map = new HashMap<PlayerEntity, String>();
 				for (String string:columnStrList) {
@@ -85,7 +100,7 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 	}
 
 	//获取球员赛季数据-总数
-	private ArrayList<Map<PlayerEntity, String>> getPlayerSeasonTotalInfo() {
+	public ArrayList<Map<PlayerEntity, String>> getPlayerSeasonTotalInfo() {
 		ArrayList<PlayerEntity> columnList = new ArrayList<PlayerEntity>();
 		columnList.add(PlayerEntity.ID);
 		columnList.add(PlayerEntity.PLAYER_NAME);
@@ -138,7 +153,7 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 	}
 	
 	//获取球员赛季数据-场均
-	private ArrayList<Map<PlayerEntity, String>> getPlayerSeasonAvgInfo() {
+	public ArrayList<Map<PlayerEntity, String>> getPlayerSeasonAvgInfo() {
 		ArrayList<PlayerEntity> columnList = new ArrayList<PlayerEntity>();
 		columnList.add(PlayerEntity.ID);
 		columnList.add(PlayerEntity.PLAYER_NAME);
