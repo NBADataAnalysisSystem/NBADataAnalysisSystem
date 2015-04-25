@@ -66,10 +66,23 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 			statement = connection.createStatement();
 			if (condition.equals("")) {
 				resultSet = statement.executeQuery(
-						"SELECT " + columnsToSearch + " FROM players");
+						"SELECT " + columnsToSearch + " "
+								+ "FROM (select player_id pi,full_name fn,date_of_match dom "
+								+ "from player_match_performance p,teams t,matches m "
+								+ "where t.id = p.team_id and p.match_id = m.id) as t3 "
+								+ "join players on players.id=pi "
+								+ "group by pi "
+								+ "having dom=max(dom)");
 			} else {
 				resultSet = statement.executeQuery(
-						"SELECT " + columnsToSearch + " FROM players" + " where" + condition);
+						"SELECT " + columnsToSearch + " "
+								+ "FROM (select player_id pi,full_name fn,date_of_match dom "
+								+ "from player_match_performance p,teams t,matches m "
+								+ "where t.id = p.team_id and p.match_id = m.id) as t3 "
+								+ "join players on players.id=pi "
+								+ " where" + condition + " "
+								+ "group by pi "
+								+ "having dom=max(dom)");
 			}
 			while (resultSet.next()) {
 				Map<PlayerEntity, String> map = new HashMap<PlayerEntity, String>();

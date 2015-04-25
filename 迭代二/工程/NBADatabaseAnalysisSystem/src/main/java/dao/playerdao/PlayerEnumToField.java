@@ -36,7 +36,7 @@ public class PlayerEnumToField {
 		//毕业学校
 		map.put(PlayerEntity.SCHOOL, "school");
 		//所属球队
-		map.put(PlayerEntity.TEAM, "team");
+		map.put(PlayerEntity.TEAM, "fn");
 	}
 	
 	public String translate(PlayerEntity playerEntity) {
