@@ -14,6 +14,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import entity.PlayerInfoType;
 import ui.frame.PlayerFrame;
 
 @SuppressWarnings("serial")
@@ -193,6 +194,11 @@ public class PlayerSeasonInfoPanel extends JPanel{
             
             public void mouseClicked(MouseEvent e){
             	
+            	if (sift[4].equals("总数")) {
+                	frame.setPlayerInfoType(PlayerInfoType.PLAYER_SEASON_TOTAL_INFO);
+            	} else {
+                	frame.setPlayerInfoType(PlayerInfoType.PLAYER_SEASON_AVG_INFO);
+            	}
             	changeInfo();
             	
             }
