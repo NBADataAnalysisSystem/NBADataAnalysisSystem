@@ -64,13 +64,13 @@ public class PlayerSeasonInfoPanel extends JPanel{
 		selectUnion.setEditable(false);
 		selectUnion.setOpaque(false);
 		selectUnion.setBounds(50 ,0, (width - 300)/3, (height-20)/2);
-		selectUnion.addMouseListener(       new MouseAdapter(){
-			
-			public void mouseClicked(MouseEvent e){
-						sift[0] = selectUnion.getSelectedItem().toString();
-				}
-			}
-		);
+//		selectUnion.addMouseListener(       new MouseAdapter(){
+//			
+//			public void mouseClicked(MouseEvent e){
+//						sift[0] = selectUnion.getSelectedItem().toString();
+//				}
+//			}
+//		);
 		
 		selectPosition = new JComboBox<String>();
 		this.add(selectPosition);
@@ -83,33 +83,44 @@ public class PlayerSeasonInfoPanel extends JPanel{
 		selectPosition.setEditable(false);
 		selectPosition.setOpaque(false);
 		selectPosition.setBounds(50 + selectUnion.getWidth()+100 ,0, (width - 300)/3, (height-20)/2);
-		selectPosition.addMouseListener(       new MouseAdapter(){
-			
-			public void mouseClicked(MouseEvent e){
-						sift[1] = selectPosition.getSelectedItem().toString();
-				}
-			}
-		);
+//		selectPosition.addMouseListener(       new MouseAdapter(){
+//			
+//			public void mouseClicked(MouseEvent e){
+//						sift[1] = selectPosition.getSelectedItem().toString();
+//				}
+//			}
+//		);
 		
 		selectOth = new JComboBox<String>();
 		this.add(selectOth);
 		selectOth.setBackground(Color.decode("#FFFFFF"));
 		selectOth.setFont(new Font("Serif",1, 15));
 		selectOth.addItem("得分");
-		selectOth.addItem("前锋");
-		selectOth.addItem("中锋");
-		selectOth.addItem("后卫");
+		selectOth.addItem("篮板");
+		selectOth.addItem("助攻");
+		selectOth.addItem("得分/篮板/助攻");
+		selectOth.addItem("盖帽");
+		selectOth.addItem("抢断");
+		selectOth.addItem("犯规");
+		selectOth.addItem("失误");
+		selectOth.addItem("分钟");
+		selectOth.addItem("效率");
+		selectOth.addItem("投篮");
+		selectOth.addItem("三分");
+		selectOth.addItem("罚球");
+		selectOth.addItem("两双");
+
 		selectOth.setEditable(false);
 		selectOth.setOpaque(false);
 		selectOth.setBounds(50 + 2*selectUnion.getWidth()+200 ,0, (width - 300)/3, (height-20)/2);
-		selectOth.addMouseListener(       new MouseAdapter(){
-			
-			public void mouseClicked(MouseEvent e){
-						sift[2] = selectOth.getSelectedItem().toString();
-					
-				}
-			}
-		);
+//		selectOth.addMouseListener(       new MouseAdapter(){
+//			
+//			public void mouseClicked(MouseEvent e){
+//						sift[2] = selectOth.getSelectedItem().toString();
+//					
+//				}
+//			}
+//		);
 		
 		selectYear = new JComboBox<String>();
 		this.add(selectYear);
@@ -138,14 +149,15 @@ public class PlayerSeasonInfoPanel extends JPanel{
 		selectType.setEditable(false);
 		selectType.setOpaque(false);
 		selectType.setBounds(50 + selectUnion.getWidth()+100 ,height/2, (width - 300)/3, (height-20)/2);
-		selectType.addMouseListener(       new MouseAdapter(){
-			
-			public void mouseClicked(MouseEvent e){
-						sift[4] = selectType.getSelectedItem().toString();
-					
-				}
-			}
-		);
+//		selectType.addMouseListener(       new MouseAdapter(){
+//			
+//			public void mouseClicked(MouseEvent e){
+//						sift[4] = selectType.getSelectedItem().toString();
+//					
+//				}
+//			}
+//		);
+		sift[4] = "总数";
 		
 		submit = new JButton("提交");
 		submit.setFont(new Font("Serif",1, 15));
@@ -194,6 +206,12 @@ public class PlayerSeasonInfoPanel extends JPanel{
             
             public void mouseClicked(MouseEvent e){
             	
+            	sift[0] = selectUnion.getSelectedItem().toString();
+            	sift[1] = selectPosition.getSelectedItem().toString();
+            	sift[2] = selectOth.getSelectedItem().toString();
+            	sift[3] = selectYear.getSelectedItem().toString();
+            	sift[4] = selectType.getSelectedItem().toString();
+            	setList();
             	if (sift[4].equals("总数")) {
                 	frame.setPlayerInfoType(PlayerInfoType.PLAYER_SEASON_TOTAL_INFO);
             	} else {
@@ -222,25 +240,47 @@ public class PlayerSeasonInfoPanel extends JPanel{
 	}
 	
 	public void setList(){
-		
-		infoToShow.add("排名");
-		infoToShow.add("名字");
-		infoToShow.add("球队");
-		infoToShow.add("场数");
-		infoToShow.add("先发");
-		infoToShow.add("篮板");
-		infoToShow.add("助攻");
-		infoToShow.add("分钟");
-		infoToShow.add("%");
-		infoToShow.add("三分%");
-		infoToShow.add("罚球%");
-		infoToShow.add("进攻");
-		infoToShow.add("防守");
-		infoToShow.add("抢断");
-		infoToShow.add("盖帽");
-		infoToShow.add("失误");
-		infoToShow.add("犯规");
-		infoToShow.add("得分");
+		infoToShow.removeAll(infoToShow);
+		if(sift[4].equals("总数")){
+			infoToShow.add("排名");
+			infoToShow.add("名字");
+			infoToShow.add("球队");
+			infoToShow.add("场数");
+			infoToShow.add("先发");
+			infoToShow.add("篮板");
+			infoToShow.add("助攻");
+			infoToShow.add("分钟");
+			infoToShow.add("%");
+			infoToShow.add("三分%");
+			infoToShow.add("罚球%");
+			infoToShow.add("进攻");
+			infoToShow.add("防守");
+			infoToShow.add("抢断");
+			infoToShow.add("盖帽");
+			infoToShow.add("失误");
+			infoToShow.add("犯规");
+			infoToShow.add("得分");
+		}else{
+			infoToShow.add("排名");
+			infoToShow.add("名字");
+			infoToShow.add("球队");
+			infoToShow.add("场数");
+			infoToShow.add("先发");
+			infoToShow.add("场均篮板");
+			infoToShow.add("场均助攻");
+			infoToShow.add("分钟");
+			infoToShow.add("效率");
+			infoToShow.add("%");
+			infoToShow.add("三分%");
+			infoToShow.add("罚球%");
+			infoToShow.add("进攻");
+			infoToShow.add("防守");
+			infoToShow.add("场均抢断");
+			infoToShow.add("场均盖帽");
+			infoToShow.add("失误");
+			infoToShow.add("犯规");
+			infoToShow.add("场均得分");
+		}
 		
 	}
 	
