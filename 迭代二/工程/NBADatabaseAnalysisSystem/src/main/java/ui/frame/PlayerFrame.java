@@ -148,6 +148,8 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		      //TODO
 				seasonPanel = new PlayerSeasonInfoPanel(0,20,mainPanel.getWidth(),mainPanel.getHeight()*2/11);
 				playerPanel  = new PlayerBasicInfoPanel(0,20,mainPanel.getWidth(),mainPanel.getHeight()*2/11);
+				seasonPanel.setPlayerFrame(this);
+				playerPanel.setPlayerFrame(this);
 				playerPanel.setPlayerFrame(this);
 				playerPanel.setList();
 				ArrayList<String> tempPlayer = playerPanel.getList();

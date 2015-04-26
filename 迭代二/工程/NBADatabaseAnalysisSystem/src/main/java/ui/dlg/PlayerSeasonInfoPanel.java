@@ -212,6 +212,7 @@ public class PlayerSeasonInfoPanel extends JPanel{
             	sift[3] = selectYear.getSelectedItem().toString();
             	sift[4] = selectType.getSelectedItem().toString();
             	setList();
+            	frame.setList(infoToShow);
             	if (sift[4].equals("总数")) {
                 	frame.setPlayerInfoType(PlayerInfoType.PLAYER_SEASON_TOTAL_INFO);
             	} else {
