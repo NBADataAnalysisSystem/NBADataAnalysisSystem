@@ -464,6 +464,11 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 //		PlayerTableTranslation playerTableTranslation = new PlayerTableTranslation();
 //		sortBy = playerTableTranslation.translation(string.split(";")[1]);
 	}
+	
+	public void setPlayerInfoType(PlayerInfoType type) {
+		playerInfoType = type;
+	}
+	
 	//刷新信息，并根据信息（由tableHeader（String[]）决定）设定内容@Dalec Gu TODO
 	public void refreshData() {
 		//TODO
@@ -488,6 +493,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 			setTableContent(tableHeader,tableContent);
 			break;
 		case PLAYER_SEASON_AVG_INFO:
+			setTableContent(tableHeader,tableContent);
 			break;
 		case PLAYER_SEASON_TOTAL_INFO:
 			controller = new PlayerController();
