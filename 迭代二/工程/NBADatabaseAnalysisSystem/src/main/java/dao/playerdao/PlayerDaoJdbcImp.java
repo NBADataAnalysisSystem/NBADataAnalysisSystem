@@ -129,8 +129,8 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 			columnStrList.add(temp);
 		}
 		String columnsToSearch = "p.id,p.player_name,t4.fn,t1.dmi,t1.sis,t1.sr,t1.sa,"
-				+ "t1.spt,round(1.0*t1.ssing/t1.ss,2),round(1.0*stpsing/stps,2),"
-				+ "round(1.0*sftsing/sfts,2),t1.sor,t1.sdr,t1.sst,t1.sbs,t1.sto,t1.sfo,t1.ssc";
+				+ "t1.spt,round(100.0*t1.ssing/t1.ss,2),round(100.0*stpsing/stps,2),"
+				+ "round(100.0*sftsing/sfts,2),t1.sor,t1.sdr,t1.sst,t1.sbs,t1.sto,t1.sfo,t1.ssc";
 		Statement statement = null;
 		ResultSet resultSet = null;
 		ArrayList<Map<PlayerEntity, String>> result = new ArrayList<Map<PlayerEntity, String>>();
@@ -154,7 +154,7 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 							+ "where t.id = p.team_id and p.match_id = m.id) as t3 "
 							+ "group by pi "
 							+ "having dom=max(dom)) as t4 "
-							+ "where t1.pi = p.id and p.position like '%C%' and t4.pi=p.id;");
+							+ "where t1.pi = p.id and t4.pi=p.id;");
 			while (resultSet.next()) {
 				Map<PlayerEntity, String> map = new HashMap<PlayerEntity, String>();
 				int i = 1;

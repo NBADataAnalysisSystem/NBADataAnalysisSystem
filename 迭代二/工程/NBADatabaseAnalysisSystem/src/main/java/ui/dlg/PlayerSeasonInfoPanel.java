@@ -217,6 +217,8 @@ public class PlayerSeasonInfoPanel extends JPanel{
 	
 	public void setList(){
 		
+		infoToShow.add("排名");
+		infoToShow.add("名字");
 		infoToShow.add("球队");
 		infoToShow.add("场数");
 		infoToShow.add("先发");
@@ -245,8 +247,9 @@ public class PlayerSeasonInfoPanel extends JPanel{
 		return infoToShow;
 	}
 	
-	public void sift(){
-		//根据sift[]对表格进行处理，sift[0]为首字母，sift[1]为球队，sift[2]为位置
+	public String[] getSift(){
+		//根据sift[]对表格进行处理，sift[0]为联盟，sift[1]为位置，sift[2]为位置
+		return sift;
 	}
 	
 

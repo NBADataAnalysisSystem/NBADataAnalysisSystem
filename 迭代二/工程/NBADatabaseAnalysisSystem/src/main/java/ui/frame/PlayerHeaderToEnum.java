@@ -14,7 +14,7 @@ public class PlayerHeaderToEnum {
 	public PlayerHeaderToEnum() {
 		map = new HashMap<String, PlayerEntity>();
 		//编号，唯一
-		map.put("ID", PlayerEntity.ID);
+		map.put("排名", PlayerEntity.ID);
 		
 		//基本信息
 		//球员名称

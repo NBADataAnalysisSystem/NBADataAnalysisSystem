@@ -261,6 +261,7 @@ public class PlayerBasicInfoPanel extends JPanel{
 	
 	public void setList(){
 		
+		infoToShow.add("名字");
 		infoToShow.add("号数");
 		infoToShow.add("位置");
 		infoToShow.add("身高");

@@ -13,7 +13,13 @@ public class GetPlayerSeasonTotalInfoImp implements GetPlayerSeasonTotalInfoServ
 	public ArrayList<Map<PlayerEntity, String>> getPlayer(String[] sift) {
 		PlayerDao dao = new PlayerDaoJdbcImp();
 		try {
-			return dao.getPlayerSeasonTotalInfo(sift);
+			ArrayList<Map<PlayerEntity, String>> list = dao.getPlayerSeasonTotalInfo(sift);
+			int i = 1;
+			for (Map<PlayerEntity, String> map:list) {
+				map.put(PlayerEntity.ID, Integer.toString(i));
+				i++;
+			}
+			return list;
 		} finally {
 			dao.close();
 		}
