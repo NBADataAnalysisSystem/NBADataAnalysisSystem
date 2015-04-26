@@ -20,6 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import ui.dlg.MatchPanel;
 import ui.dlg.TeamAdvancedPanel;
 import ui.dlg.TeamInfoPanel;
 import ui.dlg.TeamListPanel;
@@ -53,12 +54,9 @@ public class MatchFrame extends JFrame implements  ActionListener {
 	
 	ArrayList<String> temp= new ArrayList<String>();;
 	
-	static JLabel btnUnchoosedLabel = new JLabel();
 	static JLabel btnChoosedLabel = new JLabel();
-	static JLabel btnUnchoosedLabel1 = new JLabel();
-	TeamListPanel listPanel ;
-	TeamInfoPanel infoPanel;
-	TeamAdvancedPanel advancedPanel;
+	
+	MatchPanel panel ;
 	
 	public MatchFrame(){
 		
@@ -108,17 +106,14 @@ public class MatchFrame extends JFrame implements  ActionListener {
 		      
 
 		      //TODO
-				infoPanel = new TeamInfoPanel(mainPanel.getWidth()/30,mainPanel.getHeight()/30,mainPanel.getWidth()*14/15,mainPanel.getHeight()*14/15);
-				listPanel = new TeamListPanel(mainPanel.getWidth()/30,mainPanel.getHeight()/30,mainPanel.getWidth()*14/15,mainPanel.getHeight()*14/15);
-				advancedPanel = new TeamAdvancedPanel(mainPanel.getWidth()/30,mainPanel.getHeight()/30,mainPanel.getWidth()*14/15,mainPanel.getHeight()*14/15);
-
+				panel = new MatchPanel(mainPanel.getWidth()/30,mainPanel.getHeight()/30,mainPanel.getWidth()*14/15,mainPanel.getHeight()*27/30);
+			
 		      backgroundPanel.add(btnPanel);
 		      backgroundPanel.add(mainPanel);
-		      mainPanel.add(listPanel);
+		      mainPanel.add(panel,0);
 		      mainPanel.add(placeMainIcon);
 		      backgroundPanel.add(placeBackgroundIcon);
 		      this.add(backgroundPanel);
-		      this.setVisible(true);
 		      
 		  	this. addMouseListener( 
 			        new MouseAdapter(){
@@ -146,6 +141,7 @@ public class MatchFrame extends JFrame implements  ActionListener {
 			          }
 			      );    
 		      
+			      this.setVisible(true);
 	}
 	//设置主要按钮
 	public void setBtnPanel() {

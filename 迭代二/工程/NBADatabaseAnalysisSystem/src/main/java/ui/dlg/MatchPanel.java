@@ -1,10 +1,12 @@
 package ui.dlg;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -14,14 +16,16 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 
 @SuppressWarnings("serial")
 public class MatchPanel extends JPanel {
 	int x;
 	int y;
-	int width;
-	int height;
+	static int width;
+	static int height;
 	JPanel datePanel ;
 	JPanel mainPanel;
 	JTextField dateFindingField;
@@ -29,19 +33,22 @@ public class MatchPanel extends JPanel {
 	
 	String dateToFind ;
 	String dateToShow;
-	String[][] match;
+	String[][][] match;
 	
 	ImageIcon lineIcon;
 	JLabel lineLabel;
+	JScrollPane sp;
 	
 	int rowNum;
 
+	@SuppressWarnings("static-access")
 	public MatchPanel(int xa,int ya,int widtha,int heighta){
 		
 		this.x = xa;
 		this.y = ya;
 		this.width = widtha;
 		this.height = heighta;
+		this.setBounds(x, y, width, height);
 		dateToFind = new String();
 		dateToShow = new String();
 		//暂用
@@ -64,38 +71,61 @@ public class MatchPanel extends JPanel {
 		btn_Find = new JButton("查询");
 		btn_Find.setBounds(dateFindingField.getWidth()+20, datePanel.getHeight()/4, datePanel.getWidth()/10, datePanel.getHeight()/2);
 		btn_Find.addMouseListener(       new MouseAdapter(){
-			
+		
             public void mouseClicked(MouseEvent e){
             	//TODO
             	dateToShow = dateFindingField.getText();
+            	mainPanel.removeAll();
             	setMatchPanel();
+
+            }    
+            public void mousePressed(MouseEvent e){
+            	//TODO
+            	btn_Find.setForeground(Color.BLUE);
+
+            }
+            public void mouseReleased(MouseEvent e){
+            	//TODO
+            	btn_Find.setForeground(Color.BLACK);
 
             }
         
 	}
 );
+		btn_Find.setOpaque(false);
+		btn_Find.setFont(new Font("宋体",1, 20));//设置字体
+		btn_Find.setBorderPainted(false);
+		btn_Find.setContentAreaFilled(false);
 		datePanel.add(dateFindingField);
 		datePanel.add(btn_Find);
+		datePanel.setOpaque(false);
 		
+		
+		sp = new JScrollPane(mainPanel);
 		this.findMatch(dateToShow);
 		
 		this.setMatchPanel();
 		
-		mainPanel.setBounds(0, height/10, width, height*(match.length+match.length%2)/(rowNum*2));
+		mainPanel.setBounds(0, 0, width, height*(match.length+match.length%2)/(rowNum*2));
 		GridLayout layout = new GridLayout(0,2);
 		mainPanel.setLayout(layout);
 		mainPanel.setOpaque(false);
+		mainPanel.setPreferredSize(new Dimension(mainPanel.getWidth(),mainPanel.getHeight()));
+		sp.setBounds(0,height/10,mainPanel.getWidth(),height*9/10);
+	    sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		sp.setOpaque(false);
+		sp.getViewport().setOpaque(false); 
+		//sp.getColumnHeader().setOpaque(false);//再取出头部，并设置为透明 
 		this.add(datePanel);
-		this.add(mainPanel);
+		this.add(sp);
 		this.setOpaque(false);
 	}
 	
 	private void setMatchPanel(){
-		mainPanel.setBorder(BorderFactory.createTitledBorder(dateToShow));
+		sp.setBorder(BorderFactory.createTitledBorder(dateToShow));
 		//TODO
 		for(int i = 0;i< match.length;i++){
 			JPanel newMatch = this.setMatch(match[i]);
-			newMatch.setBorder(BorderFactory.createTitledBorder(""));
 //			lineLabel = new JLabel();
 //			lineLabel.setBounds(0, 0, width, height*(match.length+match.length%2)/(rowNum*2)/5);
 //			lineIcon.setImage(lineIcon.getImage().getScaledInstance(lineLabel.getWidth(), lineLabel.getHeight(),Image.SCALE_DEFAULT));
@@ -106,38 +136,81 @@ public class MatchPanel extends JPanel {
 		}
 		//mainPanel.add(c);
 		//TODO
-		mainPanel.repaint();
+
+		sp.repaint();
+		this.revalidate();
 	}
-	
+	/**
+	 * 		//info为比赛数据，[0]为teamA [1]为teamB
+		//第二维中,[0]为队名，，[1]~[4]为1-4节分数，[5]为总分，[6]为球队图标地址）
+	 * @param date 日期
+	 */
 	private void findMatch(String date) {
 		//TODO
-		match = new String [30][6];
+		match = new String [30][2][7];
+		for(int i = 0;i<match.length;i++){
+			for(int j = 0;j<7;j++){
+				match[i][0][j]=j+"";
+				match[i][1][j]=j+"";
+			}
+			match[i][0][6]="resource/BackgroundOfMatch.png";
+			match[i][1][6]="resource/BackgroundOfMatch.png";
+		}
+
 	}
 
-	public JPanel setMatch(String[] info){
+	@SuppressWarnings("static-access")
+	public JPanel setMatch(String[][] info){
+		//info为比赛数据，[0]为teamA [1]为teamB
+		//第二维中,[0]为队名，，[1]~[4]为1-4节分数，[5]为总分，[6]为球队图标地址）
 		JPanel newMatch = new JPanel();
 		GridBagLayout layout = new GridBagLayout();
 		GridBagConstraints s= new GridBagConstraints();
 		s.fill = GridBagConstraints.BOTH; 
 		newMatch.setLayout(layout);
-		JLabel detail = new JLabel("技术分析");
-		detail.setBackground(Color.BLUE);
-		detail.setForeground(Color.BLUE);
+		JLabel detail = new JLabel();
+		lineIcon.setImage(lineIcon.getImage().getScaledInstance(width/2, height/(rowNum*5),Image.SCALE_DEFAULT));
+		detail.setIcon(lineIcon);
+		detail.setText("技术分析");
+		detail.setHorizontalTextPosition(detail.CENTER);
+//		detail.setHorizontalAlignment(0);
+		detail.setForeground(Color.WHITE);
+		
 		s.gridwidth=0;
 		s.weightx = 16; 
 		s.weighty=1;
 		layout.setConstraints(detail, s);
-		JLabel teamA = new JLabel("info[0]");
+		JLabel teamA = new JLabel();
+		ImageIcon teamAIcon = new ImageIcon(info[0][6]);
+		teamAIcon.setImage(teamAIcon.getImage().getScaledInstance(width/10, width/10,Image.SCALE_DEFAULT));
+		teamA.setIcon(teamAIcon);
+		teamA.setText(info[0][1]);
+		teamA.setOpaque(false);
+		teamA.setHorizontalAlignment(teamA.CENTER);
+		teamA.setVerticalTextPosition(teamA.BOTTOM);
+		teamA.setHorizontalTextPosition(teamA.CENTER);
+
 		s.gridwidth=1;
 		s.weightx = 4; 
 		s.weighty=4;
 		layout.setConstraints(teamA, s);
-		JLabel teamB = new JLabel("info[1]");
+		
+		JLabel teamB = new JLabel();
+		ImageIcon teamBIcon = new ImageIcon(info[1][6]);
+		teamBIcon.setImage(teamBIcon.getImage().getScaledInstance(width/10, width/10,Image.SCALE_DEFAULT));
+		teamB.setIcon(teamBIcon);
+		teamB.setText(info[1][1]);
+		teamB.setOpaque(false);
+		teamB.setHorizontalAlignment(teamB.CENTER);
+		teamB.setVerticalTextPosition(teamB.BOTTOM);
+		teamB.setHorizontalTextPosition(teamB.CENTER);
+		
 		s.gridwidth=1;
 		s.weightx = 4; 
 		s.weighty=4;
 		layout.setConstraints(teamB, s);
-		JLabel point = new JLabel("info[2]");
+		JPanel point = new JPanel();
+		point.setOpaque(false);
 		s.gridwidth=1;
 		s.weightx = 4; 
 		s.weighty=4;
@@ -146,12 +219,66 @@ public class MatchPanel extends JPanel {
 		teamB.setBorder(BorderFactory.createTitledBorder(""));
 		detail.setBorder(BorderFactory.createTitledBorder(""));
 		point.setBorder(BorderFactory.createTitledBorder(""));
-	
+		
+		point.setLayout(new GridLayout(0,3));
+		//设置比分
+		JPanel pointA = new JPanel();
+		pointA.setOpaque(false);
+		pointA.setLayout(new GridLayout(5,0));
+		for(int i = 0;i<5;i++){
+			JLabel n = new JLabel(info[0][1+i]);
+			n.setOpaque(false);
+			n.setHorizontalAlignment(n.RIGHT);
+			n.setFont(new Font("宋体",1, 20));
+			pointA.add(n);
+		}
+		JPanel pointB = new JPanel();
+		pointB.setOpaque(false);
+		pointB.setLayout(new GridLayout(5,0));
+		for(int i = 0;i<5;i++){
+			JLabel n = new JLabel(info[1][1+i]);
+			n.setOpaque(false);
+			n.setHorizontalAlignment(n.LEFT);
+			n.setFont(new Font("宋体",1, 20));
+			pointB.add(n);
+		}
+		JPanel pointT = new JPanel();
+		pointT.setLayout(new GridLayout(5,0));
+		JLabel n1 = new JLabel("第一节");
+		n1.setHorizontalAlignment(n1.CENTER);
+		n1.setOpaque(false);
+		JLabel n2 = new JLabel("第二节");
+		n2.setHorizontalAlignment(n2.CENTER);
+		n2.setOpaque(false);
+		JLabel n3 = new JLabel("第三节");
+		n3.setHorizontalAlignment(n3.CENTER);
+		n3.setOpaque(false);
+		JLabel n4 = new JLabel("第四节");
+		n4.setHorizontalAlignment(n4.CENTER);
+		n4.setOpaque(false);
+		JLabel n5 = new JLabel("总分");
+		n5.setHorizontalAlignment(n5.CENTER);
+		n5.setOpaque(false);
+		pointT.add(n1);
+		pointT.add(n2);
+		pointT.add(n3);
+		pointT.add(n4);
+		pointT.add(n5);
+		pointT.setOpaque(false);
+		point.add(pointA);
+		point.add(pointT);
+		point.add(pointB);
+
+
+		
 		newMatch.add(detail);
 		newMatch.add(teamA);
 		newMatch.add(point);
 		newMatch.add(teamB);
 		newMatch.setOpaque(false);
+		
+//		lineLabel = new JLabel();
+//		lineLabel.setBounds(0, 0, width, height*(match.length+match.length%2)/(rowNum*2)/5);
 		return newMatch;
 	}
 	public static void main(String [] args){
