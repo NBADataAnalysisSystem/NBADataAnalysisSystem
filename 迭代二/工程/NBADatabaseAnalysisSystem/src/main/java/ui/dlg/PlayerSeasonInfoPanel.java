@@ -248,7 +248,7 @@ public class PlayerSeasonInfoPanel extends JPanel{
 	}
 	
 	public String[] getSift(){
-		//根据sift[]对表格进行处理，sift[0]为联盟，sift[1]为位置，sift[2]为位置
+		//根据sift[]对表格进行处理，sift[0]为联盟，sift[1]为位置，sift[2]为排序依据，sift[3]为赛季，sift[4]为场均/总数
 		return sift;
 	}
 	
