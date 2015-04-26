@@ -1,5 +1,6 @@
 package ui.frame;
 
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -23,7 +24,7 @@ import javax.swing.JPanel;
 import ui.dlg.MatchPanel;
 
 
-public class MatchFrame extends JFrame implements  ActionListener {
+public class HotFrame extends JFrame implements  ActionListener {
 
 	/**
 	 * 
@@ -56,7 +57,7 @@ public class MatchFrame extends JFrame implements  ActionListener {
 	
 	MatchPanel panel ;
 	
-	public MatchFrame(){
+	public HotFrame(){
 		
 			backgroundPanel = new JPanel();
 			mainPanel = new JPanel();
@@ -76,7 +77,7 @@ public class MatchFrame extends JFrame implements  ActionListener {
 
 			//设置背景图片
 			ImageIcon background ;
-			background = new ImageIcon("resource/BackgroundOfMatch.png");
+			background = new ImageIcon("resource/BackgroundOfHot.png");
 			background.setImage(background.getImage().getScaledInstance(backgroundPanel.getWidth(), backgroundPanel.getHeight(),Image.SCALE_DEFAULT));
 		
 			JLabel placeBackgroundIcon = new JLabel();
@@ -104,11 +105,11 @@ public class MatchFrame extends JFrame implements  ActionListener {
 		      
 
 		      //TODO
-				panel = new MatchPanel(mainPanel.getWidth()/30,mainPanel.getHeight()/30,mainPanel.getWidth()*14/15,mainPanel.getHeight()*27/30);
+		//		panel = new MatchPanel(mainPanel.getWidth()/30,mainPanel.getHeight()/30,mainPanel.getWidth()*14/15,mainPanel.getHeight()*27/30);
 			
 		      backgroundPanel.add(btnPanel);
 		      backgroundPanel.add(mainPanel);
-		      mainPanel.add(panel,0);
+		      //mainPanel.add(panel,0);
 		      mainPanel.add(placeMainIcon);
 		      backgroundPanel.add(placeBackgroundIcon);
 		      this.add(backgroundPanel);
@@ -150,7 +151,7 @@ public class MatchFrame extends JFrame implements  ActionListener {
 		btnPanel.setLocation(0,0);
 		btnPanel.setOpaque(false);
 		
-		btn_Match = new JButton("比赛");
+		btn_Match = new JButton("热点");
 
 		btnChoosedIcon = new ImageIcon("resource/BtnChoosed.png");
 		btnChoosedIcon.setImage(btnChoosedIcon.getImage().getScaledInstance(120, 30,Image.SCALE_DEFAULT));
@@ -250,7 +251,7 @@ public class MatchFrame extends JFrame implements  ActionListener {
 	public static void main(String[] args){
 		
 		@SuppressWarnings("unused")
-		MatchFrame test = new MatchFrame();
+		HotFrame test = new HotFrame();
 	}
 
 	public void actionPerformed(ActionEvent e) {
