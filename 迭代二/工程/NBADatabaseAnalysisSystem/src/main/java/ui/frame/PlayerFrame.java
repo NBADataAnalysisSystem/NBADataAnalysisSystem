@@ -13,7 +13,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
-import java.util.Map;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -37,7 +36,6 @@ import controller.playercontroller.GetPlayerBasicInfoResponse;
 import controller.playercontroller.GetPlayerSeasonTotalInfoRequest;
 import controller.playercontroller.GetPlayerSeasonTotalInfoResponse;
 import controller.playercontroller.PlayerController;
-import entity.PlayerEntity;
 import entity.PlayerInfoType;
 import ui.component.MyTableHeaderPanel;
 import ui.component.MyTablePanel;
@@ -478,17 +476,15 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		switch (playerInfoType) {
 		case PLAYER_BASIC_INFO:
 			PlayerController controller = new PlayerController();
-			PlayerHeaderToEnum translation = new PlayerHeaderToEnum();
 			GetPlayerBasicInfoResponse response = (GetPlayerBasicInfoResponse) controller.processRequest(
 					new GetPlayerBasicInfoRequest(playerPanel.getSift()));
-			ArrayList<Map<PlayerEntity, String>> tempList = response.getList();
+			ArrayList<String> tempList = response.getList();
 			tableContent = new String[tempList.size()][tableHeader.length];
 			int i = 0;
-			for (Map<PlayerEntity, String> map:tempList) {
-				int j = 0;
-				for (String string:tableHeader) {
-					tableContent[i][j] = map.get(translation.translate(string));
-					j++;
+			for (String map:tempList) {
+				String[] list = map.split(",");
+				for (int j = 0; j < tableHeader.length; j++) {
+					tableContent[i][j] = list[j];
 				}
 				i++;
 			}
@@ -499,18 +495,17 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 			break;
 		case PLAYER_SEASON_TOTAL_INFO:
 			controller = new PlayerController();
-			translation = new PlayerHeaderToEnum();
 			GetPlayerSeasonTotalInfoResponse getPlayerSeasonTotalInfoResponse = (
 					GetPlayerSeasonTotalInfoResponse) controller.processRequest(
 					new GetPlayerSeasonTotalInfoRequest(seasonPanel.getSift()));
 			tempList = getPlayerSeasonTotalInfoResponse.getList();
 			tableContent = new String[tempList.size()][tableHeader.length];
 			i = 0;
-			for (Map<PlayerEntity, String> map:tempList) {
-				int j = 0;
-				for (String string:tableHeader) {
-					tableContent[i][j] = map.get(translation.translate(string));
-					j++;
+			for (String map:tempList) {
+				String[] list = map.split(",");
+				tableContent[i][0] = Integer.toString(i+1);
+				for (int j = 0; j < tableHeader.length-1; j++) {
+					tableContent[i][j+1] = list[j];
 				}
 				i++;
 			}

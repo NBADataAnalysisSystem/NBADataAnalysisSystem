@@ -5,10 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import entity.PlayerEntity;
 
 public class PlayerDaoJdbcImp implements PlayerDao {
 
@@ -27,7 +23,7 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 		}
     }
     
-	public ArrayList<Map<PlayerEntity, String>> getPlayerBasicInfo(String[] sift) {
+	public ArrayList<String> getPlayerBasicInfo(String[] sift) {
 		//sift[0] 姓名首字母筛选
 		//sift[1] 球队筛选
 		//sift[2] 位置筛选
@@ -39,30 +35,10 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 		} else if (sift[0]!=null) {
 			condition = " player_name like '" + sift[0] + "%' ";
 		}
-		ArrayList<PlayerEntity> columnList = new ArrayList<PlayerEntity>();
-		columnList.add(PlayerEntity.ID);
-		columnList.add(PlayerEntity.PLAYER_NAME);
-		columnList.add(PlayerEntity.JERSEY_NUMBER);
-		columnList.add(PlayerEntity.POSITION);
-		columnList.add(PlayerEntity.HEIGHT);
-		columnList.add(PlayerEntity.WEIGHT);
-		columnList.add(PlayerEntity.BIRTH);
-		columnList.add(PlayerEntity.AGE);
-		columnList.add(PlayerEntity.EXP);
-		columnList.add(PlayerEntity.SCHOOL);
-		columnList.add(PlayerEntity.TEAM);
-		String columnsToSearch = "";
-		PlayerEnumToField translation = new PlayerEnumToField();
-		ArrayList<String> columnStrList = new ArrayList<String>();
-		for (PlayerEntity playerEntity:columnList) {
-			String temp = translation.translate(playerEntity);
-			columnsToSearch = columnsToSearch + temp + ",";
-			columnStrList.add(temp);
-		}
-		columnsToSearch = columnsToSearch.substring(0, columnsToSearch.length()-1);
+		String columnsToSearch = "player_name,jersey_number,position,height,weight,birth,age,exp,fn";
 		Statement statement = null;
 		ResultSet resultSet = null;
-		ArrayList<Map<PlayerEntity, String>> result = new ArrayList<Map<PlayerEntity, String>>();
+		ArrayList<String> result = new ArrayList<String>();
 		try {
 			statement = connection.createStatement();
 			if (condition.equals("")) {
@@ -86,11 +62,13 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 								+ "having dom=max(dom)");
 			}
 			while (resultSet.next()) {
-				Map<PlayerEntity, String> map = new HashMap<PlayerEntity, String>();
-				for (String string:columnStrList) {
-					map.put(translation.reverseTranslate(string), resultSet.getString(string));
+				String temp = "";
+				int i = 1;
+				for (i = 1; i < 9; i++) {
+					temp = temp + resultSet.getString(i) + ",";
 				}
-				result.add(map);
+				temp = temp + resultSet.getString(i);
+				result.add(temp);
 			}
 			statement.close();
 		} catch (SQLException e) {
@@ -101,39 +79,13 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 	}
 
 	//获取球员赛季数据-总数
-	public ArrayList<Map<PlayerEntity, String>> getPlayerSeasonTotalInfo(String[] sift) {
-		ArrayList<PlayerEntity> columnList = new ArrayList<PlayerEntity>();
-		columnList.add(PlayerEntity.ID);
-		columnList.add(PlayerEntity.PLAYER_NAME);
-		columnList.add(PlayerEntity.TEAM);
-		columnList.add(PlayerEntity.NUM_OF_MATCH);
-		columnList.add(PlayerEntity.NUM_OF_START);
-		columnList.add(PlayerEntity.REBOUNDS);
-		columnList.add(PlayerEntity.ASSISTS);
-		columnList.add(PlayerEntity.PRESENCE_TIME);
-		columnList.add(PlayerEntity.SHOOTING_PERSENTAGE);
-		columnList.add(PlayerEntity.THREE_POINT_SHOOTING_PERSENTAGE);
-		columnList.add(PlayerEntity.FREE_THROW_SHOOTING_PERSENTAGE);
-		columnList.add(PlayerEntity.OFFENCES);
-		columnList.add(PlayerEntity.DEFENCES);
-		columnList.add(PlayerEntity.STEALS);
-		columnList.add(PlayerEntity.BLOCK_SHOTS);
-		columnList.add(PlayerEntity.TURN_OVERS);
-		columnList.add(PlayerEntity.FOULS);
-		columnList.add(PlayerEntity.SCORE);
-		//columnList是所有需要查找的属性构成的数组
-		PlayerEnumToField translation = new PlayerEnumToField();
-		ArrayList<String> columnStrList = new ArrayList<String>();
-		for (PlayerEntity playerEntity:columnList) {
-			String temp = translation.translate(playerEntity);
-			columnStrList.add(temp);
-		}
-		String columnsToSearch = "p.id,p.player_name,t4.fn,t1.dmi,t1.sis,t1.sr,t1.sa,"
+	public ArrayList<String> getPlayerSeasonTotalInfo(String[] sift) {
+		String columnsToSearch = "p.player_name,t4.fn,t1.dmi,t1.sis,t1.sr,t1.sa,"
 				+ "t1.spt,round(100.0*t1.ssing/t1.ss,2),round(100.0*stpsing/stps,2),"
 				+ "round(100.0*sftsing/sfts,2),t1.sor,t1.sdr,t1.sst,t1.sbs,t1.sto,t1.sfo,t1.ssc";
 		Statement statement = null;
 		ResultSet resultSet = null;
-		ArrayList<Map<PlayerEntity, String>> result = new ArrayList<Map<PlayerEntity, String>>();
+		ArrayList<String> result = new ArrayList<String>();
 		try {
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(
@@ -156,13 +108,13 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 							+ "having dom=max(dom)) as t4 "
 							+ "where t1.pi = p.id and t4.pi=p.id;");
 			while (resultSet.next()) {
-				Map<PlayerEntity, String> map = new HashMap<PlayerEntity, String>();
+				String temp = "";
 				int i = 1;
-				for (String string:columnStrList) {
-					map.put(translation.reverseTranslate(string), resultSet.getString(i));
-					i++;
+				for (i = 1; i < 17; i++) {
+					temp = temp + resultSet.getString(i) + ",";
 				}
-				result.add(map);
+				temp = temp + resultSet.getString(i);
+				result.add(temp);
 			}
 			statement.close();
 		} catch (SQLException e) {
@@ -173,49 +125,20 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 	}
 	
 	//获取球员赛季数据-场均
-	public ArrayList<Map<PlayerEntity, String>> getPlayerSeasonAvgInfo(String[] sift) {
-		ArrayList<PlayerEntity> columnList = new ArrayList<PlayerEntity>();
-		columnList.add(PlayerEntity.ID);
-		columnList.add(PlayerEntity.PLAYER_NAME);
-		columnList.add(PlayerEntity.TEAM);
-		columnList.add(PlayerEntity.NUM_OF_MATCH);
-		columnList.add(PlayerEntity.NUM_OF_START);
-		columnList.add(PlayerEntity.AVE_REBOUNDS);
-		columnList.add(PlayerEntity.AVE_ASSISTS);
-		columnList.add(PlayerEntity.AVE_PRESENCE_TIME);
-		columnList.add(PlayerEntity.EFFICIENCY);
-		columnList.add(PlayerEntity.SHOOTING_PERSENTAGE);
-		columnList.add(PlayerEntity.THREE_POINT_SHOOTING_PERSENTAGE);
-		columnList.add(PlayerEntity.FREE_THROW_SHOOTING_PERSENTAGE);
-		columnList.add(PlayerEntity.AVE_OFFENCES);
-		columnList.add(PlayerEntity.AVE_DEFENCES);
-		columnList.add(PlayerEntity.AVE_STEALS);
-		columnList.add(PlayerEntity.AVE_BLOCK_SHOTS);
-		columnList.add(PlayerEntity.AVE_TURN_OVERS);
-		columnList.add(PlayerEntity.AVE_FOULS);
-		columnList.add(PlayerEntity.AVE_SCORE);
-		//columnList是所有需要查找的属性构成的数组
+	public ArrayList<String> getPlayerSeasonAvgInfo(String[] sift) {
+		
 		String columnsToSearch = "";
-		PlayerEnumToField translation = new PlayerEnumToField();
-		ArrayList<String> columnStrList = new ArrayList<String>();
-		for (PlayerEntity playerEntity:columnList) {
-			String temp = translation.translate(playerEntity);
-			columnsToSearch = columnsToSearch + temp + ",";
-			columnStrList.add(temp);
-		}
+		//ArrayList<String> columnStrList = new ArrayList<String>();
 		columnsToSearch = columnsToSearch.substring(0, columnsToSearch.length()-1);
 		Statement statement = null;
 		ResultSet resultSet = null;
-		ArrayList<Map<PlayerEntity, String>> result = new ArrayList<Map<PlayerEntity, String>>();
+		ArrayList<String> result = new ArrayList<String>();
 		try {
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(
 					"SELECT " + columnsToSearch + " FROM players");
 			while (resultSet.next()) {
-				Map<PlayerEntity, String> map = new HashMap<PlayerEntity, String>();
-				for (String string:columnStrList) {
-					map.put(translation.reverseTranslate(string), resultSet.getString(string));
-				}
+				String map = "";
 				result.add(map);
 			}
 			statement.close();

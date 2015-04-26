@@ -1,17 +1,15 @@
 package controller.playercontroller;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import controller.controller.Response;
-import entity.PlayerEntity;
 
 public class GetPlayerBasicInfoResponse implements Response {
 
 	private static final String NAME = "GetPlayerSuccess";
-	ArrayList<Map<PlayerEntity, String>> list;
+	ArrayList<String> list;
 	
-	public GetPlayerBasicInfoResponse(ArrayList<Map<PlayerEntity, String>> list) {
+	public GetPlayerBasicInfoResponse(ArrayList<String> list) {
 		this.list = list;
 	}
 	
@@ -19,7 +17,7 @@ public class GetPlayerBasicInfoResponse implements Response {
 		return NAME;
 	}
 	
-	public ArrayList<Map<PlayerEntity, String>> getList() {
+	public ArrayList<String> getList() {
 		return list;
 	}
 
