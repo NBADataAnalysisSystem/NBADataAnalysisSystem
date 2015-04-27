@@ -359,8 +359,8 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 			}else if("back".equals(name)){
 				  this.setVisible(false);
 				  this.dispose();
-		//		  @SuppressWarnings("unused")
-			//	FrontFrame front = new FrontFrame();
+				  @SuppressWarnings("unused")
+				FrontFrame front = new FrontFrame();
 			}
 		}
 		

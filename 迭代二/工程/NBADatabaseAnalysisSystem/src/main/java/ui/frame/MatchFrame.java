@@ -264,8 +264,8 @@ public class MatchFrame extends JFrame implements  ActionListener {
 			}else if("back".equals(name)){
 				  this.setVisible(false);
 				  this.dispose();
-		//		  @SuppressWarnings("unused")
-			//	FrontFrame front = new FrontFrame();
+				  @SuppressWarnings("unused")
+				FrontFrame front = new FrontFrame();
 			}
 		}
 		
