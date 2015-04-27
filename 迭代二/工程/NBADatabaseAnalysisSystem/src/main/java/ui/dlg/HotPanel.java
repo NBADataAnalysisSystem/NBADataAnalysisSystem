@@ -8,6 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -201,6 +202,7 @@ public class HotPanel extends JPanel {
 		GridBagLayout panelLayout = new GridBagLayout();
 		GridBagConstraints s= new GridBagConstraints();
 		s.fill = GridBagConstraints.BOTH; 
+		//s.insets = new Insets(0,0,0,0);
 		
 		panel.setLayout(panelLayout);
 		JLabel lineLabel = new JLabel();
@@ -216,40 +218,70 @@ public class HotPanel extends JPanel {
 		panel.add(lineLabel);
 		lineLabel.setBackground(Color.WHITE);
 		for(int i = 0;i<btn.size()-1;i++){
-			s.gridwidth= 16/btn.size();
+			s.gridwidth= 1;
 			s.weightx = 16/btn.size(); 
 			s.weighty=1;
 			panelLayout.setConstraints(btn.get(i), s);
 			panel.add(btn.get(i));
 			btn.get(i).setBorder(BorderFactory.createTitledBorder(""));
 		}
-		s.gridwidth=0;
-		s.weightx = 16/btn.size(); 
+		s.gridwidth= 0;
+		s.weightx =16/btn.size(); 
 		s.weighty=1;
 		panelLayout.setConstraints(btn.get(btn.size()-1), s);
 		panel.add(btn.get(btn.size()-1));
 		btn.get(btn.size()-1).setBorder(BorderFactory.createTitledBorder(""));
+		
+		JPanel bottomPanel = new JPanel();
+		s.gridwidth= 0;
+		s.weightx =16; 
+		s.weighty=4;
+		panelLayout.setConstraints(bottomPanel, s);
+		panel.add(bottomPanel);
+		
+		panelLayout = new GridBagLayout();
+		bottomPanel.setLayout(panelLayout);
+		s= new GridBagConstraints();
+		s.fill = GridBagConstraints.BOTH; 
 		JPanel firstPanel = new JPanel();
-		s.gridwidth=8;
-		s.weightx = 8; 
+		s.gridwidth=1;
+		s.weightx =8; 
 		s.weighty=4;
 		panelLayout.setConstraints(firstPanel, s);
-		panel.add(firstPanel);
+		bottomPanel.add(firstPanel);
 		firstPanel.setBorder(BorderFactory.createTitledBorder(""));
 		JPanel numPanel = new JPanel();
 		s.gridwidth=1;
-		s.weightx =1; 
+		s.weightx = 1; 
 		s.weighty=4;
 		panelLayout.setConstraints(numPanel, s);
-		panel.add(numPanel);
+		bottomPanel.add(numPanel);
 		numPanel.setBorder(BorderFactory.createTitledBorder(""));
 		JPanel othPanel = new JPanel();
-		s.gridwidth=7;
+		s.gridwidth=0;
 		s.weightx =7; 
 		s.weighty=4;
 		panelLayout.setConstraints(othPanel, s);
-		panel.add(othPanel);
+		bottomPanel.add(othPanel);
 		othPanel.setBorder(BorderFactory.createTitledBorder(""));
+		
+		firstPanel.setLayout(new GridLayout(1,4));
+		JLabel firstIconLabel = new JLabel();
+		firstPanel.add(firstIconLabel);
+		
+		JLabel firstTemp = new JLabel();
+		firstTemp.setText("1");
+		firstTemp.setFont(new Font("宋体",1, 100));
+		firstTemp.setHorizontalAlignment(firstIconLabel.RIGHT);
+		firstPanel.add(firstTemp);
+		
+		JPanel firstInfoPanel = new JPanel();
+		firstPanel.add(firstInfoPanel);
+		
+		JLabel firstTeamPanel = new JLabel();
+		firstPanel.add(firstTeamPanel);
+		
+		
 		
 		//设置
 		numPanel.setLayout(new GridLayout(4,1));
