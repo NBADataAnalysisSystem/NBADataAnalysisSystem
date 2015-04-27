@@ -64,6 +64,11 @@ public class MyTable {
 			}
 		}
 	}
+	
+	//获取单元格
+	public JLabel getCell(int row,int column){
+		return table[row][column][0];
+	}
 	//设置单元格高
 	public void setRowHeight(int Rheight){
 		cellH = Rheight;

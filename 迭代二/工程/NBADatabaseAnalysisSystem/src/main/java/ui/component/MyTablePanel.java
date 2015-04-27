@@ -5,6 +5,7 @@ import java.awt.Font;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -78,7 +79,10 @@ public class MyTablePanel  extends JPanel{
 		this.setTableContent();
 	
 	}
-	
+	//获取单元格
+	public JLabel getCell(int row,int column){
+		return table.getCell(row, column);
+	}
 	//设置表格图片
 	public void setFieldIcon(ImageIcon[][] icon,int horizontalAlignment){
 		
