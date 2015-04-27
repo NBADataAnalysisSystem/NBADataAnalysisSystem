@@ -64,13 +64,15 @@ public class PlayerSeasonInfoPanel extends JPanel{
 		selectUnion.setEditable(false);
 		selectUnion.setOpaque(false);
 		selectUnion.setBounds(50 ,0, (width - 300)/3, (height-20)/2);
-//		selectUnion.addMouseListener(       new MouseAdapter(){
-//			
-//			public void mouseClicked(MouseEvent e){
-//						sift[0] = selectUnion.getSelectedItem().toString();
-//				}
-//			}
-//		);
+		/*selectUnion.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent e){
+				if (selectUnion.getSelectedItem().toString().equals("全部联盟")) {
+					sift[0] = null;
+				} else {
+					sift[0] = selectUnion.getSelectedItem().toString();
+				}
+			}
+		});*/
 		
 		selectPosition = new JComboBox<String>();
 		this.add(selectPosition);
@@ -83,13 +85,15 @@ public class PlayerSeasonInfoPanel extends JPanel{
 		selectPosition.setEditable(false);
 		selectPosition.setOpaque(false);
 		selectPosition.setBounds(50 + selectUnion.getWidth()+100 ,0, (width - 300)/3, (height-20)/2);
-//		selectPosition.addMouseListener(       new MouseAdapter(){
-//			
-//			public void mouseClicked(MouseEvent e){
-//						sift[1] = selectPosition.getSelectedItem().toString();
-//				}
-//			}
-//		);
+		/*selectPosition.addMouseListener(       new MouseAdapter(){
+			public void mouseClicked(MouseEvent e){
+				if (selectPosition.getSelectedItem().toString().equals("全部位置")) {
+					sift[1] = null;
+				} else {
+					sift[1] = selectPosition.getSelectedItem().toString();
+				}
+			}
+		});*/
 		
 		selectOth = new JComboBox<String>();
 		this.add(selectOth);
@@ -113,32 +117,26 @@ public class PlayerSeasonInfoPanel extends JPanel{
 		selectOth.setEditable(false);
 		selectOth.setOpaque(false);
 		selectOth.setBounds(50 + 2*selectUnion.getWidth()+200 ,0, (width - 300)/3, (height-20)/2);
-//		selectOth.addMouseListener(       new MouseAdapter(){
-//			
-//			public void mouseClicked(MouseEvent e){
-//						sift[2] = selectOth.getSelectedItem().toString();
-//					
-//				}
-//			}
-//		);
+		/*selectOth.addMouseListener(       new MouseAdapter(){
+			public void mouseClicked(MouseEvent e){
+					sift[2] = selectOth.getSelectedItem().toString();
+			}
+		});*/
 		
 		selectYear = new JComboBox<String>();
 		this.add(selectYear);
 		selectYear.setBackground(Color.decode("#FFFFFF"));
 		selectYear.setFont(new Font("Serif",1, 15));
+		selectYear.addItem("2012-2013");
 		selectYear.addItem("2013-2014");
-		selectYear.addItem("2014-2015");
 		selectYear.setEditable(false);
 		selectYear.setOpaque(false);
 		selectYear.setBounds(50 ,height/2, (width - 300)/3, (height-20)/2);
-		selectYear.addMouseListener(       new MouseAdapter(){
-			
+		/*selectYear.addMouseListener(       new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){
-						sift[3] = selectYear.getSelectedItem().toString();
-					
-				}
+				sift[3] = selectYear.getSelectedItem().toString();
 			}
-		);
+		});*/
 		
 		selectType = new JComboBox<String>();
 		this.add(selectType);
@@ -149,14 +147,12 @@ public class PlayerSeasonInfoPanel extends JPanel{
 		selectType.setEditable(false);
 		selectType.setOpaque(false);
 		selectType.setBounds(50 + selectUnion.getWidth()+100 ,height/2, (width - 300)/3, (height-20)/2);
-//		selectType.addMouseListener(       new MouseAdapter(){
-//			
-//			public void mouseClicked(MouseEvent e){
-//						sift[4] = selectType.getSelectedItem().toString();
-//					
-//				}
-//			}
-//		);
+		/*selectType.addMouseListener(       new MouseAdapter(){
+			public void mouseClicked(MouseEvent e){
+				sift[4] = selectType.getSelectedItem().toString();
+			}
+		});*/
+		sift[2] = "得分";
 		sift[4] = "总数";
 		
 		submit = new JButton("提交");
@@ -206,8 +202,16 @@ public class PlayerSeasonInfoPanel extends JPanel{
             
             public void mouseClicked(MouseEvent e){
             	
-            	sift[0] = selectUnion.getSelectedItem().toString();
-            	sift[1] = selectPosition.getSelectedItem().toString();
+				if (selectUnion.getSelectedItem().toString().equals("全部联盟")) {
+					sift[0] = null;
+				} else {
+					sift[0] = selectUnion.getSelectedItem().toString();
+				}
+				if (selectPosition.getSelectedItem().toString().equals("全部位置")) {
+					sift[1] = null;
+				} else {
+					sift[1] = selectPosition.getSelectedItem().toString();
+				}
             	sift[2] = selectOth.getSelectedItem().toString();
             	sift[3] = selectYear.getSelectedItem().toString();
             	sift[4] = selectType.getSelectedItem().toString();

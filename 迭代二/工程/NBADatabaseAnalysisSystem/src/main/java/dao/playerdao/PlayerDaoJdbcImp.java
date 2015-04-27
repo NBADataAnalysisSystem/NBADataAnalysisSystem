@@ -65,7 +65,11 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 				String temp = "";
 				int i = 1;
 				for (i = 1; i < 9; i++) {
-					temp = temp + resultSet.getString(i) + ",";
+					if (resultSet.getString(i) != null) {
+						temp = temp + resultSet.getString(i) + ",";
+					} else {
+						temp = temp + ",";
+					}
 				}
 				temp = temp + resultSet.getString(i);
 				result.add(temp);
@@ -80,9 +84,28 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 
 	//获取球员赛季数据-总数
 	public ArrayList<String> getPlayerSeasonTotalInfo(String[] sift) {
+		//sift[0] 联盟
+		//sift[1] 位置
+		//sift[2] 排序依据
+		String condition1 = "";
+		String condition2 = "";
+		String condition3 = "";
+		if (sift[0]!=null) {
+			if (sift[0].equals("E") || sift[0].equals("W")) {
+				condition1 = " and fn in (select full_name from teams where division='" + sift[0] + "') ";
+			} else {
+				condition1 = " and fn in (select full_name from teams where section='" + sift[0] + "') ";
+			}
+		}
+		if (sift[1]!=null) {
+			condition2 = " and position like '%" + sift[1] + "%' ";
+		}
+		if (sift[2]!=null) {
+			condition3 = " order by " + sift[2] + " desc";
+		}
 		String columnsToSearch = "p.player_name,t4.fn,t1.dmi,t1.sis,t1.sr,t1.sa,"
-				+ "t1.spt,round(100.0*t1.ssing/t1.ss,2),round(100.0*stpsing/stps,2),"
-				+ "round(100.0*sftsing/sfts,2),t1.sor,t1.sdr,t1.sst,t1.sbs,t1.sto,t1.sfo,t1.ssc";
+				+ "t1.spt,round(100.0*t1.ssing/t1.ss,1) as sp,round(100.0*stpsing/stps,1) as tpsp,"
+				+ "round(100.0*sftsing/sfts,1) as ftsp,t1.sor,t1.sdr,t1.sst,t1.sbs,t1.sto,t1.sfo,t1.ssc";
 		Statement statement = null;
 		ResultSet resultSet = null;
 		ArrayList<String> result = new ArrayList<String>();
@@ -105,13 +128,20 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 							+ "from player_match_performance p,teams t,matches m "
 							+ "where t.id = p.team_id and p.match_id = m.id) as t3 "
 							+ "group by pi "
-							+ "having dom=max(dom)) as t4 "
-							+ "where t1.pi = p.id and t4.pi=p.id;");
+							+ "having dom=max(dom)) as t4, "
+							+ "(select player_id as id,sum(double_double) as dd from player_match_performance "
+							+ "group by player_id) as t5 "
+							+ "where t1.pi = p.id and t4.pi=p.id and t1.pi=t5.id "
+							+ condition1 + condition2 + condition3 + ";");
 			while (resultSet.next()) {
 				String temp = "";
 				int i = 1;
 				for (i = 1; i < 17; i++) {
-					temp = temp + resultSet.getString(i) + ",";
+					if (resultSet.getString(i) != null) {
+						temp = temp + resultSet.getString(i) + ",";
+					} else {
+						temp = temp + ",";
+					}
 				}
 				temp = temp + resultSet.getString(i);
 				result.add(temp);
