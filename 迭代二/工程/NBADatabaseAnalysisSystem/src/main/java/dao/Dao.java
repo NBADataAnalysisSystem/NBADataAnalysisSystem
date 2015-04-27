@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
@@ -23,6 +24,7 @@ public class Dao implements DaoInterface {
 	
 	Connection connection;
 	FileAlterationMonitor monitor;
+	ArrayList<String[]> performance = new ArrayList<String[]>();
 	//创建新数据库，运行耗时3秒
 	public void newDatabase() throws Exception{
 		
@@ -231,26 +233,42 @@ public class Dao implements DaoInterface {
 		}
 		br.close();
 	}
-	
-	//将match文件中的球员赛场成绩记录添加到数据库中
-	private void storePlayerMatchPerformance(File[] fileList)throws Exception{
+	private void storePlayerMatchPerformance()throws Exception{
+		connection.close();
+		Class.forName("org.sqlite.JDBC");
+    	connection = DriverManager.getConnection("jdbc:sqlite:NBADatabase.db");
 		PreparedStatement prep = connection.prepareStatement(""
 				+ "insert into player_match_performance values ("
 				+ "?,?,?,?,?,?,?,?,?,?,"
 				+ "?,?,?,?,?,?,?,?,?,?,"
 				+ "?,?,?)");
-		int row = 0;
-		for(File file : fileList){
-			row = storePlayerMatchPerformance(file,prep,row);
+		for(int i = 0 ;i < performance.size();i ++){
+			for(int j = 0;j < 23;j ++){
+				System.out.print(performance.get(i)[j]);
+				prep.setString(j+1,performance.get(i)[j]);
+			}
+			System.out.println();
+			prep.addBatch();
 		}
-		System.out.println("store");
 		connection.setAutoCommit(false);
 		prep.executeBatch();
 		connection.setAutoCommit(true);
+		
+	}
+	//将match文件中的球员赛场成绩记录添加到数据库中
+	private void storePlayerMatchPerformance(File[] fileList)throws Exception{
+		
+		int row = 0;
+		for(File file : fileList){
+			row = storePlayerMatchPerformance(file,row);
+		}
+		
+		storePlayerMatchPerformance();
+		
 	}
 	
 	//将单个文件中的球员赛场成绩添加到PreparedStatement中，并在PreparedStatement中数据过多时填入数据库中
-	private int storePlayerMatchPerformance(File file,PreparedStatement prep,int row)throws Exception{
+	private int storePlayerMatchPerformance(File file,int row)throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
 		String strTemp = file.getName();
 		int matchId = getMatchId(strTemp.split("_")[0],strTemp.split("_")[1],getTeamId(strTemp.split("_")[2].split("-")[0]));
@@ -261,14 +279,8 @@ public class Dao implements DaoInterface {
 		connection.setAutoCommit(false);
 		while((strTemp = br.readLine())!=null){
 			if(strTemp.split(";").length > 1){
-				starts+=storePlayerPerformance(matchId,teamId,strTemp,starts,prep);
+				starts+=storePlayerPerformance(matchId,teamId,strTemp,starts);
 				row ++ ;
-				if((row % 2000) == 0){
-					prep.executeBatch();
-					connection.commit();
-					prep.clearBatch();
-					
-				}
 			}else{
 				starts = 5;
 				teamId = getTeamId(strTemp);
@@ -280,30 +292,32 @@ public class Dao implements DaoInterface {
 	}
 	
 	//将一条球员赛场成绩记录添加到PreparedStatement中
-	private int storePlayerPerformance(int matchId,int teamId,String record,int starts,PreparedStatement prep)throws Exception{
+	private int storePlayerPerformance(int matchId,int teamId,String record,int starts)throws Exception{
 		String[] player = record.split(";");
 		int playerId = getPlayerId(player[0]);
-		prep.setString(23,player[0]);
-		prep.setString(1,matchId+"");
-		prep.setString(2,teamId+"");
+		String[] performance = new String[23];
+		performance[22] = player[0];
+		performance[0] = matchId+"";
+		performance[1] = teamId+"";
+
 		if(playerId>0){
-			prep.setString(3,playerId+"");
+			performance[2] = playerId+"";
 		}else{
-			prep.setString(3,playerId+"");
+			performance[2] = playerId+"";
 		}
-		prep.setString(4,player[1]);
+		performance[3] = player[1];
 		//上场时间
 		if(player[2].equals("null")||(player[2].equals("None"))){
 			player[2] = "0:0";
 		}
-		prep.setString(5,(Integer.parseInt(player[2].split(":")[0])*60+Integer.parseInt(player[2].split(":")[1]))+"");
+		performance[4]=(Integer.parseInt(player[2].split(":")[0])*60+Integer.parseInt(player[2].split(":")[1]))+"";
 		
 		for(int i = 3;i < 18;i++){
 			if(player[i].equals("null")||(player[i].equals("None"))){
 				player[i] = "0";
-				prep.setString(i+3,"0");
+				performance[i+2]="0";
 			}else{
-				prep.setString(i+3,player[i]);
+				performance[i+2]=player[i];
 			}
 		}
 		int doubles = 0;//计算两双
@@ -316,17 +330,17 @@ public class Dao implements DaoInterface {
 			doubles++;
 		}
 		if (doubles>1){
-			prep.setString(21,"1");
+			performance[20]="1";
 		}else{
-			prep.setString(21,"0");
+			performance[20]="0";
 		}
 		if(starts>0){
-			prep.setString(22,"1");
-			prep.addBatch();
+			performance[21]="1";
+			this.performance.add(performance);
 			return -1;
 		}else{
-			prep.setString(22,"0");
-			prep.addBatch();
+			performance[21]="0";
+			this.performance.add(performance);
 			return 0;
 		}
 	}
@@ -416,7 +430,7 @@ public class Dao implements DaoInterface {
 						+ "?,?,?,?,?,?,?,?,?,?,"
 						+ "?,?,?,?,?,?,?,?,?,?,"
 						+ "?,?,?)");
-				storePlayerMatchPerformance(file,performancePrep,0);
+				storePlayerMatchPerformance(file,0);
 				connection.setAutoCommit(false);
 				performancePrep.executeBatch();
 				connection.setAutoCommit(true);
@@ -436,7 +450,7 @@ public class Dao implements DaoInterface {
 		Dao dao = new Dao();
 		dao.newDatabase();//3秒
 		dao.readFiles("C:/Users/cross/Documents/CSE/CSEIII data/迭代一数据/");
-		dao.monitorFiles("C:/Users/cross/Documents/CSE/CSEIII data/迭代一数据/matches/");
+		//dao.monitorFiles("C:/Users/cross/Documents/CSE/CSEIII data/迭代一数据/matches/");
 		//dao.stopMonitor();
 		//Class.forName("org.sqlite.JDBC");
     	//dao.connection = DriverManager.getConnection("jdbc:sqlite:NBADatabase.db");
