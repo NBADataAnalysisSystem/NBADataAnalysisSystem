@@ -92,12 +92,19 @@ public class PlayerDetailInfo extends JFrame implements ActionListener  {
 		backPanel.setSize(width,height);
 		backPanel.setLayout(null);
 	
+		ImageIcon background ;
+		background = new ImageIcon("resource/check.png");
+		background.setImage(background.getImage().getScaledInstance(backPanel.getWidth(), backPanel.getHeight(),Image.SCALE_DEFAULT));
+	
 		JLabel placeBackgroundIcon = new JLabel();
+		placeBackgroundIcon.setIcon(background);
 		placeBackgroundIcon.setBounds(0, 0,backPanel.getWidth() , backPanel.getHeight());
+		placeBackgroundIcon.setOpaque(false);
+
 		
 		JButton closeButton = new JButton("×");
 		closeButton.setMargin(new Insets(0,0,0,0));
-		closeButton.setBounds(685,0,30, 30);
+		closeButton.setBounds(width-30,0,30, 30);
 		closeButton.addActionListener(this);
 		closeButton.setName("close");
 		
@@ -113,7 +120,7 @@ public class PlayerDetailInfo extends JFrame implements ActionListener  {
 		j1.setBorderPainted(false);
 		j1.setContentAreaFilled(false);
 		j1.setOpaque(false);
-		j1.setIcon(new ImageIcon("resource/backgroundOfPlayerChecking.png"));//存放图片路径
+		j1.setIcon(new ImageIcon("resource/BackgroundOfPlayerChecking.png"));//存放图片路径
 		backPanel.add(j1, 0);
 		
 		j2 = new JLabel("球员姓名");
@@ -235,7 +242,7 @@ public class PlayerDetailInfo extends JFrame implements ActionListener  {
 		j21.setBorderPainted(false);
 		j21.setContentAreaFilled(false);
 		j21.setOpaque(false);
-		j21.setIcon(new ImageIcon("resource/backgroundOfPlayerChecking.png"));//存放图片路径
+		j21.setIcon(new ImageIcon("resource/BackgroundOfPlayerChecking.png"));//存放图片路径
 		backPanel.add(j21, 0);
 		
 		j22 = new JLabel("aaa");
@@ -308,18 +315,15 @@ public class PlayerDetailInfo extends JFrame implements ActionListener  {
 		
 		setTotalTablePanel();
 		TotaltablePanel.setBounds(0, 425, 1000, 250);
-		
+		TotaltablePanel.setOpaque(false);
 		backPanel.add(TotaltablePanel);
-	
-		backPanel.add(placeBackgroundIcon);
 		
 		setMatchTablePanel();
 		MatchtablePanel.setBounds(0, 525, 800, 300);
 		backPanel.add(MatchtablePanel);
-		
 		backPanel.add(placeBackgroundIcon);
-		
-		
+		MatchtablePanel.setOpaque(false);
+		backPanel.setOpaque(false);
 		this.add(backPanel);
 		this.setVisible(true);
 //		backgroundPanel.setBackground(Color.blue);

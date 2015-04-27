@@ -110,13 +110,13 @@ public class FrontFrame extends JFrame implements ActionListener{
 
         		
             	ImageIcon btnChoosedIcon = new ImageIcon("resource/PlayerChoosed.png");
-            	btnChoosedIcon.setImage(btnChoosedIcon.getImage().getScaledInstance(teamButton.getWidth(), teamButton.getHeight(),Image.SCALE_DEFAULT));
+            	btnChoosedIcon.setImage(btnChoosedIcon.getImage().getScaledInstance(playerButton.getWidth(), playerButton.getHeight(),Image.SCALE_DEFAULT));
             	playerButton.setIcon(btnChoosedIcon);
   
             }
             public void mouseExited(MouseEvent e){
             	ImageIcon btnUnhoosedIcon = new ImageIcon("resource/PlayerUnchoosed.png");
-            	btnUnhoosedIcon.setImage(btnUnhoosedIcon.getImage().getScaledInstance(teamButton.getWidth(), teamButton.getHeight(),Image.SCALE_DEFAULT));
+            	btnUnhoosedIcon.setImage(btnUnhoosedIcon.getImage().getScaledInstance(playerButton.getWidth(), playerButton.getHeight(),Image.SCALE_DEFAULT));
             	playerButton.setIcon(btnUnhoosedIcon);
             }
             @SuppressWarnings("unused")
@@ -157,7 +157,7 @@ public class FrontFrame extends JFrame implements ActionListener{
             @SuppressWarnings("unused")
 			public void mouseClicked(MouseEvent e){
             	           	
-            	PlayerFrame playerFrame = new PlayerFrame();
+            	MatchFrame playerFrame = new MatchFrame();
 				dispose();
             }
         
@@ -192,7 +192,7 @@ public class FrontFrame extends JFrame implements ActionListener{
             @SuppressWarnings("unused")
 			public void mouseClicked(MouseEvent e){
             	           	
-            	PlayerFrame playerFrame = new PlayerFrame();
+            	HotFrame playerFrame = new HotFrame();
 				dispose();
             }
         
