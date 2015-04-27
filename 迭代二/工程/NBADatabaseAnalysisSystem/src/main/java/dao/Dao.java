@@ -64,17 +64,23 @@ public class Dao implements DaoInterface {
     	//从文件中读取
     	readPlayerFiles(path+"players/info/");
     	
-    	System.out.println("readTeamFiles:"+c.getTimeInMillis());
-    	
     	readTeamFiles(path+"teams/teams");
-    	
-    	System.out.println("readMatchesFiles:"+c.getTimeInMillis());
     	
     	readMatchFiles(path+"matches/");
     	
-    	System.out.println("end:"+c.getTimeInMillis());
+    	storePath(path);
     	
 	};
+	
+	private void storePath(String path)throws Exception{
+		PreparedStatement prep = connection.prepareStatement("insert into paths values("
+				+ "?,?)");
+		prep.setString(2,path);
+		prep.addBatch();
+		connection.setAutoCommit(false);
+		prep.executeBatch();
+		connection.commit();
+	}
 	
 	//读取制定路径下的players文件，并将结果写入数据库中，运行耗时1s
 	private void readPlayerFiles(String path)throws Exception{
@@ -175,6 +181,7 @@ public class Dao implements DaoInterface {
 		String season = file.getName().split("_")[0];
 		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
 		String strTemp = br.readLine();
+		System.out.println(strTemp);
 		String[] match = strTemp.split(";");
 		strTemp = br.readLine();
 		String[] sectionScore = strTemp.split(";");
@@ -415,7 +422,7 @@ public class Dao implements DaoInterface {
 				storeMatches(file,matchPrep);
 				connection.setAutoCommit(false);
 				matchPrep.executeBatch();
-				connection.setAutoCommit(true);
+				connection.commit();
 				matchPrep.close();
 				PreparedStatement overtimePrep = connection.prepareStatement(""
 						+ "insert into overtime_matches values("
@@ -423,7 +430,7 @@ public class Dao implements DaoInterface {
 				storeOvertimeMatches(file,overtimePrep);
 				connection.setAutoCommit(false);
 				overtimePrep.executeBatch();
-				connection.setAutoCommit(true);
+				connection.commit();
 				overtimePrep.close();
 				PreparedStatement performancePrep = connection.prepareStatement(""
 						+ "insert into player_match_performance values ("
@@ -433,10 +440,10 @@ public class Dao implements DaoInterface {
 				storePlayerMatchPerformance(file,0);
 				connection.setAutoCommit(false);
 				performancePrep.executeBatch();
-				connection.setAutoCommit(true);
+				connection.commit();
 				performancePrep.close();
 				Calendar c = Calendar.getInstance();
-				System.out.println(c.getTimeInMillis());
+				System.out.println(c.getTimeInMillis()+file.getName());
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -450,7 +457,7 @@ public class Dao implements DaoInterface {
 		Dao dao = new Dao();
 		dao.newDatabase();//3秒
 		dao.readFiles("C:/Users/cross/Documents/CSE/CSEIII data/迭代一数据/");
-		//dao.monitorFiles("C:/Users/cross/Documents/CSE/CSEIII data/迭代一数据/matches/");
+		dao.monitorFiles("C:/Users/cross/Documents/CSE/CSEIII data/迭代一数据/matches/");
 		//dao.stopMonitor();
 		//Class.forName("org.sqlite.JDBC");
     	//dao.connection = DriverManager.getConnection("jdbc:sqlite:NBADatabase.db");
