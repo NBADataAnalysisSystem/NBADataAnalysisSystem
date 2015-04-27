@@ -21,7 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import ui.dlg.MatchPanel;
+import ui.dlg.HotPanel;
 
 
 public class HotFrame extends JFrame implements  ActionListener {
@@ -55,7 +55,7 @@ public class HotFrame extends JFrame implements  ActionListener {
 	
 	static JLabel btnChoosedLabel = new JLabel();
 	
-	MatchPanel panel ;
+	HotPanel panel ;
 	
 	public HotFrame(){
 		
@@ -105,11 +105,11 @@ public class HotFrame extends JFrame implements  ActionListener {
 		      
 
 		      //TODO
-		//		panel = new MatchPanel(mainPanel.getWidth()/30,mainPanel.getHeight()/30,mainPanel.getWidth()*14/15,mainPanel.getHeight()*27/30);
+			panel = new HotPanel(mainPanel.getWidth()/30,mainPanel.getHeight()/30,mainPanel.getWidth()*14/15,mainPanel.getHeight()*27/30);
 			
 		      backgroundPanel.add(btnPanel);
 		      backgroundPanel.add(mainPanel);
-		      //mainPanel.add(panel,0);
+		      mainPanel.add(panel,0);
 		      mainPanel.add(placeMainIcon);
 		      backgroundPanel.add(placeBackgroundIcon);
 		      this.add(backgroundPanel);
