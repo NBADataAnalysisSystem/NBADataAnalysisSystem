@@ -7,9 +7,9 @@ import controller.controller.Response;
 public class GetPlayerSeasonTotalInfoResponse implements Response {
 
 	private static final String NAME = "GetPlayerSuccess";
-	ArrayList<String> list;
+	ArrayList<String[]> list;
 	
-	public GetPlayerSeasonTotalInfoResponse(ArrayList<String> list) {
+	public GetPlayerSeasonTotalInfoResponse(ArrayList<String[]> list) {
 		this.list = list;
 	}
 	
@@ -17,7 +17,7 @@ public class GetPlayerSeasonTotalInfoResponse implements Response {
 		return NAME;
 	}
 	
-	public ArrayList<String> getList() {
+	public ArrayList<String[]> getList() {
 		return list;
 	}
 

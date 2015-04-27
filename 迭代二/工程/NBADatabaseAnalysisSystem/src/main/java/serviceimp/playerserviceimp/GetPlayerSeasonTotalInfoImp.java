@@ -8,7 +8,7 @@ import service.playerservice.GetPlayerSeasonTotalInfoService;
 
 public class GetPlayerSeasonTotalInfoImp implements GetPlayerSeasonTotalInfoService {
 
-	public ArrayList<String> getPlayer(String[] sift) {
+	public ArrayList<String[]> getPlayer(String[] sift) {
 		PlayerDao dao = new PlayerDaoJdbcImp();
 		try {
 			MappingTable mappingTable = new PlayerMappingTable();

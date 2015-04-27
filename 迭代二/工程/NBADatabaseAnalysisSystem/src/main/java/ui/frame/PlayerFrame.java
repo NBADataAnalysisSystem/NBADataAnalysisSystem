@@ -31,6 +31,8 @@ import javax.swing.SwingUtilities;
 
 
 
+
+
 import controller.playercontroller.GetPlayerBasicInfoRequest;
 import controller.playercontroller.GetPlayerBasicInfoResponse;
 import controller.playercontroller.GetPlayerSeasonTotalInfoRequest;
@@ -478,13 +480,12 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 			PlayerController controller = new PlayerController();
 			GetPlayerBasicInfoResponse response = (GetPlayerBasicInfoResponse) controller.processRequest(
 					new GetPlayerBasicInfoRequest(playerPanel.getSift()));
-			ArrayList<String> tempList = response.getList();
+			ArrayList<String[]> tempList = response.getList();
 			tableContent = new String[tempList.size()][tableHeader.length];
 			int i = 0;
-			for (String map:tempList) {
-				String[] list = map.split(",");
-				for (int j = 0; j < tableHeader.length; j++) {
-					tableContent[i][j] = list[j];
+			for (String[] strings:tempList) {
+				for (int j = 0; j < strings.length; j++) {
+					tableContent[i][j] = strings[j];
 				}
 				i++;
 			}
@@ -500,12 +501,15 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 					new GetPlayerSeasonTotalInfoRequest(seasonPanel.getSift()));
 			tempList = getPlayerSeasonTotalInfoResponse.getList();
 			tableContent = new String[tempList.size()][tableHeader.length];
-			i = 0;
-			for (String map:tempList) {
-				String[] list = map.split(",");
+			i=0;
+			while (i < tableContent.length) {
 				tableContent[i][0] = Integer.toString(i+1);
-				for (int j = 0; j < tableHeader.length-1; j++) {
-					tableContent[i][j+1] = list[j];
+				i++;
+			}
+			i = 0;
+			for (String[] strings:tempList) {
+				for (int j = 0; j < strings.length; j++) {
+					tableContent[i][j+1] = strings[j];
 				}
 				i++;
 			}

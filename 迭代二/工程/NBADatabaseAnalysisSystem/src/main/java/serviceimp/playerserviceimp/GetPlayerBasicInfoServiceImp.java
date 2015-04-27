@@ -8,7 +8,7 @@ import service.playerservice.GetPlayerBasicInfoService;
 
 public class GetPlayerBasicInfoServiceImp implements GetPlayerBasicInfoService {
 
-	public ArrayList<String> getPlayer(String[] sift) {
+	public ArrayList<String[]> getPlayer(String[] sift) {
 		PlayerDao dao = new PlayerDaoJdbcImp();
 		try {
 			if (sift[2] != null) {

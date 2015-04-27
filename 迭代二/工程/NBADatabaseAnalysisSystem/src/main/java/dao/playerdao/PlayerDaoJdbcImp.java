@@ -23,7 +23,7 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 		}
     }
     
-	public ArrayList<String> getPlayerBasicInfo(String[] sift) {
+	public ArrayList<String[]> getPlayerBasicInfo(String[] sift) {
 		//sift[0] 姓名首字母筛选
 		//sift[1] 球队筛选
 		//sift[2] 位置筛选
@@ -35,10 +35,10 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 		} else if (sift[0]!=null) {
 			condition = " player_name like '" + sift[0] + "%' ";
 		}
-		String columnsToSearch = "player_name,jersey_number,position,height,weight,birth,age,exp,fn";
+		String columnsToSearch = "player_name,jersey_number,position,height,weight,birth,age,exp,school,fn";
 		Statement statement = null;
 		ResultSet resultSet = null;
-		ArrayList<String> result = new ArrayList<String>();
+		ArrayList<String[]> result = new ArrayList<String[]>();
 		try {
 			statement = connection.createStatement();
 			if (condition.equals("")) {
@@ -62,16 +62,12 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 								+ "having dom=max(dom)");
 			}
 			while (resultSet.next()) {
-				String temp = "";
-				int i = 1;
-				for (i = 1; i < 9; i++) {
-					if (resultSet.getString(i) != null) {
-						temp = temp + resultSet.getString(i) + ",";
-					} else {
-						temp = temp + ",";
-					}
+				int j = 0;
+				String[] temp = new String[10];
+				while (j < 10) {
+					temp[j] = resultSet.getString(j+1);
+					j++;
 				}
-				temp = temp + resultSet.getString(i);
 				result.add(temp);
 			}
 			statement.close();
@@ -83,7 +79,7 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 	}
 
 	//获取球员赛季数据-总数
-	public ArrayList<String> getPlayerSeasonTotalInfo(String[] sift) {
+	public ArrayList<String[]> getPlayerSeasonTotalInfo(String[] sift) {
 		//sift[0] 联盟
 		//sift[1] 位置
 		//sift[2] 排序依据
@@ -108,11 +104,12 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 				+ "round(100.0*sftsing/sfts,1) as ftsp,t1.sor,t1.sdr,t1.sst,t1.sbs,t1.sto,t1.sfo,t1.ssc";
 		Statement statement = null;
 		ResultSet resultSet = null;
-		ArrayList<String> result = new ArrayList<String>();
+		ArrayList<String[]> result = new ArrayList<String[]>();
 		try {
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(
-					"SELECT " + columnsToSearch + " FROM players as p ,(select player_id pi,count(distinct match_id) as dmi, "
+					"SELECT " + columnsToSearch + " FROM players as p ,"
+							+ "(select player_id pi,count(distinct match_id) as dmi, "
 							+ "sum(is_start) as sis,sum(rebounds) as sr,sum(assists) as sa, "
 							+ "sum(presence_time)/60 as spt,sum(shootings) as ssing, "
 							+ "sum(shots) as ss,sum(three_point_shootings) as stpsing, "
@@ -134,16 +131,12 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 							+ "where t1.pi = p.id and t4.pi=p.id and t1.pi=t5.id "
 							+ condition1 + condition2 + condition3 + ";");
 			while (resultSet.next()) {
-				String temp = "";
-				int i = 1;
-				for (i = 1; i < 17; i++) {
-					if (resultSet.getString(i) != null) {
-						temp = temp + resultSet.getString(i) + ",";
-					} else {
-						temp = temp + ",";
-					}
+				int j = 0;
+				String[] temp = new String[17];
+				while (j < 17) {
+					temp[j] = resultSet.getString(j+1);
+					j++;
 				}
-				temp = temp + resultSet.getString(i);
 				result.add(temp);
 			}
 			statement.close();
@@ -155,21 +148,66 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 	}
 	
 	//获取球员赛季数据-场均
-	public ArrayList<String> getPlayerSeasonAvgInfo(String[] sift) {
-		
-		String columnsToSearch = "";
-		//ArrayList<String> columnStrList = new ArrayList<String>();
-		columnsToSearch = columnsToSearch.substring(0, columnsToSearch.length()-1);
+	public ArrayList<String[]> getPlayerSeasonAvgInfo(String[] sift) {
+		//sift[0] 联盟
+		//sift[1] 位置
+		//sift[2] 排序依据
+		String condition1 = "";
+		String condition2 = "";
+		String condition3 = "";
+		if (sift[0]!=null) {
+			if (sift[0].equals("E") || sift[0].equals("W")) {
+				condition1 = " and fn in (select full_name from teams where division='" + sift[0] + "') ";
+			} else {
+				condition1 = " and fn in (select full_name from teams where section='" + sift[0] + "') ";
+			}
+		}
+		if (sift[1]!=null) {
+			condition2 = " and position like '%" + sift[1] + "%' ";
+		}
+		if (sift[2]!=null) {
+			condition3 = " order by " + sift[2] + " desc";
+		}
+		String columnsToSearch = "t.full_name,t1.cdmi,round(100.0*t1.ssing/t1.ss,1),round(100.0*t1.stpsing/"
+				+ "t1.stps,1),round(100.0*t1.sftsing/t1.sfts,1),round(1.0*t1.sor/t1.cdmi,1),"
+				+ "round(1.0*t1.sdr/t1.cdmi,1),round(1.0*t1.sr/t1.cdmi,1),round(1.0*t1.sa/t1.cdmi,1),"
+				+ "round(1.0*t1.sst/t1.cdmi,1),round(1.0*t1.sbs/t1.cdmi,1),round(1.0*t1.sto/t1.cdmi),"
+				+ "round(1.0*t1.sfo/t1.cdmi,1),round(1.0*(t2.s+t3.s)/t1.cdmi,1)";
 		Statement statement = null;
 		ResultSet resultSet = null;
-		ArrayList<String> result = new ArrayList<String>();
+		ArrayList<String[]> result = new ArrayList<String[]>();
 		try {
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(
-					"SELECT " + columnsToSearch + " FROM players");
+					"SELECT " + columnsToSearch + " FROM (select team_id as ti,"
+							+ "count(distinct match_id) as cdmi,"
+							+ "sum(shootings) as ssing,sum(shots) as ss,"
+							+ "sum(three_point_shootings) as stpsing,sum(three_point_shots) as stps,"
+							+ "sum(free_throw_shootings) as sftsing,sum(free_throw_shots) as sfts,"
+							+ "sum(offensive_rebounds) as sor,"
+							+ "sum(defensive_rebounds) as sdr,sum(rebounds) as sr,"
+							+ "sum(assists) as sa,sum(steals) as sst,"
+							+ "sum(block_shots) as sbs,sum(turn_overs) as sto,"
+							+ "sum(fouls) as sfo "
+							+ "from player_match_performance "
+							+ "group by team_id) as t1,"
+							+ "(select home_court_team_id as id,sum(hscore) as s "
+							+ "from matches "
+							+ "group by home_court_team_id) as t2,"
+							+ "(select away_team_id as id,sum(ascore) as s "
+							+ "from matches "
+							+ "group by away_team_id) as t3,"
+							+ "teams as t "
+							+ "where t1.ti=t2.id and t1.ti=t3.id and t.id = t1.ti "
+							+ condition1 + condition2 + condition3 + ";");
 			while (resultSet.next()) {
-				String map = "";
-				result.add(map);
+				int j = 0;
+				String[] temp = new String[18];
+				while (j < 18) {
+					temp[j] = resultSet.getString(j+1);
+					j++;
+				}
+				result.add(temp);
 			}
 			statement.close();
 		} catch (SQLException e) {
