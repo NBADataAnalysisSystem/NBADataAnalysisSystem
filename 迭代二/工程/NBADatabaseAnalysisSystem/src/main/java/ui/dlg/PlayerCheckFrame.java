@@ -1,30 +1,25 @@
 package ui.dlg;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Insets;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
-import ui.dlg.TeamAdvancedPanel;
-import ui.dlg.TeamInfoPanel;
-import ui.dlg.TeamListPanel;
 
 public class PlayerCheckFrame extends JFrame {
 
@@ -77,6 +72,7 @@ public class PlayerCheckFrame extends JFrame {
 			mainPanel.setOpaque(false);
 	
 			basicPanel = new JPanel();
+			basicPanel.setBounds(0, 0, width, height/3);
 			basicPanel.setOpaque(false);
 			setBasicPanel();
 	
@@ -116,9 +112,70 @@ public class PlayerCheckFrame extends JFrame {
 	}
 
 
+	@SuppressWarnings("static-access")
 	private void setBasicPanel() {
-		basicPanel.setLayout(new GridLayout(1,3));
-	
+		basicPanel.setLayout(new GridLayout(1,4));
+		JLabel playerPhoto = new JLabel();
+		basicPanel.add(playerPhoto);
+		JPanel contain;
+		/**
+		 * 设置名、球队名、号数、位置
+		 */
+		JPanel dataPanel = new JPanel();
+		dataPanel.setLayout(new BorderLayout());
+		JLabel number = new JLabel();
+		number.setText("3");
+		number.setForeground(Color.YELLOW);
+		number.setFont(new Font("宋体",1,50));
+		number.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+		number.setHorizontalAlignment(number.RIGHT);
+		dataPanel.add("West",number);
+		contain = new JPanel();
+		contain.setOpaque(false);
+		contain.setLayout(new GridLayout(4,1));
+		JLabel englishName = new JLabel();
+		englishName.setText("ENGLISH");
+		englishName.setFont(new Font("宋体",0,20));
+		englishName.setHorizontalAlignment(number.CENTER);
+		contain.add(englishName);
+		JLabel chineseName = new JLabel();
+		chineseName.setText("中文-中文中文");
+		chineseName.setFont(new Font("宋体",1,15));
+		chineseName.setHorizontalAlignment(chineseName.CENTER);
+		contain.add(chineseName);
+		JLabel teamChinese = new JLabel();
+		teamChinese.setText("中文中文中文");
+		teamChinese.setFont(new Font("宋体",0,15));
+		teamChinese.setForeground(Color.BLUE);
+		teamChinese.setHorizontalAlignment(teamChinese.CENTER);
+		teamChinese.setVerticalAlignment(teamChinese.BOTTOM);
+		contain.add(teamChinese);
+		JLabel position = new JLabel();
+		position.setText("中文");
+		position.setFont(new Font("宋体",0,15));
+		position.setHorizontalAlignment(position.CENTER);
+		position.setVerticalAlignment(position.TOP);
+		contain.add(position);
+		dataPanel.add("Center",contain);
+		/**
+		 * 设置三个场均信息
+		 */
+		contain = new JPanel();
+		contain.setLayout(new GridLayout(2,3));
+		contain.setBorder(BorderFactory.createTitledBorder(""));
+		JLabel temp =new JLabel("?");
+		temp.setFont(new Font("宋体",1,30));
+		contain.add(temp);
+		dataPanel.add("South",contain);
+		dataPanel.setOpaque(false);
+		
+		
+		basicPanel.add(dataPanel);
+		JPanel basicInfoPanel = new JPanel();
+		basicPanel.add(basicInfoPanel);
+		JLabel teamIcon = new JLabel();
+		basicPanel.add(teamIcon);
+		
 		
 	}
 
