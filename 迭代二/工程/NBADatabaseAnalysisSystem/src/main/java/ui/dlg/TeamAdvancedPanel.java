@@ -41,6 +41,7 @@ public class TeamAdvancedPanel extends JPanel {
 	String unionSelected;
 	String typeSelected;
 	JButton submit;
+	String[] sift;
 	
 	JScrollPane sp;
 	MyTableHeaderPanel headerPanel;
@@ -56,6 +57,7 @@ public class TeamAdvancedPanel extends JPanel {
 		this.setLayout(null);
 		rowNum = 12;
 		yearSelected = new String();
+		sift = new String[4];
 		
 		
 		type = new JComboBox<String>();
@@ -217,6 +219,10 @@ public class TeamAdvancedPanel extends JPanel {
 	protected void sift() {
 		//根据header 及	yearSelected； othSelected;unionSelected;typeSelected;进行筛选,其实有点多余，直接写在setTableContent里头就行。。。。。
 		//暂用
+		sift[0] = yearSelected;
+		sift[1] = othSelected;
+		sift[2] = unionSelected;
+		sift[3] = typeSelected;
 		table = setTableContent(header);
 	}
 
@@ -292,10 +298,8 @@ public class TeamAdvancedPanel extends JPanel {
 			header = new String[]{"排名","球队","场数","分钟","控球","得分","出手","命中","%","罚球出手","罚球命中","罚球%","三分出手","三分命中","三分%","助攻"};
 //			header = new String[]{"排名","球队","场数","命中","出手","三分命中","三分出手","罚球命中","罚球出手","进攻篮板","防守篮板","篮板","助攻","抢断","盖帽","失误","犯规","得分"};
 		}else if(typeSelected.equals("场均")&&othSelected.equals("防守")){
-//			System.out.println();
 			header = new String[]{"排名","球队","场数","分钟","控球","篮板","进攻篮板","防守篮板","抢断","盖帽"};
 		}else if(typeSelected.equals("场均")&&othSelected.equals("违规")){
-//			System.out.println();
 			header = new String[]{"排名","球队","场数","分钟","控球","失误","犯规"};
 		}else if(othSelected.equals("比率")){
 			header = new String[]{"排名","球队","场数","分钟","控球","助攻%","防守%","有效命中%","罚球命中%","罚球出手%","进攻%","防守","进攻","篮板%","失误%"};
