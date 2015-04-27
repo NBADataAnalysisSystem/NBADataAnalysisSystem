@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
@@ -20,6 +21,7 @@ public class MyTablePanel  extends JPanel{
 	//视图显示行、页数
 	int pageRow, pageColumn;
 	//内容
+	
 	String[][] allContent;
 	String[][] pageContent;
 	//指向目前显示在table上面的最左上角的行和列，指向的列同时是headList的列，相当于指针
@@ -77,6 +79,12 @@ public class MyTablePanel  extends JPanel{
 	
 	}
 	
+	//设置表格图片
+	public void setFieldIcon(ImageIcon[][] icon,int horizontalAlignment){
+		
+		table.setFieldIcon(icon,horizontalAlignment);
+	
+	}
 	public void setTableFont(Font font){
 		table.setTableFont(font);
 	}
@@ -110,6 +118,7 @@ public class MyTablePanel  extends JPanel{
 		table.setFieldContent(pageContent);
 		table.updateUI();
 	}
+
 	//设置表格大小
 	private void setTableSize(int width, int height){
 		table.setSize(width, height);

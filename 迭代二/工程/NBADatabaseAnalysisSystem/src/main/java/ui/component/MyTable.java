@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -53,6 +54,15 @@ public class MyTable {
 			}
 		}
 		
+	}
+	public void setFieldIcon(ImageIcon[][] icon,int horizontalAlignment){
+
+		for(int i = 0; i < icon.length && i < row; i++){
+			for(int j = 0; j < icon[0].length && j < column; j++){
+				table[i][j][0].setIcon(icon[i][j]);
+				table[i][j][0].setHorizontalTextPosition(horizontalAlignment);
+			}
+		}
 	}
 	//设置单元格高
 	public void setRowHeight(int Rheight){
