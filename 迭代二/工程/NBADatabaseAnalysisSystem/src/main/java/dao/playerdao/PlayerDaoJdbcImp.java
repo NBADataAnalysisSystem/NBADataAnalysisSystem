@@ -164,6 +164,7 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 		String condition1 = "";
 		String condition2 = "";
 		String condition3 = "";
+		String condition4 = "";
 		if (sift[0]!=null) {
 			if (sift[0].equals("E") || sift[0].equals("W")) {
 				condition1 = " and fn in (select full_name from teams where division='" + sift[0] + "') ";
@@ -176,6 +177,9 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 		}
 		if (sift[2]!=null) {
 			condition3 = " order by " + sift[2] + " desc";
+		}
+		if (sift[3]!=null) {
+			condition4 = "and m.season='" + sift[3] + "' ";
 		}
 		String columnsToSearch = "p.player_name,t4.fn,t1.dmi,t1.sis,round(1.0*t1.sr/t1.dmi,1) as cjlb,"
 				+ "round(1.0*t1.sa/t1.dmi,1) as cjzg,round(1.0*t1.spt/t1.dmi,1) as cjfz,"
@@ -192,7 +196,7 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(
 					"SELECT " + columnsToSearch + " FROM players as p ,"
-							+ "(select player_id pi,count(distinct match_id) as dmi,"
+							+ "(select match_id,player_id pi,count(distinct match_id) as dmi,"
 							+ "sum(is_start) as sis,sum(rebounds) as sr,sum(assists) as sa,"
 							+ "sum(presence_time)/60 as spt,sum(shootings) as ssing,"
 							+ "sum(shots) as ss,sum(three_point_shootings) as stpsing,"
@@ -201,12 +205,14 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 							+ "sum(defensive_rebounds) as sdr, sum(steals) as sst,"
 							+ "sum(block_shots) as sbs,sum(turn_overs) as sto,sum(fouls) as sfo,"
 							+ "sum(score) as ssc "
-							+ "from player_match_performance "
+							+ "from player_match_performance pmp,matches m "
+							+ "where m.id= pmp.match_id " + condition4
 							+ "group by pi) as t1,"
 							+ "(select pi,fn "
 							+ "from (select player_id pi,full_name fn,date_of_match dom "
 							+ "from player_match_performance p,teams t,matches m "
-							+ "where t.id = p.team_id and p.match_id = m.id) as t3 "
+							+ "where t.id = p.team_id and p.match_id = m.id "
+							+ condition4 + ") as t3 "
 							+ "group by pi "
 							+ "having dom=max(dom)) as t4 "
 							+ "where t1.pi = p.id and t4.pi=p.id "

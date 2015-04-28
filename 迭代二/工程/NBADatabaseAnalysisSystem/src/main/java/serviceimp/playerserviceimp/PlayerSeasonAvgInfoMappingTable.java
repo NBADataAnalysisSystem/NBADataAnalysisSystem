@@ -32,6 +32,9 @@ public class PlayerSeasonAvgInfoMappingTable extends MappingTable {
 		addMap("三分", "sfqmzl");
 		addMap("罚球", "fqmzl");
 		addMap("两双", "1.0*t1.dd/dmi");
+		
+		addMap("2012-2013", "12-13");
+		addMap("2013-2014", "13-14");
 	}
 	
 }
