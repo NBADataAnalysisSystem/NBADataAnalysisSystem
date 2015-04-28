@@ -2,24 +2,23 @@ package serviceimp.playerserviceimp;
 
 import java.util.ArrayList;
 
+import service.playerservice.GetPlayerSeasonAvgInfoService;
 import dao.playerdao.PlayerDao;
 import dao.playerdao.PlayerDaoJdbcImp;
-import service.playerservice.GetPlayerSeasonTotalInfoService;
 
-public class GetPlayerSeasonTotalInfoImp implements GetPlayerSeasonTotalInfoService {
+public class GetPlayerSeasonAvgInfoServiceImp implements GetPlayerSeasonAvgInfoService {
 
 	public ArrayList<String[]> getPlayer(String[] sift) {
 		PlayerDao dao = new PlayerDaoJdbcImp();
 		try {
-			MappingTable mappingTable = new PlayerMappingTable();
+			MappingTable mappingTable = new PlayerSeasonAvgInfoMappingTable();
 			sift[0] = mappingTable.get(sift[0]);
 			sift[1] = mappingTable.get(sift[1]);
 			sift[2] = mappingTable.get(sift[2]);
-			return dao.getPlayerSeasonTotalInfo(sift);
+			return dao.getPlayerSeasonAvgInfo(sift);
 		} finally {
 			dao.close();
 		}
 	}
 
 }
-

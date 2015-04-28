@@ -1,8 +1,8 @@
 package serviceimp.playerserviceimp;
 
-public class PlayerMappingTable extends MappingTable {
+public class PlayerSeasonAvgInfoMappingTable extends MappingTable {
 
-	public PlayerMappingTable() {
+	public PlayerSeasonAvgInfoMappingTable() {
 		super();
 		
 		addMap("东部", "E");

@@ -154,7 +154,6 @@ public class PlayerSeasonInfoPanel extends JPanel{
 		});*/
 		sift[2] = "得分";
 		sift[4] = "总数";
-		
 		submit = new JButton("提交");
 		submit.setFont(new Font("Serif",1, 15));
 		this.add(submit);

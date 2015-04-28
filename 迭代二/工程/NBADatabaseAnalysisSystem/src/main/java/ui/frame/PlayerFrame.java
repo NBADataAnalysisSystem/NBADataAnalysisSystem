@@ -33,8 +33,12 @@ import javax.swing.SwingUtilities;
 
 
 
+
+
 import controller.playercontroller.GetPlayerBasicInfoRequest;
 import controller.playercontroller.GetPlayerBasicInfoResponse;
+import controller.playercontroller.GetPlayerSeasonAvgInfoRequest;
+import controller.playercontroller.GetPlayerSeasonAvgInfoResponse;
 import controller.playercontroller.GetPlayerSeasonTotalInfoRequest;
 import controller.playercontroller.GetPlayerSeasonTotalInfoResponse;
 import controller.playercontroller.PlayerController;
@@ -492,6 +496,24 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 			setTableContent(tableHeader,tableContent);
 			break;
 		case PLAYER_SEASON_AVG_INFO:
+			controller = new PlayerController();
+			GetPlayerSeasonAvgInfoResponse getPlayerSeasonAvgInfoResponse = (
+					GetPlayerSeasonAvgInfoResponse) controller.processRequest(
+					new GetPlayerSeasonAvgInfoRequest(seasonPanel.getSift()));
+			tempList = getPlayerSeasonAvgInfoResponse.getList();
+			tableContent = new String[tempList.size()][tableHeader.length];
+			i=0;
+			while (i < tableContent.length) {
+				tableContent[i][0] = Integer.toString(i+1);
+				i++;
+			}
+			i = 0;
+			for (String[] strings:tempList) {
+				for (int j = 0; j < strings.length; j++) {
+					tableContent[i][j+1] = strings[j];
+				}
+				i++;
+			}
 			setTableContent(tableHeader,tableContent);
 			break;
 		case PLAYER_SEASON_TOTAL_INFO:
