@@ -1,5 +1,6 @@
 package ui.frame;
 
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -35,6 +36,10 @@ import javax.swing.SwingUtilities;
 
 
 
+
+
+import com.sun.awt.AWTUtilities;
+
 import controller.playercontroller.GetPlayerBasicInfoRequest;
 import controller.playercontroller.GetPlayerBasicInfoResponse;
 import controller.playercontroller.GetPlayerSeasonAvgInfoRequest;
@@ -46,6 +51,7 @@ import entity.PlayerInfoType;
 import ui.component.MyTableHeaderPanel;
 import ui.component.MyTablePanel;
 import ui.dlg.PlayerBasicInfoPanel;
+import ui.dlg.PlayerCheckFrame;
 import ui.dlg.PlayerSeasonInfoPanel;
 
 public class PlayerFrame extends JFrame implements FrameInterface, ActionListener {
@@ -364,14 +370,20 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		sp.setOpaque(false);
 		sp.getViewport().setOpaque(false); 
 		sp.getColumnHeader().setOpaque(false);//再取出头部，并设置为透明 
-		
+		final JFrame tempFrame = this;
 		table.addMouseListener(
 				new MouseAdapter(){
 					public void mouseClicked(MouseEvent e){
 					//	selectedRow = Integer.parseInt(e.getComponent().getName());
-						
 						selectedRow=Integer.parseInt(e.getComponent().getComponentAt(table.getMousePosition()).getName());
-						showData();
+						for(int i = 0;i<tableHeader.length;i++){
+							if(tableHeader[i].equals("名字")){
+								System.out.println(tableContent[selectedRow][i]);
+								PlayerCheckFrame check = new PlayerCheckFrame(tableContent[selectedRow][i]);
+								check.setFatherFrame(tempFrame);
+								AWTUtilities.setWindowOpacity(tempFrame, 0.5f);
+							}
+						}
 					}          
 				}
 				);    
