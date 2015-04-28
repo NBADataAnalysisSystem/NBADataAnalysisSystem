@@ -168,37 +168,39 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 		if (sift[2]!=null) {
 			condition3 = " order by " + sift[2] + " desc";
 		}
-		String columnsToSearch = "t.full_name,t1.cdmi,round(100.0*t1.ssing/t1.ss,1),round(100.0*t1.stpsing/"
-				+ "t1.stps,1),round(100.0*t1.sftsing/t1.sfts,1),round(1.0*t1.sor/t1.cdmi,1),"
-				+ "round(1.0*t1.sdr/t1.cdmi,1),round(1.0*t1.sr/t1.cdmi,1),round(1.0*t1.sa/t1.cdmi,1),"
-				+ "round(1.0*t1.sst/t1.cdmi,1),round(1.0*t1.sbs/t1.cdmi,1),round(1.0*t1.sto/t1.cdmi),"
-				+ "round(1.0*t1.sfo/t1.cdmi,1),round(1.0*(t2.s+t3.s)/t1.cdmi,1)";
+		String columnsToSearch = "p.id,p.player_name,t4.fn,t1.dmi,t1.sis,round(1.0*t1.sr/t1.dmi,1),"
+				+ "round(1.0*t1.sa/t1.dmi,1),round(1.0*t1.spt/t1.dmi,1),"
+				+ "(t1.ssc+t1.sr+t1.sa+t1.sst+t1.sbs-ss+ssing-sfts+sftsing-sto) as eff,"
+				+ "round(1.0*t1.ssing/t1.ss,2),round(1.0*stpsing/stps,2),"
+				+ "round(1.0*sftsing/sfts,2),round(1.0*t1.sor/t1.dmi,1),"
+				+ "round(1.0*t1.sdr/t1.dmi),round(1.0*t1.sst/t1.dmi,1),"
+				+ "round(1.0*t1.sbs/t1.dmi,1),round(1.0*t1.sto/t1.dmi),"
+				+ "round(1.0*t1.sfo/t1.dmi,1),round(1.0*t1.ssc/t1.dmi,1)";
 		Statement statement = null;
 		ResultSet resultSet = null;
 		ArrayList<String[]> result = new ArrayList<String[]>();
 		try {
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(
-					"SELECT " + columnsToSearch + " FROM (select team_id as ti,"
-							+ "count(distinct match_id) as cdmi,"
-							+ "sum(shootings) as ssing,sum(shots) as ss,"
-							+ "sum(three_point_shootings) as stpsing,sum(three_point_shots) as stps,"
-							+ "sum(free_throw_shootings) as sftsing,sum(free_throw_shots) as sfts,"
-							+ "sum(offensive_rebounds) as sor,"
-							+ "sum(defensive_rebounds) as sdr,sum(rebounds) as sr,"
-							+ "sum(assists) as sa,sum(steals) as sst,"
-							+ "sum(block_shots) as sbs,sum(turn_overs) as sto,"
-							+ "sum(fouls) as sfo "
+					"SELECT " + columnsToSearch + " FROM players as p ,"
+							+ "(select player_id pi,count(distinct match_id) as dmi,"
+							+ "sum(is_start) as sis,sum(rebounds) as sr,sum(assists) as sa,"
+							+ "sum(presence_time)/60 as spt,sum(shootings) as ssing,"
+							+ "sum(shots) as ss,sum(three_point_shootings) as stpsing,"
+							+ "sum(three_point_shots) as stps,sum(free_throw_shootings) as sftsing,"
+							+ "sum(free_throw_shots) as sfts, sum(offensive_rebounds) as sor,"
+							+ "sum(defensive_rebounds) as sdr, sum(steals) as sst,"
+							+ "sum(block_shots) as sbs,sum(turn_overs) as sto,sum(fouls) as sfo,"
+							+ "sum(score) as ssc "
 							+ "from player_match_performance "
-							+ "group by team_id) as t1,"
-							+ "(select home_court_team_id as id,sum(hscore) as s "
-							+ "from matches "
-							+ "group by home_court_team_id) as t2,"
-							+ "(select away_team_id as id,sum(ascore) as s "
-							+ "from matches "
-							+ "group by away_team_id) as t3,"
-							+ "teams as t "
-							+ "where t1.ti=t2.id and t1.ti=t3.id and t.id = t1.ti "
+							+ "group by pi) as t1,"
+							+ "(select pi,fn "
+							+ "from (select player_id pi,full_name fn,date_of_match dom "
+							+ "from player_match_performance p,teams t,matches m "
+							+ "where t.id = p.team_id and p.match_id = m.id) as t3 "
+							+ "group by pi "
+							+ "having dom=max(dom)) as t4 "
+							+ "where t1.pi = p.id and t4.pi=p.id "
 							+ condition1 + condition2 + condition3 + ";");
 			while (resultSet.next()) {
 				int j = 0;
