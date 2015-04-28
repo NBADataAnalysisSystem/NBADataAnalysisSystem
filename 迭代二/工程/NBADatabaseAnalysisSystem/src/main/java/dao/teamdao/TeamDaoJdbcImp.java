@@ -307,10 +307,10 @@ public class TeamDaoJdbcImp implements TeamDao {
 		ArrayList<String> result = new ArrayList<String>();
 		try {
 			statement = connection.createStatement();
-			resultSet = statement.executeQuery("");
+			resultSet = statement.executeQuery(
+					"select path || abbreviation || '.svg' from teams,paths order by division,section");
 			while (resultSet.next()) {
-				String temp = resultSet.getString(1);
-				result.add(temp);
+				result.add(resultSet.getString(1));
 			}
 			statement.close();
 		} catch (SQLException e) {
