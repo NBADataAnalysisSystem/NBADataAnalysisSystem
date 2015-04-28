@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class TeamDaoJdbcImp {
+public class TeamDaoJdbcImp implements TeamDao {
 	
 	private Connection connection;
 	
@@ -297,6 +297,25 @@ public class TeamDaoJdbcImp {
 			}
 			System.out.println();
 			
+		}
+		return result;
+	}
+	
+	public ArrayList<String> getTeamList() {
+		Statement statement = null;
+		ResultSet resultSet = null;
+		ArrayList<String> result = new ArrayList<String>();
+		try {
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery("");
+			while (resultSet.next()) {
+				String temp = resultSet.getString(1);
+				result.add(temp);
+			}
+			statement.close();
+		} catch (SQLException e) {
+			System.out.println("SQL错误");
+			e.printStackTrace();
 		}
 		return result;
 	}
