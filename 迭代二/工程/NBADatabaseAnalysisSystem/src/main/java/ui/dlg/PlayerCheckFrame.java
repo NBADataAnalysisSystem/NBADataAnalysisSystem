@@ -43,7 +43,6 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 	 */
 	private static final long serialVersionUID = 5980271968002702909L;
 	private static Point origin = new Point();
-	//璁剧疆绐椾綋澶у皬
 	private int height=0;
 	private int width=0;
 	private int x;
@@ -57,11 +56,20 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 	JPanel matchPanel;
 	
 	String player;
-	
-
+	String[] season;
+	String[] match;
+	String[] basicInfo;
+	String[][] seasonInfo;
+	String[][] matchInfo;
 	
 	public PlayerCheckFrame(String tocheck){
 			player = tocheck;
+			season = new String[]{"年度","球队","场数","先发","分钟","%","三分%","罚球%","进攻","防守","场均篮板","场均助攻","场均抢断","场均盖帽","失误","犯规","场均得分"};
+			match = new String[]{"日期","对手","分钟","%","命中","出手","三分%","三分命中","三分出手","罚球%","罚球命中","罚球出手","进攻","防守","篮板","助攻","犯规","抢断","失误","盖帽","得分"};
+			basicInfo = new String[15];
+			seasonInfo = new String[2][17];
+			matchInfo = new String[5][21];
+			getData();
 			backgroundPanel = new JPanel();
 			height = Toolkit.getDefaultToolkit().getScreenSize().height*4/5;
 			width = Toolkit.getDefaultToolkit().getScreenSize().width*1/2;
@@ -113,13 +121,13 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 			infoPanel.add(matchPanel);
 			
 			mainPanel.add(infoPanel);
-			JButton btn_Close = new JButton("脳");
+			JButton btn_Close = new JButton("×");
 			btn_Close.setMargin(new Insets(0,0,0,0));
 			btn_Close.setBounds(this.getWidth()-30,0,30, 30);
 			btn_Close.addActionListener( this);
 			btn_Close.setContentAreaFilled(false);
 			btn_Close.setForeground(Color.decode("#3A5FCD"));
-			btn_Close.setFont(new Font("Serif",0, 30));//璁剧疆瀛椾綋
+			btn_Close.setFont(new Font("Serif",0, 30));
 			btn_Close.setName("close");
 		      //TODO
 			mainPanel.add(basicPanel);
@@ -157,6 +165,23 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 			      );    
 		      
 	}
+	/**
+	 * 	player = tocheck;
+	 *season = new String[]{"年度","球队","场数","先发","分钟","%","三分%","罚球%","进攻","防守","场均篮板","场均助攻","场均抢断","场均盖帽","失误","犯规","场均得分"};
+	*match = new String[]{"日期","对手","分钟","%","命中","出手","三分%","三分命中","三分出手","罚球%","罚球命中","罚球出手","进攻","防守","篮板","助攻","犯规","抢断","失误","盖帽","得分"};
+	*basicInfo = new String[16];
+	*seasonInfo = new String[2][17];
+	*matchInfo = new String[5][21];
+	*获取数据的方法 player为球员名称，用来获取basicInfo
+	*basicInfo[]:0:号数1:英文名2:中文名3:球队4:位置5:场均得分6:场均篮板7:场均助攻8:身高9:体重10:生日11:经历12:学校13:球员图片14:球队图片
+	*season为赛季数据的信息
+	*seasonInfo[0]为平均[1]为总数 。[n][17]就是上面那一串。。。
+	*matchInfo为最近五场比赛信息[0]-[4]为比赛。后面你懂得。。。
+	 */
+	private void getData() {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 	@SuppressWarnings("static-access")
@@ -184,9 +209,12 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		lineLabel.setHorizontalTextPosition(lineLabel.CENTER);
 		matchPanel.add(lineLabel);
 
-		String [] tempHeader = new String[17];
-		String[][] tableString = new String[6][17];
-		tableString[0]= new String[]{"年度","球队","场数","%","鍛戒腑","鍑烘墜","鍛戒腑","涓夊垎鍑烘墜","缃氱悆%","缃氱悆鍛戒腑","缃氱悆鍑烘墜","杩涙敾","闃插畧","绡澘","鍔╂敾","鎶㈡柇","澶辫","鐘","鐩栧附","寰楀垎"};
+		String [] tempHeader = new String[21];
+		String[][] tableString = new String[6][21];
+		tableString[0]= new String[]{"日期","对手","分钟","%","命中","出手","三分%","三分命中","三分出手","罚球%","罚球命中","罚球出手","进攻","防守","篮板","助攻","犯规","抢断","失误","盖帽","得分"};
+		for(int i = 0;i<5;i++){
+			tableString[i+1] = matchInfo[i];
+		}
 		DefaultTableModel model = new DefaultTableModel(tableString,tempHeader);
 		JTable table = new JTable(model);
 		s.gridwidth=0;
@@ -194,16 +222,17 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		s.weighty=8;
 		layout.setConstraints(table, s);
 		MyTableCellRenderrer render = new MyTableCellRenderrer();
-	//	render.setOpaque(false); //灏嗘覆鏌撳櫒璁剧疆涓洪?忔槑  
      
         table.setDefaultRenderer(Object.class,render);  
 		for(int i = 0;i<table.getColumnCount();i++){
 			table.getColumnModel().getColumn(i).setPreferredWidth(tableString[0][i].length()*height/24);	
 		}
+		table.setFont(new Font("宋体",0,height/56));
 		table.getColumnModel().getColumn(0).setPreferredWidth(5*height/24);	
 		table.setRowHeight(height/23);
 		table.setEnabled(false);
 		table.setGridColor(Color.GRAY);
+
 		//table.setOpaque(false);
 
 		matchPanel.add(table);
@@ -223,7 +252,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		s.weightx = 1; 
 		s.weighty=0.23;
 		layout.setConstraints(lineLabel, s);
-		lineLabel.setText("璧涘鏁版嵁");
+		lineLabel.setText("赛季数据");
 		lineLabel.addComponentListener(new ComponentAdapter(){
 			public void componentResized(ComponentEvent e){
 				icon.setImage(icon.getImage().getScaledInstance(lineLabel.getWidth(), lineLabel.getHeight(),Image.SCALE_DEFAULT));
@@ -231,16 +260,18 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		}
 	);
 		lineLabel.setIcon(icon);
-		lineLabel.setFont(new Font("瀹嬩綋",1,height/21));
+		lineLabel.setFont(new Font("宋体",1,height/21));
 		lineLabel.setForeground(Color.WHITE);
 		lineLabel.setHorizontalTextPosition(lineLabel.CENTER);
 		seasonPanel.add(lineLabel);
-		/**
-		 * 璁剧疆璧涘骞冲潎琛ㄥご
-		 */
+
 		String [] tempHeader = new String[17];
 		String[][] tableString = new String[5][17];
-		tableString[0]= new String[]{"骞村害","鐞冮槦","鍦烘暟","鍏堝彂","鍒嗛挓","%","涓夊垎%","缃氱悆%","杩涙敾","闃插畧","鍦哄潎绡澘","鍦哄潎鍔╂敾","鍦哄潎鎶㈡柇","鍦哄潎鐩栧附","澶辫","鐘","寰楀垎"};
+		tableString[0]= new String[]{"年度","球队","场数","先发","分钟","%","三分%","罚球%","进攻","防守","场均篮板","场均助攻","场均抢断","场均盖帽","失误","犯规","场均得分"};
+		tableString[1][0] = "赛季平均";
+		tableString[2] = seasonInfo[0];
+		tableString[3][0] = "赛季总计";
+		tableString [4] = seasonInfo[1];
 		DefaultTableModel model = new DefaultTableModel(tableString,tempHeader);
 		JTable table = new JTable(model);
 		s.gridwidth=0;
@@ -248,14 +279,14 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		s.weighty=5;
 		layout.setConstraints(table, s);
 		MyTableCellRenderrer render = new MyTableCellRenderrer();
-	//	render.setOpaque(false); //灏嗘覆鏌撳櫒璁剧疆涓洪?忔槑  
+	//	render.setOpaque(false); 
      
         table.setDefaultRenderer(Object.class,render);  
 		for(int i = 0;i<table.getColumnCount();i++){
 			table.getColumnModel().getColumn(i).setPreferredWidth(tableString[0][i].length()*height/21);	
 		}
-		table.getColumnModel().getColumn(0).setPreferredWidth(5*height/21);	
-		table.getColumnModel().getColumn(1).setPreferredWidth(5*height/21);	
+		table.getColumnModel().getColumn(0).setPreferredWidth(4*height/21);	
+		table.getColumnModel().getColumn(1).setPreferredWidth(4*height/21);	
 		table.setRowHeight(height/19);
 		table.setEnabled(false);
 		table.setGridColor(Color.decode("#D1EEEE"));
@@ -270,20 +301,18 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		ImageIcon icon = new ImageIcon();
 		basicPanel.setLayout(new GridLayout(1,4));
 		JLabel playerPhoto = new JLabel();
-		icon =  new ImageIcon("resource/BackgroundOfHot.png");
+		icon =  new ImageIcon(basicInfo[13]);
 		icon.setImage(icon.getImage().getScaledInstance(width/4, height/3,Image.SCALE_DEFAULT));
 		playerPhoto.setIcon(icon);
 		basicPanel.add(playerPhoto);
 		JPanel contain;
-		/**
-		 * 璁剧疆鍚嶃?佺悆闃熷悕銆佸彿鏁般?佷綅缃?
-		 */
+
 		JPanel dataPanel = new JPanel();
 		dataPanel.setLayout(new BorderLayout());
 		JLabel number = new JLabel();
-		number.setText("3");
+		number.setText(basicInfo[0]);
 		number.setForeground(Color.YELLOW);
-		number.setFont(new Font("瀹嬩綋",1,50));
+		number.setFont(new Font("宋体",1,50));
 		number.setBorder(BorderFactory.createLoweredBevelBorder());
 		number.setHorizontalAlignment(number.RIGHT);
 		dataPanel.add("West",number);
@@ -292,91 +321,87 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		contain.setLayout(new GridLayout(4,1));
 		JLabel englishName = new JLabel();
 		englishName.setText(player);
-		englishName.setFont(new Font("瀹嬩綋",0,20));
+		englishName.setFont(new Font("宋体",0,20));
 		englishName.setHorizontalAlignment(number.LEFT);
 		contain.add(englishName);
 		JLabel chineseName = new JLabel();
-		chineseName.setText("涓枃-涓枃涓枃");
-		chineseName.setFont(new Font("瀹嬩綋",1,15));
+		chineseName.setText(basicInfo[2]);
+		chineseName.setFont(new Font("宋体",1,15));
 		chineseName.setHorizontalAlignment(chineseName.LEFT);
 		contain.add(chineseName);
 		JLabel teamChinese = new JLabel();
-		teamChinese.setText("涓枃涓枃涓枃");
-		teamChinese.setFont(new Font("瀹嬩綋",0,15));
+		teamChinese.setText(basicInfo[3]);
+		teamChinese.setFont(new Font("宋体",0,15));
 		teamChinese.setForeground(Color.BLUE);
 		teamChinese.setHorizontalAlignment(teamChinese.LEFT);
 		teamChinese.setVerticalAlignment(teamChinese.BOTTOM);
 		contain.add(teamChinese);
 		JLabel position = new JLabel();
-		position.setText("涓枃");
+		position.setText(basicInfo[4]);
 		position.setFont(new Font("Courier",0,15));
 		position.setHorizontalAlignment(position.LEFT);
 		position.setVerticalAlignment(position.TOP);
 		contain.add(position);
 		dataPanel.add("Center",contain);
-		/**
-		 * 璁剧疆涓変釜鍦哄潎淇℃伅
-		 */
+
 		contain = new JPanel();
 		contain.setOpaque(false);
 		contain.setLayout(new GridLayout(2,3));
 		JLabel temp1 =new JLabel();
-		temp1.setText("鍦哄潎寰楀垎");
-		temp1.setFont(new Font("瀹嬩綋",0,10));
+		temp1.setText("场均得分");
+		temp1.setFont(new Font("宋体",0,10));
 		temp1.setForeground(Color.decode("#9B30FF"));
 		contain.add(temp1);
 		JLabel temp2 =new JLabel();
-		temp2.setText("鍦哄潎绡澘");
-		temp2.setFont(new Font("瀹嬩綋",0,10));
+		temp2.setText("场均篮板");
+		temp2.setFont(new Font("宋体",0,10));
 		temp2.setForeground(Color.decode("#9B30FF"));
 		contain.add(temp2);
 		JLabel temp3 =new JLabel();
-		temp3.setText("鍦哄潎鍔╂敾");
-		temp3.setFont(new Font("瀹嬩綋",0,10));
+		temp3.setText("场均助攻");
+		temp3.setFont(new Font("宋体",0,10));
 		temp3.setForeground(Color.decode("#9B30FF"));
 		contain.add(temp3);
 		JLabel temp1A =new JLabel();
-		temp1A.setText("11");
-		temp1A.setFont(new Font("瀹嬩綋",1,20));
+		temp1A.setText(basicInfo[5]);
+		temp1A.setFont(new Font("宋体",1,20));
 		contain.add(temp1A);
 		JLabel temp2A =new JLabel();
-		temp2A.setText("22");
-		temp2A.setFont(new Font("瀹嬩綋",1,20));
+		temp2A.setText(basicInfo[6]);
+		temp2A.setFont(new Font("宋体",1,20));
 		contain.add(temp2A);
 		JLabel temp3A =new JLabel();
-		temp3A.setText("33");
-		temp3A.setFont(new Font("瀹嬩綋",1,20));
+		temp3A.setText(basicInfo[7]);
+		temp3A.setFont(new Font("宋体",1,20));
 		contain.add(temp3A);
 		dataPanel.add("South",contain);
 		dataPanel.setOpaque(false);
 		basicPanel.add(dataPanel);
-		/**
-		 * 璁剧疆涓汉淇℃伅
-		 */		
+		
 		JPanel basicInfoPanel = new JPanel();
 		basicInfoPanel.setOpaque(false);
 		basicInfoPanel.setLayout(new GridLayout(8,1));
 		basicInfoPanel.add(new JLabel());
 		JLabel whRate = new JLabel();
-		whRate.setText("韬珮"+"/"+"浣撻噸");
+		whRate.setText(basicInfo[8]+"/"+basicInfo[9]);
 		whRate.setFont(new Font("Serif",0,11));
 		basicInfoPanel.add(whRate);
 		JLabel birthDay = new JLabel();
-		birthDay.setText("鐢熸棩"+":"+"1111-11-11");
+		birthDay.setText("生日"+":"+basicInfo[10]);
 		birthDay.setFont(new Font("Serif",0,11));
 		basicInfoPanel.add(birthDay);
 		JLabel exp = new JLabel();
-		exp.setText("缁忓巻"+":"+"2骞?");
+		exp.setText("经历"+":"+basicInfo[11]);
 		exp.setFont(new Font("Serif",0,11));
 		basicInfoPanel.add(exp);
 		JLabel school = new JLabel();
-		school.setText("鍔犲叆NBA涔嬪墠"+":"+"Baylor/United States");
+		school.setText("加入NBA之前"+":"+basicInfo[12]);
 		school.setFont(new Font("Serif",0,11));
 		basicInfoPanel.add(school);
 		basicPanel.add(basicInfoPanel);
 		
 		JLabel teamIcon = new JLabel();
-		icon =  new ImageIcon("resource/BackgroundOfHot.png");
+		icon =  new ImageIcon(basicInfo[14]);
 		icon.setImage(icon.getImage().getScaledInstance(width/8, height/6,Image.SCALE_DEFAULT));
 		teamIcon.setHorizontalAlignment(teamChinese.RIGHT);
 		teamIcon.setVerticalAlignment(teamChinese.CENTER);
@@ -412,14 +437,13 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
          {
              // TODO Auto-generated method stub
              Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-            // 闅旇鎹㈣壊
              if(row == 0){
             	 comp.setBackground(Color.GRAY);
              }else if(row%2 ==1){
             	// ((JComponent) comp).setOpaque(false);
+            	 
             	  comp.setBackground(Color.decode("#D1EEEE"));
              }else if(row%2 ==0 && row !=0){
-             	// ((JComponent) comp).setOpaque(false);
            	  comp.setBackground(Color.white);
             }
              return comp;
