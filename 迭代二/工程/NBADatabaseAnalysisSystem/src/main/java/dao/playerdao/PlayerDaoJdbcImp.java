@@ -83,9 +83,11 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 		//sift[0] 联盟
 		//sift[1] 位置
 		//sift[2] 排序依据
+		//sift[3] 赛季
 		String condition1 = "";
 		String condition2 = "";
 		String condition3 = "";
+		String condition4 = "";
 		if (sift[0]!=null) {
 			if (sift[0].equals("E") || sift[0].equals("W")) {
 				condition1 = " and fn in (select full_name from teams where division='" + sift[0] + "') ";
@@ -99,6 +101,9 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 		if (sift[2]!=null) {
 			condition3 = " order by " + sift[2] + " desc";
 		}
+		if (sift[3]!=null) {
+			condition4 = "and m.season='" + sift[3] + "' ";
+		}
 		String columnsToSearch = "p.player_name,t4.fn,t1.dmi,t1.sis,t1.sr,t1.sa,"
 				+ "t1.spt,round(100.0*t1.ssing/t1.ss,1) as sp,round(100.0*stpsing/stps,1) as tpsp,"
 				+ "round(100.0*sftsing/sfts,1) as ftsp,t1.sor,t1.sdr,t1.sst,t1.sbs,t1.sto,t1.sfo,t1.ssc";
@@ -109,7 +114,7 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(
 					"SELECT " + columnsToSearch + " FROM players as p ,"
-							+ "(select player_id pi,count(distinct match_id) as dmi, "
+							+ "(select match_id,player_id pi,count(distinct match_id) as dmi, "
 							+ "sum(is_start) as sis,sum(rebounds) as sr,sum(assists) as sa, "
 							+ "sum(presence_time)/60 as spt,sum(shootings) as ssing, "
 							+ "sum(shots) as ss,sum(three_point_shootings) as stpsing, "
@@ -118,17 +123,21 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 							+ "sum(defensive_rebounds) as sdr, sum(steals) as sst, "
 							+ "sum(block_shots) as sbs,sum(turn_overs) as sto,sum(fouls) as sfo, "
 							+ "sum(score) as ssc "
-							+ "from player_match_performance "
+							+ "from player_match_performance pmp,matches m "
+							+ "where m.id= pmp.match_id " + condition4
 							+ "group by pi) as t1, "
 							+ "(select pi,fn "
 							+ "from (select player_id pi,full_name fn,date_of_match dom "
 							+ "from player_match_performance p,teams t,matches m "
-							+ "where t.id = p.team_id and p.match_id = m.id) as t3 "
+							+ "where t.id = p.team_id and p.match_id = m.id "
+							+ condition4 + ") as t3 "
 							+ "group by pi "
 							+ "having dom=max(dom)) as t4, "
-							+ "(select player_id as id,sum(double_double) as dd from player_match_performance "
+							+ "(select player_id as id,sum(double_double) as dd "
+							+ "from player_match_performance "
 							+ "group by player_id) as t5 "
-							+ "where t1.pi = p.id and t4.pi=p.id and t1.pi=t5.id "
+							+ "where t1.pi = p.id and t4.pi=p.id and "
+							+ "t1.pi=t5.id "
 							+ condition1 + condition2 + condition3 + ";");
 			while (resultSet.next()) {
 				int j = 0;
@@ -168,14 +177,14 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 		if (sift[2]!=null) {
 			condition3 = " order by " + sift[2] + " desc";
 		}
-		String columnsToSearch = "p.id,p.player_name,t4.fn,t1.dmi,t1.sis,round(1.0*t1.sr/t1.dmi,1),"
-				+ "round(1.0*t1.sa/t1.dmi,1),round(1.0*t1.spt/t1.dmi,1),"
-				+ "(t1.ssc+t1.sr+t1.sa+t1.sst+t1.sbs-ss+ssing-sfts+sftsing-sto) as eff,"
-				+ "round(1.0*t1.ssing/t1.ss,2),round(1.0*stpsing/stps,2),"
-				+ "round(1.0*sftsing/sfts,2),round(1.0*t1.sor/t1.dmi,1),"
-				+ "round(1.0*t1.sdr/t1.dmi),round(1.0*t1.sst/t1.dmi,1),"
-				+ "round(1.0*t1.sbs/t1.dmi,1),round(1.0*t1.sto/t1.dmi),"
-				+ "round(1.0*t1.sfo/t1.dmi,1),round(1.0*t1.ssc/t1.dmi,1)";
+		String columnsToSearch = "p.player_name,t4.fn,t1.dmi,t1.sis,round(1.0*t1.sr/t1.dmi,1) as cjlb,"
+				+ "round(1.0*t1.sa/t1.dmi,1) as cjzg,round(1.0*t1.spt/t1.dmi,1) as cjfz,"
+				+ "round(1.0*(t1.ssc+t1.sr+t1.sa+t1.sst+t1.sbs-ss+ssing-sfts+sftsing-sto)/t1.dmi,1) as eff,"
+				+ "round(100.0*t1.ssing/t1.ss,1) as tlmzl,round(100.0*stpsing/stps,1) as sfqmzl,"
+				+ "round(100.0*sftsing/sfts,1) as fqmzl,round(1.0*t1.sor/t1.dmi,1) as cjjg,"
+				+ "round(1.0*t1.sdr/t1.dmi) as cjfs,round(1.0*t1.sst/t1.dmi,1) as cjqd,"
+				+ "round(1.0*t1.sbs/t1.dmi,1) as cjgm,round(1.0*t1.sto/t1.dmi) as cjsw,"
+				+ "round(1.0*t1.sfo/t1.dmi,1) as cjfg,round(1.0*t1.ssc/t1.dmi,1) as cjdf";
 		Statement statement = null;
 		ResultSet resultSet = null;
 		ArrayList<String[]> result = new ArrayList<String[]>();

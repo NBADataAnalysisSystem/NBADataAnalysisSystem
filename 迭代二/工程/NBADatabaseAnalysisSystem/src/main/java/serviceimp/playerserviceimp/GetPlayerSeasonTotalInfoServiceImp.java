@@ -15,6 +15,7 @@ public class GetPlayerSeasonTotalInfoServiceImp implements GetPlayerSeasonTotalI
 			sift[0] = mappingTable.get(sift[0]);
 			sift[1] = mappingTable.get(sift[1]);
 			sift[2] = mappingTable.get(sift[2]);
+			sift[3] = mappingTable.get(sift[3]);
 			return dao.getPlayerSeasonTotalInfo(sift);
 		} finally {
 			dao.close();

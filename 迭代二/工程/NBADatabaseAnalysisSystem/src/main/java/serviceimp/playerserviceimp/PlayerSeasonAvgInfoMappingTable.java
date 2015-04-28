@@ -18,20 +18,20 @@ public class PlayerSeasonAvgInfoMappingTable extends MappingTable {
 		addMap("中锋", "C");
 		addMap("后卫", "G");
 		
-		addMap("得分", "ssc");
-		addMap("篮板", "sr");
-		addMap("助攻", "sa");
-		addMap("得分/篮板/助攻", "round((ssc + sr + sa) / 3, 1)");
-		addMap("盖帽", "sbs");
-		addMap("抢断", "sst");
-		addMap("犯规", "sfo");
-		addMap("失误", "sto");
-		addMap("分钟", "spt");
-		addMap("效率", "''");
-		addMap("投篮", "sp");
-		addMap("三分", "tpsp");
-		addMap("罚球", "ftsp");
-		addMap("两双", "1.0*t5.dd/dmi");
+		addMap("得分", "cjdf");
+		addMap("篮板", "cjlb");
+		addMap("助攻", "cjzg");
+		addMap("得分/篮板/助攻", "round(1.0 * (cjdf + cjlb + cjzg) / 3, 1)");
+		addMap("盖帽", "cjgm");
+		addMap("抢断", "cjqd");
+		addMap("犯规", "cjfg");
+		addMap("失误", "cjsw");
+		addMap("分钟", "cjfz");
+		addMap("效率", "eff");
+		addMap("投篮", "tlmzl");
+		addMap("三分", "sfqmzl");
+		addMap("罚球", "fqmzl");
+		addMap("两双", "1.0*t1.dd/dmi");
 	}
 	
 }

@@ -127,8 +127,8 @@ public class PlayerSeasonInfoPanel extends JPanel{
 		this.add(selectYear);
 		selectYear.setBackground(Color.decode("#FFFFFF"));
 		selectYear.setFont(new Font("Serif",1, 15));
-		selectYear.addItem("2012-2013");
 		selectYear.addItem("2013-2014");
+		selectYear.addItem("2012-2013");
 		selectYear.setEditable(false);
 		selectYear.setOpaque(false);
 		selectYear.setBounds(50 ,height/2, (width - 300)/3, (height-20)/2);
@@ -152,8 +152,6 @@ public class PlayerSeasonInfoPanel extends JPanel{
 				sift[4] = selectType.getSelectedItem().toString();
 			}
 		});*/
-		sift[2] = "得分";
-		sift[4] = "总数";
 		submit = new JButton("提交");
 		submit.setFont(new Font("Serif",1, 15));
 		this.add(submit);
@@ -241,6 +239,12 @@ public class PlayerSeasonInfoPanel extends JPanel{
 			selectUnion.addItem(team.get(i));
 		}
 		
+	}
+	
+	public void setSift() {
+		sift[2] = "得分";
+		sift[3] = "2013-2014";
+		sift[4] = "总数";
 	}
 	
 	public void setList(){

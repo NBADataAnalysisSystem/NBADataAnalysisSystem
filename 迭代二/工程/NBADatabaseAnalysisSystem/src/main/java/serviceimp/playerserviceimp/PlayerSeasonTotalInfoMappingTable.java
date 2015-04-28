@@ -21,7 +21,7 @@ public class PlayerSeasonTotalInfoMappingTable extends MappingTable {
 		addMap("得分", "ssc");
 		addMap("篮板", "sr");
 		addMap("助攻", "sa");
-		addMap("得分/篮板/助攻", "round((ssc + sr + sa) / 3, 1)");
+		addMap("得分/篮板/助攻", "round(1.0 * (ssc + sr + sa) / 3, 1)");
 		addMap("盖帽", "sbs");
 		addMap("抢断", "sst");
 		addMap("犯规", "sfo");
@@ -32,6 +32,9 @@ public class PlayerSeasonTotalInfoMappingTable extends MappingTable {
 		addMap("三分", "tpsp");
 		addMap("罚球", "ftsp");
 		addMap("两双", "1.0*t5.dd/dmi");
+		
+		addMap("2012-2013", "12-13");
+		addMap("2013-2014", "13-14");
 	}
 	
 }
