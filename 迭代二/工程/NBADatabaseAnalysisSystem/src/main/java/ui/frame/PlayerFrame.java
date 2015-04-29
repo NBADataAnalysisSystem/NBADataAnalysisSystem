@@ -514,7 +514,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 					GetPlayerSeasonAvgInfoResponse) controller.processRequest(
 					new GetPlayerSeasonAvgInfoRequest(seasonPanel.getSift()));
 			tempList = getPlayerSeasonAvgInfoResponse.getList();
-			tableContent = new String[tempList.size()][tableHeader.length];
+			tableContent = new String[50][tableHeader.length];
 			i=0;
 			while (i < tableContent.length) {
 				tableContent[i][0] = Integer.toString(i+1);
@@ -526,6 +526,9 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 					tableContent[i][j+1] = strings[j];
 				}
 				i++;
+				if (i>49) {
+					break;
+				}
 			}
 			setTableContent(tableHeader,tableContent);
 			break;
@@ -535,7 +538,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 					GetPlayerSeasonTotalInfoResponse) controller.processRequest(
 					new GetPlayerSeasonTotalInfoRequest(seasonPanel.getSift()));
 			tempList = getPlayerSeasonTotalInfoResponse.getList();
-			tableContent = new String[tempList.size()][tableHeader.length];
+			tableContent = new String[50][tableHeader.length];
 			i=0;
 			while (i < tableContent.length) {
 				tableContent[i][0] = Integer.toString(i+1);
@@ -547,6 +550,9 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 					tableContent[i][j+1] = strings[j];
 				}
 				i++;
+				if (i>49) {
+					break;
+				}
 			}
 			setTableContent(tableHeader,tableContent);
 			break;
