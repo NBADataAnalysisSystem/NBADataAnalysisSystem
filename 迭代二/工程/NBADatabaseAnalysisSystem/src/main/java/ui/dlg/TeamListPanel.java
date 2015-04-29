@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -185,6 +186,10 @@ public class TeamListPanel extends JPanel {
 		
 	}
 	
+	JFrame frame;
+	public void setFatherFrame(JFrame frame){
+		this.frame = frame;
+	}
 	private void setTable(int x,int y,int cellWidth,int cellHeight,String[] header,String[][] table){
 
 		headerPanel  = new MyTableHeaderPanel(1,header.length,1,header.length,cellWidth*3,cellHeight/2);

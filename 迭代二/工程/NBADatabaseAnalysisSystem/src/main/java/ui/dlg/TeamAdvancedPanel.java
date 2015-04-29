@@ -20,6 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
+import com.sun.awt.AWTUtilities;
+
 import controller.teamcontroller.GetTeamSeasonAvgBasicInfoRequest;
 import controller.teamcontroller.GetTeamSeasonAvgBasicInfoResponse;
 import controller.teamcontroller.GetTeamSeasonEffInfoRequest;
@@ -233,8 +235,12 @@ public class TeamAdvancedPanel extends JPanel {
 		sift[3] = typeSelected;
 		table = setTableContent(header);
 	}
+	JFrame frame;
+	public void setFatherFrame(JFrame frame){
+		this.frame = frame;
+	}
 
-	private void setTable(int x,int y,int cellWidth,int cellHeight,String[] header,String[][] table){
+	private void setTable(int x,int y,int cellWidth,int cellHeight,final String[] header,final String[][] table){
 
 		headerPanel  = new MyTableHeaderPanel(1,header.length,1,header.length,cellWidth*header.length,cellHeight);
 		tablePanel = new MyTablePanel(table.length,header.length,table.length,header.length,cellWidth*header.length,cellHeight*table.length);
@@ -257,8 +263,15 @@ public class TeamAdvancedPanel extends JPanel {
 				new MouseAdapter(){
 					public void mouseClicked(MouseEvent e){
 					//	selectedRow = Integer.parseInt(e.getComponent().getName());
-						
 						selectedRow=Integer.parseInt(e.getComponent().getComponentAt(tablePanel.getMousePosition()).getName());
+						for(int i = 0;i<header.length;i++){
+							if(header[i].equals("名称")){
+								//System.out.println(tableContent[selectedRow][i]);
+								PlayerCheckFrame check = new PlayerCheckFrame(table[selectedRow][i]);
+								check.setFatherFrame(frame);
+								AWTUtilities.setWindowOpacity(frame, 0.5f);
+							}
+						}
 					}          
 				}
 				);    
