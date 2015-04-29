@@ -20,6 +20,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
+import com.sun.awt.AWTUtilities;
+
 @SuppressWarnings("serial")
 public class MatchPanel extends JPanel {
 	int x;
@@ -140,6 +142,10 @@ public class MatchPanel extends JPanel {
 		sp.repaint();
 		this.revalidate();
 	}
+	JFrame frame;
+	public void setFatherFrame(JFrame frame){
+		this.frame  =frame;
+	}
 	/**
 	 * 		//info为比赛数据，[0]为teamA [1]为teamB
 		//第二维中,[0]为队名，，[1]~[4]为1-4节分数，[5]为总分，[6]为球队图标地址）
@@ -160,10 +166,17 @@ public class MatchPanel extends JPanel {
 	}
 
 	@SuppressWarnings("static-access")
-	public JPanel setMatch(String[][] info){
+	public JPanel setMatch(final String[][] info){
 		//info为比赛数据，[0]为teamA [1]为teamB
 		//第二维中,[0]为队名，，[1]~[4]为1-4节分数，[5]为总分，[6]为球队图标地址）
 		JPanel newMatch = new JPanel();
+		newMatch.addMouseListener(    new MouseAdapter(){
+			public void mouseClicked(MouseEvent e){
+					MatchCheckFrame temp = new MatchCheckFrame(info[0][0],info[1][0]);
+					temp.setFatherFrame(frame);
+					AWTUtilities.setWindowOpacity(frame, 0.5f);
+			}	
+		});
 		GridBagLayout layout = new GridBagLayout();
 		GridBagConstraints s= new GridBagConstraints();
 		s.fill = GridBagConstraints.BOTH; 
@@ -184,7 +197,7 @@ public class MatchPanel extends JPanel {
 		ImageIcon teamAIcon = new ImageIcon(info[0][6]);
 		teamAIcon.setImage(teamAIcon.getImage().getScaledInstance(width/10, width/10,Image.SCALE_DEFAULT));
 		teamA.setIcon(teamAIcon);
-		teamA.setText(info[0][1]);
+		teamA.setText(info[0][0]);
 		teamA.setOpaque(false);
 		teamA.setHorizontalAlignment(teamA.CENTER);
 		teamA.setVerticalTextPosition(teamA.BOTTOM);
@@ -199,7 +212,7 @@ public class MatchPanel extends JPanel {
 		ImageIcon teamBIcon = new ImageIcon(info[1][6]);
 		teamBIcon.setImage(teamBIcon.getImage().getScaledInstance(width/10, width/10,Image.SCALE_DEFAULT));
 		teamB.setIcon(teamBIcon);
-		teamB.setText(info[1][1]);
+		teamB.setText(info[1][0]);
 		teamB.setOpaque(false);
 		teamB.setHorizontalAlignment(teamB.CENTER);
 		teamB.setVerticalTextPosition(teamB.BOTTOM);
