@@ -1,6 +1,8 @@
 package controller.matchcontroller;
 
-public class GetMatchSectionInfoRequest {
+import controller.controller.Request;
+
+public class GetMatchSectionInfoRequest implements Request {
 	
 	private String[] sift;
 	

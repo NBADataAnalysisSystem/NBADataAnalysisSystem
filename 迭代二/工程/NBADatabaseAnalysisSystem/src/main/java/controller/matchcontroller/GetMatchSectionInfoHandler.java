@@ -4,9 +4,10 @@ import service.matchservice.GetMatchSectionInfoService;
 import serviceimp.matchserviceimp.GetMatchSectionInfoServiceImp;
 import controller.controller.ErrorResponse;
 import controller.controller.Request;
+import controller.controller.RequestHandler;
 import controller.controller.Response;
 
-public class GetMatchSectionInfoHandler {
+public class GetMatchSectionInfoHandler implements RequestHandler {
 
 	public Response process(Request request) throws Exception {
 		Response response;

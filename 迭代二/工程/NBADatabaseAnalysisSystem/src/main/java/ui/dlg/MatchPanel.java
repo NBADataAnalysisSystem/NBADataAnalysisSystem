@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -21,6 +22,10 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
 import com.sun.awt.AWTUtilities;
+
+import controller.matchcontroller.GetMatchSectionInfoRequest;
+import controller.matchcontroller.GetMatchSectionInfoResponse;
+import controller.matchcontroller.MatchController;
 
 @SuppressWarnings("serial")
 public class MatchPanel extends JPanel {
@@ -54,7 +59,7 @@ public class MatchPanel extends JPanel {
 		dateToFind = new String();
 		dateToShow = new String();
 		//暂用
-		dateToShow = "2015-01-01";
+		dateToShow = "2013-01-01";
 		rowNum = 3;
 		this.setLayout(null);
 		
@@ -68,7 +73,7 @@ public class MatchPanel extends JPanel {
 		datePanel.setBounds(0, 0, width, height/10);
 		dateFindingField = new JTextField(15);
 		dateFindingField.setFont(new Font("宋体",1, 20));
-		dateFindingField.setText("2014-04-01");
+		dateFindingField.setText("2013-01-01");
 		dateFindingField.setBounds(0, datePanel.getHeight()/4, datePanel.getWidth()/5, datePanel.getHeight()/2);
 		btn_Find = new JButton("查询");
 		btn_Find.setBounds(dateFindingField.getWidth()+20, datePanel.getHeight()/4, datePanel.getWidth()/10, datePanel.getHeight()/2);
@@ -148,12 +153,19 @@ public class MatchPanel extends JPanel {
 	}
 	/**
 	 * 		//info为比赛数据，[0]为teamA [1]为teamB
-		//第二维中,[0]为队名，，[1]~[4]为1-4节分数，[5]为总分，[6]为球队图标地址）
+		//第二维中,[0]为队名，，[1]~[4]为1-4节分数，[5]为总分，[6]为球队图标地址7ID）
 	 * @param date 日期
 	 */
 	private void findMatch(String date) {
 		//TODO
-		match = new String [30][2][7];
+		String[] sift = new String[2];
+		sift[0] = dateToShow.split("-")[0];
+		sift[1] = dateToShow.split("-")[1] + "-" + dateToShow.split("-")[2];
+		MatchController controller = new MatchController();
+		GetMatchSectionInfoResponse response = (GetMatchSectionInfoResponse) controller.processRequest(
+				new GetMatchSectionInfoRequest(sift));
+		ArrayList<String[]> tempList = response.getList();
+		match = new String [30][2][8];
 		for(int i = 0;i<match.length;i++){
 			for(int j = 0;j<7;j++){
 				match[i][0][j]=j+"";
