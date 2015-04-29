@@ -16,6 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
+import com.sun.awt.AWTUtilities;
+
 import ui.component.MyTableHeaderPanel;
 import ui.component.MyTablePanel;
 
@@ -28,6 +30,9 @@ public class TeamListPanel extends JPanel {
 	int selectedRow;
 	String[] westHeader;
 	String[][] westTable;
+	ImageIcon[][] westIcon ;
+	ImageIcon[][] eastIcon ;
+	ImageIcon[][] icon;
 	String[] eastHeader;
 	String[][] eastTable;
 	int rowNum;
@@ -57,6 +62,7 @@ public class TeamListPanel extends JPanel {
 		
 		westTable = setTableContent(westHeader);
 		eastTable  = setTableContent(eastHeader);
+		icon = westIcon;
 		setTable(width/25,height/10,(width - width/12)/3,((height) - (height/10)-(height/25))/rowNum,westHeader,westTable);
 
 		West_Btn = new JButton();
@@ -79,6 +85,7 @@ public class TeamListPanel extends JPanel {
 		        		btnChoosedLabel.setBounds(West_Btn.getX(), West_Btn.getY(), West_Btn.getWidth(), West_Btn.getHeight());
 		        		panel.remove(sp);
 		        		panel.repaint();
+		        		icon = westIcon;
 		        		setTable(width/25,height/10,(width - width/12)/3,((height) - (height/10)-(height/25))/rowNum,westHeader,westTable);
 	        		}
 				}
@@ -139,6 +146,7 @@ public class TeamListPanel extends JPanel {
 		        		btnChoosedLabel.setBounds(East_Btn.getX(), East_Btn.getY(), East_Btn.getWidth(), East_Btn.getHeight());
 		        		panel.remove(sp);
 		        		panel.repaint();
+		        		icon = eastIcon;
 		        		setTable(width/25,height/10,(width - width/12)/3,((height) - (height/10)-(height/25))/rowNum,eastHeader,eastTable);
 	        		}
 				}
@@ -190,13 +198,15 @@ public class TeamListPanel extends JPanel {
 	public void setFatherFrame(JFrame frame){
 		this.frame = frame;
 	}
-	private void setTable(int x,int y,int cellWidth,int cellHeight,String[] header,String[][] table){
+	@SuppressWarnings("static-access")
+	private void setTable(int x,int y,final int cellWidth,int cellHeight,String[] header,final String[][] table){
 
 		headerPanel  = new MyTableHeaderPanel(1,header.length,1,header.length,cellWidth*3,cellHeight/2);
 		tablePanel = new MyTablePanel(table.length,header.length,table.length,header.length,cellWidth*3,cellHeight*table.length);
 		
 		headerPanel.setContent(header);
 		tablePanel.setContent(table);
+		tablePanel.setFieldIcon(icon,tablePanel.getCell(0, 0).RIGHT);
 		headerPanel.setPreferredSize(new Dimension(cellWidth*3,cellHeight/2));
 		tablePanel.setPreferredSize(new Dimension(cellWidth*3,cellHeight*table.length));
 
@@ -214,6 +224,12 @@ public class TeamListPanel extends JPanel {
 					//	selectedRow = Integer.parseInt(e.getComponent().getName());
 						
 						selectedRow=Integer.parseInt(e.getComponent().getComponentAt(tablePanel.getMousePosition()).getName());
+						int selectedColumn = tablePanel.getMousePosition().x/cellWidth;
+
+								TeamCheckFrame check = new TeamCheckFrame(table[selectedRow][selectedColumn]);
+								check.setFatherFrame(frame);
+								AWTUtilities.setWindowOpacity(frame, 0.5f);
+
 					}          
 				}
 				);    
@@ -249,7 +265,30 @@ public class TeamListPanel extends JPanel {
 	
 	private String[][] setTableContent(String[] header){
 		//根据header获取列表信息，其中一维表示二维所代表的分区下的球队,@Dalec Gu
-		String[][] content = new String[30][3];
+		String[][] content = new String[5][3];
+		//之前忘了给你们留图片的数组了。现在只好这样添- -
+		if(header == westHeader){
+			westIcon = new ImageIcon[5][3];
+			for(int i = 0;i< content.length;i++){
+				for(int j = 0 ; j<3;j++){
+					westIcon[i][j] = new ImageIcon("resource/BackgroundOfHot.png");
+					westIcon[i][j].setImage(westIcon[i][j].getImage().getScaledInstance(((height) - (height/10)-(height/25))/rowNum, ((height) - (height/10)-(height/25))/rowNum,Image.SCALE_DEFAULT));
+					
+					content[i][j] = i+""+j+i+i+i+i+i+i+i+i+"dfasf";
+					}
+				}
+			
+		}else{
+			eastIcon = new ImageIcon[5][3];
+			for(int i = 0;i< content.length;i++){
+				for(int j = 0 ; j<3;j++){
+					eastIcon[i][j] = new ImageIcon("resource/BackgroundOfHot.png");
+					eastIcon[i][j].setImage(eastIcon[i][j].getImage().getScaledInstance(((height) - (height/10)-(height/25))/rowNum, ((height) - (height/10)-(height/25))/rowNum,Image.SCALE_DEFAULT));
+					
+					content[i][j] = i+""+j+i+i+i+i+i+i+i+i+"dfasf";
+					}
+				}
+		}
 		
 		return content;
 	}

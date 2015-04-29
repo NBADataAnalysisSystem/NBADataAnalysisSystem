@@ -112,7 +112,7 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 				listPanel = new TeamListPanel(mainPanel.getWidth()/30,mainPanel.getHeight()/30,mainPanel.getWidth()*14/15,mainPanel.getHeight()*14/15);
 				advancedPanel = new TeamAdvancedPanel(mainPanel.getWidth()/30,mainPanel.getHeight()/30,mainPanel.getWidth()*14/15,mainPanel.getHeight()*14/15);
 				advancedPanel.setFatherFrame(this);
-				listPanel.setFatherFrame(this);
+	 			listPanel.setFatherFrame(this);
 		      backgroundPanel.add(btnPanel);
 		      backgroundPanel.add(mainPanel);
 		      mainPanel.add(listPanel);
