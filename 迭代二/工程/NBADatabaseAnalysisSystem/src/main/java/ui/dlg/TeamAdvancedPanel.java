@@ -24,6 +24,8 @@ import controller.teamcontroller.GetTeamSeasonAvgBasicInfoRequest;
 import controller.teamcontroller.GetTeamSeasonAvgBasicInfoResponse;
 import controller.teamcontroller.GetTeamSeasonEffInfoRequest;
 import controller.teamcontroller.GetTeamSeasonEffInfoResponse;
+import controller.teamcontroller.GetTeamSeasonRateInfoRequest;
+import controller.teamcontroller.GetTeamSeasonRateInfoResponse;
 import controller.teamcontroller.GetTeamSeasonTotalBasicInfoRequest;
 import controller.teamcontroller.GetTeamSeasonTotalBasicInfoResponse;
 import controller.teamcontroller.TeamController;
@@ -85,7 +87,7 @@ public class TeamAdvancedPanel extends JPanel {
 		//selectTeam.setBackground(Color.decode("#FFFFFF"));//me
 		year.setFont(new Font("Serif",1, 15));
 		year.addItem("2013-2014");
-		year.addItem("2014-2015");
+		year.addItem("2012-2013");
 		year.setEditable(false);
 		year.setOpaque(false);
 		year.setBounds(width/25 + type.getWidth()+width*4/25 ,0, width/5, height/15);
@@ -226,8 +228,8 @@ public class TeamAdvancedPanel extends JPanel {
 		//根据header 及	yearSelected； othSelected;unionSelected;typeSelected;进行筛选,其实有点多余，直接写在setTableContent里头就行。。。。。
 		//暂用
 		sift[0] = yearSelected;
-		sift[1] = othSelected;
-		sift[2] = unionSelected;
+		sift[1] = unionSelected;
+		sift[2] = othSelected;
 		sift[3] = typeSelected;
 		table = setTableContent(header);
 	}
@@ -292,13 +294,15 @@ public class TeamAdvancedPanel extends JPanel {
 	
 	private void setHeader(){
 		if(othSelected.equals("基础")&&typeSelected.equals("总数")){
-			header = new String[]{"基础总数","1","2","3","4","5","6","7","8","9","10","1","2","3","4","5","6"};
+			header = new String[]{"名称","比赛场数","投篮出手","投篮命中","三分出手","三分命中","罚球出手","罚球命中",
+					"进攻篮板","防守篮板","篮板","助攻","抢断","盖帽","失误","犯规","得分"};
 		}else if(othSelected.equals("比率")){
-			header = new String[]{"比率"};
+			header = new String[]{"名称","胜率","%","三分%","罚球%"};
 		}else if(othSelected.equals("效率")){
-			header = new String[]{"效率"};
+			header = new String[]{"名称","进攻回合","防守回合","进攻效率","防守效率","进攻篮板效率","防守篮板效率","抢断效率","助攻率"};
 		}else if(othSelected.equals("基础")&&typeSelected.equals("场均")){
-			header = new String[]{"基础场均"};
+			header = new String[]{"名称","比赛场数","投篮出手","投篮命中","三分出手","三分命中","罚球出手","罚球命中",
+					"进攻篮板","防守篮板","篮板","助攻","抢断","盖帽","失误","犯规","得分"};
 		}
 	}
 	
@@ -320,10 +324,10 @@ public class TeamAdvancedPanel extends JPanel {
 			return content;
 		}else if(othSelected.equals("比率")){
 			TeamController controller = new TeamController();
-			GetTeamSeasonTotalBasicInfoResponse getTeamSeasonTotalBasicInfoResponse = 
-					(GetTeamSeasonTotalBasicInfoResponse) controller.processRequest(
-							new GetTeamSeasonTotalBasicInfoRequest(sift));
-			ArrayList<String[]> tempList = getTeamSeasonTotalBasicInfoResponse.getList();
+			GetTeamSeasonRateInfoResponse getTeamSeasonRateInfoResponse = 
+					(GetTeamSeasonRateInfoResponse) controller.processRequest(
+							new GetTeamSeasonRateInfoRequest(sift));
+			ArrayList<String[]> tempList = getTeamSeasonRateInfoResponse.getList();
 			String[][] content = new String[tempList.size()][header.length];
 			int i = 0;
 			for (String[] strings:tempList) {

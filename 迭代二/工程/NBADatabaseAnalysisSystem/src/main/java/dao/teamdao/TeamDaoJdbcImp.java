@@ -28,7 +28,7 @@ public class TeamDaoJdbcImp implements TeamDao {
 		String condition ="";
 		ArrayList<String[]> result = new ArrayList<String[]>();
 		if(sift[0] != null){
-			condition += "and m.season = '"+sift[0]+"' ";
+			condition += " and m.season = '"+sift[0]+"' ";
 		}
 		if(sift[1] != null){
 			if(sift[1].equals("E")||sift[1].equals("W")){
@@ -199,7 +199,7 @@ public class TeamDaoJdbcImp implements TeamDao {
 														"from matches m,teams t "+
 														"where (t.id = m.home_court_team_id and m.hscore>m.ascore) or (t.id = m.away_team_id and m.ascore>m.hscore)) "+                        
 														"group by tid) as t2 "+   
-									"where t.id=t1.team_id and m.id=t1.match_id and t2.tid = t.id"+condition);
+									"where t.id=t1.team_id and m.id=t1.match_id and t2.tid = t.id "+condition);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("执行Statement 错误！");
@@ -332,8 +332,8 @@ public class TeamDaoJdbcImp implements TeamDao {
 	public static void main(String[] args){
 		TeamDaoJdbcImp t = new TeamDaoJdbcImp();
 		String[] strList = new String[4];
-		strList[0] ="13-14";
-		t.getTeamSeasonEffInfo(strList);
+		strList[0] ="12-13";
+		t.getTeamSeasonTotalBasicInfo(strList);
 	}
 
 }
