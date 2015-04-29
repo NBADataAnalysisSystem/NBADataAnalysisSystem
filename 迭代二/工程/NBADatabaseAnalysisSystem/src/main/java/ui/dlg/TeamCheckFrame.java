@@ -74,8 +74,8 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 			aveInfo = new String[2][14];
 			getData();
 			backgroundPanel = new JPanel();
-			height = Toolkit.getDefaultToolkit().getScreenSize().height*4/5;
-			width = Toolkit.getDefaultToolkit().getScreenSize().width*1/2;
+			height = Toolkit.getDefaultToolkit().getScreenSize().height*9/10;
+			width = Toolkit.getDefaultToolkit().getScreenSize().width*2/3;
 			x=(Toolkit.getDefaultToolkit().getScreenSize().width-width)/2;
 			y=(Toolkit.getDefaultToolkit().getScreenSize().height-height)/2;
 			this.setUndecorated(true);
