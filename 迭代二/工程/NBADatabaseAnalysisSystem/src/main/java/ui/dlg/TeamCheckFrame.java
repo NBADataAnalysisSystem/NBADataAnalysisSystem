@@ -241,13 +241,13 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 
 		JScrollPane playerSp ;
 //		String [] tempHeader = new String[16];
-		String[][] tableString = new String[playerInfo.length+1][16];
+		final String[][] tableString = new String[playerInfo.length+1][16];
 		tableString[0]= new String[]{"姓名","场数","先发","分钟","%","三分%","罚球%","进攻","防守","场均篮板","场均抢断","场均抢断","场均助攻","犯规","失误","场均得分"};
 		for(int i = 0;i<playerInfo.length;i++){
 			tableString[1+i] = playerInfo[i];
 		}
 		DefaultTableModel model = new DefaultTableModel(tableString,tableString[0]);
-		JTable table = new JTable(model);
+		final JTable table = new JTable(model);
 		playerSp = new JScrollPane(table);
 		s.gridwidth=0;
 		s.gridheight = 0;
@@ -268,6 +268,18 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 		table.setRowHeight(0, 1);
 		table.setEnabled(false);
 		table.setGridColor(new Color(0,0,0,0));
+		final JFrame tempFrame =this;
+		table.addMouseListener(
+				new MouseAdapter(){
+					public void mouseClicked(MouseEvent e){
+					//	selectedRow = Integer.parseInt(e.getComponent().getName());
+								PlayerCheckFrame check = new PlayerCheckFrame(tableString[table.rowAtPoint(e.getPoint())][0]);
+								check.setFatherFrame(tempFrame);
+								AWTUtilities.setWindowOpacity(tempFrame, 0.5f);
+
+					}          
+				}
+				);    
 
 		//table.setOpaque(false);
 		

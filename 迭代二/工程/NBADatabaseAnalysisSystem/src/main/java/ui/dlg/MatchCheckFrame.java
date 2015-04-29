@@ -154,10 +154,12 @@ public class MatchCheckFrame extends JFrame implements  ActionListener{
 	}
 	
 	@SuppressWarnings("static-access")
-	private void setTeamPanel(String team){
+	private void setTeamPanel(final String team){
 		String[][] info ;
 		final ImageIcon icon;
-		if(teamA.equals(teamA)){
+		System.out.println(teamA);
+		System.out.println(team);
+		if(team == (teamA)){
 			info = infoA;
 			icon = iconA;
 		}else{
@@ -177,6 +179,18 @@ public class MatchCheckFrame extends JFrame implements  ActionListener{
 		s.weighty=0;
 		layout.setConstraints(lineLabel, s);
 		lineLabel.setText(team);
+		final JFrame tempFrame =this;
+		lineLabel.addMouseListener(
+				new MouseAdapter(){
+					public void mouseClicked(MouseEvent e){
+					//	selectedRow = Integer.parseInt(e.getComponent().getName());
+								TeamCheckFrame check = new TeamCheckFrame(team);
+								check.setFatherFrame(tempFrame);
+								AWTUtilities.setWindowOpacity(tempFrame, 0.5f);
+
+					}          
+				}
+				);    
 		icon.setImage(icon.getImage().getScaledInstance(height/10, height/10,Image.SCALE_DEFAULT));
 		lineLabel.setIcon(icon);
 		lineLabel.setFont(new Font("宋体",1,height/24));
@@ -188,13 +202,13 @@ public class MatchCheckFrame extends JFrame implements  ActionListener{
 
 		JScrollPane playerSp ;
 		String [] header = new String[21];
-		String[][] tableString = new String[info.length+1][21];
+		final String[][] tableString = new String[info.length+1][21];
 		header= new String[]{"姓名","位置","分钟","%","命中","出手","三分%","三分命中","三分出手","罚球%","罚球命中","罚球出手","进攻","防守","篮板","助攻","犯规","抢断","失误","盖帽","得分"};
 		for(int i = 0;i<info.length;i++){
 			tableString[1+i] = info[i];
 		}
 		DefaultTableModel model = new DefaultTableModel(tableString,header);
-		JTable table = new JTable(model);
+		final JTable table = new JTable(model);
 		playerSp = new JScrollPane(table);
 		s.gridwidth=0;
 		s.gridheight = 1;
@@ -222,6 +236,17 @@ public class MatchCheckFrame extends JFrame implements  ActionListener{
 		playerSp.setOpaque(false);
 		playerSp.getColumnHeader().setOpaque(false);
 		table.setOpaque(false);
+		table.addMouseListener(
+				new MouseAdapter(){
+					public void mouseClicked(MouseEvent e){
+					//	selectedRow = Integer.parseInt(e.getComponent().getName());
+								PlayerCheckFrame check = new PlayerCheckFrame(tableString[table.rowAtPoint(e.getPoint())][0]);
+								check.setFatherFrame(tempFrame);
+								AWTUtilities.setWindowOpacity(tempFrame, 0.5f);
+
+					}          
+				}
+				);    
 		playerSp.getViewport().setOpaque(false);
 	//	playerSp.getHorizontalScrollBar().setUI();
 		panel.add(playerSp);

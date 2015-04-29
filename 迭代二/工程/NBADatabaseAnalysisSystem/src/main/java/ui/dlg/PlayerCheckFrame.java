@@ -210,13 +210,13 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		matchPanel.add(lineLabel);
 
 		String [] tempHeader = new String[21];
-		String[][] tableString = new String[6][21];
+		final String[][] tableString = new String[6][21];
 		tableString[0]= new String[]{"日期","对手","分钟","%","命中","出手","三分%","三分命中","三分出手","罚球%","罚球命中","罚球出手","进攻","防守","篮板","助攻","犯规","抢断","失误","盖帽","得分"};
 		for(int i = 0;i<5;i++){
 			tableString[i+1] = matchInfo[i];
 		}
 		DefaultTableModel model = new DefaultTableModel(tableString,tempHeader);
-		JTable table = new JTable(model);
+		final JTable table = new JTable(model);
 		s.gridwidth=0;
 		s.weightx = 1; 
 		s.weighty=8;
@@ -227,6 +227,18 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		for(int i = 0;i<table.getColumnCount();i++){
 			table.getColumnModel().getColumn(i).setPreferredWidth(tableString[0][i].length()*height/24);	
 		}
+		final JFrame tempFrame =this;
+		table.addMouseListener(
+				new MouseAdapter(){
+					public void mouseClicked(MouseEvent e){
+					//	selectedRow = Integer.parseInt(e.getComponent().getName());
+								MatchCheckFrame check = new MatchCheckFrame(basicInfo[3],tableString[table.rowAtPoint(e.getPoint())][1]);
+								check.setFatherFrame(tempFrame);
+								AWTUtilities.setWindowOpacity(tempFrame, 0.5f);
+
+					}          
+				}
+				);    
 		table.setFont(new Font("宋体",0,height/56));
 		table.getColumnModel().getColumn(0).setPreferredWidth(5*height/24);	
 		table.setRowHeight(height/23);
@@ -335,6 +347,18 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		teamChinese.setForeground(Color.BLUE);
 		teamChinese.setHorizontalAlignment(teamChinese.LEFT);
 		teamChinese.setVerticalAlignment(teamChinese.BOTTOM);
+		final JFrame tempFrame =this;
+		teamChinese.addMouseListener(
+				new MouseAdapter(){
+					public void mouseClicked(MouseEvent e){
+					//	selectedRow = Integer.parseInt(e.getComponent().getName());
+								TeamCheckFrame check = new TeamCheckFrame(basicInfo[3]);
+								check.setFatherFrame(tempFrame);
+								AWTUtilities.setWindowOpacity(tempFrame, 0.5f);
+
+					}          
+				}
+				);   
 		contain.add(teamChinese);
 		JLabel position = new JLabel();
 		position.setText(basicInfo[4]);

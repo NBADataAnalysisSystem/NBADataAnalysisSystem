@@ -8,7 +8,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -21,6 +20,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+
+import com.sun.awt.AWTUtilities;
 
 @SuppressWarnings("serial")
 public class HotPanel extends JPanel {
@@ -337,17 +338,53 @@ public class HotPanel extends JPanel {
 		firstInfoPanel.setOpaque(false);
 		firstInfoPanel.setLayout(new GridLayout(5,1));
 		firstInfoPanel.add(new JLabel());
-		JLabel firstName = new JLabel();
+		final JLabel firstName = new JLabel();
 		firstName.setOpaque(false);
 		firstName.setText(hotInfo[0][0]);
 		firstName.setFont(new Font("宋体",1, 20));
 		firstName.setVerticalAlignment(firstName.BOTTOM);
 		firstInfoPanel.add(firstName);
+		firstName.addMouseListener(
+				new MouseAdapter(){
+					public void mouseClicked(MouseEvent e){
+					//	selectedRow = Integer.parseInt(e.getComponent().getName());
+						
+							String name = firstName.getText();
+							if(panel.getName().equals("当日热点球员")||panel.getName().equals("进步最快球员")||panel.getName().equals("赛季热点球员")){
+								PlayerCheckFrame check = new PlayerCheckFrame(name);
+								check.setFatherFrame(frame);
+							}else if(panel.getName().equals("赛季热点球队")){
+								TeamCheckFrame check = new TeamCheckFrame(name);
+								check.setFatherFrame(frame);
+							}
+							AWTUtilities.setWindowOpacity(frame, 0.5f);
+
+					}          
+				}
+				);    
 		
-		JLabel firstTeamName = new JLabel();
+		final JLabel firstTeamName = new JLabel();
 		firstTeamName.setOpaque(false);
 		firstTeamName.setText(hotInfo[0][2]);
 		firstTeamName.setFont(new Font("宋体",0, 10));
+		firstTeamName.addMouseListener(
+				new MouseAdapter(){
+					public void mouseClicked(MouseEvent e){
+					//	selectedRow = Integer.parseInt(e.getComponent().getName());
+						
+							String name = firstTeamName.getText();
+							if(panel.getName().equals("当日热点球员")||panel.getName().equals("进步最快球员")||panel.getName().equals("赛季热点球员")){
+								PlayerCheckFrame check = new PlayerCheckFrame(name);
+								check.setFatherFrame(frame);
+							}else if(panel.getName().equals("赛季热点球队")){
+								TeamCheckFrame check = new TeamCheckFrame(name);
+								check.setFatherFrame(frame);
+							}
+							AWTUtilities.setWindowOpacity(frame, 0.5f);
+
+					}          
+				}
+				); 
 		firstInfoPanel.add(firstTeamName);
 		
 		JLabel firstInfo = new JLabel();
@@ -377,7 +414,7 @@ public class HotPanel extends JPanel {
 			temp.setOpaque(false);
 			temp.setLayout(new GridLayout(1,3));
 			
-			JLabel tempName = new JLabel();
+			final JLabel tempName = new JLabel();
 			tempName.setOpaque(false);
 			icon =  new ImageIcon(hotInfo[i][3]);
 			icon.setImage(icon.getImage().getScaledInstance(width/40, width/40,Image.SCALE_DEFAULT));
@@ -386,6 +423,24 @@ public class HotPanel extends JPanel {
 			tempName.setHorizontalAlignment(firstIconLabel.CENTER);
 			tempName.setHorizontalTextPosition(firstIconLabel.RIGHT);
 			tempName.setFont(new Font("宋体",0, width/50));
+			tempName.addMouseListener(
+					new MouseAdapter(){
+						public void mouseClicked(MouseEvent e){
+						//	selectedRow = Integer.parseInt(e.getComponent().getName());
+							
+								String name = tempName.getText();
+								if(panel.getName().equals("当日热点球员")||panel.getName().equals("进步最快球员")||panel.getName().equals("赛季热点球员")){
+									PlayerCheckFrame check = new PlayerCheckFrame(name);
+									check.setFatherFrame(frame);
+								}else if(panel.getName().equals("赛季热点球队")){
+									TeamCheckFrame check = new TeamCheckFrame(name);
+									check.setFatherFrame(frame);
+								}
+								AWTUtilities.setWindowOpacity(frame, 0.5f);
+
+						}          
+					}
+					); 
 			temp.add(tempName);
 			
 			JLabel tempIcon = new JLabel();
@@ -425,6 +480,11 @@ public class HotPanel extends JPanel {
 		mainPanel.revalidate();
 //		sp.repaint();
 //		this.repaint();
+	}
+	
+	JFrame frame;
+	public void setFatherFrame(JFrame frame){
+		this.frame = frame;
 	}
 	public static void main(String [] args){
 	

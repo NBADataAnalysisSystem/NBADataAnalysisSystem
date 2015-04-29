@@ -106,7 +106,7 @@ public class HotFrame extends JFrame implements  ActionListener {
 
 		      //TODO
 			panel = new HotPanel(mainPanel.getWidth()/30,mainPanel.getHeight()/30,mainPanel.getWidth()*14/15,mainPanel.getHeight()*27/30);
-			
+			panel.setFatherFrame(this);
 		      backgroundPanel.add(btnPanel);
 		      backgroundPanel.add(mainPanel);
 		      mainPanel.add(panel,0);
