@@ -55,12 +55,14 @@ public class MyTable {
 		}
 		
 	}
+	@SuppressWarnings("static-access")
 	public void setFieldIcon(ImageIcon[][] icon,int horizontalAlignment){
 
 		for(int i = 0; i < icon.length && i < row; i++){
 			for(int j = 0; j < icon[0].length && j < column; j++){
 				table[i][j][0].setIcon(icon[i][j]);
 				table[i][j][0].setHorizontalTextPosition(horizontalAlignment);
+				table[i][j][0].setHorizontalAlignment(table[i][j][0].LEFT);
 			}
 		}
 	}

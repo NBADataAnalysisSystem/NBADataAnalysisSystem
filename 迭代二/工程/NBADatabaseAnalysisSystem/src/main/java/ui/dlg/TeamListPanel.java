@@ -279,6 +279,7 @@ public class TeamListPanel extends JPanel {
 			for (int i = 0; i < 5; i++) {
 				content[i][0] = arrayList.get(i)[0];
 				westIcon[i][0] = new ImageIcon(arrayList.get(i)[1]);
+				System.out.println(arrayList.get(i)[1]);
 				westIcon[i][0].setImage(westIcon[i][0].getImage().getScaledInstance(((height) - (height/10)-(height/25))/rowNum, ((height) - (height/10)-(height/25))/rowNum,Image.SCALE_DEFAULT));
 				content[i][1] = arrayList.get(i+5)[0];
 				westIcon[i][1] = new ImageIcon(arrayList.get(i+5)[1]);
