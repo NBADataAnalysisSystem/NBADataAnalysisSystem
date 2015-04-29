@@ -14,7 +14,7 @@ public class GetTeamSeasonEffInfoHandler implements RequestHandler {
 		GetTeamSeasonEffInfoService getTeamService = new GetTeamSeasonEffInfoServiceImp();
 		try {
 			GetTeamSeasonEffInfoRequest getTeamRequest = (GetTeamSeasonEffInfoRequest) request;
-			response = new GetTeamSeasonAvgBasicInfoResponse(
+			response = new GetTeamSeasonEffInfoResponse(
 					getTeamService.getTeam(getTeamRequest.getSift()));
 		} catch (Exception e) {
 			response = new ErrorResponse(request, e);

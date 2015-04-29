@@ -22,6 +22,8 @@ import javax.swing.ScrollPaneConstants;
 
 import controller.teamcontroller.GetTeamSeasonAvgBasicInfoRequest;
 import controller.teamcontroller.GetTeamSeasonAvgBasicInfoResponse;
+import controller.teamcontroller.GetTeamSeasonEffInfoRequest;
+import controller.teamcontroller.GetTeamSeasonEffInfoResponse;
 import controller.teamcontroller.GetTeamSeasonTotalBasicInfoRequest;
 import controller.teamcontroller.GetTeamSeasonTotalBasicInfoResponse;
 import controller.teamcontroller.TeamController;
@@ -333,10 +335,10 @@ public class TeamAdvancedPanel extends JPanel {
 			return content;
 		}else if(othSelected.equals("效率")){
 			TeamController controller = new TeamController();
-			GetTeamSeasonTotalBasicInfoResponse getTeamSeasonTotalBasicInfoResponse = 
-					(GetTeamSeasonTotalBasicInfoResponse) controller.processRequest(
-							new GetTeamSeasonTotalBasicInfoRequest(sift));
-			ArrayList<String[]> tempList = getTeamSeasonTotalBasicInfoResponse.getList();
+			GetTeamSeasonEffInfoResponse getTeamSeasonEffInfoResponse = 
+					(GetTeamSeasonEffInfoResponse) controller.processRequest(
+							new GetTeamSeasonEffInfoRequest(sift));
+			ArrayList<String[]> tempList = getTeamSeasonEffInfoResponse.getList();
 			String[][] content = new String[tempList.size()][header.length];
 			int i = 0;
 			for (String[] strings:tempList) {

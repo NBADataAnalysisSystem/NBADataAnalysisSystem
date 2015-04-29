@@ -333,7 +333,7 @@ public class TeamDaoJdbcImp implements TeamDao {
 		TeamDaoJdbcImp t = new TeamDaoJdbcImp();
 		String[] strList = new String[4];
 		strList[0] ="13-14";
-		t.getTeamSeasonAvgBasicInfo(strList);
+		t.getTeamSeasonEffInfo(strList);
 	}
 
 }
