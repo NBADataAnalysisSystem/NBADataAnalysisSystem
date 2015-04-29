@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,6 +19,9 @@ import javax.swing.ScrollPaneConstants;
 
 import com.sun.awt.AWTUtilities;
 
+import controller.teamcontroller.GetTeamListRequest;
+import controller.teamcontroller.GetTeamListResponse;
+import controller.teamcontroller.TeamController;
 import ui.component.MyTableHeaderPanel;
 import ui.component.MyTablePanel;
 
@@ -53,11 +57,12 @@ public class TeamListPanel extends JPanel {
 		this.setBounds(x, y, width, height);
 		this.setLayout(null);
 		rowNum = 4;
+		westIcon = new ImageIcon[5][3];
+		eastIcon = new ImageIcon[5][3];
 		
 		
 		
-		
-		westHeader = new String[]{"西南区","西北区","太平洋区"};
+		westHeader = new String[]{"西北区","太平洋区","西南区"};
 		eastHeader = new String []{"大西洋区","中央区","东南区"};
 		
 		westTable = setTableContent(westHeader);
@@ -264,32 +269,37 @@ public class TeamListPanel extends JPanel {
 	}
 	
 	private String[][] setTableContent(String[] header){
+		TeamController controller = new TeamController();
+		GetTeamListResponse response = (GetTeamListResponse) controller.processRequest(new GetTeamListRequest());
+		ArrayList<String[]> arrayList = response.getList();
 		//根据header获取列表信息，其中一维表示二维所代表的分区下的球队,@Dalec Gu
 		String[][] content = new String[5][3];
 		//之前忘了给你们留图片的数组了。现在只好这样添- -
-		if(header == westHeader){
-			westIcon = new ImageIcon[5][3];
-			for(int i = 0;i< content.length;i++){
-				for(int j = 0 ; j<3;j++){
-					westIcon[i][j] = new ImageIcon("resource/BackgroundOfHot.png");
-					westIcon[i][j].setImage(westIcon[i][j].getImage().getScaledInstance(((height) - (height/10)-(height/25))/rowNum, ((height) - (height/10)-(height/25))/rowNum,Image.SCALE_DEFAULT));
-					
-					content[i][j] = i+""+j+i+i+i+i+i+i+i+i+"dfasf";
-					}
-				}
-			
-		}else{
-			eastIcon = new ImageIcon[5][3];
-			for(int i = 0;i< content.length;i++){
-				for(int j = 0 ; j<3;j++){
-					eastIcon[i][j] = new ImageIcon("resource/BackgroundOfHot.png");
-					eastIcon[i][j].setImage(eastIcon[i][j].getImage().getScaledInstance(((height) - (height/10)-(height/25))/rowNum, ((height) - (height/10)-(height/25))/rowNum,Image.SCALE_DEFAULT));
-					
-					content[i][j] = i+""+j+i+i+i+i+i+i+i+i+"dfasf";
-					}
-				}
+		if (header == westHeader) {
+			for (int i = 0; i < 5; i++) {
+				content[i][0] = arrayList.get(i)[0];
+				westIcon[i][0] = new ImageIcon(arrayList.get(i)[1]);
+				westIcon[i][0].setImage(westIcon[i][0].getImage().getScaledInstance(((height) - (height/10)-(height/25))/rowNum, ((height) - (height/10)-(height/25))/rowNum,Image.SCALE_DEFAULT));
+				content[i][1] = arrayList.get(i+5)[0];
+				westIcon[i][1] = new ImageIcon(arrayList.get(i+5)[1]);
+				westIcon[i][1].setImage(westIcon[i][1].getImage().getScaledInstance(((height) - (height/10)-(height/25))/rowNum, ((height) - (height/10)-(height/25))/rowNum,Image.SCALE_DEFAULT));
+				content[i][2] = arrayList.get(i+10)[0];
+				westIcon[i][2] = new ImageIcon(arrayList.get(i+10)[1]);
+				westIcon[i][2].setImage(westIcon[i][2].getImage().getScaledInstance(((height) - (height/10)-(height/25))/rowNum, ((height) - (height/10)-(height/25))/rowNum,Image.SCALE_DEFAULT));
+			}
+		} else {
+			for (int i = 0; i < 5; i++) {
+				content[i][0] = arrayList.get(i+15)[0];
+				eastIcon[i][0] = new ImageIcon(arrayList.get(i+15)[1]);
+				eastIcon[i][0].setImage(eastIcon[i][0].getImage().getScaledInstance(((height) - (height/10)-(height/25))/rowNum, ((height) - (height/10)-(height/25))/rowNum,Image.SCALE_DEFAULT));
+				content[i][1] = arrayList.get(i+20)[0];
+				eastIcon[i][1] = new ImageIcon(arrayList.get(i+20)[1]);
+				eastIcon[i][1].setImage(eastIcon[i][1].getImage().getScaledInstance(((height) - (height/10)-(height/25))/rowNum, ((height) - (height/10)-(height/25))/rowNum,Image.SCALE_DEFAULT));
+				content[i][2] = arrayList.get(i+25)[0];
+				eastIcon[i][2] = new ImageIcon(arrayList.get(i+25)[1]);
+				eastIcon[i][2].setImage(eastIcon[i][2].getImage().getScaledInstance(((height) - (height/10)-(height/25))/rowNum, ((height) - (height/10)-(height/25))/rowNum,Image.SCALE_DEFAULT));
+			}
 		}
-		
 		return content;
 	}
 

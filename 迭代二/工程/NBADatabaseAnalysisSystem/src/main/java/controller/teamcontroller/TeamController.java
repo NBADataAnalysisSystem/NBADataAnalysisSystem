@@ -9,6 +9,7 @@ public class TeamController extends DefaultController {
 		addHandler(new GetTeamSeasonAvgBasicInfoRequest(null), new GetTeamSeasonAvgBasicInfoHandler());
 		addHandler(new GetTeamSeasonEffInfoRequest(null), new GetTeamSeasonEffInfoHandler());
 		addHandler(new GetTeamSeasonRateInfoRequest(null), new GetTeamSeasonRateInfoHandler());
+		addHandler(new GetTeamListRequest(), new GetTeamListHandler());
 	}
 	
 }

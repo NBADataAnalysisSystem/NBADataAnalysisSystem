@@ -301,16 +301,17 @@ public class TeamDaoJdbcImp implements TeamDao {
 		return result;
 	}
 	
-	public ArrayList<String> getTeamList() {
+	public ArrayList<String[]> getTeamList() {
 		Statement statement = null;
 		ResultSet resultSet = null;
-		ArrayList<String> result = new ArrayList<String>();
+		ArrayList<String[]> result = new ArrayList<String[]>();
 		try {
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(
-					"select path || abbreviation || '.svg' from teams,paths order by division,section");
+					"select full_name,path || '/teams/' || abbreviation || '.png' from teams,paths "
+					+ "order by division desc,section");
 			while (resultSet.next()) {
-				result.add(resultSet.getString(1));
+				result.add(new String[]{resultSet.getString(1),resultSet.getString(2)});
 			}
 			statement.close();
 		} catch (SQLException e) {
