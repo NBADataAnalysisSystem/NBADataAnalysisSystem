@@ -13,23 +13,19 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.plaf.basic.BasicArrowButton;
-import javax.swing.plaf.basic.BasicComboBoxUI;
+
 
 import controller.playercontroller.GetTeamListRequest;
 import controller.playercontroller.GetTeamListResponse;
 import controller.playercontroller.PlayerController;
-import ui.component.IComboBox;
 import ui.frame.PlayerFrame;
 
 @SuppressWarnings("serial")
 public class PlayerBasicInfoPanel extends JPanel{
 	JComboBox<String> selectTeam;
-	IComboBox selectPosition;
+	JComboBox<String> selectPosition;
 	ArrayList<String> infoToShow;
 	
 	PlayerFrame frame;
@@ -43,7 +39,6 @@ public class PlayerBasicInfoPanel extends JPanel{
 	
 	String[] sift = new String[3];
 	
-	@SuppressWarnings("unchecked")
 	public PlayerBasicInfoPanel(int x,int y,int width,int height){
 		
 		sift[0] = "A";
@@ -149,23 +144,7 @@ public class PlayerBasicInfoPanel extends JPanel{
 		selectTeam.setOpaque(false);
 		selectTeam.setBounds(30 , (width - 40)/26+10, 200, (width - 40)/26);
 		setIcon(selectTeam.getX()-10,selectTeam.getY(),selectTeam.getWidth(),selectTeam.getHeight());
-		selectTeam.setUI(new BasicComboBoxUI() {
-			public void installUI(JComponent comboBox) {
-				super.installUI(comboBox);
-		//		listBox.setForeground(new Color(0, 0, 0, 0));
-				listBox.setSelectionBackground(new Color(0, 0, 0, 0));
-				listBox.setSelectionForeground(Color.BLACK);
-			}
-			
-			protected JButton createArrowButton() {
-				BasicArrowButton temp = new BasicArrowButton(BasicArrowButton.SOUTH,new Color(0, 0, 0, 0),new Color(0, 0, 0, 0),new Color(0, 0, 0, 0),new Color(0, 0, 0, 0));
-				temp.setOpaque(false);
-				temp.setFocusPainted(false);
-				temp.	setContentAreaFilled(false);
-				temp.setBorderPainted(false);
-				return temp;
-			}
-		});//me
+		selectTeam.setBackground(Color.WHITE);
 
 		selectTeam.addItemListener(new ItemListener(){
 		    public void itemStateChanged(ItemEvent arg0) {
@@ -187,7 +166,7 @@ public class PlayerBasicInfoPanel extends JPanel{
 //			}
 //		);
 		
-		selectPosition = new IComboBox();
+		selectPosition = new JComboBox<String>();
 		this.add(selectPosition);
 		//selectPosition.setBackground(Color.decode("#FFFFFF"));
 		selectPosition.setFont(new Font("Serif",1, 15));
@@ -198,24 +177,9 @@ public class PlayerBasicInfoPanel extends JPanel{
 		selectPosition.setEditable(false);
 		selectPosition.setOpaque(false);
 		selectPosition.setBounds(width-280 , (width - 40)/26+10, 200, (width - 40)/26);
+		selectPosition.setBackground(Color.WHITE);
 		setIcon(selectPosition.getX()-10,selectPosition.getY(),selectPosition.getWidth(),selectPosition.getHeight());
-		selectPosition.setUI(new BasicComboBoxUI() {
-			public void installUI(JComponent comboBox) {
-				super.installUI(comboBox);
-				listBox.setForeground(new Color(0, 0, 0, 0));
-				listBox.setSelectionBackground(new Color(0, 0, 0, 0));
-				listBox.setSelectionForeground(Color.BLACK);
-			}
-			
-			protected JButton createArrowButton() {
-				BasicArrowButton temp = new BasicArrowButton(BasicArrowButton.SOUTH,new Color(0, 0, 0, 0),new Color(0, 0, 0, 0),new Color(0, 0, 0, 0),new Color(0, 0, 0, 0));
-				temp.setOpaque(false);
-			//	temp.setFocusPainted(false);
-				temp.	setContentAreaFilled(false);
-			//	temp.setBorderPainted(false);
-				return temp;
-			}
-		});//me
+
 		
 		selectPosition.addItemListener(new ItemListener(){
 		    public void itemStateChanged(ItemEvent arg0) {
