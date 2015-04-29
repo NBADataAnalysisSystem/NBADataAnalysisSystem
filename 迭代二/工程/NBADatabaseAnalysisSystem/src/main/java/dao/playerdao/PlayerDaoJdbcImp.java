@@ -99,7 +99,7 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 			condition2 = " and position like '%" + sift[1] + "%' ";
 		}
 		if (sift[2]!=null) {
-			condition3 = " order by " + sift[2] + " desc";
+			condition3 = " order by " + sift[2] + " desc limit 50 ";
 		}
 		if (sift[3]!=null) {
 			condition4 = "and m.season='" + sift[3] + "' ";
@@ -176,7 +176,7 @@ public class PlayerDaoJdbcImp implements PlayerDao {
 			condition2 = " and position like '%" + sift[1] + "%' ";
 		}
 		if (sift[2]!=null) {
-			condition3 = " order by " + sift[2] + " desc";
+			condition3 = " order by " + sift[2] + " desc limit 50 ";
 		}
 		if (sift[3]!=null) {
 			condition4 = "and m.season='" + sift[3] + "' ";
