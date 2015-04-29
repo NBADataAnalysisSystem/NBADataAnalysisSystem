@@ -7,9 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import dao.teamdao.TeamDaoJdbcImp;
-
-public class MatchDaoJdbcImp {
+public class MatchDaoJdbcImp implements MatchDao {
 	
 	private Connection connection;
 	
