@@ -12,7 +12,7 @@ public class GetTeamSeasonAvgBasicInfoServiceImp implements GetTeamSeasonAvgBasi
 	public ArrayList<String[]> getTeam(String[] sift){
 		TeamDao dao = new TeamDaoJdbcImp();
 		try {
-			MappingTable mappingTable = new TeamSeasonTotalBasicInfoMappingTable();
+			MappingTable mappingTable = new TeamSeasonInfoMappingTable();
 			sift[0] = mappingTable.get(sift[0]);
 			sift[1] = mappingTable.get(sift[1]);
 			return dao.getTeamSeasonAvgBasicInfo(sift);

@@ -2,9 +2,9 @@ package serviceimp.teamserviceimp;
 
 import serviceimp.MappingTable;
 
-public class TeamSeasonTotalBasicInfoMappingTable extends MappingTable {
+public class TeamSeasonInfoMappingTable extends MappingTable {
 
-	public TeamSeasonTotalBasicInfoMappingTable() {
+	public TeamSeasonInfoMappingTable() {
 		super();
 		
 		addMap("东部", "E");
