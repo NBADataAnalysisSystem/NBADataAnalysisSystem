@@ -1,10 +1,10 @@
-package serviceimp.playerserviceimp;
+package serviceimp.teamserviceimp;
 
 import serviceimp.MappingTable;
 
-public class PlayerSeasonTotalInfoMappingTable extends MappingTable {
+public class TeamSeasonTotalBasicInfoMappingTable extends MappingTable {
 
-	public PlayerSeasonTotalInfoMappingTable() {
+	public TeamSeasonTotalBasicInfoMappingTable() {
 		super();
 		
 		addMap("东部", "E");
@@ -15,10 +15,6 @@ public class PlayerSeasonTotalInfoMappingTable extends MappingTable {
 		addMap("西南区", "Southwest");
 		addMap("西北区", "Northwest");
 		addMap("太平洋区", "Pacific");
-		
-		addMap("前锋", "F");
-		addMap("中锋", "C");
-		addMap("后卫", "G");
 		
 		addMap("得分", "ssc");
 		addMap("篮板", "sr");

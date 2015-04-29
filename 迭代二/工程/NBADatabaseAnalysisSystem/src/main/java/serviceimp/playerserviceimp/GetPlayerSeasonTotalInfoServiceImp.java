@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import dao.playerdao.PlayerDao;
 import dao.playerdao.PlayerDaoJdbcImp;
 import service.playerservice.GetPlayerSeasonTotalInfoService;
+import serviceimp.MappingTable;
 
 public class GetPlayerSeasonTotalInfoServiceImp implements GetPlayerSeasonTotalInfoService {
 

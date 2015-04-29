@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import dao.playerdao.PlayerDao;
 import dao.playerdao.PlayerDaoJdbcImp;
 import service.playerservice.GetPlayerBasicInfoService;
+import serviceimp.MappingTable;
 
 public class GetPlayerBasicInfoServiceImp implements GetPlayerBasicInfoService {
 

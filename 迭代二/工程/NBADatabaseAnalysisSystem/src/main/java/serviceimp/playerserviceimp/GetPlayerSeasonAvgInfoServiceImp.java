@@ -3,6 +3,7 @@ package serviceimp.playerserviceimp;
 import java.util.ArrayList;
 
 import service.playerservice.GetPlayerSeasonAvgInfoService;
+import serviceimp.MappingTable;
 import dao.playerdao.PlayerDao;
 import dao.playerdao.PlayerDaoJdbcImp;
 

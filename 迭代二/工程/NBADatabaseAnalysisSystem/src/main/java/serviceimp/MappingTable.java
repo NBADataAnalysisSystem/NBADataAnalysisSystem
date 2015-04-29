@@ -1,4 +1,4 @@
-package serviceimp.playerserviceimp;
+package serviceimp;
 
 import java.util.HashMap;
 import java.util.Map;

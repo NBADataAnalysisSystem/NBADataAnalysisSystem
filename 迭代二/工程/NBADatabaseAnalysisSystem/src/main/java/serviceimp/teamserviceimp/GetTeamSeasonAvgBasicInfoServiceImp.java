@@ -3,7 +3,7 @@ package serviceimp.teamserviceimp;
 import java.util.ArrayList;
 
 import service.teamservice.GetTeamSeasonAvgBasicInfoService;
-import serviceimp.playerserviceimp.MappingTable;
+import serviceimp.MappingTable;
 import serviceimp.playerserviceimp.PlayerSeasonTotalInfoMappingTable;
 import dao.teamdao.TeamDao;
 import dao.teamdao.TeamDaoJdbcImp;

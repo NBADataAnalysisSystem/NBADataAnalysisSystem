@@ -1,5 +1,7 @@
 package serviceimp.playerserviceimp;
 
+import serviceimp.MappingTable;
+
 public class PlayerSeasonAvgInfoMappingTable extends MappingTable {
 
 	public PlayerSeasonAvgInfoMappingTable() {
