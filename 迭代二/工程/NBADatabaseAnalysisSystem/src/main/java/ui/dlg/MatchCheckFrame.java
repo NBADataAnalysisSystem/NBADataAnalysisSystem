@@ -59,10 +59,12 @@ public class MatchCheckFrame extends JFrame implements  ActionListener{
 	ImageIcon iconB;
 	String[][] infoA;
 	String[][] infoB;
+	String matchID;
 	
-	public MatchCheckFrame(String teamA,String teamB){
+	public MatchCheckFrame(String teamA,String teamB,String id){
 			this.teamA = teamA;
 			this.teamB = teamB;
+			matchID=id;
 			getData();
 			backgroundPanel = new JPanel();
 			height = Toolkit.getDefaultToolkit().getScreenSize().height*4/5;
@@ -144,6 +146,7 @@ public class MatchCheckFrame extends JFrame implements  ActionListener{
 	 * 获取teamA,teamB的数据
 	 * iconA.B为球队图片
 	 * info[][]为参赛球员数据，打开FRAME查看
+	 * matchID为比赛ID
 	 */
 	private void getData() {
 		// TODO Auto-generated method stub
@@ -151,6 +154,12 @@ public class MatchCheckFrame extends JFrame implements  ActionListener{
 		iconB = new ImageIcon("resource/BackgroundOfHot.png");
 		infoA = new String[30][21];
 		infoB = new String[30][21];
+	}
+	
+	public void setMatchID(String id){
+		
+		this.matchID = id;
+		
 	}
 	
 	@SuppressWarnings("static-access")
@@ -185,8 +194,8 @@ public class MatchCheckFrame extends JFrame implements  ActionListener{
 					public void mouseClicked(MouseEvent e){
 					//	selectedRow = Integer.parseInt(e.getComponent().getName());
 								TeamCheckFrame check = new TeamCheckFrame(team);
-								check.setFatherFrame(tempFrame);
-								AWTUtilities.setWindowOpacity(tempFrame, 0.5f);
+								check.setFatherFrame(fatherFrame);
+								tempFrame.dispose();
 
 					}          
 				}
@@ -241,8 +250,8 @@ public class MatchCheckFrame extends JFrame implements  ActionListener{
 					public void mouseClicked(MouseEvent e){
 					//	selectedRow = Integer.parseInt(e.getComponent().getName());
 								PlayerCheckFrame check = new PlayerCheckFrame(tableString[table.rowAtPoint(e.getPoint())][0]);
-								check.setFatherFrame(tempFrame);
-								AWTUtilities.setWindowOpacity(tempFrame, 0.5f);
+								check.setFatherFrame(fatherFrame);
+								tempFrame.dispose();
 
 					}          
 				}
@@ -266,7 +275,7 @@ public class MatchCheckFrame extends JFrame implements  ActionListener{
 	public static void main(String[] args){
 		
 		@SuppressWarnings("unused")
-		MatchCheckFrame test = new MatchCheckFrame("","");
+		MatchCheckFrame test = new MatchCheckFrame("","","");
 	}
 
 	 @SuppressWarnings("serial")

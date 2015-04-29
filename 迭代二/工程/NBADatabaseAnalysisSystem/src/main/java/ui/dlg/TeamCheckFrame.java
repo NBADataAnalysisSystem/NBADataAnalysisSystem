@@ -274,8 +274,8 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 					public void mouseClicked(MouseEvent e){
 					//	selectedRow = Integer.parseInt(e.getComponent().getName());
 								PlayerCheckFrame check = new PlayerCheckFrame(tableString[table.rowAtPoint(e.getPoint())][0]);
-								check.setFatherFrame(tempFrame);
-								AWTUtilities.setWindowOpacity(tempFrame, 0.5f);
+								check.setFatherFrame(fatherFrame);
+								tempFrame.dispose();
 
 					}          
 				}

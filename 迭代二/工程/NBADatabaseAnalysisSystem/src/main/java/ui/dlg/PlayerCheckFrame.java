@@ -68,7 +68,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 			match = new String[]{"日期","对手","分钟","%","命中","出手","三分%","三分命中","三分出手","罚球%","罚球命中","罚球出手","进攻","防守","篮板","助攻","犯规","抢断","失误","盖帽","得分"};
 			basicInfo = new String[15];
 			seasonInfo = new String[2][17];
-			matchInfo = new String[5][21];
+			matchInfo = new String[5][22];
 			getData();
 			backgroundPanel = new JPanel();
 			height = Toolkit.getDefaultToolkit().getScreenSize().height*4/5;
@@ -169,9 +169,10 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 	 * 	player = tocheck;
 	 *season = new String[]{"年度","球队","场数","先发","分钟","%","三分%","罚球%","进攻","防守","场均篮板","场均助攻","场均抢断","场均盖帽","失误","犯规","场均得分"};
 	*match = new String[]{"日期","对手","分钟","%","命中","出手","三分%","三分命中","三分出手","罚球%","罚球命中","罚球出手","进攻","防守","篮板","助攻","犯规","抢断","失误","盖帽","得分"};
+	*21为比赛ID（不显示）
 	*basicInfo = new String[16];
 	*seasonInfo = new String[2][17];
-	*matchInfo = new String[5][21];
+	*matchInfo = new String[5][22];
 	*获取数据的方法 player为球员名称，用来获取basicInfo
 	*basicInfo[]:0:号数1:英文名2:中文名3:球队4:位置5:场均得分6:场均篮板7:场均助攻8:身高9:体重10:生日11:经历12:学校13:球员图片14:球队图片
 	*season为赛季数据的信息
@@ -232,9 +233,9 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 				new MouseAdapter(){
 					public void mouseClicked(MouseEvent e){
 					//	selectedRow = Integer.parseInt(e.getComponent().getName());
-								MatchCheckFrame check = new MatchCheckFrame(basicInfo[3],tableString[table.rowAtPoint(e.getPoint())][1]);
-								check.setFatherFrame(tempFrame);
-								AWTUtilities.setWindowOpacity(tempFrame, 0.5f);
+								MatchCheckFrame check = new MatchCheckFrame(basicInfo[3],tableString[table.rowAtPoint(e.getPoint())][1],matchInfo[table.rowAtPoint(e.getPoint())-1][21]);
+								check.setFatherFrame(fatherFrame);
+								tempFrame.dispose();
 
 					}          
 				}
