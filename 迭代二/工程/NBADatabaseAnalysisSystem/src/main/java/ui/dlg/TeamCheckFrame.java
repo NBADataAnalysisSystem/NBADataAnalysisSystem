@@ -60,12 +60,18 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 //	String player;
 //	String[] season;
 //	String[] match;
-//	String[] basicInfo;
-//	String[][] seasonInfo;
+	String team;
+	String[] basicInfo;
+	String[][] seasonInfo;
+	String[][] aveInfo;
+	String[][] playerInfo;
 //	String[][] matchInfo;
 	
 	public TeamCheckFrame(String tocheck){
-			
+			team = tocheck;
+			basicInfo = new String[11];
+			seasonInfo = new String [2][17];
+			aveInfo = new String[2][14];
 			getData();
 			backgroundPanel = new JPanel();
 			height = Toolkit.getDefaultToolkit().getScreenSize().height*4/5;
@@ -188,21 +194,20 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 		      
 	}
 	/**
-	 * 	player = tocheck;
-	 *season = new String[]{"年度","球队","场数","先发","分钟","%","三分%","罚球%","进攻","防守","场均篮板","场均助攻","场均抢断","场均盖帽","失误","犯规","场均得分"};
-	*match = new String[]{"日期","对手","分钟","%","命中","出手","三分%","三分命中","三分出手","罚球%","罚球命中","罚球出手","进攻","防守","篮板","助攻","犯规","抢断","失误","盖帽","得分"};
-	*basicInfo = new String[16];
+	 * 	team = tocheck;
+	*basicInfo = new String[11];
 	*seasonInfo = new String[2][17];
 	*matchInfo = new String[5][21];
-	*获取数据的方法 player为球员名称，用来获取basicInfo
-	*basicInfo[]:0:号数1:英文名2:中文名3:球队4:位置5:场均得分6:场均篮板7:场均助攻8:身高9:体重10:生日11:经历12:学校13:球员图片14:球队图片
-	*season为赛季数据的信息
-	*seasonInfo[0]为平均[1]为总数 。[n][17]就是上面那一串。。。
-	*matchInfo为最近五场比赛信息[0]-[4]为比赛。后面你懂得。。。
+	*获取数据的方法 team为球队名称，用来获取basicInfo
+	*basicInfo[]:0:球队名1:所属联盟2:联盟中排名3:教练4:胜场5:负场6:场均得分7:场均篮板8:场均助攻9:对手得分10:图片
+	*seasonInfo为赛季信息[0]为2013-2014[1]为2014-2015 。[n][17]
+	*aveInfo为场均信息。[0]为2013-2014[1]为2014-2015.[n][14]打开界面后查看
+	*playerInfo为球员信息。[n][16]打开界面查看、。。。
+	*请在获取球员列表后立即为playerInfo赋值= =。。这边暂用30个球员
 	 */
 	private void getData() {
 		// TODO Auto-generated method stub
-		
+		playerInfo = new String [30][16];
 	}
 
 
@@ -234,17 +239,23 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 		playerPanel.add(lineLabel);
 
 
-		String [] tempHeader = new String[16];
-		String[][] tableString = new String[8][16];
+		JScrollPane playerSp ;
+//		String [] tempHeader = new String[16];
+		String[][] tableString = new String[playerInfo.length+1][16];
 		tableString[0]= new String[]{"姓名","场数","先发","分钟","%","三分%","罚球%","进攻","防守","场均篮板","场均抢断","场均抢断","场均助攻","犯规","失误","场均得分"};
-
-		DefaultTableModel model = new DefaultTableModel(tableString,tempHeader);
+		for(int i = 0;i<playerInfo.length;i++){
+			tableString[1+i] = playerInfo[i];
+		}
+		DefaultTableModel model = new DefaultTableModel(tableString,tableString[0]);
 		JTable table = new JTable(model);
+		playerSp = new JScrollPane(table);
 		s.gridwidth=0;
 		s.gridheight = 0;
 		s.weightx = 1; 
 		s.weighty=8;
-		layout.setConstraints(table, s);
+		layout.setConstraints(playerSp, s);
+		playerSp.getViewport().setOpaque(false);
+		playerSp.setOpaque(false);
 		MyTableCellRenderrer render = new MyTableCellRenderrer();
      
         table.setDefaultRenderer(Object.class,render);  
@@ -254,12 +265,13 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 		table.setFont(new Font("宋体",0,height/56));
 		table.getColumnModel().getColumn(0).setPreferredWidth(5*height/24);	
 		table.setRowHeight(height/23);
+		table.setRowHeight(0, 1);
 		table.setEnabled(false);
-		table.setGridColor(Color.GRAY);
+		table.setGridColor(new Color(0,0,0,0));
 
 		//table.setOpaque(false);
-
-		playerPanel.add(table);
+		
+		playerPanel.add(playerSp);
 		
 	}
 
@@ -298,6 +310,8 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 		header1.setHorizontalAlignment(header1.LEFT);
 		String [] tempHeader = new String[14];
 		String[][] tableString = new String[3][14];
+		tableString[1] = aveInfo[0];
+		tableString[2] = aveInfo[1];
 		tableString[0]= new String[]{"年度","场数","%","三分%","罚球%","进攻","防守","场均篮板","场均助攻","场均抢断","场均盖帽","失误","犯规","场均得分"};
 		DefaultTableModel model = new DefaultTableModel(tableString,tempHeader);
 		JTable table = new JTable(model);
@@ -337,6 +351,8 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 		header1.setHorizontalAlignment(header1.LEFT);
 		tempHeader = new String[17];
 		tableString = new String[3][17];
+		tableString[1] = seasonInfo[0];
+		tableString[2] = seasonInfo[1];
 		tableString[0]= new String[]{"年度","场数","命中","出手","三分命中","三分出手","罚球命中","罚球出手","进攻","防守","篮板","助攻","抢断","盖帽","失误","犯规","得分"};
 		model = new DefaultTableModel(tableString,tempHeader);
 		table = new JTable(model);
@@ -362,7 +378,7 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 		table.setRowHeight(height/24);
 		table.getTableHeader().setSize(new Dimension(width,height/24));
 		table.setEnabled(false);
-		table.setGridColor(Color.decode("#D1EEEE"));
+		table.setGridColor(new Color(0,0,0,0));
 		//table.setOpaque(false);
 		seasonPanel.add(header1);
 		seasonPanel.add(table);
@@ -380,7 +396,7 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 		contain.setLayout(new GridLayout(1,2));
 		contain.setOpaque(false);
 		JLabel playerPhoto = new JLabel();
-		icon =  new ImageIcon("resource/BackgroundOfHot.png");
+		icon =  new ImageIcon(basicInfo[10]);
 		icon.setImage(icon.getImage().getScaledInstance(width/4, height/3,Image.SCALE_DEFAULT));
 		playerPhoto.setIcon(icon);
 		contain.add(playerPhoto);
@@ -389,7 +405,7 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 		dataPanel.setOpaque(false);
 		dataPanel.setLayout(new GridLayout(3,1));
 		JLabel chineseName = new JLabel();
-		chineseName.setText("球队 中文名zz");
+		chineseName.setText(team);
 		chineseName.setFont(new Font("宋体",1,height/26));
 		chineseName.setBorder(BorderFactory.createLoweredBevelBorder());
 		chineseName.setHorizontalAlignment(chineseName.LEFT);
@@ -399,12 +415,12 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 		contain1.setLayout(new GridLayout(3,1));
 		contain1 .setOpaque(false);
 		JLabel rank = new JLabel();		
-		rank.setText("联盟"+"中排名第"+"？");
+		rank.setText(basicInfo[1]+"中排名第"+basicInfo[2]);
 		rank.setFont(new Font("宋体",0,12));
 		rank.setHorizontalAlignment(chineseName.LEFT);
 		contain1.add(rank);
 		JLabel coach = new JLabel();
-		coach.setText("教练:"+"教练的名字啊");
+		coach.setText("教练:"+basicInfo[3]);
 		coach.setFont(new Font("宋体",0,12));
 		coach.setHorizontalAlignment(chineseName.LEFT);
 		contain1.add(coach);
@@ -417,7 +433,7 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 		rankPanel.setOpaque(false);
 		rankPanel.setLayout(new GridLayout(2,1));
 		JLabel winLose = new JLabel();
-		winLose.setText("55"+"胜-"+"22"+"负");
+		winLose.setText(basicInfo[4]+"胜-"+basicInfo[5]+"负");
 		winLose.setForeground(Color.GRAY);
 		winLose.setFont(new Font("宋体",1,height/24));
 		winLose.setHorizontalAlignment(winLose.LEFT);
@@ -465,19 +481,19 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 		tempb.setForeground(Color.decode("#9B30FF"));
 		contain.add(tempb);
 		JLabel temp1A =new JLabel();
-		temp1A.setText("11");
+		temp1A.setText(basicInfo[6]);
 		temp1A.setFont(new Font("宋体",1,20));
 		contain.add(temp1A);
 		JLabel temp2A =new JLabel();
-		temp2A.setText("12");
+		temp2A.setText(basicInfo[7]);
 		temp2A.setFont(new Font("宋体",1,20));
 		contain.add(temp2A);
 		JLabel temp3A =new JLabel();
-		temp3A.setText("13");
+		temp3A.setText(basicInfo[8]);
 		temp3A.setFont(new Font("宋体",1,20));
 		contain.add(temp3A);
 		JLabel temp4A =new JLabel();
-		temp4A.setText("14");
+		temp4A.setText(basicInfo[9]);
 		temp4A.setFont(new Font("宋体",1,20));
 		contain.add(temp4A);
 		rankPanel.add(contain);
