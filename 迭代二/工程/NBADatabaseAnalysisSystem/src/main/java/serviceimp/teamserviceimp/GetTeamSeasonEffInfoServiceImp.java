@@ -7,7 +7,7 @@ import serviceimp.playerserviceimp.PlayerSeasonTotalInfoMappingTable;
 import dao.teamdao.TeamDao;
 import dao.teamdao.TeamDaoJdbcImp;
 
-public class GetTeamSeasonEffInfo {
+public class GetTeamSeasonEffInfoServiceImp {
 	public ArrayList<String[]> getTeam(String[] sift){
 		TeamDao dao = new TeamDaoJdbcImp();
 		try {
