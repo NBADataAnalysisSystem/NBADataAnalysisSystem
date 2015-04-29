@@ -112,8 +112,8 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		backgroundPanel = new JPanel();
 		tablePanel = new JPanel();
 		mainPanel = new JPanel();
-		height = Toolkit.getDefaultToolkit().getScreenSize().height*3/4;
-		width = Toolkit.getDefaultToolkit().getScreenSize().width*3/4;
+		height = Toolkit.getDefaultToolkit().getScreenSize().height*4/5;
+		width = Toolkit.getDefaultToolkit().getScreenSize().width*4/5;
 		//设置Frame原点d
 		x=(Toolkit.getDefaultToolkit().getScreenSize().width-width)/2;
 		y=(Toolkit.getDefaultToolkit().getScreenSize().height-height)/2;
@@ -308,7 +308,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 //				cellWidth = tableWidth/6;
 //			}
 		cellWidth = tableWidth/tableHeader.length;
-		cellHeight = tableHeight/10;
+		cellHeight = tableHeight/15;
 		buidTablePanel(tableContent.length,tableHeader.length,10,6);		
 		tablePanel.setLayout(null);
 		tablePanel.removeAll();
@@ -340,8 +340,8 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 	}
 		tableHeaderList.setRowBackground(tableHeaderIcon, 0);
 		
-		table.setTableFont(new Font("Serif",0, 20));
-		tableHeaderList.setTableFont(new Font("Serif",1, 15));
+		table.setTableFont(new Font("Serif",0, 12));
+		tableHeaderList.setTableFont(new Font("Serif",1, 11));
 		tableHeaderList.setFontColor(Color.decode("#FFFFFF"));
 		
 		
@@ -366,7 +366,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		sp = new JScrollPane(table);
 		sp.setColumnHeaderView(tableHeaderList);
 		sp.setSize(tableWidth, tableHeight);
-	    sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+	    sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		sp.setOpaque(false);
 		sp.getViewport().setOpaque(false); 
 		sp.getColumnHeader().setOpaque(false);//再取出头部，并设置为透明 

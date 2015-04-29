@@ -61,8 +61,8 @@ public class HotFrame extends JFrame implements  ActionListener {
 		
 			backgroundPanel = new JPanel();
 			mainPanel = new JPanel();
-			height = Toolkit.getDefaultToolkit().getScreenSize().height*3/4;
-			width = Toolkit.getDefaultToolkit().getScreenSize().width*3/4;
+			height = Toolkit.getDefaultToolkit().getScreenSize().height*4/5;
+			width = Toolkit.getDefaultToolkit().getScreenSize().width*4/5;
 		//设置Frame原点d
 			x=(Toolkit.getDefaultToolkit().getScreenSize().width-width)/2;
 			y=(Toolkit.getDefaultToolkit().getScreenSize().height-height)/2;
