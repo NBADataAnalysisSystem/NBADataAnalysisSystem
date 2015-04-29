@@ -213,7 +213,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		btnPanel.setLocation(0,0);
 		btnPanel.setOpaque(false);
 		//设置选框
-		btn_Player = new JButton("球员");
+		btn_Player = new JButton("球员列表");
 		btn_Player.setName("player");
 		btn_Player.addActionListener(this);
 

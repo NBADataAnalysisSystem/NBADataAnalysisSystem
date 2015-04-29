@@ -9,6 +9,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,6 +20,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
+import controller.teamcontroller.GetTeamSeasonAvgBasicInfoRequest;
+import controller.teamcontroller.GetTeamSeasonAvgBasicInfoResponse;
+import controller.teamcontroller.GetTeamSeasonTotalBasicInfoRequest;
+import controller.teamcontroller.GetTeamSeasonTotalBasicInfoResponse;
+import controller.teamcontroller.TeamController;
 import ui.component.MyTableHeaderPanel;
 import ui.component.MyTablePanel;
 
@@ -87,22 +93,20 @@ public class TeamAdvancedPanel extends JPanel {
 		this.add(oth);
 		//selectTeam.setBackground(Color.decode("#FFFFFF"));//me
 		oth.setFont(new Font("Serif",1, 15));
-		oth.addItem("进攻");
-		oth.addItem("防守");
-		oth.addItem("违规");
+		oth.addItem("基础");
 		oth.addItem("比率");
-		oth.addItem("综合数据");
+		oth.addItem("效率");
 		oth.setEditable(false);
 		oth.setOpaque(false);
 		oth.setBounds(width/25 + type.getWidth()*2+width*8/25 ,0, width/5, height/15);
 		oth.setBackground(Color.WHITE);
-		if(oth.getSelectedItem().toString().equals("比率")==false&&oth.getSelectedItem().toString().equals("综合数据")==false){
+		if(oth.getSelectedItem().toString().equals("比率")==false&&oth.getSelectedItem().toString().equals("效率")==false){
 			oth.addItemListener(new ItemListener(){
 				public void itemStateChanged(ItemEvent arg0) {
-					if(oth.getSelectedItem().toString().equals("比率")||oth.getSelectedItem().toString().equals("综合数据")){
+					if(oth.getSelectedItem().toString().equals("比率")||oth.getSelectedItem().toString().equals("效率")){
 						panel.remove(type);
 						panel.repaint();
-					}else if(oth.getSelectedItem().toString().equals("比率")==false&&oth.getSelectedItem().toString().equals("综合数据")==false){
+					}else if(oth.getSelectedItem().toString().equals("比率")==false&&oth.getSelectedItem().toString().equals("效率")==false){
 						panel.remove(type);
 						panel.add(type);
 						//panel.revalidate();
@@ -156,7 +160,7 @@ public class TeamAdvancedPanel extends JPanel {
 		        		yearSelected = year.getSelectedItem().toString();
 		        		othSelected = oth.getSelectedItem().toString();
 		        		unionSelected = union.getSelectedItem().toString();
-		        		if(othSelected.equals("比率")==false&&othSelected.equals("综合数据")==false){
+		        		if(othSelected.equals("比率")==false&&othSelected.equals("效率")==false){
 		        			typeSelected = type.getSelectedItem().toString();
 		        		}else{
 		        			typeSelected = "oth";
@@ -285,34 +289,80 @@ public class TeamAdvancedPanel extends JPanel {
 	}
 	
 	private void setHeader(){
-		if(typeSelected.equals("总数")&&othSelected.equals("进攻")){
-			header = new String[]{"排名","球队","场数","分钟","控球","得分","出手","命中","罚球出手","罚球命中","三分出手","三分命中","助攻"};
-//			header = new String[]{"排名","球队","场数","命中","出手","三分命中","三分出手","罚球命中","罚球出手","进攻篮板","防守篮板","篮板","助攻","抢断","盖帽","失误","犯规","得分"};
-		}else if(typeSelected.equals("总数")&&othSelected.equals("防守")){
-//			System.out.println();
-			header = new String[]{"排名","球队","场数","分钟","控球","篮板","进攻篮板","防守篮板","抢断","盖帽"};
-		}else if(typeSelected.equals("总数")&&othSelected.equals("违规")){
-//			System.out.println();
-			header = new String[]{"排名","球队","场数","分钟","控球","失误","犯规"};
-		}else	if(typeSelected.equals("场均")&&othSelected.equals("进攻")){
-			header = new String[]{"排名","球队","场数","分钟","控球","得分","出手","命中","%","罚球出手","罚球命中","罚球%","三分出手","三分命中","三分%","助攻"};
-//			header = new String[]{"排名","球队","场数","命中","出手","三分命中","三分出手","罚球命中","罚球出手","进攻篮板","防守篮板","篮板","助攻","抢断","盖帽","失误","犯规","得分"};
-		}else if(typeSelected.equals("场均")&&othSelected.equals("防守")){
-			header = new String[]{"排名","球队","场数","分钟","控球","篮板","进攻篮板","防守篮板","抢断","盖帽"};
-		}else if(typeSelected.equals("场均")&&othSelected.equals("违规")){
-			header = new String[]{"排名","球队","场数","分钟","控球","失误","犯规"};
+		if(othSelected.equals("基础")&&typeSelected.equals("总数")){
+			header = new String[]{"基础总数","1","2","3","4","5","6","7","8","9","10","1","2","3","4","5","6"};
 		}else if(othSelected.equals("比率")){
-			header = new String[]{"排名","球队","场数","分钟","控球","助攻%","防守%","有效命中%","罚球命中%","罚球出手%","进攻%","防守","进攻","篮板%","失误%"};
-		}else if(othSelected.equals("综合数据")){
-			header = new String[]{"排名","球队","场数","分钟","控球","命中%-助攻","命中%-非助攻","三分命中%-助攻","三分命中%-非助攻","二分出手%","二分得分%","中距离得分%","三分出手%","三分得分%","罚球得分%","篮下得分"};
+			header = new String[]{"比率"};
+		}else if(othSelected.equals("效率")){
+			header = new String[]{"效率"};
+		}else if(othSelected.equals("基础")&&typeSelected.equals("场均")){
+			header = new String[]{"基础场均"};
 		}
 	}
 	
 	private String[][] setTableContent(String[] header){
-		//根据header获取列表信息，其中一维表示二维所代表的分区下的球队,@Dalec Gu
-		String[][] content = new String[30][header.length];
-		
-		return content;
+		if(othSelected.equals("基础")&&typeSelected.equals("总数")){
+			TeamController controller = new TeamController();
+			GetTeamSeasonTotalBasicInfoResponse getTeamSeasonTotalBasicInfoResponse = 
+					(GetTeamSeasonTotalBasicInfoResponse) controller.processRequest(
+							new GetTeamSeasonTotalBasicInfoRequest(sift));
+			ArrayList<String[]> tempList = getTeamSeasonTotalBasicInfoResponse.getList();
+			String[][] content = new String[tempList.size()][header.length];
+			int i = 0;
+			for (String[] strings:tempList) {
+				for (int j = 0; j < strings.length; j++) {
+					content[i][j] = strings[j];
+				}
+				i++;
+			}
+			return content;
+		}else if(othSelected.equals("比率")){
+			TeamController controller = new TeamController();
+			GetTeamSeasonTotalBasicInfoResponse getTeamSeasonTotalBasicInfoResponse = 
+					(GetTeamSeasonTotalBasicInfoResponse) controller.processRequest(
+							new GetTeamSeasonTotalBasicInfoRequest(sift));
+			ArrayList<String[]> tempList = getTeamSeasonTotalBasicInfoResponse.getList();
+			String[][] content = new String[tempList.size()][header.length];
+			int i = 0;
+			for (String[] strings:tempList) {
+				for (int j = 0; j < strings.length; j++) {
+					content[i][j] = strings[j];
+				}
+				i++;
+			}
+			return content;
+		}else if(othSelected.equals("效率")){
+			TeamController controller = new TeamController();
+			GetTeamSeasonTotalBasicInfoResponse getTeamSeasonTotalBasicInfoResponse = 
+					(GetTeamSeasonTotalBasicInfoResponse) controller.processRequest(
+							new GetTeamSeasonTotalBasicInfoRequest(sift));
+			ArrayList<String[]> tempList = getTeamSeasonTotalBasicInfoResponse.getList();
+			String[][] content = new String[tempList.size()][header.length];
+			int i = 0;
+			for (String[] strings:tempList) {
+				for (int j = 0; j < strings.length; j++) {
+					content[i][j] = strings[j];
+				}
+				i++;
+			}
+			return content;
+		}else if(othSelected.equals("基础")&&typeSelected.equals("场均")){
+			TeamController controller = new TeamController();
+			GetTeamSeasonAvgBasicInfoResponse getTeamSeasonAvgBasicInfoResponse = 
+					(GetTeamSeasonAvgBasicInfoResponse) controller.processRequest(
+							new GetTeamSeasonAvgBasicInfoRequest(sift));
+			ArrayList<String[]> tempList = getTeamSeasonAvgBasicInfoResponse.getList();
+			String[][] content = new String[tempList.size()][header.length];
+			int i = 0;
+			for (String[] strings:tempList) {
+				for (int j = 0; j < strings.length; j++) {
+					content[i][j] = strings[j];
+				}
+				i++;
+			}
+			return content;
+		}
+		return null;
 	}
 
 	public static void main(String [] args){

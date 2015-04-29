@@ -129,7 +129,7 @@ public class TeamDaoJdbcImp implements TeamDao {
 											"from player_match_performance "+     
 											"group by team_id "+
 											") as t1,matches as m "+
-									"where t.id=t1.team_id and m.id=t1.match_id"+condition);
+									"where t.id=t1.team_id and m.id=t1.match_id "+condition);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("执行Statement 错误！");
@@ -333,7 +333,7 @@ public class TeamDaoJdbcImp implements TeamDao {
 		TeamDaoJdbcImp t = new TeamDaoJdbcImp();
 		String[] strList = new String[4];
 		strList[0] ="13-14";
-		t.getTeamSeasonEffInfo(strList);
+		t.getTeamSeasonAvgBasicInfo(strList);
 	}
 
 }

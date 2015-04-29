@@ -22,7 +22,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import ui.dlg.TeamAdvancedPanel;
-import ui.dlg.TeamInfoPanel;
 import ui.dlg.TeamListPanel;
 
 public class TeamFrame extends JFrame implements FrameInterface, ActionListener {
@@ -46,7 +45,6 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 	private JPanel backgroundPanel;
 	
 	private JButton btn_TeamList;
-	private JButton btn_TeamInfo;
 	private JButton btn_TeamAdvanced;
 	@SuppressWarnings("unused")
 	private JButton btn_close;
@@ -61,7 +59,6 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 	static JLabel btnChoosedLabel = new JLabel();
 	static JLabel btnUnchoosedLabel1 = new JLabel();
 	TeamListPanel listPanel ;
-	TeamInfoPanel infoPanel;
 	TeamAdvancedPanel advancedPanel;
 	
 	public TeamFrame(){
@@ -112,7 +109,6 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 		      
 
 		      //TODO
-				infoPanel = new TeamInfoPanel(mainPanel.getWidth()/30,mainPanel.getHeight()/30,mainPanel.getWidth()*14/15,mainPanel.getHeight()*14/15);
 				listPanel = new TeamListPanel(mainPanel.getWidth()/30,mainPanel.getHeight()/30,mainPanel.getWidth()*14/15,mainPanel.getHeight()*14/15);
 				advancedPanel = new TeamAdvancedPanel(mainPanel.getWidth()/30,mainPanel.getHeight()/30,mainPanel.getWidth()*14/15,mainPanel.getHeight()*14/15);
 
@@ -188,36 +184,22 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 		
 		btnUnchoosedLabel1.setIcon(btnUnchoosedIcon);
 		btnUnchoosedLabel1.setOpaque(false);
-		
-		btn_TeamInfo= new JButton("球队数据");
-		btn_TeamInfo.setName("teamInfo");
-		btn_TeamInfo.addActionListener(this);
 
-		btn_TeamInfo.setContentAreaFilled(false);
-		btn_TeamInfo.setForeground(Color.decode("#FF0000"));
-		btn_TeamInfo.setFont(new Font("宋体",1, 20));//设置字体
-		btn_TeamInfo.setBorderPainted(false);
-		btn_TeamInfo.setFocusPainted(false);
-		btnPanel.add(btn_TeamInfo);
-		btnPanel.add(btnUnchoosedLabel);
-		btn_TeamInfo.setBounds(btn_TeamList.getWidth()+btn_TeamList.getX()+20,(btnPanel.getHeight())-30,120,30);
-		
-		btn_TeamAdvanced= new JButton("高级球队数据");
+		btn_TeamAdvanced= new JButton("赛季数据");
 		btn_TeamAdvanced.setName("teamAdvanced");
 		btn_TeamAdvanced.addActionListener(this);
 
 		btn_TeamAdvanced.setContentAreaFilled(false);
 		btn_TeamAdvanced.setForeground(Color.decode("#FF0000"));
-		btn_TeamAdvanced.setFont(new Font("宋体",1, 13));//设置字体
+		btn_TeamAdvanced.setFont(new Font("宋体",1, 20));//设置字体
 		btn_TeamAdvanced.setBorderPainted(false);
 		btn_TeamAdvanced.setFocusPainted(false);
 		btnPanel.add(btn_TeamAdvanced);
 		btnPanel.add(btnUnchoosedLabel1);
-		btn_TeamAdvanced.setBounds(btn_TeamList.getWidth()*2+btn_TeamList.getX()+40,(btnPanel.getHeight())-30,120,30);
+		btn_TeamAdvanced.setBounds(btn_TeamList.getWidth()+btn_TeamList.getX()+20,(btnPanel.getHeight())-30,120,30);
 
 		btnUnchoosedLabel1.setBounds(btn_TeamAdvanced.getX(), btn_TeamAdvanced.getY(),120 , 30);
 		btnChoosedLabel.setBounds(btn_TeamList.getX(), btn_TeamList.getY(),120 , 30);
-		btnUnchoosedLabel.setBounds(btn_TeamInfo.getX(), btn_TeamInfo.getY(),120 , 30);
 		
 		JButton btn_Close = new JButton("×");
 		btn_Close.setMargin(new Insets(0,0,0,0));
@@ -311,9 +293,7 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 				SwingUtilities.invokeLater(new Runnable(){
 					public void run(){
 						btnChoosedLabel.setBounds(btn_TeamList.getX(), btn_TeamList.getY(),120 , 30);
-						btnUnchoosedLabel.setBounds(btn_TeamInfo.getX(), btn_TeamInfo.getY(),120 , 30);
 						btnUnchoosedLabel1.setBounds(btn_TeamAdvanced.getX(), btn_TeamAdvanced.getY(),120 , 30);
-						mainPanel.remove(infoPanel);
 						mainPanel.remove(advancedPanel);
 						mainPanel.add(listPanel,0);
 						mainPanel.validate();
@@ -324,13 +304,10 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 				SwingUtilities.invokeLater(new Runnable(){
 					public void run(){
 						btnUnchoosedLabel.setBounds(btn_TeamList.getX(), btn_TeamList.getY(),120 , 30);
-						btnChoosedLabel.setBounds(btn_TeamInfo.getX(), btn_TeamInfo.getY(),120 , 30);
 						btnUnchoosedLabel1.setBounds(btn_TeamAdvanced.getX(), btn_TeamAdvanced.getY(),120 , 30);
 						btnPanel.setComponentZOrder(btnChoosedLabel, 1);
-						btnPanel.setComponentZOrder(btn_TeamInfo, 0);
 						mainPanel.remove(listPanel);
 						mainPanel.remove(advancedPanel);
-						mainPanel.add(infoPanel,0);
 						mainPanel.validate();
 						mainPanel.repaint();
 					//	setSeasonPanel();
@@ -339,13 +316,11 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 			}else if("teamAdvanced".equals(name)){
 				SwingUtilities.invokeLater(new Runnable(){
 					public void run(){
-						btnUnchoosedLabel1.setBounds(btn_TeamInfo.getX(), btn_TeamInfo.getY(),120 , 30);
 						btnUnchoosedLabel.setBounds(btn_TeamList.getX(), btn_TeamList.getY(),120 , 30);
 						btnChoosedLabel.setBounds(btn_TeamAdvanced.getX(), btn_TeamAdvanced.getY(),120 , 30);
 						btnPanel.setComponentZOrder(btnChoosedLabel, 1);
 						btnPanel.setComponentZOrder(btn_TeamAdvanced, 0);
 						mainPanel.remove(listPanel);
-						mainPanel.remove(infoPanel);
 						mainPanel.add(advancedPanel,0);
 						mainPanel.validate();
 						mainPanel.repaint();
