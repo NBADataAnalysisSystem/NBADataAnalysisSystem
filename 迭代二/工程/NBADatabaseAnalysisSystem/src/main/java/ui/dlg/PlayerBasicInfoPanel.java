@@ -23,12 +23,13 @@ import javax.swing.plaf.basic.BasicComboBoxUI;
 import controller.playercontroller.GetTeamListRequest;
 import controller.playercontroller.GetTeamListResponse;
 import controller.playercontroller.PlayerController;
+import ui.component.IComboBox;
 import ui.frame.PlayerFrame;
 
 @SuppressWarnings("serial")
 public class PlayerBasicInfoPanel extends JPanel{
 	JComboBox<String> selectTeam;
-	JComboBox<String> selectPosition;
+	IComboBox selectPosition;
 	ArrayList<String> infoToShow;
 	
 	PlayerFrame frame;
@@ -42,11 +43,12 @@ public class PlayerBasicInfoPanel extends JPanel{
 	
 	String[] sift = new String[3];
 	
+	@SuppressWarnings("unchecked")
 	public PlayerBasicInfoPanel(int x,int y,int width,int height){
 		
 		sift[0] = "A";
 		
-		UIManager.put("ComboBox.background", new Color(0,0,0,0));//me
+		//UIManager.put("ComboBox.background", new Color(0,0,0,0));//me
 		
 		this.x = x;
 		this.y = y;
@@ -185,7 +187,7 @@ public class PlayerBasicInfoPanel extends JPanel{
 //			}
 //		);
 		
-		selectPosition = new JComboBox<String>();
+		selectPosition = new IComboBox();
 		this.add(selectPosition);
 		//selectPosition.setBackground(Color.decode("#FFFFFF"));
 		selectPosition.setFont(new Font("Serif",1, 15));

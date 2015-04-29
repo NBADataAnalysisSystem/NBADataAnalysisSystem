@@ -174,7 +174,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 	*seasonInfo = new String[2][17];
 	*matchInfo = new String[5][22];
 	*获取数据的方法 player为球员名称，用来获取basicInfo
-	*basicInfo[]:0:号数1:英文名2:中文名3:球队4:位置5:场均得分6:场均篮板7:场均助攻8:身高9:体重10:生日11:经历12:学校13:球员图片14:球队图片
+	*basicInfo[]:0:号数1:英文名2:球队3:位置4身高5:体重6:生日7:经历8:学校9:球员图片10:球队图片
 	*season为赛季数据的信息
 	*seasonInfo[0]为平均[1]为总数 。[n][17]就是上面那一串。。。
 	*matchInfo为最近五场比赛信息[0]-[4]为比赛。后面你懂得。。。
@@ -314,7 +314,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		ImageIcon icon = new ImageIcon();
 		basicPanel.setLayout(new GridLayout(1,4));
 		JLabel playerPhoto = new JLabel();
-		icon =  new ImageIcon(basicInfo[13]);
+		icon =  new ImageIcon(basicInfo[9]);
 		icon.setImage(icon.getImage().getScaledInstance(width/4, height/3,Image.SCALE_DEFAULT));
 		playerPhoto.setIcon(icon);
 		basicPanel.add(playerPhoto);
@@ -337,13 +337,8 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		englishName.setFont(new Font("宋体",0,20));
 		englishName.setHorizontalAlignment(number.LEFT);
 		contain.add(englishName);
-		JLabel chineseName = new JLabel();
-		chineseName.setText(basicInfo[2]);
-		chineseName.setFont(new Font("宋体",1,15));
-		chineseName.setHorizontalAlignment(chineseName.LEFT);
-		contain.add(chineseName);
 		JLabel teamChinese = new JLabel();
-		teamChinese.setText(basicInfo[3]);
+		teamChinese.setText(basicInfo[2]);
 		teamChinese.setFont(new Font("宋体",0,15));
 		teamChinese.setForeground(Color.BLUE);
 		teamChinese.setHorizontalAlignment(teamChinese.LEFT);
@@ -362,7 +357,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 				);   
 		contain.add(teamChinese);
 		JLabel position = new JLabel();
-		position.setText(basicInfo[4]);
+		position.setText(basicInfo[3]);
 		position.setFont(new Font("Courier",0,15));
 		position.setHorizontalAlignment(position.LEFT);
 		position.setVerticalAlignment(position.TOP);
@@ -371,34 +366,6 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 
 		contain = new JPanel();
 		contain.setOpaque(false);
-		contain.setLayout(new GridLayout(2,3));
-		JLabel temp1 =new JLabel();
-		temp1.setText("场均得分");
-		temp1.setFont(new Font("宋体",0,10));
-		temp1.setForeground(Color.decode("#9B30FF"));
-		contain.add(temp1);
-		JLabel temp2 =new JLabel();
-		temp2.setText("场均篮板");
-		temp2.setFont(new Font("宋体",0,10));
-		temp2.setForeground(Color.decode("#9B30FF"));
-		contain.add(temp2);
-		JLabel temp3 =new JLabel();
-		temp3.setText("场均助攻");
-		temp3.setFont(new Font("宋体",0,10));
-		temp3.setForeground(Color.decode("#9B30FF"));
-		contain.add(temp3);
-		JLabel temp1A =new JLabel();
-		temp1A.setText(basicInfo[5]);
-		temp1A.setFont(new Font("宋体",1,20));
-		contain.add(temp1A);
-		JLabel temp2A =new JLabel();
-		temp2A.setText(basicInfo[6]);
-		temp2A.setFont(new Font("宋体",1,20));
-		contain.add(temp2A);
-		JLabel temp3A =new JLabel();
-		temp3A.setText(basicInfo[7]);
-		temp3A.setFont(new Font("宋体",1,20));
-		contain.add(temp3A);
 		dataPanel.add("South",contain);
 		dataPanel.setOpaque(false);
 		basicPanel.add(dataPanel);
@@ -408,25 +375,25 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		basicInfoPanel.setLayout(new GridLayout(8,1));
 		basicInfoPanel.add(new JLabel());
 		JLabel whRate = new JLabel();
-		whRate.setText(basicInfo[8]+"/"+basicInfo[9]);
+		whRate.setText(basicInfo[4]+"/"+basicInfo[5]);
 		whRate.setFont(new Font("Serif",0,11));
 		basicInfoPanel.add(whRate);
 		JLabel birthDay = new JLabel();
-		birthDay.setText("生日"+":"+basicInfo[10]);
+		birthDay.setText("生日"+":"+basicInfo[6]);
 		birthDay.setFont(new Font("Serif",0,11));
 		basicInfoPanel.add(birthDay);
 		JLabel exp = new JLabel();
-		exp.setText("经历"+":"+basicInfo[11]);
+		exp.setText("经历"+":"+basicInfo[7]);
 		exp.setFont(new Font("Serif",0,11));
 		basicInfoPanel.add(exp);
 		JLabel school = new JLabel();
-		school.setText("加入NBA之前"+":"+basicInfo[12]);
+		school.setText("加入NBA之前"+":"+basicInfo[8]);
 		school.setFont(new Font("Serif",0,11));
 		basicInfoPanel.add(school);
 		basicPanel.add(basicInfoPanel);
 		
 		JLabel teamIcon = new JLabel();
-		icon =  new ImageIcon(basicInfo[14]);
+		icon =  new ImageIcon(basicInfo[10]);
 		icon.setImage(icon.getImage().getScaledInstance(width/8, height/6,Image.SCALE_DEFAULT));
 		teamIcon.setHorizontalAlignment(teamChinese.RIGHT);
 		teamIcon.setVerticalAlignment(teamChinese.CENTER);
