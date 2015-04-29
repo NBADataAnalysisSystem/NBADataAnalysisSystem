@@ -95,7 +95,7 @@ private Connection connection;
 	}
 	
 	public String[][] getPlayerLatestFiveMatchInfo(String playerName){
-		String[][] result = new String[5][21];
+		String[][] result = new String[5][22];
 		Statement stat = null;
 		try {
 			stat = connection.createStatement();
@@ -112,7 +112,7 @@ private Connection connection;
 					+ ",round(1.0*pmp.free_throw_shootings/pmp.free_throw_shots,1),pmp.free_throw_shootings,"
 					+ "pmp.free_throw_shots,pmp.offensive_rebounds,pmp.defensive_rebounds,"
 					+ "pmp.rebounds,pmp.assists,pmp.fouls,pmp.steals,pmp.turn_overs,pmp.block_shots,"
-					+ "pmp.score from matches m,teams t1,teams t2,teams t,player_match_performance pmp,players p "
+					+ "pmp.score,m.id from matches m,teams t1,teams t2,teams t,player_match_performance pmp,players p "
 					+ "where m.season in (select max(season) from matches) and m.id = pmp.match_id and"
 					+ " t1.id=m.home_court_team_id and t2.id=m.away_team_id and t.id=pmp.team_id and"
 					+ " pmp.player_id = p.id and "
@@ -124,7 +124,7 @@ private Connection connection;
 				}else{
 					result[i][0]=rs.getString(2);
 				}
-				for(int j=1;j<21;j++){
+				for(int j=1;j<22;j++){
 					result[i][j]=rs.getString(j+3);
 				}
 				i++;
@@ -134,7 +134,7 @@ private Connection connection;
 			System.out.println("执行Statement 错误！");
 		}
 		for( int i=0;i<5;i++){
-			for(int j=0;j<21;j++){
+			for(int j=0;j<22;j++){
 				System.out.print(result[i][j]+" ");
 			}
 			System.out.println();
@@ -186,6 +186,6 @@ private Connection connection;
 		String[] strList = new String[2];
 		strList[0] ="13-14";
 		strList[1] = "round(1.0*sum(pmp.shootings)/count(distinct pmp.match_id),1)";
-		t.getPlayerBasicInfo("Aaron Brooks");
+		t.getPlayerLatestFiveMatchInfo("Aaron Brooks");
 	}
 }
