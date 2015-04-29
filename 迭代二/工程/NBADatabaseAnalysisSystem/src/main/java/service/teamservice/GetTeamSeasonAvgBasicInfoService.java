@@ -2,7 +2,7 @@ package service.teamservice;
 
 import java.util.ArrayList;
 
-public interface GetTeamSeasonTotalBasicInfoService {
+public interface GetTeamSeasonAvgBasicInfoService {
 	
 	public ArrayList<String[]> getTeam(String[] sift);
 

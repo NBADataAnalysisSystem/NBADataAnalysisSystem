@@ -2,14 +2,13 @@ package serviceimp.teamserviceimp;
 
 import java.util.ArrayList;
 
+import service.teamservice.GetTeamSeasonTotalBasicInfoService;
 import serviceimp.playerserviceimp.MappingTable;
 import serviceimp.playerserviceimp.PlayerSeasonTotalInfoMappingTable;
-import dao.playerdao.PlayerDao;
-import dao.playerdao.PlayerDaoJdbcImp;
 import dao.teamdao.TeamDao;
 import dao.teamdao.TeamDaoJdbcImp;
 
-public class GetTeamSeasonTotalBasicInfoServiceImp {
+public class GetTeamSeasonTotalBasicInfoServiceImp implements GetTeamSeasonTotalBasicInfoService {
 	
 	public ArrayList<String[]> getTeam(String[] sift) {
 		TeamDao dao = new TeamDaoJdbcImp();

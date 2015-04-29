@@ -6,6 +6,7 @@ public class TeamController extends DefaultController {
 	
 	public TeamController() {
 		addHandler(new GetTeamSeasonTotalBasicInfoRequest(null), new GetTeamSeasonTotalBasicInfoHandler());
+		addHandler(new GetTeamSeasonAvgBasicInfoRequest(null), new GetTeamSeasonAvgBasicInfoHandler());
 	}
 	
 }

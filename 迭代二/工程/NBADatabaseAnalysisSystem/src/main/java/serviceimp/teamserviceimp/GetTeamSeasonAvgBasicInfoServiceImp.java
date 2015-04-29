@@ -2,12 +2,14 @@ package serviceimp.teamserviceimp;
 
 import java.util.ArrayList;
 
+import service.teamservice.GetTeamSeasonAvgBasicInfoService;
 import serviceimp.playerserviceimp.MappingTable;
 import serviceimp.playerserviceimp.PlayerSeasonTotalInfoMappingTable;
 import dao.teamdao.TeamDao;
 import dao.teamdao.TeamDaoJdbcImp;
 
-public class GetTeamSeasonAvgBasicInfoServiceImp {
+public class GetTeamSeasonAvgBasicInfoServiceImp implements GetTeamSeasonAvgBasicInfoService {
+	
 	public ArrayList<String[]> getTeam(String[] sift){
 		TeamDao dao = new TeamDaoJdbcImp();
 		try {
