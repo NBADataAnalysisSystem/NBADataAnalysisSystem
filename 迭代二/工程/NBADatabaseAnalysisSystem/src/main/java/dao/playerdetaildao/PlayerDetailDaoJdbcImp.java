@@ -5,11 +5,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DecimalFormat;   
+import java.text.DecimalFormat;
 
-import dao.hotdao.HotDaoJdbcImp;
-
-public class PlayerDetailDaoJdbcImp {
+public class PlayerDetailDaoJdbcImp implements PlayerDetailDao {
 private Connection connection;
 	
 	public PlayerDetailDaoJdbcImp() {
@@ -156,7 +154,7 @@ private Connection connection;
 		try {
 			rs = stat.executeQuery("select p.jersey_number,p.player_name,t.abbreviation,"
 					+ "p.position,p.height,p.weight,p.birth,p.exp,p.school,"
-					+ "pa.path||'players\\portrait\\'||p.player_name||'.png',pa.path||'teams\\'||t.abbreviation||'.png' "
+					+ "pa.path||'players/portrait/'||p.player_name||'.png',pa.path||'teams/'||t.abbreviation||'.png' "
 					+ "from players p,player_match_performance pmp,matches m,teams t,paths pa "
 					+ "where pmp.player_id =p.id and pmp.match_id=m.id and pmp.team_id =t.id and"
 					+ " p.player_name='"+playerName+"' order by m.date_of_match desc limit 1 ");
@@ -186,6 +184,6 @@ private Connection connection;
 		String[] strList = new String[2];
 		strList[0] ="13-14";
 		strList[1] = "round(1.0*sum(pmp.shootings)/count(distinct pmp.match_id),1)";
-		t.getPlayerLatestFiveMatchInfo("Aaron Brooks");
+		t.getPlayerSeasonInfo("Aaron Brooks");
 	}
 }

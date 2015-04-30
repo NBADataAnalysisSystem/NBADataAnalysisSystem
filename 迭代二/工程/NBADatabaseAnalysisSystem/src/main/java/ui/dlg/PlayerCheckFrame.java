@@ -34,6 +34,10 @@ import javax.swing.table.DefaultTableModel;
 
 import com.sun.awt.AWTUtilities;
 
+import controller.playerdetailcontroller.GetPlayerDetailInfoRequest;
+import controller.playerdetailcontroller.GetPlayerDetailInfoResponse;
+import controller.playerdetailcontroller.PlayerDetailController;
+
 
 
 public class PlayerCheckFrame extends JFrame implements  ActionListener{
@@ -181,7 +185,11 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 	 */
 	private void getData() {
 		// TODO Auto-generated method stub
-		
+		PlayerDetailController controller = new PlayerDetailController();
+		GetPlayerDetailInfoResponse response = (GetPlayerDetailInfoResponse) controller.processRequest(new GetPlayerDetailInfoRequest(player));
+		basicInfo = response.getBasicInfo();
+		seasonInfo = response.getSeasonInfo();
+		matchInfo = response.getMatchInfo();
 	}
 
 
