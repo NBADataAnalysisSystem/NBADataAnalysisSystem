@@ -136,6 +136,7 @@ public class MatchPanel extends JPanel {
             	 	
             	 	mainPanel.removeAll();
             	 	findMatch(dateToShow);
+            	 	mainPanel.setBounds(0, 0, width, height*(match.length+match.length%2)/(rowNum*2));
             	 	setMatchPanel();
      				mainPanel.repaint();
      				mainPanel.revalidate();
