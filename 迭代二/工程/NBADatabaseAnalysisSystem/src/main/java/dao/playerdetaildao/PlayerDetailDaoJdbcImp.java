@@ -103,11 +103,11 @@ private Connection connection;
 		}
 		ResultSet rs = null;
 		try {
-			rs = stat.executeQuery("select t.abbreviation,t1.abbreviation,t2.abbreviation,"
-					+ "m.date_of_match,round(1.0*pmp.presence_time/60,1),round(1.0*pmp.shootings/pmp.shots,1),"
-					+ "pmp.shootings,pmp.shots,round(1.0*pmp.three_point_shootings/pmp.three_point_shots,1),"
+			rs = stat.executeQuery("select t.abbreviation,t1.abbreviation,"
+					+ "m.date_of_match,t2.abbreviation,round(1.0*pmp.presence_time/60,1),round(100.0*pmp.shootings/pmp.shots,1),"
+					+ "pmp.shootings,pmp.shots,round(100.0*pmp.three_point_shootings/pmp.three_point_shots,1),"
 					+ "pmp.three_point_shootings,pmp.three_point_shots"
-					+ ",round(1.0*pmp.free_throw_shootings/pmp.free_throw_shots,1),pmp.free_throw_shootings,"
+					+ ",round(100.0*pmp.free_throw_shootings/pmp.free_throw_shots,1),pmp.free_throw_shootings,"
 					+ "pmp.free_throw_shots,pmp.offensive_rebounds,pmp.defensive_rebounds,"
 					+ "pmp.rebounds,pmp.assists,pmp.fouls,pmp.steals,pmp.turn_overs,pmp.block_shots,"
 					+ "pmp.score,m.id from matches m,teams t1,teams t2,teams t,player_match_performance pmp,players p "
@@ -118,11 +118,12 @@ private Connection connection;
 			int i=0;
 			while(rs.next()){
 				if(rs.getString(1).equals(rs.getString(2))){
-					result[i][0]=rs.getString(3);
+					result[i][1]=rs.getString(4);
 				}else{
-					result[i][0]=rs.getString(2);
+					result[i][1]=rs.getString(2);
 				}
-				for(int j=1;j<22;j++){
+				result[i][0]=rs.getString(3);
+				for(int j=2;j<22;j++){
 					result[i][j]=rs.getString(j+3);
 				}
 				i++;
@@ -184,6 +185,6 @@ private Connection connection;
 		String[] strList = new String[2];
 		strList[0] ="13-14";
 		strList[1] = "round(1.0*sum(pmp.shootings)/count(distinct pmp.match_id),1)";
-		t.getPlayerSeasonInfo("Aaron Brooks");
+		t.getPlayerLatestFiveMatchInfo("Aaron Brooks");
 	}
 }
