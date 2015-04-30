@@ -242,7 +242,7 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 		JScrollPane playerSp ;
 //		String [] tempHeader = new String[16];
 		final String[][] tableString = new String[playerInfo.length+1][16];
-		tableString[0]= new String[]{"姓名","场数","先发","分钟","%","三分%","罚球%","进攻","防守","场均篮板","场均抢断","场均抢断","场均助攻","犯规","失误","场均得分"};
+		tableString[0]= new String[]{"姓名","场数","先发","分钟","%","三分%","罚球%","进攻","防守","场均篮板","场均抢断","场均盖帽","场均助攻","犯规","失误","场均得分"};
 		for(int i = 0;i<playerInfo.length;i++){
 			tableString[1+i] = playerInfo[i];
 		}
