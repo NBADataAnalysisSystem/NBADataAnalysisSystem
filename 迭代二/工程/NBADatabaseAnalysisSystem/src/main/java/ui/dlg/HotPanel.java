@@ -8,8 +8,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -309,6 +307,7 @@ public class HotPanel extends JPanel {
 		JLabel lineLabel = new JLabel();
 		lineLabel.setOpaque(false);
 		s.gridwidth=0;
+		s.gridheight = 1;
 		s.weightx = 16; 
 		s.weighty=1;
 		panelLayout.setConstraints(lineLabel, s);
@@ -321,6 +320,7 @@ public class HotPanel extends JPanel {
 		
 		for(int i = 0;i<btn.size()-1;i++){
 			s.gridwidth= 1;
+			s.gridheight = 1;
 			s.weightx = 16/btn.size(); 
 			s.weighty=1;
 			panelLayout.setConstraints(btn.get(i), s);
@@ -329,6 +329,7 @@ public class HotPanel extends JPanel {
 			btn.get(i).setOpaque(false);
 		}
 		s.gridwidth= 0;
+		s.gridheight =1;
 		s.weightx =16/btn.size(); 
 		s.weighty=1;
 		panelLayout.setConstraints(btn.get(btn.size()-1), s);
@@ -353,6 +354,7 @@ public class HotPanel extends JPanel {
 		JPanel bottomPanel = new JPanel();
 		bottomPanel.setOpaque(false);
 		s.gridwidth= 0;
+		s.gridheight = 0;
 		s.weightx =16; 
 		s.weighty=4;
 		panelLayout.setConstraints(bottomPanel, s);
@@ -364,37 +366,37 @@ public class HotPanel extends JPanel {
 		s.fill = GridBagConstraints.BOTH; 
 		JPanel firstPanel = new JPanel();
 		firstPanel.setOpaque(false);
-		s.gridwidth=1;
-		s.weightx =8; 
+		s.gridwidth=8;
+		s.weightx =0; 
 		s.weighty=4;
 		panelLayout.setConstraints(firstPanel, s);
 		bottomPanel.add(firstPanel);
-		firstPanel.setBorder(BorderFactory.createTitledBorder(""));
+		//firstPanel.setBorder(BorderFactory.createTitledBorder(""));
 		JPanel numPanel = new JPanel();
 		numPanel.setOpaque(false);
-		s.gridwidth=1;
-		s.weightx = 1; 
+		s.gridwidth=2;
+		s.weightx = 0; 
 		s.weighty=4;
 		panelLayout.setConstraints(numPanel, s);
 		bottomPanel.add(numPanel);
-		numPanel.setBorder(BorderFactory.createTitledBorder(""));
+	//	numPanel.setBorder(BorderFactory.createTitledBorder(""));
 		JPanel othPanel = new JPanel();
 		othPanel.setOpaque(false);
 		s.gridwidth=0;
-		s.weightx =7; 
+		s.weightx =6; 
 		s.weighty=4;
 		panelLayout.setConstraints(othPanel, s);
 		bottomPanel.add(othPanel);
-		othPanel.setBorder(BorderFactory.createTitledBorder(""));
+	//	othPanel.setBorder(BorderFactory.createTitledBorder(""));
 		//设置第一名界面
 		firstPanel.setLayout(new GridLayout(1,4));
 		JLabel firstIconLabel = new JLabel();
 		firstIconLabel.setOpaque(false);
-		firstIconLabel.setBorder(BorderFactory.createTitledBorder(""));
+	//	firstIconLabel.setBorder(BorderFactory.createTitledBorder(""));
 		icon =  new ImageIcon(hotInfo[0][3]);
 		icon.setImage(icon.getImage().getScaledInstance(width/10, width/8,Image.SCALE_DEFAULT));
 		firstIconLabel.setIcon(icon);
-		firstIconLabel.setHorizontalAlignment(firstIconLabel.CENTER);
+		firstIconLabel.setHorizontalAlignment(firstIconLabel.LEFT);
 		firstIconLabel.setHorizontalTextPosition(firstIconLabel.CENTER);
 		
 		firstPanel.add(firstIconLabel);
@@ -472,7 +474,7 @@ public class HotPanel extends JPanel {
 		
 		JLabel firstTeamPanel = new JLabel();
 		firstTeamPanel.setOpaque(false);
-		firstIconLabel.setBorder(BorderFactory.createTitledBorder(""));
+		//firstIconLabel.setBorder(BorderFactory.createTitledBorder(""));
 		icon =  new ImageIcon(hotInfo[0][4]);
 		icon.setImage(icon.getImage().getScaledInstance(width/16, width/16,Image.SCALE_DEFAULT));
 		firstTeamPanel.setIcon(icon);
@@ -492,8 +494,8 @@ public class HotPanel extends JPanel {
 			icon.setImage(icon.getImage().getScaledInstance(width/40, width/40,Image.SCALE_DEFAULT));
 			tempName.setIcon(icon);
 			tempName.setText(hotInfo[i][0]);
-			tempName.setHorizontalAlignment(firstIconLabel.CENTER);
-			tempName.setHorizontalTextPosition(firstIconLabel.RIGHT);
+			tempName.setHorizontalAlignment(tempName.LEFT);
+			tempName.setHorizontalTextPosition(tempName.RIGHT);
 			tempName.setFont(new Font("宋体",0, width/50));
 			tempName.addMouseListener(
 					new MouseAdapter(){
