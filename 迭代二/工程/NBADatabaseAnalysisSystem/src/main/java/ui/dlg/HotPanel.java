@@ -286,9 +286,11 @@ public class HotPanel extends JPanel {
 					new GetSeasonHotTeamInfoRequest(sift));
 			ArrayList<String[]> list = response.getList();
 			for(int i = 0;i<5;i++){
-				for(int j = 0;j<4;j++){
-					hotInfo[i][j] = list.get(i)[j];
-				}
+				hotInfo[i][0] = list.get(i)[0];
+				hotInfo[i][1] = list.get(i)[1];
+				hotInfo[i][2] = "";
+				hotInfo[i][3] = list.get(i)[2];
+				hotInfo[i][4] = "";
 			}
 		}
 	}

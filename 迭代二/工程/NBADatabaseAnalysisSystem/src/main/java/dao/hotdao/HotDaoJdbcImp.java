@@ -35,8 +35,8 @@ public class HotDaoJdbcImp implements HotDao {
 		}
 		ResultSet rs = null;
 		try {
-			rs = stat.executeQuery("select p.player_name,p.position,t.full_name,pa.path||'teams/'||t.abbreviation||'.png', "+
-																"pa.path||'players/portrait/'||p.player_name||'.png',pmp."+sift+
+			rs = stat.executeQuery("select p.player_name,pmp."+sift+",t.full_name,pa.path||'players/portrait/'||p.player_name||'.png', "+
+																"pa.path||'teams/'||t.abbreviation||'.png'"+
 																" from player_match_performance pmp, "+
 																"players p, "+
 																"teams t , "+     
@@ -56,8 +56,8 @@ public class HotDaoJdbcImp implements HotDao {
 		int i = 0;
 		try {
 			while (rs.next() && i<5){
-				String[] str = new String[6];
-				for(int j = 0;j < 6;j ++){
+				String[] str = new String[5];
+				for(int j = 0;j < 5;j ++){
 					str[j] = rs.getString(j+1);
 				}
 				result.add(str);
@@ -69,7 +69,7 @@ public class HotDaoJdbcImp implements HotDao {
 		}
 		
 		for( i = 0 ;i < result.size();i ++){
-			for(int j = 0 ;j < 6;j ++){
+			for(int j = 0 ;j < 5;j ++){
 				System.out.print(result.get(i)[j]+" ");
 			}
 			System.out.println();
@@ -89,8 +89,8 @@ public class HotDaoJdbcImp implements HotDao {
 		}
 		ResultSet rs = null;
 		try {
-			rs = stat.executeQuery("select pmp.player_name,pa.path||'players/portrait/'||pmp.player_name||'.png', "+
-																"t.full_name,pa.path||'teams/'||t.abbreviation||'.png', "+sift+" "+
+			rs = stat.executeQuery("select pmp.player_name,"+sift+",t.full_name,pa.path||'players/portrait/'||pmp.player_name||'.png', "+
+																"pa.path||'teams/'||t.abbreviation||'.png' "+
 													"from matches m, "+
 																"teams t, " +    
 																"paths pa, "+
@@ -147,7 +147,7 @@ public class HotDaoJdbcImp implements HotDao {
 		}
 		ResultSet rs = null;
 		try {
-			rs = stat.executeQuery("select t.full_name,t.location,pa.path||'teams/'||t.abbreviation||'.png',"+sift+
+			rs = stat.executeQuery("select t.full_name,"+sift+",pa.path||'teams/'||t.abbreviation||'.png' "+
 													"from teams t, "+
 																"player_match_performance pmp, "+ 
 																"paths pa "+   
@@ -161,8 +161,8 @@ public class HotDaoJdbcImp implements HotDao {
 		int i = 0;
 		try {
 			while (rs.next() && i<5){
-				String[] str = new String[4];
-				for(int j = 0;j < 4;j ++){
+				String[] str = new String[3];
+				for(int j = 0;j < 3;j ++){
 					str[j] = rs.getString(j+1);
 				}
 				result.add(str);
@@ -174,7 +174,7 @@ public class HotDaoJdbcImp implements HotDao {
 		}
 		
 		for( i = 0 ;i < result.size();i ++){
-			for(int j = 0 ;j < 4;j ++){
+			for(int j = 0 ;j < 3;j ++){
 				System.out.print(result.get(i)[j]+" ");
 			}
 			System.out.println();
@@ -197,7 +197,7 @@ public class HotDaoJdbcImp implements HotDao {
 		String[] strList = new String[2];
 		strList[0] ="13-14";
 		strList[1] = "round(1.0*sum(pmp.shootings)/count(distinct pmp.match_id),1)";
-		t.getSeasonHotTeamInfo("sum(pmp.score)");
+		t.getCurrentHotPlayerInfo("steals");
 	}
 
 }
