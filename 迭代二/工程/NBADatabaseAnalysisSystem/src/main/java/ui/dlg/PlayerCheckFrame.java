@@ -248,8 +248,9 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 					}          
 				}
 				);    
-		table.setFont(new Font("宋体",0,height/60));
+		table.setFont(new Font("宋体",0,height/54));
 		table.getColumnModel().getColumn(0).setPreferredWidth(5*height/24);	
+		table.getColumnModel().getColumn(3).setPreferredWidth(2*height/24);	
 		table.setRowHeight(height/23);
 		table.setEnabled(false);
 		table.setGridColor(Color.GRAY);
