@@ -225,7 +225,7 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 		s.weightx = 1; 
 		s.weighty=0;
 		layout.setConstraints(lineLabel, s);
-		lineLabel.setText("季后赛 阵容");
+		lineLabel.setText("常规赛 阵容");
 		lineLabel.addComponentListener(new ComponentAdapter(){
 			public void componentResized(ComponentEvent e){
 				icon.setImage(icon.getImage().getScaledInstance(lineLabel.getWidth(), lineLabel.getHeight(),Image.SCALE_DEFAULT));
@@ -301,7 +301,7 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 		s.weightx = 1; 
 		s.weighty=0;
 		layout.setConstraints(lineLabel, s);
-		lineLabel.setText("季后赛数据");
+		lineLabel.setText("常规赛数据");
 		lineLabel.addComponentListener(new ComponentAdapter(){
 			public void componentResized(ComponentEvent e){
 				icon.setImage(icon.getImage().getScaledInstance(lineLabel.getWidth(), lineLabel.getHeight(),Image.SCALE_DEFAULT));
