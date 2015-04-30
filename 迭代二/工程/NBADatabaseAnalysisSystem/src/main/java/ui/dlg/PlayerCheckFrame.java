@@ -342,7 +342,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		contain.setOpaque(false);
 		contain.setLayout(new GridLayout(4,1));
 		JLabel englishName = new JLabel();
-		englishName.setText(player);
+		englishName.setText(basicInfo[1]);
 		englishName.setFont(new Font("宋体",0,20));
 		englishName.setHorizontalAlignment(number.LEFT);
 		contain.add(englishName);

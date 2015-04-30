@@ -417,7 +417,7 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 		dataPanel.setOpaque(false);
 		dataPanel.setLayout(new GridLayout(3,1));
 		JLabel chineseName = new JLabel();
-		chineseName.setText(team);
+		chineseName.setText(basicInfo[0]);
 		chineseName.setFont(new Font("宋体",1,height/26));
 		chineseName.setBorder(BorderFactory.createLoweredBevelBorder());
 		chineseName.setHorizontalAlignment(chineseName.LEFT);
