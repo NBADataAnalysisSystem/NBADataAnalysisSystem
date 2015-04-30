@@ -7,6 +7,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.Timer;
 
 import com.sun.awt.AWTUtilities;
 
@@ -99,6 +102,7 @@ public class MatchPanel extends JPanel {
             }
         
 	}
+		
 );
 		btn_Find.setOpaque(false);
 		btn_Find.setFont(new Font("宋体",1, 20));//设置字体
@@ -127,6 +131,21 @@ public class MatchPanel extends JPanel {
 		this.add(datePanel);
 		this.add(sp);
 		this.setOpaque(false);
+		 Timer t = new Timer(5000,new ActionListener(){
+             public void actionPerformed(ActionEvent arg0){
+            	 	
+            	 	mainPanel.removeAll();
+            	 	findMatch(dateToShow);
+            	 	setMatchPanel();
+     				mainPanel.repaint();
+     				mainPanel.revalidate();
+     				System.out.println(match.length);
+     	
+	               }
+	           }
+				 );
+		 t.start();
+		
 	}
 	
 	private void setMatchPanel(){
