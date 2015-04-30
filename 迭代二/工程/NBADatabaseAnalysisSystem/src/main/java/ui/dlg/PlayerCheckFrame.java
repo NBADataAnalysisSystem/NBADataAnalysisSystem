@@ -304,7 +304,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
      
         table.setDefaultRenderer(Object.class,render);  
 		for(int i = 0;i<table.getColumnCount();i++){
-			table.getColumnModel().getColumn(i).setPreferredWidth(tableString[0][i].length()*height/21);	
+			table.getColumnModel().getColumn(i).setPreferredWidth(tableString[0][i].length()*height/25);	
 		}
 		table.getColumnModel().getColumn(0).setPreferredWidth(4*height/21);	
 		table.getColumnModel().getColumn(1).setPreferredWidth(4*height/21);	
