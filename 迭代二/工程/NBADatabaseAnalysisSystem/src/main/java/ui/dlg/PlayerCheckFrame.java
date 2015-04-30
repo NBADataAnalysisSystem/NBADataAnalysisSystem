@@ -241,7 +241,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 				new MouseAdapter(){
 					public void mouseClicked(MouseEvent e){
 					//	selectedRow = Integer.parseInt(e.getComponent().getName());
-								MatchCheckFrame check = new MatchCheckFrame(basicInfo[3],tableString[table.rowAtPoint(e.getPoint())][1],matchInfo[table.rowAtPoint(e.getPoint())-1][21]);
+								MatchCheckFrame check = new MatchCheckFrame(basicInfo[2],tableString[table.rowAtPoint(e.getPoint())][1],matchInfo[table.rowAtPoint(e.getPoint())-1][21]);
 								check.setFatherFrame(fatherFrame);
 								tempFrame.dispose();
 
