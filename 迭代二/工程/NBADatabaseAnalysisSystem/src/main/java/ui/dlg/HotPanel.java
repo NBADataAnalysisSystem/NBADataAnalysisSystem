@@ -8,6 +8,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.Timer;
 
 import com.sun.awt.AWTUtilities;
 
@@ -207,6 +210,41 @@ public class HotPanel extends JPanel {
 		//sp.getColumnHeader().setOpaque(false);//再取出头部，并设置为透明 
 		this.add(sp);
 		this.setOpaque(false);
+		
+	      Timer t = new Timer(5000,new ActionListener(){
+              public void actionPerformed(ActionEvent arg0){
+//            	  	String temp = clickedBtn;
+//            	  	if(temp.substring(0, 6).equals("当日热点球员")){
+//            	  		clickedBtn = temp;
+//            	  		setPanel(dayHotPlayerBtn,dayHotPlayerPanel);
+//            	  		clickedBtn = seasonHotPlayerPanel.getName() + aveScoreP.getText();
+//            	  		setPanel(seasonHotPlayerBtn,seasonHotPlayerPanel);
+//            	  		clickedBtn = seasonHotTeamPanel.getName() + scoreT.getText();
+//            	  		setPanel(seasonHotTeamBtn,seasonHotTeamPanel);
+//             	  	}else if(temp.substring(0, 6).equals("赛季热点球员")){
+//             	  		clickedBtn = temp;
+//             	  		setPanel(seasonHotPlayerBtn,seasonHotPlayerPanel);
+//            	  		clickedBtn = dayHotPlayerPanel.getName() + scoreP.getText();
+//            	  		setPanel(dayHotPlayerBtn,dayHotPlayerPanel);
+//            	  		clickedBtn = seasonHotTeamPanel.getName() + scoreT.getText();
+//            	  		setPanel(seasonHotTeamBtn,seasonHotTeamPanel);
+//             	  	}else if(temp.substring(0, 6).equals("赛季热点球队")){
+//             	  		clickedBtn = temp;
+             	  		setPanel(seasonHotTeamBtn,seasonHotTeamPanel);
+//            	  		clickedBtn = dayHotPlayerPanel.getName() + scoreP.getText();
+            	  		setPanel(dayHotPlayerBtn,dayHotPlayerPanel);
+//            	  		clickedBtn = seasonHotPlayerPanel.getName() + aveScoreP.getText();
+            	  		setPanel(seasonHotPlayerBtn,seasonHotPlayerPanel);
+//             	  	}
+            	//  	System.out.println(temp);
+            	  	mainPanel.repaint();
+            	  	mainPanel.revalidate();
+	               			}
+	      				}
+	    		  );
+	      t.start();
+		
+		
 	}
 	/**
 	 * 根据clickedBtn设置hotInfo[][]的值。第一维为排名(01234)
