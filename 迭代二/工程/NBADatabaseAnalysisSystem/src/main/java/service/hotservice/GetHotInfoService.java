@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 public interface GetHotInfoService {
 
-	public ArrayList<String[]> getHotInfo(String[] sift);
+	public  ArrayList<String[]> getCurrentHotPlayerInfo(String sift);
+	public ArrayList<String[]> getSeasonHotPlayerInfo(String sift);
+	public ArrayList<String[]> getSeasonHotTeamInfo (String sift);
+	public void close();
 	
 }

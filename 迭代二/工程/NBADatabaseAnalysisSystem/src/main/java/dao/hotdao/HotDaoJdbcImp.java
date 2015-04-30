@@ -23,14 +23,8 @@ public class HotDaoJdbcImp implements HotDao {
 			e.printStackTrace();
 		}
     }
-	public ArrayList<String[]> getHotInfo(String[] sift){
-		ArrayList<String[]> result = new ArrayList<String[]>();
-		result.addAll(getCurrentHotPlayerInfo(sift[0]));
-		result.addAll(getSeasonHotPlayerInfo(sift[1]));
-		result.addAll(getSeasonHotTeamInfo(sift[2]));
-		return result;
-	}
-	private  ArrayList<String[]> getCurrentHotPlayerInfo(String sift){
+	
+	public  ArrayList<String[]> getCurrentHotPlayerInfo(String sift){
 		ArrayList<String[]> result = new ArrayList<String[]>();
 		Statement stat = null;
 		try {
@@ -41,8 +35,8 @@ public class HotDaoJdbcImp implements HotDao {
 		}
 		ResultSet rs = null;
 		try {
-			rs = stat.executeQuery("select p.player_name,p.position,t.full_name,pa.path||'teams\\'||t.abbreviation||'.png', "+
-																"pa.path||'players\\portrait\\'||p.player_name||'.png',pmp."+sift+
+			rs = stat.executeQuery("select p.player_name,p.position,t.full_name,pa.path||'teams/'||t.abbreviation||'.png', "+
+																"pa.path||'players/portrait/'||p.player_name||'.png',pmp."+sift+
 																" from player_match_performance pmp, "+
 																"players p, "+
 																"teams t , "+     
@@ -84,7 +78,7 @@ public class HotDaoJdbcImp implements HotDao {
 		return result;
 	}
 	
-	private ArrayList<String[]> getSeasonHotPlayerInfo(String sift){
+	public ArrayList<String[]> getSeasonHotPlayerInfo(String sift){
 		ArrayList<String[]> result = new ArrayList<String[]>();
 		Statement stat = null;
 		try {
@@ -95,8 +89,8 @@ public class HotDaoJdbcImp implements HotDao {
 		}
 		ResultSet rs = null;
 		try {
-			rs = stat.executeQuery("select pmp.player_name,pa.path||'players\\portrait\\'||pmp.player_name||'.png', "+
-																"t.full_name,pa.path||'teams\\'||t.full_name||'.png', "+sift+" "+
+			rs = stat.executeQuery("select pmp.player_name,pa.path||'players/portrait/'||pmp.player_name||'.png', "+
+																"t.full_name,pa.path||'teams/'||t.full_name||'.png', "+sift+" "+
 													"from matches m, "+
 																"teams t, " +    
 																"paths pa, "+
@@ -142,7 +136,7 @@ public class HotDaoJdbcImp implements HotDao {
 	}
 	
 
-	private  ArrayList<String[]> getSeasonHotTeamInfo (String sift){
+	public ArrayList<String[]> getSeasonHotTeamInfo (String sift){
 		ArrayList<String[]> result = new ArrayList<String[]>();
 		Statement stat = null;
 		try {
@@ -203,7 +197,7 @@ public class HotDaoJdbcImp implements HotDao {
 		String[] strList = new String[2];
 		strList[0] ="13-14";
 		strList[1] = "round(1.0*sum(pmp.shootings)/count(distinct pmp.match_id),1)";
-		t.getSeasonHotPlayerInfo("");
+		t.getSeasonHotTeamInfo("sum(pmp.score)");
 	}
 
 }

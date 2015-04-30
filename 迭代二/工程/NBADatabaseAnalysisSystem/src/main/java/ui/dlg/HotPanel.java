@@ -26,6 +26,12 @@ import javax.swing.Timer;
 
 import com.sun.awt.AWTUtilities;
 
+import controller.hotcontroller.GetCurrentHotPlayerInfoRequest;
+import controller.hotcontroller.GetHotInfoResponse;
+import controller.hotcontroller.GetSeasonHotPlayerInfoRequest;
+import controller.hotcontroller.GetSeasonHotTeamInfoRequest;
+import controller.hotcontroller.HotController;
+
 @SuppressWarnings("serial")
 public class HotPanel extends JPanel {
 	int x;
@@ -251,14 +257,40 @@ public class HotPanel extends JPanel {
 	 * 第二唯[0]为球队/球员名字 [1]为该项排名数据 [2]为所属球队名（若排名为球队排名则为""）[3]为球员/球队icon地址[4]为球队ICON（若为球队排名则为""）
 	 */
 	private void getData(){
-		for(int i = 0;i<5;i++){
-			hotInfo[i][0] = "球员名字";
-			hotInfo[i][1] = "55";
-			hotInfo[i][2] = "球队";
-			hotInfo[i][3] = "resource/BackgroundOfHot.png";
-			hotInfo[i][4] = "resource/BackgroundOfHot.png";
+		if (clickedBtn.startsWith("当日热点球员")) {
+			HotController controller = new HotController();
+			String sift = clickedBtn.substring(6);
+			GetHotInfoResponse response = (GetHotInfoResponse) controller.processRequest(
+					new GetCurrentHotPlayerInfoRequest(sift));
+			ArrayList<String[]> list = response.getList();
+			for(int i = 0;i<5;i++){
+				for(int j = 0;j<5;j++){
+					hotInfo[i][j] = list.get(i)[j];
+				}
+			}
+		} else if (clickedBtn.startsWith("赛季热点球员")) {
+			HotController controller = new HotController();
+			String sift = clickedBtn.substring(6);
+			GetHotInfoResponse response = (GetHotInfoResponse) controller.processRequest(
+					new GetSeasonHotPlayerInfoRequest(sift));
+			ArrayList<String[]> list = response.getList();
+			for(int i = 0;i<5;i++){
+				for(int j = 0;j<5;j++){
+					hotInfo[i][j] = list.get(i)[j];
+				}
+			}
+		} else if (clickedBtn.startsWith("赛季热点球队")) {
+			HotController controller = new HotController();
+			String sift = clickedBtn.substring(6);
+			GetHotInfoResponse response = (GetHotInfoResponse) controller.processRequest(
+					new GetSeasonHotTeamInfoRequest(sift));
+			ArrayList<String[]> list = response.getList();
+			for(int i = 0;i<5;i++){
+				for(int j = 0;j<4;j++){
+					hotInfo[i][j] = list.get(i)[j];
+				}
+			}
 		}
-
 	}
 
 	@SuppressWarnings("static-access")
