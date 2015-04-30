@@ -8,6 +8,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -97,6 +99,10 @@ public class HotPanel extends JPanel {
 		
 		hotInfo = new String [5][5];
 		lineIcon = new ImageIcon("resource/Line.png");
+		
+		panel1=new String();
+		panel2=new String();
+		panel3=new String();
 
 		scoreP = new JButton("得分");
 		reboundP = new JButton("篮板");
@@ -157,18 +163,21 @@ public class HotPanel extends JPanel {
 		dayHotPlayerPanel = new JPanel();
 		dayHotPlayerPanel.setName("当日热点球员");
 		clickedBtn = dayHotPlayerPanel.getName() + scoreP.getText();
+		panel1 = clickedBtn;
 		setPanel(dayHotPlayerBtn,dayHotPlayerPanel);
 		mainPanel.add(dayHotPlayerPanel);
 		
 		seasonHotPlayerPanel = new JPanel();
 		seasonHotPlayerPanel.setName("赛季热点球员");
 		clickedBtn = seasonHotPlayerPanel.getName() + aveScoreP.getText();
+		panel2=clickedBtn;
 		setPanel(seasonHotPlayerBtn,seasonHotPlayerPanel);
 		mainPanel.add(seasonHotPlayerPanel);
 		
 		seasonHotTeamPanel = new JPanel();
 		seasonHotTeamPanel.setName("赛季热点球队");
 		clickedBtn = seasonHotTeamPanel.getName() + scoreT.getText();
+		panel3 = clickedBtn;
 		setPanel(seasonHotTeamBtn,seasonHotTeamPanel);
 		mainPanel.add(seasonHotTeamPanel);
 		
@@ -215,39 +224,28 @@ public class HotPanel extends JPanel {
 		this.add(sp);
 		this.setOpaque(false);
 		
-//	      Timer t = new Timer(5000,new ActionListener(){
-//              public void actionPerformed(ActionEvent arg0){
-////            	  	String temp = clickedBtn;
-////            	  	if(temp.substring(0, 6).equals("当日热点球员")){
-////            	  		clickedBtn = temp;
-////            	  		setPanel(dayHotPlayerBtn,dayHotPlayerPanel);
-////            	  		clickedBtn = seasonHotPlayerPanel.getName() + aveScoreP.getText();
-////            	  		setPanel(seasonHotPlayerBtn,seasonHotPlayerPanel);
-////            	  		clickedBtn = seasonHotTeamPanel.getName() + scoreT.getText();
-////            	  		setPanel(seasonHotTeamBtn,seasonHotTeamPanel);
-////             	  	}else if(temp.substring(0, 6).equals("赛季热点球员")){
-////             	  		clickedBtn = temp;
-////             	  		setPanel(seasonHotPlayerBtn,seasonHotPlayerPanel);
-////            	  		clickedBtn = dayHotPlayerPanel.getName() + scoreP.getText();
-////            	  		setPanel(dayHotPlayerBtn,dayHotPlayerPanel);
-////            	  		clickedBtn = seasonHotTeamPanel.getName() + scoreT.getText();
-////            	  		setPanel(seasonHotTeamBtn,seasonHotTeamPanel);
-////             	  	}else if(temp.substring(0, 6).equals("赛季热点球队")){
-////             	  		clickedBtn = temp;
-//             	  		setPanel(seasonHotTeamBtn,seasonHotTeamPanel);
-////            	  		clickedBtn = dayHotPlayerPanel.getName() + scoreP.getText();
-//            	  		setPanel(dayHotPlayerBtn,dayHotPlayerPanel);
-////            	  		clickedBtn = seasonHotPlayerPanel.getName() + aveScoreP.getText();
-//            	  		setPanel(seasonHotPlayerBtn,seasonHotPlayerPanel);
-////             	  	}
-//            	//  	System.out.println(temp);
-//            	  	mainPanel.repaint();
-//            	  	mainPanel.revalidate();
-//	               			}
-//	      				}
-//	    		  );
-//	      t.start();
-//		
+		 Timer t = new Timer(5000,new ActionListener(){
+             public void actionPerformed(ActionEvent arg0){
+            	 	
+            		clickedBtn = panel1 ;
+            		setPanel(dayHotPlayerBtn,dayHotPlayerPanel);
+            		
+
+            		clickedBtn = panel2;
+            		setPanel(seasonHotPlayerBtn,seasonHotPlayerPanel);
+            		
+
+            		clickedBtn = panel3;
+            		setPanel(seasonHotTeamBtn,seasonHotTeamPanel);
+
+     				mainPanel.repaint();
+     				mainPanel.revalidate();
+     	
+	               }
+	           }
+				 );
+		 t.start();
+		
 		
 	}
 	/**
@@ -293,6 +291,9 @@ public class HotPanel extends JPanel {
 		}
 	}
 
+	String panel1;
+	String panel2;
+	String panel3;
 	@SuppressWarnings("static-access")
 	private void setPanel(final ArrayList<JButton> btn,final JPanel panel){
 		panel.removeAll();
@@ -345,6 +346,13 @@ public class HotPanel extends JPanel {
             	if(clickedBtn.equals( panel.getName()+tempBtn.getText())==false){
  
             		clickedBtn = panel.getName()+tempBtn.getText();
+            		if(clickedBtn.contains("当日热点球员")){
+            			panel1 = clickedBtn;
+            		}else if(clickedBtn.contains("赛季热点球员")){
+            			panel2 = clickedBtn;
+            		}if(clickedBtn.contains("赛季热点球队")){
+            			panel3 = clickedBtn;
+            		}
             		setPanel (btn,panel);
             			}
             		}      
@@ -554,6 +562,8 @@ public class HotPanel extends JPanel {
 		mainPanel.revalidate();
 //		sp.repaint();
 //		this.repaint();
+		
+
 	}
 	
 	JFrame frame;
