@@ -199,7 +199,7 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 	*seasonInfo = new String[2][17];
 	*matchInfo = new String[5][21];
 	*获取数据的方法 team为球队名称，用来获取basicInfo
-	*basicInfo[]:0:球队名1:所属联盟2:联盟中排名3:教练4:胜场5:负场6:场均得分7:场均篮板8:场均助攻9:对手得分10:图片
+	*basicInfo[]:0:球队名1:所属联盟2:联盟中排名3:胜场4:负场5:场均得分6:场均篮板7:场均助攻8:对手得分9:图片
 	*seasonInfo为赛季信息[0]为2013-2014[1]为2014-2015 。[n][17]
 	*aveInfo为场均信息。[0]为2013-2014[1]为2014-2015.[n][14]打开界面后查看
 	*playerInfo为球员信息。[n][16]打开界面查看、。。。
@@ -408,7 +408,7 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 		contain.setLayout(new GridLayout(1,2));
 		contain.setOpaque(false);
 		JLabel playerPhoto = new JLabel();
-		icon =  new ImageIcon(basicInfo[10]);
+		icon =  new ImageIcon(basicInfo[9]);
 		icon.setImage(icon.getImage().getScaledInstance(width/4, height/3,Image.SCALE_DEFAULT));
 		playerPhoto.setIcon(icon);
 		contain.add(playerPhoto);
@@ -431,11 +431,7 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 		rank.setFont(new Font("宋体",0,12));
 		rank.setHorizontalAlignment(chineseName.LEFT);
 		contain1.add(rank);
-		JLabel coach = new JLabel();
-		coach.setText("教练:"+basicInfo[3]);
-		coach.setFont(new Font("宋体",0,12));
-		coach.setHorizontalAlignment(chineseName.LEFT);
-		contain1.add(coach);
+		contain1.add(new JLabel());
 		dataPanel.add(contain1);
 	
 		dataPanel.add(new JLabel());
@@ -445,7 +441,7 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 		rankPanel.setOpaque(false);
 		rankPanel.setLayout(new GridLayout(2,1));
 		JLabel winLose = new JLabel();
-		winLose.setText(basicInfo[4]+"胜-"+basicInfo[5]+"负");
+		winLose.setText(basicInfo[3]+"胜-"+basicInfo[4]+"负");
 		winLose.setForeground(Color.GRAY);
 		winLose.setFont(new Font("宋体",1,height/24));
 		winLose.setHorizontalAlignment(winLose.LEFT);
@@ -493,19 +489,19 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 		tempb.setForeground(Color.decode("#9B30FF"));
 		contain.add(tempb);
 		JLabel temp1A =new JLabel();
-		temp1A.setText(basicInfo[6]);
+		temp1A.setText(basicInfo[5]);
 		temp1A.setFont(new Font("宋体",1,20));
 		contain.add(temp1A);
 		JLabel temp2A =new JLabel();
-		temp2A.setText(basicInfo[7]);
+		temp2A.setText(basicInfo[6]);
 		temp2A.setFont(new Font("宋体",1,20));
 		contain.add(temp2A);
 		JLabel temp3A =new JLabel();
-		temp3A.setText(basicInfo[8]);
+		temp3A.setText(basicInfo[7]);
 		temp3A.setFont(new Font("宋体",1,20));
 		contain.add(temp3A);
 		JLabel temp4A =new JLabel();
-		temp4A.setText(basicInfo[9]);
+		temp4A.setText(basicInfo[8]);
 		temp4A.setFont(new Font("宋体",1,20));
 		contain.add(temp4A);
 		rankPanel.add(contain);
