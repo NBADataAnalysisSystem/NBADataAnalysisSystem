@@ -217,39 +217,39 @@ public class HotPanel extends JPanel {
 		this.add(sp);
 		this.setOpaque(false);
 		
-	      Timer t = new Timer(5000,new ActionListener(){
-              public void actionPerformed(ActionEvent arg0){
-//            	  	String temp = clickedBtn;
-//            	  	if(temp.substring(0, 6).equals("当日热点球员")){
-//            	  		clickedBtn = temp;
+//	      Timer t = new Timer(5000,new ActionListener(){
+//              public void actionPerformed(ActionEvent arg0){
+////            	  	String temp = clickedBtn;
+////            	  	if(temp.substring(0, 6).equals("当日热点球员")){
+////            	  		clickedBtn = temp;
+////            	  		setPanel(dayHotPlayerBtn,dayHotPlayerPanel);
+////            	  		clickedBtn = seasonHotPlayerPanel.getName() + aveScoreP.getText();
+////            	  		setPanel(seasonHotPlayerBtn,seasonHotPlayerPanel);
+////            	  		clickedBtn = seasonHotTeamPanel.getName() + scoreT.getText();
+////            	  		setPanel(seasonHotTeamBtn,seasonHotTeamPanel);
+////             	  	}else if(temp.substring(0, 6).equals("赛季热点球员")){
+////             	  		clickedBtn = temp;
+////             	  		setPanel(seasonHotPlayerBtn,seasonHotPlayerPanel);
+////            	  		clickedBtn = dayHotPlayerPanel.getName() + scoreP.getText();
+////            	  		setPanel(dayHotPlayerBtn,dayHotPlayerPanel);
+////            	  		clickedBtn = seasonHotTeamPanel.getName() + scoreT.getText();
+////            	  		setPanel(seasonHotTeamBtn,seasonHotTeamPanel);
+////             	  	}else if(temp.substring(0, 6).equals("赛季热点球队")){
+////             	  		clickedBtn = temp;
+//             	  		setPanel(seasonHotTeamBtn,seasonHotTeamPanel);
+////            	  		clickedBtn = dayHotPlayerPanel.getName() + scoreP.getText();
 //            	  		setPanel(dayHotPlayerBtn,dayHotPlayerPanel);
-//            	  		clickedBtn = seasonHotPlayerPanel.getName() + aveScoreP.getText();
+////            	  		clickedBtn = seasonHotPlayerPanel.getName() + aveScoreP.getText();
 //            	  		setPanel(seasonHotPlayerBtn,seasonHotPlayerPanel);
-//            	  		clickedBtn = seasonHotTeamPanel.getName() + scoreT.getText();
-//            	  		setPanel(seasonHotTeamBtn,seasonHotTeamPanel);
-//             	  	}else if(temp.substring(0, 6).equals("赛季热点球员")){
-//             	  		clickedBtn = temp;
-//             	  		setPanel(seasonHotPlayerBtn,seasonHotPlayerPanel);
-//            	  		clickedBtn = dayHotPlayerPanel.getName() + scoreP.getText();
-//            	  		setPanel(dayHotPlayerBtn,dayHotPlayerPanel);
-//            	  		clickedBtn = seasonHotTeamPanel.getName() + scoreT.getText();
-//            	  		setPanel(seasonHotTeamBtn,seasonHotTeamPanel);
-//             	  	}else if(temp.substring(0, 6).equals("赛季热点球队")){
-//             	  		clickedBtn = temp;
-             	  		setPanel(seasonHotTeamBtn,seasonHotTeamPanel);
-//            	  		clickedBtn = dayHotPlayerPanel.getName() + scoreP.getText();
-            	  		setPanel(dayHotPlayerBtn,dayHotPlayerPanel);
-//            	  		clickedBtn = seasonHotPlayerPanel.getName() + aveScoreP.getText();
-            	  		setPanel(seasonHotPlayerBtn,seasonHotPlayerPanel);
-//             	  	}
-            	//  	System.out.println(temp);
-            	  	mainPanel.repaint();
-            	  	mainPanel.revalidate();
-	               			}
-	      				}
-	    		  );
-	      t.start();
-		
+////             	  	}
+//            	//  	System.out.println(temp);
+//            	  	mainPanel.repaint();
+//            	  	mainPanel.revalidate();
+//	               			}
+//	      				}
+//	    		  );
+//	      t.start();
+//		
 		
 	}
 	/**
