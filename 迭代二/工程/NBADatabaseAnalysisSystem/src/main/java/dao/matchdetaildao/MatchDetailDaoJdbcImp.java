@@ -11,7 +11,7 @@ import dao.hotdao.HotDaoJdbcImp;
 
 public class MatchDetailDaoJdbcImp {
 
-private Connection connection;
+	private Connection connection;
 	
 	public MatchDetailDaoJdbcImp() {
     	try {
