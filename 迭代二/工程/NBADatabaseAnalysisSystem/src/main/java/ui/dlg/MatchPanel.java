@@ -82,6 +82,7 @@ public class MatchPanel extends JPanel {
             public void mouseClicked(MouseEvent e){
             	//TODO
             	dateToShow = dateFindingField.getText();
+            	findMatch(dateToShow);
             	mainPanel.removeAll();
             	setMatchPanel();
 
@@ -159,20 +160,18 @@ public class MatchPanel extends JPanel {
 	private void findMatch(String date) {
 		//TODO
 		String[] sift = new String[2];
-		sift[0] = dateToShow.split("-")[0];
-		sift[1] = dateToShow.split("-")[1] + "-" + dateToShow.split("-")[2];
+		sift[0] = date.split("-")[0];
+		sift[1] = date.split("-")[1] + "-" + date.split("-")[2];
 		MatchController controller = new MatchController();
 		GetMatchSectionInfoResponse response = (GetMatchSectionInfoResponse) controller.processRequest(
 				new GetMatchSectionInfoRequest(sift));
 		ArrayList<String[]> tempList = response.getList();
-		match = new String [30][2][8];
+		match = new String [tempList.size()][2][8];
 		for(int i = 0;i<match.length;i++){
-			for(int j = 0;j<7;j++){
-				match[i][0][j]=j+"";
-				match[i][1][j]=j+"";
+			for(int j = 0;j<8;j++){
+				match[i][0][j] = tempList.get(i)[j];
+				match[i][1][j] = tempList.get(i)[j+8];
 			}
-			match[i][0][6]="resource/BackgroundOfMatch.png";
-			match[i][1][6]="resource/BackgroundOfMatch.png";
 		}
 
 	}

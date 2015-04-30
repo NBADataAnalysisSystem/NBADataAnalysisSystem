@@ -42,11 +42,16 @@ public class MatchDaoJdbcImp implements MatchDao {
 		}
 		ResultSet rs = null;
 		try {
-			rs = stat.executeQuery("select t1.abbreviation,t2.abbreviation,m.hscore_of_first_section,m.ascore_of_first_section, "+
-																"m.hscore_of_second_section,m.ascore_of_second_section,m.hscore_of_third_section,m.ascore_of_third_section, "+
-																"m.hscore_of_fourth_section,m.ascore_of_fourth_section,m.hscore,m.ascore "+
-													"from matches m,teams t1,teams t2 "+
-													"where t1.id = m.home_court_team_id and t2.id=m.away_team_id "+condition);
+			rs = stat.executeQuery("select t1.full_name,m.hscore_of_first_section,"
+					+ "m.hscore_of_second_section,m.hscore_of_third_section,"
+					+ "m.hscore_of_fourth_section,m.hscore,"
+					+ "path || '/teams/' || t1.abbreviation || '.png',m.id,"
+					+ "t2.full_name,m.ascore_of_first_section,"
+					+ "m.ascore_of_second_section,m.ascore_of_third_section,"
+					+ "m.ascore_of_fourth_section,m.ascore,"
+					+ "path || '/teams/' || t2.abbreviation || '.png',m.id "
+					+ "from matches m,teams t1,teams t2,paths "
+					+ "where t1.id = m.home_court_team_id and t2.id=m.away_team_id " + condition);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("执行Statement 错误！");
@@ -54,8 +59,8 @@ public class MatchDaoJdbcImp implements MatchDao {
 		
 		try {
 			while(rs.next()){
-				String[] strList = new String[12];
-				for(int i = 0 ;i < 12;i ++){
+				String[] strList = new String[16];
+				for(int i = 0 ;i < 16;i ++){
 					strList[i] = rs.getString(i+1);
 				}
 				result.add(strList);
@@ -66,7 +71,7 @@ public class MatchDaoJdbcImp implements MatchDao {
 		}
 		
 		for(int i = 0 ;i < result.size();i ++){
-			for(int j = 0 ;j < 12;j ++){
+			for(int j = 0 ;j < 16;j ++){
 				System.out.print(result.get(i)[j]+" ");
 			}
 			System.out.println();
@@ -89,7 +94,7 @@ public class MatchDaoJdbcImp implements MatchDao {
 		MatchDaoJdbcImp t = new MatchDaoJdbcImp();
 		String[] strList = new String[2];
 		strList[0] ="13-14";
-		strList[1] = "01-02";
+		strList[1] = "01-01";
 		t.getMatchSectionInfo(strList);
 	}
 
