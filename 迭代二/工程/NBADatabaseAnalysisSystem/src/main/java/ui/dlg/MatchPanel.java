@@ -228,7 +228,11 @@ public class MatchPanel extends JPanel {
 		teamB.setHorizontalAlignment(teamB.CENTER);
 		teamB.setVerticalTextPosition(teamB.BOTTOM);
 		teamB.setHorizontalTextPosition(teamB.CENTER);
-		
+		if(Integer.parseInt(info[0][5])>Integer.parseInt(info[1][5])){
+			teamA.setForeground(Color.RED);
+		}else{
+			teamB.setForeground(Color.RED);
+		}
 		s.gridwidth=1;
 		s.weightx = 4; 
 		s.weighty=4;
@@ -255,6 +259,9 @@ public class MatchPanel extends JPanel {
 			n.setHorizontalAlignment(n.RIGHT);
 			n.setFont(new Font("宋体",1, 20));
 			pointA.add(n);
+			if(Integer.parseInt(info[0][1+i])>Integer.parseInt(info[1][1+i])){
+				n.setForeground(Color.RED);
+			}
 		}
 		JPanel pointB = new JPanel();
 		pointB.setOpaque(false);
@@ -265,6 +272,9 @@ public class MatchPanel extends JPanel {
 			n.setHorizontalAlignment(n.LEFT);
 			n.setFont(new Font("宋体",1, 20));
 			pointB.add(n);
+			if(Integer.parseInt(info[1][1+i])>Integer.parseInt(info[0][1+i])){
+				n.setForeground(Color.RED);
+			}
 		}
 		JPanel pointT = new JPanel();
 		pointT.setLayout(new GridLayout(5,0));
