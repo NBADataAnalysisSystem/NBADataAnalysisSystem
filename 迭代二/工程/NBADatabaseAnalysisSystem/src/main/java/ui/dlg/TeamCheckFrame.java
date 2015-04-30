@@ -220,14 +220,14 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 		seasonInfo = new String[tempList.size()][17];
 		for (int i = 0; i < tempList.size(); i++) {
 			for (int j = 0; j < 17; j++) {
-				seasonInfo[i][j] = tempList.get(i)[j]; 
+				seasonInfo[i][j] = tempList.get(i)[j];
 			}
 		}
 		tempList = response.getSeasonAvgInfo();
 		aveInfo = new String[tempList.size()][14];
 		for (int i = 0; i < tempList.size(); i++) {
 			for (int j = 0; j < 14; j++) {
-				aveInfo[i][j] = tempList.get(i)[j]; 
+				aveInfo[i][j] = tempList.get(i)[j];
 			}
 		}
 		tempList = response.getPlayerInfo();
@@ -351,8 +351,10 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 		header1.setHorizontalAlignment(header1.LEFT);
 		String [] tempHeader = new String[14];
 		String[][] tableString = new String[3][14];
-		tableString[1] = aveInfo[0];
-		tableString[2] = aveInfo[1];
+		for(int i = 0;i<aveInfo.length;i++){
+			tableString[1+i] = aveInfo[i];
+//			tableString[2] = aveInfo[1];
+		}
 		tableString[0]= new String[]{"年度","场数","%","三分%","罚球%","进攻","防守","场均篮板","场均助攻","场均抢断","场均盖帽","失误","犯规","场均得分"};
 		DefaultTableModel model = new DefaultTableModel(tableString,tempHeader);
 		JTable table = new JTable(model);
@@ -392,8 +394,10 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 		header1.setHorizontalAlignment(header1.LEFT);
 		tempHeader = new String[17];
 		tableString = new String[3][17];
-		tableString[1] = seasonInfo[0];
-		tableString[2] = seasonInfo[1];
+		for(int i = 0;i<seasonInfo.length;i++){
+			tableString[1+i] = seasonInfo[i];
+//			tableString[2] = aveInfo[1];
+		}
 		tableString[0]= new String[]{"年度","场数","命中","出手","三分命中","三分出手","罚球命中","罚球出手","进攻","防守","篮板","助攻","抢断","盖帽","失误","犯规","得分"};
 		model = new DefaultTableModel(tableString,tempHeader);
 		table = new JTable(model);

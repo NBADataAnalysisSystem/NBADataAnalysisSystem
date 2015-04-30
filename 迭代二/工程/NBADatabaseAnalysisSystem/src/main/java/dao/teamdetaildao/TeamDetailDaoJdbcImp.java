@@ -65,9 +65,9 @@ public class TeamDetailDaoJdbcImp implements TeamDetailDao {
 			for(int i = 0 ;i< 3;i++){
 				result[i+4]=rs.getString(i+1);
 			}
-			rs = stat.executeQuery("select pa.path from paths pa");
+			rs = stat.executeQuery("select pa.path,t.abbreviation from paths pa,teams t where t.full_name='"+teamFullName+"'");
 			result[8]=rs.getString(1);
-			result[8]=result[8]+"teams/"+teamFullName+".png";
+			result[8]=result[8]+"teams/"+rs.getString(2)+".png";
 		}catch (Exception e){
 			e.printStackTrace();
 		}
@@ -232,7 +232,7 @@ public class TeamDetailDaoJdbcImp implements TeamDetailDao {
 		String[] strList = new String[2];
 		strList[0] ="13-14";
 		strList[1] = "round(1.0*sum(pmp.shootings)/count(distinct pmp.match_id),1)";
-		t.getTeamPlayerInfo("Nets");
+		t.getTeamBasicInfo("Nets");
 	}
 
 }

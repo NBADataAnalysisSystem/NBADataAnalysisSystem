@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -28,6 +29,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.sun.awt.AWTUtilities;
+
+import controller.matchdetailcontroller.GetMatchDetailInfoRequest;
+import controller.matchdetailcontroller.GetMatchDetailInfoResponse;
+import controller.matchdetailcontroller.MatchDetailController;
 
 
 
@@ -150,10 +155,25 @@ public class MatchCheckFrame extends JFrame implements  ActionListener{
 	 */
 	private void getData() {
 		// TODO Auto-generated method stub
-		iconA = new ImageIcon("resource/BackgroundOfHot.png");
-		iconB = new ImageIcon("resource/BackgroundOfHot.png");
-		infoA = new String[30][21];
-		infoB = new String[30][21];
+		MatchDetailController controller = new MatchDetailController();
+		GetMatchDetailInfoResponse response = (GetMatchDetailInfoResponse) controller.processRequest(
+				new GetMatchDetailInfoRequest(matchID));
+		ArrayList<String[]> tempList = response.getInfoA();
+		infoA = new String[tempList.size()][21];
+		for (int i = 0; i < tempList.size(); i++) {
+			for (int j = 0; j < 21; j++) {
+				infoA[i][j] = tempList.get(i)[j]; 
+			}
+		}
+		iconA = new ImageIcon(tempList.get(0)[21]);
+		tempList = response.getInfoB();
+		infoB = new String[tempList.size()][21];
+		for (int i = 0; i < tempList.size(); i++) {
+			for (int j = 0; j < 21; j++) {
+				infoB[i][j] = tempList.get(i)[j]; 
+			}
+		}
+		iconB = new ImageIcon(tempList.get(0)[21]);
 	}
 	
 	public void setMatchID(String id){

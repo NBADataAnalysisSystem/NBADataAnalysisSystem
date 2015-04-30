@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 
 
-public class MatchDetailDaoJdbcImp {
+public class MatchDetailDaoJdbcImp implements MatchDetailDao {
 
 	private Connection connection;
 	
