@@ -234,7 +234,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
      
         table.setDefaultRenderer(Object.class,render);  
 		for(int i = 0;i<table.getColumnCount();i++){
-			table.getColumnModel().getColumn(i).setPreferredWidth(tableString[0][i].length()*height/24);	
+			table.getColumnModel().getColumn(i).setPreferredWidth(tableString[0][i].length()*height/26);	
 		}
 		final JFrame tempFrame =this;
 		table.addMouseListener(
@@ -248,7 +248,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 					}          
 				}
 				);    
-		table.setFont(new Font("宋体",0,height/56));
+		table.setFont(new Font("宋体",0,height/60));
 		table.getColumnModel().getColumn(0).setPreferredWidth(5*height/24);	
 		table.setRowHeight(height/23);
 		table.setEnabled(false);
