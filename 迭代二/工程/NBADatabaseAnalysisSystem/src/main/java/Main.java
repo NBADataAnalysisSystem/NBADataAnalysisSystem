@@ -8,7 +8,7 @@ public class Main {
 		Dao d = new Dao();
 		FrontFrame f = new FrontFrame();
 		try {
-			d.monitorFiles("C://Users/cross/Documents/CSE/CSEIII data/迭代一数据/matches");
+			d.monitorFiles("D://data/matches");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

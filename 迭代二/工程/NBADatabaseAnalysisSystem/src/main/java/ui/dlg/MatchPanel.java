@@ -133,9 +133,9 @@ public class MatchPanel extends JPanel {
 		this.setOpaque(false);
 		 Timer t = new Timer(5000,new ActionListener(){
              public void actionPerformed(ActionEvent arg0){
-            	 	
             	 	mainPanel.removeAll();
             	 	findMatch(dateToShow);
+            	 	mainPanel.setBounds(0, 0, width, height*(match.length+match.length%2)/(rowNum*2));
             	 	setMatchPanel();
      				mainPanel.repaint();
      				mainPanel.revalidate();
