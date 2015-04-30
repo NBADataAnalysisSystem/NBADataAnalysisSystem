@@ -38,6 +38,8 @@ import javax.swing.SwingUtilities;
 
 
 
+import javax.swing.Timer;
+
 import com.sun.awt.AWTUtilities;
 
 import controller.playercontroller.GetPlayerBasicInfoRequest;
@@ -203,6 +205,19 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 			            }          
 			          }
 			      );    
+			      
+			      Timer t = new Timer(5000,new ActionListener(){
+			    	               public void actionPerformed(ActionEvent arg0){
+			    	       
+			    	       				refreshData();
+			    	       				mainPanel.repaint();
+			    	       				mainPanel.revalidate();
+			    	       				System.out.println(tableContent.length);
+			    	       	
+			    		               }
+			    		           }
+			      );
+			      t.start();
 	}
 	//设置主要按钮
 	public void setBtnPanel() {

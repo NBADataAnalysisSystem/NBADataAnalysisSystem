@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
@@ -19,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.Timer;
 
 import com.sun.awt.AWTUtilities;
 
@@ -223,6 +226,19 @@ public class TeamAdvancedPanel extends JPanel {
 		setHeader();
 		table = setTableContent(header);
 		setTable(width/25,height/5,(width - width/12)/header.length,((height) - (height/5)-(height/25))/rowNum,header,table);
+		
+		 Timer t = new Timer(5000,new ActionListener(){
+             public void actionPerformed(ActionEvent arg0){
+     
+     				sift();
+     				setTable(width/25,height/5,(width - width/12)/header.length,((height) - (height/5)-(height/25))/rowNum,header,table);
+	        		panel.repaint();
+     				System.out.println(table.length);
+     	
+	               }
+	           }
+);
+t.start();
 		
 	}
 	
