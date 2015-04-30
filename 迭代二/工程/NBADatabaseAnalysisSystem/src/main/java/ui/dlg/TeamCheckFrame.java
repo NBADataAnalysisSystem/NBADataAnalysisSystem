@@ -20,6 +20,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -35,6 +36,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.sun.awt.AWTUtilities;
+
+import controller.teamdetailcontroller.GetTeamDetailInfoRequest;
+import controller.teamdetailcontroller.GetTeamDetailInfoResponse;
+import controller.teamdetailcontroller.TeamDetailController;
 
 
 
@@ -207,7 +212,31 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 	 */
 	private void getData() {
 		// TODO Auto-generated method stub
-		playerInfo = new String [30][16];
+		TeamDetailController controller = new TeamDetailController();
+		GetTeamDetailInfoResponse response = (GetTeamDetailInfoResponse) controller.processRequest(
+				new GetTeamDetailInfoRequest(team));
+		basicInfo = response.getBasicInfo();
+		ArrayList<String[]> tempList = response.getSeasonTotalInfo();
+		seasonInfo = new String[tempList.size()][17];
+		for (int i = 0; i < tempList.size(); i++) {
+			for (int j = 0; j < 17; j++) {
+				seasonInfo[i][j] = tempList.get(i)[j]; 
+			}
+		}
+		tempList = response.getSeasonAvgInfo();
+		aveInfo = new String[tempList.size()][14];
+		for (int i = 0; i < tempList.size(); i++) {
+			for (int j = 0; j < 14; j++) {
+				aveInfo[i][j] = tempList.get(i)[j]; 
+			}
+		}
+		tempList = response.getPlayerInfo();
+		playerInfo = new String[tempList.size()][16];
+		for (int i = 0; i < tempList.size(); i++) {
+			for (int j = 0; j < 16; j++) {
+				playerInfo[i][j] = tempList.get(i)[j]; 
+			}
+		}
 	}
 
 

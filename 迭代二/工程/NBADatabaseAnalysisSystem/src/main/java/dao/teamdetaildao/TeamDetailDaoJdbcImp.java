@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 
-public class TeamDetailDaoJdbcImp {
+public class TeamDetailDaoJdbcImp implements TeamDetailDao {
 	
 	private Connection connection;
 	
