@@ -7,9 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import dao.matchdao.MatchDaoJdbcImp;
-
-public class HotDaoJdbcImp {
+public class HotDaoJdbcImp implements HotDao {
 	
 	private Connection connection;
 	
@@ -28,6 +26,7 @@ public class HotDaoJdbcImp {
 	public ArrayList<String[]> getHotInfo(String[] sift){
 		ArrayList<String[]> result = new ArrayList<String[]>();
 		result.addAll(getCurrentHotPlayerInfo(sift[0]));
+		result.addAll(getSeasonHotPlayerInfo(sift[1]));
 		result.addAll(getSeasonHotTeamInfo(sift[2]));
 		return result;
 	}
@@ -204,7 +203,7 @@ public class HotDaoJdbcImp {
 		String[] strList = new String[2];
 		strList[0] ="13-14";
 		strList[1] = "round(1.0*sum(pmp.shootings)/count(distinct pmp.match_id),1)";
-		t.getSeasonHotPlayerInfo(strList[1]);
+		t.getSeasonHotPlayerInfo("");
 	}
 
 }
