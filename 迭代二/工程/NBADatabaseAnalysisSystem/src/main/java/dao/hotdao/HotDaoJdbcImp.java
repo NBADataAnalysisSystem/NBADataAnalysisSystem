@@ -90,7 +90,7 @@ public class HotDaoJdbcImp implements HotDao {
 		ResultSet rs = null;
 		try {
 			rs = stat.executeQuery("select pmp.player_name,pa.path||'players/portrait/'||pmp.player_name||'.png', "+
-																"t.full_name,pa.path||'teams/'||t.full_name||'.png', "+sift+" "+
+																"t.full_name,pa.path||'teams/'||t.abbreviation||'.png', "+sift+" "+
 													"from matches m, "+
 																"teams t, " +    
 																"paths pa, "+
@@ -147,7 +147,7 @@ public class HotDaoJdbcImp implements HotDao {
 		}
 		ResultSet rs = null;
 		try {
-			rs = stat.executeQuery("select t.full_name,t.location,pa.path||'teams\'||t.full_name||'.png',"+sift+
+			rs = stat.executeQuery("select t.full_name,t.location,pa.path||'teams/'||t.abbreviation||'.png',"+sift+
 													"from teams t, "+
 																"player_match_performance pmp, "+ 
 																"paths pa "+   
