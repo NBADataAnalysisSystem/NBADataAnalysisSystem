@@ -229,16 +229,17 @@ public class TeamAdvancedPanel extends JPanel {
 		
 		 Timer t = new Timer(5000,new ActionListener(){
              public void actionPerformed(ActionEvent arg0){
-     
+            	 
      				sift();
+     				panel.remove(sp);
      				setTable(width/25,height/5,(width - width/12)/header.length,((height) - (height/5)-(height/25))/rowNum,header,table);
 	        		panel.repaint();
      				System.out.println(table.length);
      	
-	               }
-	           }
-);
-t.start();
+             			}
+		 			}
+				 );
+		 t.start();
 		
 	}
 	
@@ -274,6 +275,7 @@ t.start();
 	    sp.setOpaque(false);
 		sp.getViewport().setOpaque(false); 
 		sp.getColumnHeader().setOpaque(false);//再取出头部，并设置为透明 
+//		JPanel temp =this;
 		
 		tablePanel.addMouseListener(
 				new MouseAdapter(){
