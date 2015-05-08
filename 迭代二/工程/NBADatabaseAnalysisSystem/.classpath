@@ -21,5 +21,7 @@
 	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.7.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="lib/de.tototec.cmdoption-0.3.2.jar"/>
+	<classpathentry kind="lib" path="lib/testData.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
