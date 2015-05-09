@@ -8,7 +8,6 @@ public class Console {
 	public void execute(PrintStream out, String[] args) {
 		Config config = new Config();
 		CmdlineParser cp = new CmdlineParser(config);
-		cp.registerHandler(new PlayerHandler());
 		try {
 			cp.parse(args);
 		} catch (CmdlineParserException e) {
@@ -17,7 +16,6 @@ public class Console {
 		if (config.help) {
 			cp.usage();
 		}
-		out.println(config.path);
 	}
 	
 }
