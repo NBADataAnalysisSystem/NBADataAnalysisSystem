@@ -7,24 +7,17 @@ public class Console {
 	
 	public void execute(PrintStream out, String[] args) {
 		Config config = new Config();
-		Player player = new Player();
-		CmdlineParser cp = new CmdlineParser(new Object[]{config, player});
-		String cmdStr = args[0];
-		String[] cmdArr = cmdStr.split("\\s"); //
+		CmdlineParser cp = new CmdlineParser(config);
+		cp.registerHandler(new PlayerHandler());
 		try {
-			cp.parse(cmdArr[0]);
-			cp.parse(cmdArr[1]);
-			cp.parse(new String[] { cmdArr[2], cmdArr[3] });
+			cp.parse(args);
 		} catch (CmdlineParserException e) {
 			e.printStackTrace();
 		}
 		if (config.help) {
-			System.out.println("-------help---------");
+			cp.usage();
 		}
-		if (player.isShowTotal()) {
-			System.out.println("------total---------");
-		}
-		System.out.println("the number of player is " + player.getNum());
+		out.println(config.path);
 	}
 	
 }
