@@ -30,10 +30,10 @@ public class TestDaoJdbcImp {
 			ResultSet resultSet = null;
 			String condition ="";
 			if(!sift[1].equals("A")){
-				condition+=" and  p.position like %"+sift[1]+"% ";
+				condition+=" and p.position like '%"+sift[1]+"%' ";
 			}
 			if(!sift[2].equals("A")){
-				condition+=" and t.division like %"+sift[2]+"% ";
+				condition+=" and t.division like '%"+sift[2]+"%' ";
 			}
 			if(sift[3].equals("1")){
 				condition += " and p.age<=22 ";
@@ -42,7 +42,7 @@ public class TestDaoJdbcImp {
 			}else if(sift[3].equals("3")){
 				condition+=" and p.age>25 and p.age<=30 ";
 			}else if(sift[3].equals("4")){
-				condition+= "  and p.age>30 ";
+				condition+= " and p.age>30 ";
 			}
 			
 			try {
@@ -52,20 +52,19 @@ public class TestDaoJdbcImp {
 "(sum(pmp.free_throw_shots)-sum(pmp.free_throw_shootings))-sum(pmp.turn_overs) efficiency,sum(pmp.turn_overs) fault,"+
 "sum(pmp.fouls) foul,round(1.0*sum(pmp.presence_time)/60,1) minute,count(distinct pmp.match_id) numOfGame,sum(pmp.offensive_rebounds) offend,"+
 "round(100.0*sum(pmp.shootings)/sum(pmp.shots),1) penalty,sum(pmp.score) point,sum(pmp.rebounds) rebound,sum(pmp.shots) shot,sum(pmp.is_start) start,"+
-"sum(pmp.steals) steal,round(100.0*sum(pmp.three_point_shootings)/sum(pmp.three_point_shots),1) three"+
-"from players p,"+
-"player_match_performance pmp,"+
-"(select pmp.player_id pid,pmp.team_id tid"+
-"from player_match_performance pmp,"+
- "    matches m "    +
-"where pmp.match_id =m.id and pmp.player_id<>-1"+
-"group by pmp.player_id"+
-"having m.date_of_match=max(m.date_of_match)) as t1,"+
-"teams t"+
-"where p.id = pmp.player_id and t1.pid =p.id and t.id=t1.tid "+condition+
-" group by p.id)"+
-"order by "+sift[4]+" limit "+sift[0]);
-				
+"sum(pmp.steals) steal,round(100.0*sum(pmp.three_point_shootings)/sum(pmp.three_point_shots),1) three "+
+" from players p, "+
+" player_match_performance pmp, "+
+" (select pmp.player_id pid,pmp.team_id tid "+
+" from player_match_performance pmp, "+
+" matches m "    +
+" where pmp.match_id =m.id and pmp.player_id<>-1 "+
+" group by pmp.player_id "+
+" having m.date_of_match=max(m.date_of_match)) as t1, "+
+" teams t "+
+" where p.id = pmp.player_id and t1.pid =p.id and t.id=t1.tid "+condition+
+" group by p.id) "+
+" order by "+sift[4].split("\\.")[0]+" "+sift[4].split("\\.")[1]+" limit "+sift[0]);
 				while (resultSet.next()) {
 					PlayerNormalInfo pni = new PlayerNormalInfo();
 					pni.setName(resultSet.getString(1));
