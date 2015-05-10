@@ -1,5 +1,6 @@
 package autotest;
 
+import dao.Dao;
 import de.tototec.cmdoption.CmdOption;
 
 public class Config {
@@ -11,6 +12,13 @@ public class Config {
 	@CmdOption(names = {"--datasource"}, args = {"path"}, description = "设置数据来源所在路径")
 	public void setPath(String path) {
 		//清空数据库，重新读数据
+		Dao dao = new Dao();
+		try {
+			dao.newDatabase();
+			dao.readFiles(path+"/");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@CmdOption(names = {"-player"}, description = "球员模块")

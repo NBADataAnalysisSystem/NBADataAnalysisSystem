@@ -139,7 +139,7 @@ public class TestDaoJdbcImp {
 "(sum(pmp.free_throw_shots)-sum(pmp.free_throw_shootings))-sum(pmp.turn_overs) efficiency,round(1.0*sum(pmp.turn_overs)/count(distinct pmp.match_id),1) fault,"+
 "round(1.0*sum(pmp.fouls)/count(distinct pmp.match_id),1) foul,round(1.0*sum(pmp.presence_time)/(60*count(distinct pmp.match_id)),1) minute,"+
 "count(distinct pmp.match_id) numOfGame,round(1.0*sum(pmp.offensive_rebounds)/count(distinct pmp.match_id)) offend,"+
-"round(100.0*sum(pmp.shootings)/sum(pmp.shots),1) penalty,round(1.0*sum(pmp.score)/count(distinct pmp.match_id),1) point,round(1.0*sum(pmp.rebounds)/count(distinct pmp.match_id),1) rebound,"+
+"round(100.0*sum(pmp.shootings)/sum(pmp.shots),1) penalty,round(1.0*sum(pmp.score)/count(distinct pmp.match_id),1) score,round(1.0*sum(pmp.rebounds)/count(distinct pmp.match_id),1) rebound,"+
 "round(1.0*sum(pmp.shots)/count(distinct pmp.match_id),1) shot,sum(pmp.is_start) start,"+
 "round(1.0*sum(pmp.steals)/count(distinct pmp.match_id),1) steal,round(100.0*sum(pmp.three_point_shootings)/sum(pmp.three_point_shots),1) three "+
 "from players p,"+

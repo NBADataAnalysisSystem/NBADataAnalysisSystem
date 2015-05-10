@@ -15,7 +15,11 @@ public class Console {
 		Config config = new Config();
 		CmdlineParser cp = new CmdlineParser(config);
 		try {
-			cp.parse(args[0]);
+			if (args[0].charAt(0)!=args[0].charAt(1)) {
+				cp.parse(args[0]);
+			} else {
+				cp.parse(args);
+			}
 		} catch (CmdlineParserException e) {
 			e.printStackTrace();
 		}
@@ -51,6 +55,12 @@ public class Console {
 								list[2] = player.league;
 								list[3] = player.age;
 								list[4] = player.sortBy;
+								TestDaoJdbcImp dao = new TestDaoJdbcImp();
+								ArrayList<PlayerNormalInfo> result = dao.getPlayerAvgNormalInfo(list);
+								for (int i = 0; i < result.size(); i++) {
+									out.println(i+1);
+									out.println(result.get(i).getPoint());
+								}
 							} else if (player.isHigh.equals("high")){
 								System.out.println("所有球员赛季场均高级数据");
 								String[] list = new String[5];
