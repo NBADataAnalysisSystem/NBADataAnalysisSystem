@@ -119,7 +119,7 @@ public class TestDaoJdbcImp {
 						+ "three,penalty,round(1.0*defendRebound/numOfGame,1) defendRebound, "
 						+ "round(1.0*offendRebound/numOfGame,1) offendRebound "
 						+ "from "
-						+ "(select t.abbreviation teamName,t.section league,sum(pmp.score) score,sum(pmp.rebounds) rebound, "
+						+ "(select t.abbreviation teamName,t.division league,sum(pmp.score) score,sum(pmp.rebounds) rebound, "
 						+ "sum(pmp.assists) assist,sum(pmp.block_shots) blockShot, "
 						+ "sum(pmp.steals) steal,sum(pmp.fouls) foul, "
 						+"sum(pmp.turn_overs) fault,sum(pmp.shots) shot,"
