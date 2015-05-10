@@ -327,6 +327,104 @@ public class TestDaoJdbcImp {
 			return result;
 	 }
 	 
+	 public ArrayList<TeamHighInfo> getTeamAvgHighInfo(String [] sift){
+		 ArrayList<TeamHighInfo> result= new ArrayList<TeamHighInfo>();
+		  Statement statement = null;
+			ResultSet resultSet = null;
+			String limit =" "+sift[0]+" ";
+			String sort =" "+ sift[1].split("\\.")[0]+" "+sift[1].split("\\.")[1];
+			try {
+				statement = connection.createStatement();
+				resultSet = statement.executeQuery("select * from(select t1.teamName teamName,t1.assistEfficient assistEfficient,t1.defendEfficient defendEfficient,t1.defendReboundEfficient defendReboundEfficient,"+
+"t1.offendEfficient offendEfficient,t1.offendReboundEfficient offendReboundEfficient,"+
+"t2.offendRound offendRound,"+
+"t1.stealEfficient stealEfficient,t1.winRate winRate "+
+"from(select tid,teamName,round(100.0*assists/offendRound,1) assistEfficient,round(100.0*rscore/defendRound,1) defendEfficient,"+
+"round(defendReboundEfficient,3) defendReboundEfficient,round(100.0*tscore/offendRound,1) offendEfficient,"+
+"round(offendReboundEfficient,3) offendReboundEfficient,"+
+"round(offendRound,1) offendRound,round(100.0*steals/defendRound,1) stealEfficient,"+
+"winRate "+
+"from "+
+"(select t2.tid tid,t2.teamName,round(100.0*t1.win/t2.numOfGame,1) winRate,"+
+"this.shots+0.4*this.free_throw_shots-1.07*(1.0*this.offensive_rebounds/"+
+"(this.offensive_rebounds+rival.defensive_rebounds)*(this.shots-this.shootings))+1.07*this.turn_overs offendRound,"+
+"this.shots+0.4*this.free_throw_shots-1.07*(1.0*this.defensive_rebounds/"+
+"(this.defensive_rebounds+rival.offensive_rebounds)*(this.shots-this.shootings))+1.07*this.turn_overs defendRound,"+
+"1.0*this.offensive_rebounds/(this.offensive_rebounds+rival.defensive_rebounds) offendReboundEfficient,"+
+"1.0*this.defensive_rebounds/(this.defensive_rebounds+rival.offensive_rebounds) defendReboundEfficient,"+
+"this.score tscore,rival.score rscore,this.steals steals,this.assists assists"+
+" from "+
+"(select t.id tid,count(distinct m.id) win "+
+"from matches m,"+
+"     teams t     "+
+"where (t.id=m.home_court_team_id and m.hscore>m.ascore)||(t.id=m.away_team_id and m.hscore<m.ascore)"+
+" group by t.id) t1,"+
+"(select t.id tid,sum(pmp.shootings) shootings,sum(pmp.shots) shots,sum(pmp.three_point_shootings) three_point_shootings,sum(pmp.three_point_shots) three_point_shots,"+
+"sum(pmp.free_throw_shootings) free_throw_shootings,sum(pmp.free_throw_shots) free_throw_shots,sum(pmp.offensive_rebounds) offensive_rebounds,"+
+"sum(pmp.defensive_rebounds) defensive_rebounds,sum(pmp.rebounds) rebounds,sum(pmp.assists) assists ,sum(pmp.steals) steals,sum(pmp.block_shots) block_shots,"+
+"sum(pmp.turn_overs) turn_overs,sum(pmp.fouls) fouls ,sum(pmp.score) score "+
+"from player_match_performance pmp,"+
+"     teams t       "+
+"where t.id =pmp.team_id "+
+" group by t.id) this,"+
+"(select t.id tid,sum(pmp.shootings) shootings,sum(pmp.shots) shots,sum(pmp.three_point_shootings) three_point_shootings,sum(pmp.three_point_shots) three_poiint_shots,"+
+"sum(pmp.free_throw_shootings) free_throw_shootings,sum(pmp.free_throw_shots) free_throw_shots,sum(pmp.offensive_rebounds) offensive_rebounds,"+
+"sum(pmp.defensive_rebounds) defensive_rebounds,sum(pmp.rebounds) rebounds,sum(pmp.assists) assists ,sum(pmp.steals) steals,sum(pmp.block_shots) block_shots,"+
+"sum(pmp.turn_overs) turn_overs,sum(pmp.fouls) fouls ,sum(pmp.score) score"+
+"from player_match_performance pmp,"+
+"     teams t,"+
+"     matches m       "+
+"where (t.id=m.away_team_id or t.id=m.home_court_team_id ) and pmp.match_id=m.id and pmp.team_id<>t.id "+
+" group by t.id) rival,"+
+"(select t.id tid,t.abbreviation teamName,count(distinct m.id) numOfGame"+
+" from matches m,"+
+"     teams t     "+
+"where t.id=m.home_court_team_id or t.id= m.away_team_id "+
+"group by t.id) t2"+
+"where t1.tid=t2.tid and t2.tid=this.tid and this.tid=rival.tid)) t1,"+
+"(select this.tid tid,round(sum(this.shots+0.4*this.free_throw_shots-1.07*(1.0*this.offensive_rebounds/(this.offensive_rebounds+rival.defensive_rebounds)*this.miss)"+
+"+1.07*this.turn_overs)/count(distinct this.tid),1) offendRound"+
+" from"+
+"(select t.id tid,m.id mid,sum(pmp.shots) shots,sum(pmp.free_throw_shots) free_throw_shots,"+
+"sum(pmp.offensive_rebounds) offensive_rebounds,sum(pmp.defensive_rebounds) defensive_rebounds,"+
+"sum(pmp.shots)-sum(pmp.shootings) miss,sum(pmp.turn_overs) turn_overs"+
+" from teams t,"+
+"     player_match_performance pmp,"+
+"     matches m     "+
+"where t.id=pmp.team_id and pmp.match_id=m.id"+
+" group by t.id ,m.id) this,"+
+"(select t.id tid ,m.id mid,sum(pmp.defensive_rebounds) defensive_rebounds"+
+" from teams t,"+
+"     player_match_performance pmp,     "+
+"     matches m     "+
+"where (t.id=m.home_court_team_id or t.id=m.away_team_id) and pmp.team_id<>t.id and pmp.match_id=m.id"+
+" group by t.id,m.id) rival"+
+" where this.tid=rival.tid and this.mid=rival.mid"+
+" group by this.tid) t2 "+
+" where t2.tid=t1.tid)"+
+" order by "+sort+" "+
+ "limit"+" "+limit);
+				while (resultSet.next()) {
+					TeamHighInfo thi = new TeamHighInfo();
+					thi.setTeamName(resultSet.getString(1));
+					thi.setAssistEfficient(resultSet.getDouble(2));
+					thi.setDefendEfficient(resultSet.getDouble(3));
+					thi.setDefendReboundEfficient(resultSet.getDouble(4));
+					thi.setOffendEfficient(resultSet.getDouble(5));
+					thi.setOffendReboundEfficient(resultSet.getDouble(6));
+					thi.setOffendRound(resultSet.getDouble(7));
+					thi.setStealEfficient(resultSet.getDouble(8));
+					thi.setWinRate(resultSet.getDouble(9));
+					result.add(thi);
+				}
+			
+				statement.close();
+			} catch (SQLException e) {
+				System.out.println("SQL错误");
+				e.printStackTrace();
+			}
+			return result;
+	 }
 
 	  public void close() {
 			try {
