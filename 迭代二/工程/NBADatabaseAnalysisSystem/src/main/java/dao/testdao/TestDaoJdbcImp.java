@@ -64,7 +64,7 @@ public class TestDaoJdbcImp {
 "teams t"+
 "where p.id = pmp.player_id and t1.pid =p.id and t.id=t1.tid "+condition+
 " group by p.id)"+
-"order by "+sift[4]);
+"order by "+sift[4]+" limit "+sift[0]);
 				
 				while (resultSet.next()) {
 					PlayerNormalInfo pni = new PlayerNormalInfo();
