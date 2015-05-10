@@ -13,7 +13,7 @@ public class Player {
 	public String position = "A";
 	public String league = "A";
 	public String age = "A";
-	public String sortBy = "point.desc";
+	public String sortBy = "score.desc";
 	
 	@CmdOption(names = {"--help", "-h", "-?"}, description = "显示帮助信息", isHelp = true)
 	public boolean help;
@@ -96,7 +96,7 @@ public class Player {
 	@CmdOption(names = {"-high"}, description = "显示高级数据", requires = {"-n", "-sort"})
 	private void setHigh() {
 		isHigh = "high";
-		if (sortBy.equals("point.desc")) {
+		if (sortBy.equals("score.desc")) {
 			sortBy = "realShot.desc";
 		}
 	}

@@ -8,7 +8,7 @@ public class Team {
 	public String hotField;
 	public String number = "30";
 	public String isHigh = "normal";
-	public String sortBy = "point.desc";
+	public String sortBy = "score.desc";
 	
 	@CmdOption(names = {"--help", "-h", "-?"}, description = "显示帮助信息", isHelp = true)
 	public boolean help;
@@ -52,7 +52,7 @@ public class Team {
 	@CmdOption(names = {"-high"}, description = "显示高级数据", requires = {"-n", "-sort"})
 	private void setHigh() {
 		isHigh = "high";
-		if (sortBy.equals("point.desc")) {
+		if (sortBy.equals("score.desc")) {
 			sortBy = "winRate.desc";
 		}
 	}
