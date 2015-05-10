@@ -63,12 +63,33 @@ public class Console {
 				Team team = new Team();
 				cp = new CmdlineParser(team);
 				try {
-					cp.parse(string.split("\\s"));
+					if (!string.equals("")) {
+						cp.parse(string.split("\\s"));
+					}
 				} catch (CmdlineParserException e) {
 					e.printStackTrace();
 				}
 				if (team.help) {
+					cp.setProgramName("-team");
 					cp.usage();
+				} else {
+					if (team.isAll.equals("all")) {
+						if (team.isAvg.equals("avg")) {
+							if (team.isHigh.equals("normal")) {
+								System.out.println("所有球队赛季场均数据");
+							} else if (team.isHigh.equals("high")){
+								System.out.println("所有球队赛季场均高级数据");
+							}
+						} else if (team.isAvg.equals("total")) {
+							if (team.isHigh.equals("normal")) {
+								System.out.println("所有球队赛季全部数据");
+							} else if (team.isHigh.equals("high")){
+								System.out.println("所有球队赛季全部高级数据");
+							}
+						}
+					} else if (team.isAll.equals("hot")) {
+						System.out.println("热点球队");
+					}
 				}
 			}
 		}

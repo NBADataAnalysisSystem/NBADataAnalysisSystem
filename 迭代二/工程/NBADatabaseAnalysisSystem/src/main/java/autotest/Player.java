@@ -29,6 +29,7 @@ public class Player {
 	private void setHot(String field) {
 		isAll = "hot";
 		hotField = field;
+		number = "5";
 	}
 	
 	@CmdOption(names = {"-king"}, args = {"field", "-season/daily"}, 
@@ -96,7 +97,7 @@ public class Player {
 	private void setHigh() {
 		isHigh = "high";
 		if (sortBy.equals("point.desc")) {
-			sortBy = "winRate.desc";
+			sortBy = "realShot.desc";
 		}
 	}
 }
