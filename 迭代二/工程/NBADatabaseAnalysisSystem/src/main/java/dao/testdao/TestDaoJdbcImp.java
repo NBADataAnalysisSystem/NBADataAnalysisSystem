@@ -264,7 +264,7 @@ public class TestDaoJdbcImp {
 "from(select teamName,round(100.0*assists/offendRound,1) assistEfficient,round(100.0*rscore/defendRound,1) defendEfficient,"+
 "round(defendReboundEfficient,1) defendReboundEfficient,round(100.0*tscore/offendRound,1) offendEfficient,"+
 "round(offendReboundEfficient,1) offendReboundEfficient,"+
-"round(offendRound,1) offendRound,round(100.0*steals/defendRound) stealEfficient,"+
+"round(offendRound,1) offendRound,round(100.0*steals/defendRound,1) stealEfficient,"+
 "winRate "+
 "from"+
 "  (select t2.teamName,round(100.0*t1.win/t2.numOfGame,1) winRate,"+
