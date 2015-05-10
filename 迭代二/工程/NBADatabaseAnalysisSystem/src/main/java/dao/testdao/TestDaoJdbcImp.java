@@ -370,7 +370,7 @@ public class TestDaoJdbcImp {
 "(select t.id tid,sum(pmp.shootings) shootings,sum(pmp.shots) shots,sum(pmp.three_point_shootings) three_point_shootings,sum(pmp.three_point_shots) three_poiint_shots,"+
 "sum(pmp.free_throw_shootings) free_throw_shootings,sum(pmp.free_throw_shots) free_throw_shots,sum(pmp.offensive_rebounds) offensive_rebounds,"+
 "sum(pmp.defensive_rebounds) defensive_rebounds,sum(pmp.rebounds) rebounds,sum(pmp.assists) assists ,sum(pmp.steals) steals,sum(pmp.block_shots) block_shots,"+
-"sum(pmp.turn_overs) turn_overs,sum(pmp.fouls) fouls ,sum(pmp.score) score"+
+"sum(pmp.turn_overs) turn_overs,sum(pmp.fouls) fouls ,sum(pmp.score) score "+
 "from player_match_performance pmp,"+
 "     teams t,"+
 "     matches m       "+
@@ -380,7 +380,7 @@ public class TestDaoJdbcImp {
 " from matches m,"+
 "     teams t     "+
 "where t.id=m.home_court_team_id or t.id= m.away_team_id "+
-"group by t.id) t2"+
+"group by t.id) t2 "+
 "where t1.tid=t2.tid and t2.tid=this.tid and this.tid=rival.tid)) t1,"+
 "(select this.tid tid,round(sum(this.shots+0.4*this.free_throw_shots-1.07*(1.0*this.offensive_rebounds/(this.offensive_rebounds+rival.defensive_rebounds)*this.miss)"+
 "+1.07*this.turn_overs)/count(distinct this.tid),1) offendRound"+

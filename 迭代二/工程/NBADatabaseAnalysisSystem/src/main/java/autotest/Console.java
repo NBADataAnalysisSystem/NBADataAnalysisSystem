@@ -134,6 +134,12 @@ public class Console {
 								String[] list = new String[2];
 								list[0] = team.number;
 								list[1] = team.sortBy;
+								TestDaoJdbcImp dao = new TestDaoJdbcImp();
+								ArrayList<TeamHighInfo> result = dao.getTeamAvgHighInfo(list);
+								for (int i = 0; i < result.size(); i++) {
+									out.println(i+1);
+									out.println(result.get(i));
+								}
 							}
 						} else if (team.isAvg.equals("total")) {
 							if (team.isHigh.equals("normal")) {
@@ -156,7 +162,7 @@ public class Console {
 								ArrayList<TeamHighInfo> result = dao.getTeamTotalHighInfo(list);
 								for (int i = 0; i < result.size(); i++) {
 									out.println(i+1);
-									out.println(result.get(i).getStealEfficient());
+									out.println(result.get(i));
 								}
 							}
 						}
