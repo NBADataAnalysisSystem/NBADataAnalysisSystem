@@ -202,6 +202,55 @@ public class TestDaoJdbcImp {
 			
 			return result;
 	 } 
+
+	 
+	 public ArrayList<TeamNormalInfo> getTeamAvgNormalInfo(String [] sift){
+		 ArrayList<TeamNormalInfo> result= new ArrayList<TeamNormalInfo>();
+		  Statement statement = null;
+			ResultSet resultSet = null;
+			String sort =" "+sift[1].split("\\.")[0]+" "+sift[1].split("\\.")[1];
+			String limit =" limit "+sift[0];
+			
+			try {
+				statement = connection.createStatement();
+				resultSet = statement.executeQuery("select * from (select t.abbreviation teamName,round(1.0*sum(pmp.assists)/count(distinct match_id),1) assist,round(1.0*sum(pmp.block_shots)/count(distinct match_id),1) blockShot,"
+						+ "round(1.0*sum(pmp.defensive_rebounds)/count(distinct match_id),1) defendRebound,round(1.0*sum(pmp.turn_overs)/count(distinct match_id),1) fault,"+
+"round(1.0*sum(pmp.fouls)/count(distinct match_id),1) foul,"+
+"count(distinct match_id) numOfGame,round(1.0*sum(pmp.offensive_rebounds)/count(distinct match_id)) offendRebound,"
++ "round(100.0*sum(pmp.free_throw_shootings)/sum(pmp.free_throw_shots),1) penalty,"+
+"round(1.0*sum(pmp.score)/count(distinct match_id),1) score,round(1.0*sum(pmp.rebounds)/count(distinct match_id),1) rebound,"+
+"round(100.0*sum(pmp.shootings)/sum(pmp.shots),1) shot,sum(pmp.steals) steal,"+
+"round(100.0*sum(pmp.three_point_shootings)/sum(pmp.three_point_shots),1) three "+
+"from teams t,"+
+"     player_match_performance pmp where t.id=pmp.team_id group by t.id) "+
+"order by "+sort+" "+limit);
+				while (resultSet.next()) {
+					TeamNormalInfo tni = new TeamNormalInfo();
+					tni.setTeamName(resultSet.getString(1));
+					tni.setAssist(resultSet.getDouble(2));
+					tni.setBlockShot(resultSet.getDouble(3));
+					tni.setDefendRebound(resultSet.getDouble(4));
+					tni.setFault(resultSet.getDouble(5));
+					tni.setFoul(resultSet.getDouble(6));
+					tni.setNumOfGame(resultSet.getInt(7));
+					tni.setOffendRebound(resultSet.getDouble(8));
+					tni.setPenalty(resultSet.getDouble(9));
+					tni.setPoint(resultSet.getDouble(10));
+					tni.setRebound(resultSet.getDouble(11));
+					tni.setShot(resultSet.getDouble(12));
+					tni.setSteal(resultSet.getDouble(13));
+					tni.setThree(resultSet.getDouble(14));
+					result.add(tni);
+				}
+			
+				statement.close();
+			} catch (SQLException e) {
+				System.out.println("SQL错误");
+				e.printStackTrace();
+			}
+			
+			return result;
+	 } 
 	 
 	  public void close() {
 			try {
