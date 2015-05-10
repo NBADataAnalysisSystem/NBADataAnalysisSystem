@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import test.data.PlayerNormalInfo;
 import test.data.TeamHotInfo;
+import test.data.TeamNormalInfo;
 
 public class TestDaoJdbcImp {
 	private Connection connection;
@@ -57,7 +58,7 @@ public class TestDaoJdbcImp {
 "sum(pmp.score)+sum(pmp.rebounds)+sum(pmp.assists)+sum(pmp.steals)+sum(pmp.block_shots)-(sum(pmp.shots)-sum(pmp.shootings))-"+
 "(sum(pmp.free_throw_shots)-sum(pmp.free_throw_shootings))-sum(pmp.turn_overs) efficiency,sum(pmp.turn_overs) fault,"+
 "sum(pmp.fouls) foul,round(1.0*sum(pmp.presence_time)/60,1) minute,count(distinct pmp.match_id) numOfGame,sum(pmp.offensive_rebounds) offend,"+
-"round(100.0*sum(pmp.shootings)/sum(pmp.shots),1) penalty,sum(pmp.score) point,sum(pmp.rebounds) rebound,sum(pmp.shots) shot,sum(pmp.is_start) start,"+
+"round(100.0*sum(pmp.shootings)/sum(pmp.shots),1) penalty,sum(pmp.score) score,sum(pmp.rebounds) rebound,sum(pmp.shots) shot,sum(pmp.is_start) start,"+
 "sum(pmp.steals) steal,round(100.0*sum(pmp.three_point_shootings)/sum(pmp.three_point_shots),1) three "+
 " from players p, "+
 " player_match_performance pmp, "+
@@ -154,7 +155,12 @@ public class TestDaoJdbcImp {
 			
 			return result;
 	  }
+
 	  
+	 //public ArrayList<TeamNormalInfo> getTeamNormalInfo(String[] sift){
+		 
+	 //} 
+	 
 	  public void close() {
 			try {
 				connection.close();
