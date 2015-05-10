@@ -304,7 +304,7 @@ public class TestDaoJdbcImp {
 "where t.id=m.home_court_team_id or t.id= m.away_team_id "+
 "group by t.id) t2 "+
 "where t1.tid=t2.tid and t2.tid=this.tid and this.tid=rival.tid)) "+
-"order by "+sort+" "+"limit "+"sift[0]");
+"order by "+sort+" "+"limit "+sift[0]);
 				while (resultSet.next()) {
 					TeamHighInfo thi = new TeamHighInfo();
 					thi.setTeamName(resultSet.getString(1));

@@ -9,7 +9,9 @@ public class Config {
 	public boolean help;
 	
 	@CmdOption(names = {"--datasource"}, args = {"path"}, description = "设置数据来源所在路径")
-	public String path;
+	public void setPath(String path) {
+		//清空数据库，重新读数据
+	}
 
 	@CmdOption(names = {"-player"}, description = "球员模块")
 	public void setModelPlayer() {

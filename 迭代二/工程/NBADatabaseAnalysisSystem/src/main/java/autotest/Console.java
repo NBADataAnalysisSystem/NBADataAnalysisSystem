@@ -3,6 +3,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 
 import test.data.PlayerNormalInfo;
+import test.data.TeamHighInfo;
 import test.data.TeamHotInfo;
 import test.data.TeamNormalInfo;
 import dao.testdao.TestDaoJdbcImp;
@@ -122,6 +123,12 @@ public class Console {
 								String[] list = new String[2];
 								list[0] = team.number;
 								list[1] = team.sortBy;
+								TestDaoJdbcImp dao = new TestDaoJdbcImp();
+								ArrayList<TeamNormalInfo> result = dao.getTeamAvgNormalInfo(list);
+								for (int i = 0; i < result.size(); i++) {
+									out.println(i+1);
+									out.println(result.get(i));
+								}
 							} else if (team.isHigh.equals("high")){
 								System.out.println("所有球队赛季场均高级数据");
 								String[] list = new String[2];
@@ -145,6 +152,12 @@ public class Console {
 								String[] list = new String[2];
 								list[0] = team.number;
 								list[1] = team.sortBy;
+								TestDaoJdbcImp dao = new TestDaoJdbcImp();
+								ArrayList<TeamHighInfo> result = dao.getTeamTotalHighInfo(list);
+								for (int i = 0; i < result.size(); i++) {
+									out.println(i+1);
+									out.println(result.get(i).getStealEfficient());
+								}
 							}
 						}
 					} else if (team.isAll.equals("hot")) {

@@ -16,8 +16,8 @@ public class Main {
 		//console.execute(System.out, new String[]{"-team","-all","-n","10"});
 		//console.execute(System.out, new String[]{"-team","-hot","score","-n","5"});
 		//console.execute(System.out, new String[]{"-team","-avg","-n","5","-sort","shot.desc"});
-		console.execute(System.out, new String[]{"-team","-total","-all","-n","10","-sort","shot.desc"});
-		//console.execute(System.out, new String[]{"-team","-high","-n","5","-sort","stealEffiencient.desc"});
+		//console.execute(System.out, new String[]{"-team","-total","-all","-n","10","-sort","shot.desc"});
+		console.execute(System.out, new String[]{"-team","-total","-high","-n","5","-sort","stealEfficient.desc"});
 	}
 
 }
