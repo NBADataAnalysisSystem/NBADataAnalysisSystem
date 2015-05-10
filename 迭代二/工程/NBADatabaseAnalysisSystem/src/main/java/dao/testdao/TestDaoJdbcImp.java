@@ -130,7 +130,7 @@ public class TestDaoJdbcImp {
 						+ "count(distinct match_id) numOfGame "
 						+ "from teams t, "
 						+ "player_match_performance pmp where t.id=pmp.team_id group by t.id)) "
-						+ "order by "+sift[0]+"desc "
+						+ "order by "+sift[0]+" desc "
 						+ "limit "+sift[1]);
 				while (resultSet.next()) {
 					TeamHotInfo thi = new TeamHotInfo();
