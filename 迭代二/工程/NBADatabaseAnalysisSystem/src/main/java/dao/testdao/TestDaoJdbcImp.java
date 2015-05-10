@@ -162,16 +162,16 @@ public class TestDaoJdbcImp {
 		  Statement statement = null;
 			ResultSet resultSet = null;
 			String sort =" "+sift[1].split("\\.")[0]+" "+sift[1].split("\\.")[1];
-			String limit =" limit "+"sift[0]";
+			String limit =" limit "+sift[0];
 			
 			try {
 				statement = connection.createStatement();
 				resultSet = statement.executeQuery("select * from (select t.abbreviation teamName,sum(pmp.assists) assist,sum(pmp.block_shots) blockShot,sum(pmp.defensive_rebounds) defendRebound,sum(pmp.turn_overs) fault,"+
-"sum(pmp.fouls) foul"+
+"sum(pmp.fouls) foul,"+
 "count(distinct match_id) numOfGame,sum(pmp.offensive_rebounds) offendRebound,round(100.0*sum(pmp.free_throw_shootings)/sum(pmp.free_throw_shots),1) penalty,"+
 "sum(pmp.score) score,sum(pmp.rebounds) rebound,"+
-"round(1.0*sum(pmp.shootings)/sum(pmp.shots),1) shot,sum(pmp.steals) steal,"+
-"round(100.0*sum(pmp.three_point_shootings)/sum(pmp.three_point_shots),1) three"+
+"round(100.0*sum(pmp.shootings)/sum(pmp.shots),1) shot,sum(pmp.steals) steal,"+
+"round(100.0*sum(pmp.three_point_shootings)/sum(pmp.three_point_shots),1) three "+
 "from teams t,"+
 "     player_match_performance pmp where t.id=pmp.team_id group by t.id) "+
 "order by "+sort+" "+limit);
