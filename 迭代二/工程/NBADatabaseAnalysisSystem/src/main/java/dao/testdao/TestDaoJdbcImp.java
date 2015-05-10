@@ -122,6 +122,7 @@ public class TestDaoJdbcImp {
 						+ "(select t.abbreviation teamName,t.section league,sum(pmp.score) score,sum(pmp.rebounds) rebound, "
 						+ "sum(pmp.assists) assist,sum(pmp.block_shots) blockShot, "
 						+ "sum(pmp.steals) steal,sum(pmp.fouls) foul, "
+						+"sum(pmp.turn_overs) fault,sum(pmp.shots) shot,"
 						+ "round(100.0*sum(pmp.three_point_shootings)/sum(pmp.three_point_shots),1) three, "
 						+ "round(100.0*sum(pmp.free_throw_shootings)/sum(pmp.free_throw_shots),1) penalty, "
 						+ "sum(pmp.defensive_rebounds) defendRebound, "
