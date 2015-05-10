@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import test.data.PlayerNormalInfo;
+import test.data.TeamHotInfo;
 
 public class TestDaoJdbcImp {
 	private Connection connection;
@@ -100,6 +101,52 @@ public class TestDaoJdbcImp {
 				e.printStackTrace();
 			}
 		  return result;
+	  }
+
+	  public ArrayList<TeamHotInfo> getTeamHotInfo(String[] sift){
+		  ArrayList<TeamHotInfo> result= new ArrayList<TeamHotInfo>();
+		  Statement statement = null;
+			ResultSet resultSet = null;
+			String condition = "";
+			condition = condition+" limit "+sift[1];
+			try {
+				statement = connection.createStatement();
+				resultSet = statement.executeQuery("select teamName,league,"+sift[0]+" "
+						+ "from(select teamName,league,round(1.0*score/numOfGame,1) score,round(1.0*rebound/numOfGame,1) rebound, "
+						+ "round(1.0*assist/numOfGame,1) assist,round(1.0*blockShot/numOfGame,1) blockShot, "
+						+ "round(1.0*steal/numOfGame,1)steal ,round(1.0*foul/numOfGame,1) foul, "
+						+ "round(1.0*fault/numOfGame,1) fault,round(1.0*shot/numOfGame,1) shot, "
+						+ "three,penalty,round(1.0*defendRebound/numOfGame,1) defendRebound, "
+						+ "round(1.0*offendRebound/numOfGame,1) offendRebound "
+						+ "from "
+						+ "(select t.abbreviation teamName,t.section league,sum(pmp.score) score,sum(pmp.rebounds) rebound, "
+						+ "sum(pmp.assists) assist,sum(pmp.block_shots) blockShot, "
+						+ "sum(pmp.steals) steal,sum(pmp.fouls) foul, "
+						+ "round(100.0*sum(pmp.three_point_shootings)/sum(pmp.three_point_shots),1) three, "
+						+ "round(100.0*sum(pmp.free_throw_shootings)/sum(pmp.free_throw_shots),1) penalty, "
+						+ "sum(pmp.defensive_rebounds) defendRebound, "
+						+ "sum(pmp.offensive_rebounds) offendRebound, "
+						+ "count(distinct match_id) numOfGame "
+						+ "from teams t, "
+						+ "player_match_performance pmp where t.id=pmp.team_id group by t.id)) "
+						+ "order by "+sift[0]+"desc "
+						+ "limit "+sift[1]);
+				while (resultSet.next()) {
+					TeamHotInfo thi = new TeamHotInfo();
+					thi.setTeamName(resultSet.getString(1));
+					thi.setLeague(resultSet.getString(1));
+					thi.setField(sift[0]);
+					thi.setValue(resultSet.getDouble(3));
+					result.add(thi);
+				}
+			
+				statement.close();
+			} catch (SQLException e) {
+				System.out.println("SQL错误");
+				e.printStackTrace();
+			}
+			
+			return result;
 	  }
 	  
 	  public void close() {
