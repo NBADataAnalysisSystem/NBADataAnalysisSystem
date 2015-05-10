@@ -135,7 +135,12 @@ public class TestDaoJdbcImp {
 				while (resultSet.next()) {
 					TeamHotInfo thi = new TeamHotInfo();
 					thi.setTeamName(resultSet.getString(1));
-					thi.setLeague(resultSet.getString(2));
+					if(resultSet.getString(2).equals("E")){
+						thi.setLeague("East");	
+					}else{
+						thi.setLeague("West");
+					}
+					
 					thi.setField(sift[0]);
 					thi.setValue(resultSet.getDouble(3));
 					result.add(thi);
