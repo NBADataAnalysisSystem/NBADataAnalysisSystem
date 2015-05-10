@@ -29,6 +29,11 @@ public class TestDaoJdbcImp {
 		  Statement statement = null;
 			ResultSet resultSet = null;
 			String condition ="";
+			String condition2="";
+			String[] str = sift[4].split(",");
+			for(int i=0;i<str.length;i++){
+				condition2= condition2+str[i].split("\\.")[0]+" "+ str[i].split("\\.")[1]+" ";
+			}
 			if(!sift[1].equals("A")){
 				condition+=" and p.position like '%"+sift[1]+"%' ";
 			}
@@ -64,7 +69,7 @@ public class TestDaoJdbcImp {
 " teams t "+
 " where p.id = pmp.player_id and t1.pid =p.id and t.id=t1.tid "+condition+
 " group by p.id) "+
-" order by "+sift[4].split("\\.")[0]+" "+sift[4].split("\\.")[1]+" limit "+sift[0]);
+" order by "+condition2+" limit "+sift[0]);
 				while (resultSet.next()) {
 					PlayerNormalInfo pni = new PlayerNormalInfo();
 					pni.setName(resultSet.getString(1));
