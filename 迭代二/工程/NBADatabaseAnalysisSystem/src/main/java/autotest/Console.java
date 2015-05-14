@@ -59,7 +59,7 @@ public class Console {
 								ArrayList<PlayerNormalInfo> result = dao.getPlayerAvgNormalInfo(list);
 								for (int i = 0; i < result.size(); i++) {
 									out.println(i+1);
-									out.println(result.get(i).getPoint());
+									out.println(result.get(i));
 								}
 							} else if (player.isHigh.equals("high")){
 								System.out.println("所有球员赛季场均高级数据");

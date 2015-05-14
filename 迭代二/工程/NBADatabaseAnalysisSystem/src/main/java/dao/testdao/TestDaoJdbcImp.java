@@ -105,7 +105,8 @@ public class TestDaoJdbcImp {
 		  return result;
 	  }
 
-	  public ArrayList<PlayerNormalInfo> getPlayerAvgNormalInfo(String[] sift){
+	  @SuppressWarnings("unused")
+	public ArrayList<PlayerNormalInfo> getPlayerAvgNormalInfo(String[] sift){
 		  ArrayList<PlayerNormalInfo> result= new ArrayList<PlayerNormalInfo>();
 		  Statement statement = null;
 			ResultSet resultSet = null;
