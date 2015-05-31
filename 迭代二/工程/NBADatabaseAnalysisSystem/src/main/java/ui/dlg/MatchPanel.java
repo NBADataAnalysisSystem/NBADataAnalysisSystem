@@ -11,7 +11,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
+import com.sun.awt.AWTUtilities;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -20,25 +24,29 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.Timer;
 
-import com.sun.awt.AWTUtilities;
+
+
+
+
+import com.toedter.calendar.JDateChooser;
 
 import controller.matchcontroller.GetMatchSectionInfoRequest;
 import controller.matchcontroller.GetMatchSectionInfoResponse;
 import controller.matchcontroller.MatchController;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "restriction" })
 public class MatchPanel extends JPanel {
+	 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	int x;
 	int y;
 	static int width;
 	static int height;
 	JPanel datePanel ;
 	JPanel mainPanel;
-	JTextField dateFindingField;
+	 JDateChooser dateFindingField;
 	JButton btn_Find;
 	
 	String dateToFind ;
@@ -53,7 +61,6 @@ public class MatchPanel extends JPanel {
 
 	@SuppressWarnings("static-access")
 	public MatchPanel(int xa,int ya,int widtha,int heighta){
-		
 		this.x = xa;
 		this.y = ya;
 		this.width = widtha;
@@ -74,9 +81,8 @@ public class MatchPanel extends JPanel {
 		datePanel = new JPanel();
 		datePanel.setLayout(null);
 		datePanel.setBounds(0, 0, width, height/10);
-		dateFindingField = new JTextField(15);
+		dateFindingField = new JDateChooser(new Date());  
 		dateFindingField.setFont(new Font("宋体",1, 20));
-		dateFindingField.setText("2013-01-01");
 		dateFindingField.setBounds(0, datePanel.getHeight()/4, datePanel.getWidth()/5, datePanel.getHeight()/2);
 		btn_Find = new JButton("查询");
 		btn_Find.setBounds(dateFindingField.getWidth()+20, datePanel.getHeight()/4, datePanel.getWidth()/10, datePanel.getHeight()/2);
@@ -84,7 +90,7 @@ public class MatchPanel extends JPanel {
 		
             public void mouseClicked(MouseEvent e){
             	//TODO
-            	dateToShow = dateFindingField.getText();
+            	dateToShow = formatter.format(dateFindingField.getDate());
             	findMatch(dateToShow);
             	mainPanel.removeAll();
             	setMatchPanel();
@@ -202,6 +208,7 @@ public class MatchPanel extends JPanel {
 		//第二维中,[0]为队名，，[1]~[4]为1-4节分数，[5]为总分，[6]为球队图标地址,[7]为比赛ID）
 		JPanel newMatch = new JPanel();
 		newMatch.addMouseListener(    new MouseAdapter(){
+			@SuppressWarnings("restriction")
 			public void mouseClicked(MouseEvent e){
 					MatchCheckFrame temp = new MatchCheckFrame(info[0][0],info[1][0],info[0][7]);
 					temp.setFatherFrame(frame);
