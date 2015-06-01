@@ -34,6 +34,7 @@ import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 import com.sun.awt.AWTUtilities;
 
@@ -43,6 +44,7 @@ import controller.teamdetailcontroller.TeamDetailController;
 
 
 
+@SuppressWarnings("restriction")
 public class TeamCheckFrame extends JFrame implements  ActionListener{
 
 	/**
@@ -240,7 +242,7 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 	}
 
 
-	@SuppressWarnings("static-access")
+	@SuppressWarnings({ "static-access", "serial", "unchecked", "rawtypes" })
 	private void setPlayerPanel() {
 
 		final ImageIcon icon = new ImageIcon("resource/Line.png");
@@ -269,13 +271,23 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 
 
 		JScrollPane playerSp ;
-//		String [] tempHeader = new String[16];
-		final String[][] tableString = new String[playerInfo.length+1][16];
-		tableString[0]= new String[]{"姓名","场数","先发","分钟","%","三分%","罚球%","进攻","防守","场均篮板","场均抢断","场均盖帽","场均助攻","犯规","失误","场均得分"};
+		String [] tempHeader = new String[16];
+		final String[][] tableString = new String[playerInfo.length][16];
+		tempHeader= new String[]{"姓名","场数","先发","分钟","%","三分%","罚球%","进攻","防守","场均篮板","场均抢断","场均盖帽","场均助攻","犯规","失误","场均得分"};
 		for(int i = 0;i<playerInfo.length;i++){
-			tableString[1+i] = playerInfo[i];
+			tableString[i] = playerInfo[i];
 		}
-		DefaultTableModel model = new DefaultTableModel(tableString,tableString[0]);
+		DefaultTableModel model = new DefaultTableModel(tableString,tempHeader) {  
+			public Class getColumnClass(int column) {  
+		        Class returnValue;  
+		        if ((column >= 0) && (column < getColumnCount())) {  
+		            returnValue = getValueAt(0, column).getClass();  
+		        } else {  
+		            returnValue = Object.class;  
+		        }  
+		        return returnValue;  
+		    }  
+		};
 		final JTable table = new JTable(model);
 		playerSp = new JScrollPane(table);
 		s.gridwidth=0;
@@ -285,16 +297,17 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 		layout.setConstraints(playerSp, s);
 		playerSp.getViewport().setOpaque(false);
 		playerSp.setOpaque(false);
-		MyTableCellRenderrer render = new MyTableCellRenderrer();
+		MyTableBodyCellRenderrer render = new MyTableBodyCellRenderrer();
      
         table.setDefaultRenderer(Object.class,render);  
 		for(int i = 0;i<table.getColumnCount();i++){
-			table.getColumnModel().getColumn(i).setPreferredWidth(tableString[0][i].length()*height/24);	
+			table.getColumnModel().getColumn(i).setPreferredWidth(tempHeader[i].length()*height/24);	
 		}
 		table.setFont(new Font("宋体",0,height/56));
 		table.getColumnModel().getColumn(0).setPreferredWidth(5*height/24);	
 		table.setRowHeight(height/23);
-		table.setRowHeight(0, 1);
+		final TableRowSorter sorter = new TableRowSorter(model); 
+		table.setRowSorter(sorter);
 		table.setEnabled(false);
 		table.setGridColor(new Color(0,0,0,0));
 		final JFrame tempFrame =this;
@@ -583,6 +596,36 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
              return comp;
          }
  }
+	 
+		@SuppressWarnings("serial")
+		class MyTableBodyCellRenderrer extends DefaultTableCellRenderer{
+	        
+	         @Override
+	         public Component getTableCellRendererComponent(JTable table,
+	                 Object value, boolean isSelected, boolean hasFocus, int row,
+	                 int column)
+	         {
+	             // TODO Auto-generated method stub
+	             Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+	             if(row%2 ==1){
+	            	// ((JComponent) comp).setOpaque(false);
+	            	 
+	            	  comp.setBackground(Color.decode("#D1EEEE"));
+	             }else if(row%2 ==0 ){
+	           	  comp.setBackground(Color.white);
+	            }
+	             return comp;
+	         }
+//	         public Class getColumnClass(int column) {  
+//	             Class returnValue;  
+//	             if ((column >= 0) && (column < this.getColumnCount())) {  
+//	                 returnValue = getValueAt(0, column).getClass();  
+//	             } else {  
+//	                 returnValue = Object.class;  
+//	             }  
+//	             return returnValue;  
+//	         }
+	 }
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() instanceof JButton){
 			JButton btn = (JButton)e.getSource();
