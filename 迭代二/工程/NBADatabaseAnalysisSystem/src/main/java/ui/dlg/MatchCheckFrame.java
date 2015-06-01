@@ -25,8 +25,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.RowSorter;
+import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 import com.sun.awt.AWTUtilities;
 
@@ -36,6 +40,7 @@ import controller.matchdetailcontroller.MatchDetailController;
 
 
 
+@SuppressWarnings({ "unused", "restriction" })
 public class MatchCheckFrame extends JFrame implements  ActionListener{
 
 	/**
@@ -67,6 +72,8 @@ public class MatchCheckFrame extends JFrame implements  ActionListener{
 	String matchID;
 	
 	public MatchCheckFrame(String teamA,String teamB,String id){
+			UIManager.put("Table.background", new ColorUIResource(Color.WHITE));
+			UIManager.put("Table.alternateRowColor", Color.decode("#D1EEEE"));
 			this.teamA = teamA;
 			this.teamB = teamB;
 			matchID=id;
@@ -182,9 +189,9 @@ public class MatchCheckFrame extends JFrame implements  ActionListener{
 		
 	}
 	
-	@SuppressWarnings("static-access")
+	@SuppressWarnings({ "static-access", "serial", "unchecked", "rawtypes" })
 	private void setTeamPanel(final String team){
-		String[][] info ;
+		final String[][] info ;
 		final ImageIcon icon;
 		System.out.println(teamA);
 		System.out.println(team);
@@ -231,12 +238,33 @@ public class MatchCheckFrame extends JFrame implements  ActionListener{
 
 		JScrollPane playerSp ;
 		String [] header = new String[21];
-		final String[][] tableString = new String[info.length+1][21];
+		final Object[][] tableString = new Object[info.length][21];
 		header= new String[]{"姓名","位置","分钟","%","命中","出手","三分%","三分命中","三分出手","罚球%","罚球命中","罚球出手","进攻","防守","篮板","助攻","犯规","抢断","失误","盖帽","得分"};
-		for(int i = 0;i<info.length;i++){
-			tableString[1+i] = info[i];
+		for(int i = 0;i<tableString.length;i++){
+			for(int j = 0 ; j<tableString[0].length;j++){
+				if(j <= 1){
+						tableString[i][j] = info[i][j] ;
+				}else{
+						if(info[i][j]!=null){
+							tableString[i][j] = Double.parseDouble(info[i][j]);
+						}else{
+							tableString[i][j] = info[i][j];
+						}
+				}
+			}
 		}
-		DefaultTableModel model = new DefaultTableModel(tableString,header);
+		DefaultTableModel model = new DefaultTableModel(tableString,header) {  
+			public Class getColumnClass(int column) {  
+		        Class returnValue;  
+		        if ((column >=2) && (column < getColumnCount())) {  
+		            returnValue = Double.class;  
+		            
+		        } else {  
+		            returnValue = Object.class;  
+		        }  
+		        return returnValue;  
+		    }  
+		};
 		final JTable table = new JTable(model);
 		playerSp = new JScrollPane(table);
 		s.gridwidth=0;
@@ -254,9 +282,10 @@ public class MatchCheckFrame extends JFrame implements  ActionListener{
 		table.setFont(new Font("宋体",0,height/56));
 		table.getColumnModel().getColumn(0).setPreferredWidth(6*height/30);	
 		table.setRowHeight(height/23);
-		table.setRowHeight(0, 1);
 		table.setEnabled(false);
 		table.setGridColor(new Color(0,0,0,0));
+		final TableRowSorter sorter = new TableRowSorter(model); 
+		table.setRowSorter(sorter);
 		//table.setPreferredScrollableViewportSize(new Dimension(tableString.length*height/23,width+200));
 		table.setAutoResizeMode(table.AUTO_RESIZE_OFF);
 		playerSp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -269,7 +298,7 @@ public class MatchCheckFrame extends JFrame implements  ActionListener{
 				new MouseAdapter(){
 					public void mouseClicked(MouseEvent e){
 					//	selectedRow = Integer.parseInt(e.getComponent().getName());
-								PlayerCheckFrame check = new PlayerCheckFrame(tableString[table.rowAtPoint(e.getPoint())][0]);
+								PlayerCheckFrame check = new PlayerCheckFrame((String) tableString[table.rowAtPoint(e.getPoint())][0]);
 								check.setFatherFrame(fatherFrame);
 								tempFrame.dispose();
 
@@ -294,7 +323,7 @@ public class MatchCheckFrame extends JFrame implements  ActionListener{
 	
 	public static void main(String[] args){
 		
-		@SuppressWarnings("unused")
+
 		MatchCheckFrame test = new MatchCheckFrame("","","");
 	}
 

@@ -32,6 +32,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -75,6 +77,8 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 //	String[][] matchInfo;
 	
 	public TeamCheckFrame(String tocheck){
+			UIManager.put("Table.background", new ColorUIResource(Color.WHITE));
+			UIManager.put("Table.alternateRowColor", Color.decode("#D1EEEE"));
 			team = tocheck;
 			basicInfo = new String[11];
 			seasonInfo = new String [2][17];
@@ -272,16 +276,28 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 
 		JScrollPane playerSp ;
 		String [] tempHeader = new String[16];
-		final String[][] tableString = new String[playerInfo.length][16];
+		final Object[][] tableString = new Object[playerInfo.length][16];
 		tempHeader= new String[]{"姓名","场数","先发","分钟","%","三分%","罚球%","进攻","防守","场均篮板","场均抢断","场均盖帽","场均助攻","犯规","失误","场均得分"};
-		for(int i = 0;i<playerInfo.length;i++){
-			tableString[i] = playerInfo[i];
+
+		for(int i = 0;i<tableString.length;i++){
+			for(int j = 0 ; j<tableString[0].length;j++){
+				if(j == 0){
+						tableString[i][j] = playerInfo[i][j] ;
+				}else{
+						if(playerInfo[i][j]!=null){
+							tableString[i][j] = Double.parseDouble(playerInfo[i][j]);
+						}else{
+							tableString[i][j] = playerInfo[i][j];
+						}
+				}
+			}
 		}
 		DefaultTableModel model = new DefaultTableModel(tableString,tempHeader) {  
 			public Class getColumnClass(int column) {  
 		        Class returnValue;  
-		        if ((column >= 0) && (column < getColumnCount())) {  
-		            returnValue = getValueAt(0, column).getClass();  
+		        if ((column >=1) && (column < getColumnCount())) {  
+		            returnValue = Double.class;  
+		            
 		        } else {  
 		            returnValue = Object.class;  
 		        }  
@@ -315,7 +331,7 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 				new MouseAdapter(){
 					public void mouseClicked(MouseEvent e){
 					//	selectedRow = Integer.parseInt(e.getComponent().getName());
-								PlayerCheckFrame check = new PlayerCheckFrame(tableString[table.rowAtPoint(e.getPoint())][0]);
+								PlayerCheckFrame check = new PlayerCheckFrame((String) tableString[table.rowAtPoint(e.getPoint())][0]);
 								check.setFatherFrame(fatherFrame);
 								tempFrame.dispose();
 
