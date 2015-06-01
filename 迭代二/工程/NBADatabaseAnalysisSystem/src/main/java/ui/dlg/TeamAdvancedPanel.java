@@ -276,6 +276,21 @@ public class TeamAdvancedPanel extends JPanel {
 		sp.getViewport().setOpaque(false); 
 		sp.getColumnHeader().setOpaque(false);//再取出头部，并设置为透明 
 //		JPanel temp =this;
+		final int tempWidth = cellWidth;
+		headerPanel.addMouseListener(
+				new MouseAdapter(){
+					public void mouseClicked(MouseEvent e){
+					//	selectedRow = Integer.parseInt(e.getComponent().getName());
+						selectedRow=Integer.parseInt(e.getComponent().getComponentAt(headerPanel.getMousePosition()).getName());
+						for(int i = 0;i<header.length;i++){
+							if(header[i].equals("名称")== false){
+								int sort = (int) (headerPanel.getMousePosition().getX()/tempWidth);
+								sortInfo(sort);
+							}
+						}
+					}          
+				}
+				);    
 		
 		tablePanel.addMouseListener(
 				new MouseAdapter(){
@@ -402,6 +417,23 @@ public class TeamAdvancedPanel extends JPanel {
 		return null;
 	}
 
+	private void sortInfo(int column){
+		JPanel tempPanel = this;
+		String[] temp;
+		for(int i = 0;i<table.length;i++){
+			for(int j = i+1;j<table.length;j++){
+				if(Double.valueOf(table[j][column])>Double.valueOf(table[i][column])){
+					temp=table[i];
+					table[i] = table[j];
+					table[j] = temp;
+				}
+			}
+		}
+		tempPanel.remove(sp);
+		setTable(width/25,height/5,(width - width/12)/header.length,((height) - (height/5)-(height/25))/rowNum,header,table);
+		tempPanel.repaint();
+		
+	}
 	public static void main(String [] args){
 	
 	JFrame test = new JFrame();
