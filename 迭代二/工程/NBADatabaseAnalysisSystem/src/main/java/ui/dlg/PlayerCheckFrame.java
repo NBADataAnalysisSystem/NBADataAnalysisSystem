@@ -21,12 +21,14 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -59,7 +61,10 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 	JPanel infoPanel;
 	JPanel seasonPanel;
 	JPanel matchPanel;
-	
+	//设置界面
+	JPanel setPanel;
+	final ImageIcon setIcon = new ImageIcon("resource/set.png");
+	final ImageIcon lineIcon = new ImageIcon("resource/Line.png");
 	String player;
 	String[] season;
 	String[] match;
@@ -103,29 +108,13 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 			mainPanel.setBounds(0, 0,width, height);
 			mainPanel.setLayout(null);
 			mainPanel.setOpaque(false);
+			
+			setPanel = new JPanel();
+			setPanel.setBackground(Color.decode("#696969"));
+			setPanel.setSize(width/5, height/3);
+			
+			setInfoPanel();
 	
-			basicPanel = new JPanel();
-			basicPanel.setBounds(0, 0, width, height/3);
-			basicPanel.setOpaque(false);
-			setBasicPanel();
-			
-			infoPanel = new JPanel();
-			infoPanel.setBounds(0, height/3, width, height*2/3);
-			infoPanel.setLayout(new GridLayout(2,1));
-			infoPanel.setOpaque(false);
-			
-			seasonPanel = new JPanel();
-			seasonPanel.setOpaque(false);
-			setSeasonPanel();
-			infoPanel.add(seasonPanel);
-			
-			matchPanel = new JPanel();
-			matchPanel.setOpaque(false);
-			matchPanel.setBorder(BorderFactory.createEmptyBorder());
-			setMatchPanel();
-			infoPanel.add(matchPanel);
-			
-			mainPanel.add(infoPanel);
 			JButton btn_Close = new JButton("×");
 			btn_Close.setMargin(new Insets(0,0,0,0));
 			btn_Close.setBounds(this.getWidth()-30,0,30, 30);
@@ -135,7 +124,6 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 			btn_Close.setFont(new Font("Serif",0, 30));
 			btn_Close.setName("close");
 		      //TODO
-			mainPanel.add(basicPanel);
 			backgroundPanel.add(placeBackgroundIcon);
 			backgroundPanel.setBackground(Color.white);
 			this.add(backgroundPanel);
@@ -170,6 +158,102 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 			      );    
 		      
 	}
+	@SuppressWarnings("static-access")
+	private void setSetPanel(int x,int y){
+		final JFrame tempFrame =this;
+		setPanel.removeAll();
+		JRadioButton infoButton = new JRadioButton("资料");
+		JRadioButton dataButton = new JRadioButton("数据");
+		JRadioButton matchButton = new JRadioButton("比赛");
+		
+		ButtonGroup buttons = new ButtonGroup();
+		buttons.add(infoButton);
+		buttons.add(dataButton);
+		buttons.add(matchButton);
+		
+		infoButton.setOpaque(false);
+		dataButton.setOpaque(false);
+		matchButton.setOpaque(false);
+		
+		infoButton.setFont(new Font("黑体",1,height/24));
+		dataButton.setFont(new Font("黑体",1,height/24));
+		matchButton.setFont(new Font("黑体",1,height/24));
+		
+		infoButton.setForeground(Color.WHITE);
+		dataButton.setForeground(Color.WHITE);
+		matchButton.setForeground(Color.WHITE);
+		
+		infoButton.setHorizontalAlignment(infoButton.CENTER);
+		dataButton.setHorizontalAlignment(dataButton.CENTER);
+		matchButton.setHorizontalAlignment(matchButton.CENTER);
+		
+		infoButton.addMouseListener(
+				new MouseAdapter(){
+					public void mouseClicked(MouseEvent e){
+					//	selectedRow = Integer.parseInt(e.getComponent().getName());
+								tempFrame.remove(setPanel);
+								mainPanel.removeAll();
+								setInfoPanel();
+								tempFrame.revalidate();
+								tempFrame.repaint();
+
+					}          
+				}
+				);    
+		
+		
+		setPanel.setLayout(new GridLayout(3,1));
+		setPanel.add(infoButton);
+		setPanel.add(dataButton);
+		setPanel.add(matchButton);
+		this.add(setPanel,0);
+		this.addMouseListener(
+				new MouseAdapter(){
+					public void mouseClicked(MouseEvent e){
+					//	selectedRow = Integer.parseInt(e.getComponent().getName());
+								if(e.getComponent().getComponentAt(tempFrame.getMousePosition()) !=setPanel){
+									tempFrame.remove(setPanel);
+									tempFrame.repaint();
+								}
+
+					}          
+				}
+				);    
+		this.revalidate();
+		this.repaint();
+		setPanel.setLocation(x, y);
+		
+	}
+	/**
+	 * 设置球员资料界面
+	 */
+	private void setInfoPanel(){
+		
+		basicPanel = new JPanel();
+		basicPanel.setBounds(0, 0, width, height/3);
+		basicPanel.setOpaque(false);
+		setBasicPanel();
+		
+		infoPanel = new JPanel();
+		infoPanel.setBounds(0, height/3, width, height*2/3);
+		infoPanel.setLayout(new GridLayout(2,1));
+		infoPanel.setOpaque(false);
+		
+		seasonPanel = new JPanel();
+		seasonPanel.setOpaque(false);
+		setSeasonPanel();
+		infoPanel.add(seasonPanel);
+		
+		matchPanel = new JPanel();
+		matchPanel.setOpaque(false);
+		matchPanel.setBorder(BorderFactory.createEmptyBorder());
+		setMatchPanel();
+		infoPanel.add(matchPanel);
+		
+		mainPanel.add(infoPanel);
+		mainPanel.add(basicPanel);
+	}
+
 	/**
 	 * 	player = tocheck;
 	 *season = new String[]{"年度","球队","场数","先发","分钟","%","三分%","罚球%","进攻","防守","场均篮板","场均助攻","场均抢断","场均盖帽","失误","犯规","场均得分"};
@@ -265,28 +349,54 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 
 	@SuppressWarnings("static-access")
 	private void setSeasonPanel() {
-		final ImageIcon icon = new ImageIcon("resource/Line.png");
+		final ImageIcon lineIcon = new ImageIcon("resource/Line.png");
 		GridBagLayout layout = new GridBagLayout();
 		GridBagConstraints s= new GridBagConstraints();
 		s.fill = GridBagConstraints.BOTH; 
 		seasonPanel.setLayout(layout);
 		final JLabel lineLabel =new JLabel();
-		s.gridwidth=0;
-		s.weightx = 1; 
-		s.weighty=0.23;
+		s.gridwidth=1;
+		s.gridheight = 1;
+		s.weightx =23; 
+		s.weighty=1;
 		layout.setConstraints(lineLabel, s);
 		lineLabel.setText("赛季数据");
 		lineLabel.addComponentListener(new ComponentAdapter(){
 			public void componentResized(ComponentEvent e){
-				icon.setImage(icon.getImage().getScaledInstance(lineLabel.getWidth(), lineLabel.getHeight(),Image.SCALE_DEFAULT));
+				lineIcon.setImage(lineIcon.getImage().getScaledInstance(lineLabel.getWidth(), lineLabel.getHeight(),Image.SCALE_DEFAULT));
 			}
 		}
 	);
-		lineLabel.setIcon(icon);
+		lineLabel.setIcon(lineIcon);
 		lineLabel.setFont(new Font("宋体",1,height/21));
 		lineLabel.setForeground(Color.WHITE);
 		lineLabel.setHorizontalTextPosition(lineLabel.CENTER);
 		seasonPanel.add(lineLabel);
+		
+		final JLabel setLabel =new JLabel();
+		s.gridwidth=0;
+		s.gridheight = 1;
+		s.weightx = 0; 
+		s.weighty=1;
+		layout.setConstraints(setLabel, s);
+//		setLabel.addComponentListener(new ComponentAdapter(){
+//			public void componentResized(ComponentEvent e){
+//				setIcon.setImage(setIcon.getImage().getScaledInstance(setLabel.getWidth(), setLabel.getHeight(),Image.SCALE_DEFAULT));
+//			}
+//		}
+//	);
+		setLabel.setIcon(setIcon);
+		setLabel.addMouseListener(
+				new MouseAdapter(){
+					public void mouseClicked(MouseEvent e){
+					//	selectedRow = Integer.parseInt(e.getComponent().getName());
+						setSetPanel(setLabel.getWidth()+setLabel.getX()-setPanel.getWidth(),setLabel.getY()+basicPanel.getHeight()+setLabel.getHeight());
+
+					}          
+				}
+				);   
+	//	setLabel.setHorizontalTextPosition(setLabel.CENTER);
+		seasonPanel.add(setLabel);
 
 		String [] tempHeader = new String[17];
 		String[][] tableString = new String[5][17];
@@ -298,6 +408,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		DefaultTableModel model = new DefaultTableModel(tableString,tempHeader);
 		JTable table = new JTable(model);
 		s.gridwidth=0;
+		s.gridheight = 0;
 		s.weightx = 1; 
 		s.weighty=5;
 		layout.setConstraints(table, s);
