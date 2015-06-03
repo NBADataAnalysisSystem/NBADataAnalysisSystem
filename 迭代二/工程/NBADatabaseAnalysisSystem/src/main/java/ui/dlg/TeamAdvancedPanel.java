@@ -50,11 +50,13 @@ public class TeamAdvancedPanel extends JPanel {
 	JComboBox<String> oth;
 	JComboBox<String> union;
 	JComboBox<String> type;
+	JComboBox<String> season;
 	int rowNum;
 	String yearSelected;
 	String othSelected;
 	String unionSelected;
 	String typeSelected;
+	String seasonSelected;
 	JButton submit;
 	String[] sift;
 	
@@ -124,6 +126,18 @@ public class TeamAdvancedPanel extends JPanel {
 				}   
 			});
 		}
+		
+		season = new JComboBox<String>();
+		this.add(season);
+		//selectTeam.setBackground(Color.decode("#FFFFFF"));//me
+		season.setFont(new Font("Serif",1, 15));
+		season.addItem("常规赛");
+		season.addItem("季后赛");
+		season.addItem("季前赛");
+		season.setEditable(false);
+		season.setOpaque(false);
+		season.setBounds(width/25 ,height/15+10, width/5, height/15);
+		season.setBackground(Color.WHITE);
 
 		
 		union = new JComboBox<String>();
@@ -148,6 +162,7 @@ public class TeamAdvancedPanel extends JPanel {
 		othSelected = oth.getSelectedItem().toString();
 		unionSelected = union.getSelectedItem().toString();
 		typeSelected = type.getSelectedItem().toString();
+		seasonSelected = season.getSelectedItem().toString();
 		
 		submit = new JButton();
 		submit.setBounds(width/25 + type.getWidth()*2+width*8/25,height/15+10,width/5, height/15);
@@ -169,6 +184,7 @@ public class TeamAdvancedPanel extends JPanel {
 		        		yearSelected = year.getSelectedItem().toString();
 		        		othSelected = oth.getSelectedItem().toString();
 		        		unionSelected = union.getSelectedItem().toString();
+		        		seasonSelected = season.getSelectedItem().toString();
 		        		if(othSelected.equals("比率")==false&&othSelected.equals("效率")==false){
 		        			typeSelected = type.getSelectedItem().toString();
 		        		}else{
@@ -300,7 +316,7 @@ public class TeamAdvancedPanel extends JPanel {
 						for(int i = 0;i<header.length;i++){
 							if(header[i].equals("名称")){
 								//System.out.println(tableContent[selectedRow][i]);
-								PlayerCheckFrame check = new PlayerCheckFrame(table[selectedRow][i]);
+								TeamCheckFrame check = new TeamCheckFrame(table[selectedRow][i]);
 								check.setFatherFrame(frame);
 								AWTUtilities.setWindowOpacity(frame, 0.5f);
 							}
