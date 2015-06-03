@@ -16,7 +16,7 @@ import ui.frame.PlayerFrame;
 import com.sun.awt.AWTUtilities;
 
 
-@SuppressWarnings({ "serial" })
+@SuppressWarnings({ "serial", "restriction" })
 public class AdditionOfPlayerInfo extends InputDialog  {
 
 	private JCheckBox numOfPlayer;

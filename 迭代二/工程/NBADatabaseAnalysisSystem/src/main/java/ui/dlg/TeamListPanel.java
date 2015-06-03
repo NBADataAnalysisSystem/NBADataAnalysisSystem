@@ -25,7 +25,7 @@ import controller.teamcontroller.TeamController;
 import ui.component.MyTableHeaderPanel;
 import ui.component.MyTablePanel;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "restriction" })
 public class TeamListPanel extends JPanel {
 	int x;
 	int y;

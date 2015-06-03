@@ -32,7 +32,7 @@ import controller.hotcontroller.GetSeasonHotPlayerInfoRequest;
 import controller.hotcontroller.GetSeasonHotTeamInfoRequest;
 import controller.hotcontroller.HotController;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "restriction" })
 public class HotPanel extends JPanel {
 	int x;
 	int y;

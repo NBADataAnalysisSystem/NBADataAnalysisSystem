@@ -208,7 +208,6 @@ public class MatchPanel extends JPanel {
 		//第二维中,[0]为队名，，[1]~[4]为1-4节分数，[5]为总分，[6]为球队图标地址,[7]为比赛ID）
 		JPanel newMatch = new JPanel();
 		newMatch.addMouseListener(    new MouseAdapter(){
-			@SuppressWarnings("restriction")
 			public void mouseClicked(MouseEvent e){
 					MatchCheckFrame temp = new MatchCheckFrame(info[0][0],info[1][0],info[0][7]);
 					temp.setFatherFrame(frame);

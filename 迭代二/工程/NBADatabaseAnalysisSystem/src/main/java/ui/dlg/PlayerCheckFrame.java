@@ -40,6 +40,7 @@ import controller.playerdetailcontroller.PlayerDetailController;
 
 
 
+@SuppressWarnings("restriction")
 public class PlayerCheckFrame extends JFrame implements  ActionListener{
 
 	/**

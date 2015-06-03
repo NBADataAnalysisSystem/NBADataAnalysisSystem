@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 
 import com.sun.awt.AWTUtilities;
 
-@SuppressWarnings({ "serial" })
+@SuppressWarnings({ "serial", "restriction" })
 public class InputDialog extends JDialog implements ActionListener{
 
 	
