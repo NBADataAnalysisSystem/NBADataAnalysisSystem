@@ -426,7 +426,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		s.gridwidth=0;
 		s.gridheight=1;
 		s.weightx = 1; 
-		s.weighty=4;
+		s.weighty=3;
 		layout.setConstraints(temp, s);
 		mainPanel.add(temp);
 		
