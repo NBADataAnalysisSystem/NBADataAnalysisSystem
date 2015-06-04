@@ -633,15 +633,7 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 	            }
 	             return comp;
 	         }
-//	         public Class getColumnClass(int column) {  
-//	             Class returnValue;  
-//	             if ((column >= 0) && (column < this.getColumnCount())) {  
-//	                 returnValue = getValueAt(0, column).getClass();  
-//	             } else {  
-//	                 returnValue = Object.class;  
-//	             }  
-//	             return returnValue;  
-//	         }
+
 	 }
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() instanceof JButton){

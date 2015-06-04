@@ -31,6 +31,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -58,9 +60,13 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 	JPanel mainPanel;
 	JPanel basicPanel;
 	JScrollPane sp;
+	//资料界面子界面
 	JPanel infoPanel;
 	JPanel seasonPanel;
 	JPanel matchPanel;
+	//数据界面子界面
+	JPanel lifePanel;
+	JPanel playoffPanel;
 	//设置界面
 	JPanel setPanel;
 	final ImageIcon setIcon = new ImageIcon("resource/set.png");
@@ -69,17 +75,23 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 	String[] season;
 	String[] match;
 	String[] basicInfo;
+	//资料页面信息，最近一年的赛季信息及最近五场比赛
 	String[][] seasonInfo;
 	String[][] matchInfo;
+	//数据页面信息,全部的季后赛信息及职业生涯数据
+	String[][] playoffData;
+	String[][] lifeData;
 	
 	public PlayerCheckFrame(String tocheck){
+		UIManager.put("Table.background", new ColorUIResource(Color.WHITE));
+		UIManager.put("Table.alternateRowColor", Color.decode("#D1EEEE"));
 			player = tocheck;
 			season = new String[]{"年度","球队","场数","先发","分钟","%","三分%","罚球%","进攻","防守","场均篮板","场均助攻","场均抢断","场均盖帽","失误","犯规","场均得分"};
 			match = new String[]{"日期","对手","分钟","%","命中","出手","三分%","三分命中","三分出手","罚球%","罚球命中","罚球出手","进攻","防守","篮板","助攻","犯规","抢断","失误","盖帽","得分"};
 			basicInfo = new String[15];
 			seasonInfo = new String[2][17];
 			matchInfo = new String[5][22];
-			getData();
+			getInfo();
 			backgroundPanel = new JPanel();
 			height = Toolkit.getDefaultToolkit().getScreenSize().height*9/10;
 			width = Toolkit.getDefaultToolkit().getScreenSize().width*2/3;
@@ -106,12 +118,11 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		      
 			mainPanel = new JPanel();
 			mainPanel.setBounds(0, 0,width, height);
-			mainPanel.setLayout(null);
 			mainPanel.setOpaque(false);
 			
 			setPanel = new JPanel();
 			setPanel.setBackground(Color.decode("#696969"));
-			setPanel.setSize(width/5, height/3);
+			setPanel.setSize(width/7, height/3);
 			
 			setInfoPanel();
 	
@@ -192,8 +203,20 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 					public void mouseClicked(MouseEvent e){
 					//	selectedRow = Integer.parseInt(e.getComponent().getName());
 								tempFrame.remove(setPanel);
-								mainPanel.removeAll();
 								setInfoPanel();
+								tempFrame.revalidate();
+								tempFrame.repaint();
+
+					}          
+				}
+				);    
+		
+		dataButton.addMouseListener(
+				new MouseAdapter(){
+					public void mouseClicked(MouseEvent e){
+					//	selectedRow = Integer.parseInt(e.getComponent().getName());
+								tempFrame.remove(setPanel);
+								setDataPanel();
 								tempFrame.revalidate();
 								tempFrame.repaint();
 
@@ -229,6 +252,8 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 	 */
 	private void setInfoPanel(){
 		
+		mainPanel.removeAll();
+		mainPanel.setLayout(null);
 		basicPanel = new JPanel();
 		basicPanel.setBounds(0, 0, width, height/3);
 		basicPanel.setOpaque(false);
@@ -255,6 +280,116 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 	}
 
 	/**
+	 * 设置球员数据界面
+	 * 包括职业生涯数据和季后赛数据
+	 */
+	private void setDataPanel(){
+		mainPanel.removeAll();
+		GridBagLayout layout = new GridBagLayout();
+		GridBagConstraints s= new GridBagConstraints();
+		s.fill = GridBagConstraints.BOTH; 
+
+		mainPanel.setLayout(layout);
+		
+		JPanel temp = new JPanel();
+		temp.setOpaque(false);
+		s.gridwidth=0;
+		s.gridheight=1;
+		s.weightx = 1; 
+		s.weighty=2;
+		layout.setConstraints(temp, s);
+		mainPanel.add(temp);
+		
+		final JLabel lineLabel =new JLabel();
+		s.gridwidth=1;
+		s.gridheight=1;
+		s.weightx = 1; 
+		s.weighty=0;
+		layout.setConstraints(lineLabel, s);
+		lineLabel.setText("职业生涯数据");
+		lineLabel.addComponentListener(new ComponentAdapter(){
+			public void componentResized(ComponentEvent e){
+				lineIcon.setImage(lineIcon.getImage().getScaledInstance(lineLabel.getWidth(), lineLabel.getHeight(),Image.SCALE_DEFAULT));
+			}
+		}
+				);
+		lineLabel.setIcon(lineIcon);
+		lineLabel.setFont(new Font("宋体",1,height/24));
+		lineLabel.setForeground(Color.WHITE);
+		lineLabel.setHorizontalTextPosition(lineLabel.CENTER);
+		mainPanel.add(lineLabel);
+		
+		final JLabel setLabel =new JLabel();
+		s.gridwidth=0;
+		s.gridheight = 1;
+		s.weightx = 0; 
+		s.weighty=0;
+		layout.setConstraints(setLabel, s);
+//		setLabel.addComponentListener(new ComponentAdapter(){
+//			public void componentResized(ComponentEvent e){
+//				setIcon.setImage(setIcon.getImage().getScaledInstance(setLabel.getWidth(), setLabel.getHeight(),Image.SCALE_DEFAULT));
+//			}
+//		}
+//	);
+		setLabel.setIcon(setIcon);
+		setLabel.addMouseListener(
+				new MouseAdapter(){
+					public void mouseClicked(MouseEvent e){
+					//	selectedRow = Integer.parseInt(e.getComponent().getName());
+						setSetPanel(setLabel.getWidth()+setLabel.getX()-setPanel.getWidth(),setLabel.getY()+setLabel.getHeight());
+
+					}          
+				}
+				);   
+	//	setLabel.setHorizontalTextPosition(setLabel.CENTER);
+		mainPanel.add(setLabel);
+
+		getData();
+		
+		lifePanel = new JPanel();
+		setDataSp(lifePanel,lifeData);
+		s.gridwidth=0;
+		s.gridheight=16;
+		s.weightx = 1; 
+		s.weighty=16;
+		layout.setConstraints(sp, s);
+		mainPanel.add(sp);
+		
+		
+		final JLabel lineLabels =new JLabel();
+		s.gridwidth=0;
+		s.gridheight=1;
+		s.weightx = 23; 
+		s.weighty=0;
+		layout.setConstraints(lineLabels, s);
+		lineLabels.setText("季后赛数据");
+		lineLabels.addComponentListener(new ComponentAdapter(){
+			public void componentResized(ComponentEvent e){
+				lineIcon.setImage(lineIcon.getImage().getScaledInstance(lineLabels.getWidth(), lineLabels.getHeight(),Image.SCALE_DEFAULT));
+			}
+		}
+				);
+		lineLabels.setIcon(lineIcon);
+		lineLabels.setFont(new Font("宋体",1,height/24));
+		lineLabels.setForeground(Color.WHITE);
+		lineLabels.setHorizontalTextPosition(lineLabels.CENTER);
+		mainPanel.add(lineLabels);
+		
+		playoffPanel = new JPanel();
+		setDataSp(playoffPanel,playoffData);
+		s.gridwidth=0;
+		s.gridheight=0;
+		s.weightx = 1; 
+		s.weighty=16;
+		layout.setConstraints(sp, s);
+		mainPanel.add(sp);
+		
+		
+		this.revalidate();
+		this.repaint();
+	}
+	/**
+	 * 获取资料页面的信息
 	 * 	player = tocheck;
 	 *season = new String[]{"年度","球队","场数","先发","分钟","%","三分%","罚球%","进攻","防守","场均篮板","场均助攻","场均抢断","场均盖帽","失误","犯规","场均得分"};
 	*match = new String[]{"日期","对手","分钟","%","命中","出手","三分%","三分命中","三分出手","罚球%","罚球命中","罚球出手","进攻","防守","篮板","助攻","犯规","抢断","失误","盖帽","得分"};
@@ -268,7 +403,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 	*seasonInfo[0]为平均[1]为总数 。[n][17]就是上面那一串。。。
 	*matchInfo为最近五场比赛信息[0]-[4]为比赛。后面你懂得。。。
 	 */
-	private void getData() {
+	private void getInfo() {
 		// TODO Auto-generated method stub
 		PlayerDetailController controller = new PlayerDetailController();
 		GetPlayerDetailInfoResponse response = (GetPlayerDetailInfoResponse) controller.processRequest(new GetPlayerDetailInfoRequest(player));
@@ -276,8 +411,71 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		seasonInfo = response.getSeasonInfo();
 		matchInfo = response.getMatchInfo();
 	}
+	/**
+	 * 获取数据页面的信息
+	 * 	player = tocheck;
+	 *season = new String[]{"年度","球队","场数","先发","分钟","%","三分%","罚球%","进攻","防守","场均篮板","场均助攻","场均抢断","场均盖帽","失误","犯规","场均得分"};
+	*获取数据的方法 player为球员名称，用来获取basicInfo
+	*根据获取到的数据设置数组的行值，这里暂时取100
+	 */
+	private void getData(){
+		playoffData = new String[100][17];
+		lifeData = new String[100][17];
+	}
 
 
+	//设置数据界面的两个子界面
+	private void setDataSp(JPanel panel,String[][] content){
+		String [] tempHeader = new String[17];
+		final Object[][] tableString = new Object[content.length][17];
+		tempHeader= season;
+				
+		for(int i = 0;i<tableString.length;i++){
+			for(int j = 0 ; j<tableString[0].length;j++){
+				if(j <= 1){
+						tableString[i][j] = content[i][j] ;
+				}else{
+						if(content[i][j]!=null){
+							tableString[i][j] = Double.parseDouble(content[i][j]);
+						}else{
+							tableString[i][j] = content[i][j];
+						}
+				}
+			}
+		}
+		DefaultTableModel model = new DefaultTableModel(tableString,tempHeader) {  
+			public Class getColumnClass(int column) {  
+		        Class returnValue;  
+		        if ((column >=2) && (column < getColumnCount())) {  
+		            returnValue = Double.class;  
+		            
+		        } else {  
+		            returnValue = Object.class;  
+		        }  
+		        return returnValue;  
+		    }  
+		};
+		JTable table = new JTable(model);
+		MyTableBodyCellRenderrer render = new MyTableBodyCellRenderrer();
+		//	render.setOpaque(false); 
+	     
+	        table.setDefaultRenderer(Object.class,render);  
+			for(int i = 0;i<table.getColumnCount();i++){
+				table.getColumnModel().getColumn(i).setPreferredWidth(tempHeader[i].length()*height/25);	
+			}
+			table.getColumnModel().getColumn(0).setPreferredWidth(4*height/21);	
+			table.getColumnModel().getColumn(1).setPreferredWidth(4*height/21);	
+			table.getColumnModel().getColumn(4).setPreferredWidth(3*height/21);	
+			table.setRowHeight(height/26);
+			table.setEnabled(false);
+			table.setGridColor(Color.decode("#D1EEEE"));
+		
+		sp = new JScrollPane(table);
+		
+		this.revalidate();
+		this.repaint();
+		
+	}
 	@SuppressWarnings("static-access")
 	private void setMatchPanel() {
 		final ImageIcon icon = new ImageIcon("resource/Line.png");
@@ -563,6 +761,28 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
              return comp;
          }
  }
+		@SuppressWarnings("serial")
+		class MyTableBodyCellRenderrer extends DefaultTableCellRenderer{
+	        
+	         @Override
+	         public Component getTableCellRendererComponent(JTable table,
+	                 Object value, boolean isSelected, boolean hasFocus, int row,
+	                 int column)
+	         {
+	             // TODO Auto-generated method stub
+	             Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+	             if(row%2 ==1){
+	            	// ((JComponent) comp).setOpaque(false);
+	            	 
+	            	  comp.setBackground(Color.decode("#D1EEEE"));
+	             }else if(row%2 ==0 ){
+	           	  comp.setBackground(Color.white);
+	            }
+	             return comp;
+	         }
+
+	 }
+	 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() instanceof JButton){
 			JButton btn = (JButton)e.getSource();
