@@ -591,6 +591,8 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 					public void run(){
 						btnChoosedLabel.setBounds(btn_Player.getX(), btn_Player.getY(),120 , 30);
 						btnUnchoosedLabel.setBounds(btn_Season.getX(), btn_Season.getY(),120 , 30);
+						btnPanel.setComponentZOrder(btnChoosedLabel, 1);
+						btnPanel.setComponentZOrder(btn_Player, 0);
 						setPlayerPanel();
 						mainPanel.repaint();
 					}
@@ -601,6 +603,8 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 					public void run(){
 						btnUnchoosedLabel.setBounds(btn_Player.getX(), btn_Player.getY(),120 , 30);
 						btnChoosedLabel.setBounds(btn_Season.getX(), btn_Season.getY(),120 , 30);
+						btnPanel.setComponentZOrder(btnChoosedLabel, 1);
+						btnPanel.setComponentZOrder(btn_Season, 0);
 						setSeasonPanel();
 						mainPanel.repaint();
 					}
