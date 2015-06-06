@@ -14,8 +14,6 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -125,6 +123,8 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 			mainPanel.setBounds(0, 0,width, height);
 			mainPanel.setOpaque(false);
 			
+			lineIcon.setImage(lineIcon.getImage().getScaledInstance(width,height/14,Image.SCALE_DEFAULT));
+			setIcon.setImage(setIcon.getImage().getScaledInstance(height/14,height/14,Image.SCALE_DEFAULT));
 			setPanel = new JPanel();
 			setPanel.setBackground(Color.decode("#696969"));
 			setPanel.setSize(width/7, height/3);
@@ -326,12 +326,12 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		s.weighty=0;
 		layout.setConstraints(lineLabel, s);
 		lineLabel.setText("职业生涯数据");
-		lineLabel.addComponentListener(new ComponentAdapter(){
-			public void componentResized(ComponentEvent e){
-				lineIcon.setImage(lineIcon.getImage().getScaledInstance(lineLabel.getWidth(), lineLabel.getHeight(),Image.SCALE_DEFAULT));
-			}
-		}
-				);
+//		lineLabel.addComponentListener(new ComponentAdapter(){
+//			public void componentResized(ComponentEvent e){
+//				lineIcon.setImage(lineIcon.getImage().getScaledInstance(lineLabel.getWidth(), lineLabel.getHeight(),Image.SCALE_DEFAULT));
+//			}
+//		}
+//				);
 		lineLabel.setIcon(lineIcon);
 		lineLabel.setFont(new Font("宋体",1,height/24));
 		lineLabel.setForeground(Color.WHITE);
@@ -382,12 +382,12 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		s.weighty=0;
 		layout.setConstraints(lineLabels, s);
 		lineLabels.setText("季后赛数据");
-		lineLabels.addComponentListener(new ComponentAdapter(){
-			public void componentResized(ComponentEvent e){
-				lineIcon.setImage(lineIcon.getImage().getScaledInstance(lineLabels.getWidth(), lineLabels.getHeight(),Image.SCALE_DEFAULT));
-			}
-		}
-				);
+//		lineLabels.addComponentListener(new ComponentAdapter(){
+//			public void componentResized(ComponentEvent e){
+//				lineIcon.setImage(lineIcon.getImage().getScaledInstance(lineLabels.getWidth(), lineLabels.getHeight(),Image.SCALE_DEFAULT));
+//			}
+//		}
+//				);
 		lineLabels.setIcon(lineIcon);
 		lineLabels.setFont(new Font("宋体",1,height/24));
 		lineLabels.setForeground(Color.WHITE);
@@ -426,7 +426,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		s.gridwidth=0;
 		s.gridheight=1;
 		s.weightx = 1; 
-		s.weighty=3;
+		s.weighty=2;
 		layout.setConstraints(temp, s);
 		mainPanel.add(temp);
 		
@@ -437,12 +437,12 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		s.weighty=0;
 		layout.setConstraints(lineLabel, s);
 		lineLabel.setText("所有比赛数据");
-		lineLabel.addComponentListener(new ComponentAdapter(){
-			public void componentResized(ComponentEvent e){
-				lineIcon.setImage(lineIcon.getImage().getScaledInstance(lineLabel.getWidth(), lineLabel.getHeight(),Image.SCALE_DEFAULT));
-			}
-		}
-				);
+//		lineLabel.addComponentListener(new ComponentAdapter(){
+//			public void componentResized(ComponentEvent e){
+//				lineIcon.setImage(lineIcon.getImage().getScaledInstance(lineLabel.getWidth(), lineLabel.getHeight(),Image.SCALE_DEFAULT));
+//			}
+//		}
+//				);
 		lineLabel.setIcon(lineIcon);
 		lineLabel.setFont(new Font("宋体",1,height/24));
 		lineLabel.setForeground(Color.WHITE);
@@ -656,7 +656,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		}
 	@SuppressWarnings("static-access")
 	private void setMatchPanel() {
-		final ImageIcon icon = new ImageIcon("resource/Line.png");
+	//	final ImageIcon icon = new ImageIcon("resource/Line.png");
 		GridBagLayout layout = new GridBagLayout();
 		GridBagConstraints s= new GridBagConstraints();
 		s.fill = GridBagConstraints.BOTH; 
@@ -667,13 +667,13 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		s.weighty=1;
 		layout.setConstraints(lineLabel, s);
 		lineLabel.setText("最近五场比赛");
-		lineLabel.addComponentListener(new ComponentAdapter(){
-			public void componentResized(ComponentEvent e){
-				icon.setImage(icon.getImage().getScaledInstance(lineLabel.getWidth(), lineLabel.getHeight(),Image.SCALE_DEFAULT));
-			}
-		}
-	);
-		lineLabel.setIcon(icon);
+//		lineLabel.addComponentListener(new ComponentAdapter(){
+//			public void componentResized(ComponentEvent e){
+//				icon.setImage(icon.getImage().getScaledInstance(lineLabel.getWidth(), lineLabel.getHeight(),Image.SCALE_DEFAULT));
+//			}
+//		}
+//	);
+		lineLabel.setIcon(lineIcon);
 		lineLabel.setFont(new Font("宋体",1,height/24));
 		lineLabel.setForeground(Color.WHITE);
 		lineLabel.setHorizontalTextPosition(lineLabel.CENTER);
@@ -725,7 +725,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 
 	@SuppressWarnings("static-access")
 	private void setSeasonPanel() {
-		final ImageIcon lineIcon = new ImageIcon("resource/Line.png");
+		//final ImageIcon lineIcon = new ImageIcon("resource/Line.png");
 		GridBagLayout layout = new GridBagLayout();
 		GridBagConstraints s= new GridBagConstraints();
 		s.fill = GridBagConstraints.BOTH; 
@@ -737,12 +737,12 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		s.weighty=1;
 		layout.setConstraints(lineLabel, s);
 		lineLabel.setText("赛季数据");
-		lineLabel.addComponentListener(new ComponentAdapter(){
-			public void componentResized(ComponentEvent e){
-				lineIcon.setImage(lineIcon.getImage().getScaledInstance(lineLabel.getWidth(), lineLabel.getHeight(),Image.SCALE_DEFAULT));
-			}
-		}
-	);
+//		lineLabel.addComponentListener(new ComponentAdapter(){
+//			public void componentResized(ComponentEvent e){
+//				lineIcon.setImage(lineIcon.getImage().getScaledInstance(lineLabel.getWidth(), lineLabel.getHeight(),Image.SCALE_DEFAULT));
+//			}
+//		}
+//	);
 		lineLabel.setIcon(lineIcon);
 		lineLabel.setFont(new Font("宋体",1,height/21));
 		lineLabel.setForeground(Color.WHITE);

@@ -15,8 +15,6 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -352,7 +350,7 @@ private void setInfoPanel(){
 		s.gridwidth=0;
 		s.gridheight=1;
 		s.weightx = 1; 
-		s.weighty=4;
+		s.weighty=2;
 		layout.setConstraints(temp, s);
 		mainPanel.add(temp);
 		
@@ -363,12 +361,13 @@ private void setInfoPanel(){
 		s.weighty=0;
 		layout.setConstraints(lineLabel, s);
 		lineLabel.setText("赛季数据");
-		lineLabel.addComponentListener(new ComponentAdapter(){
-			public void componentResized(ComponentEvent e){
-				lineIcon.setImage(lineIcon.getImage().getScaledInstance(lineLabel.getWidth(), lineLabel.getHeight(),Image.SCALE_DEFAULT));
-			}
-		}
-				);
+//		lineLabel.addComponentListener(new ComponentAdapter(){
+//			public void componentResized(ComponentEvent e){
+//				lineIcon.setImage(lineIcon.getImage().getScaledInstance(lineLabel.getWidth(), lineLabel.getHeight(),Image.SCALE_DEFAULT));
+//			}
+//		}
+//				);
+		lineIcon.setImage(lineIcon.getImage().getScaledInstance(mainPanel.getWidth(),mainPanel.getHeight()/14,Image.SCALE_DEFAULT));
 		lineLabel.setIcon(lineIcon);
 		lineLabel.setFont(new Font("宋体",1,height/24));
 		lineLabel.setForeground(Color.WHITE);
@@ -387,6 +386,7 @@ private void setInfoPanel(){
 //			}
 //		}
 //	);
+		setIcon.setImage(setIcon.getImage().getScaledInstance(mainPanel.getHeight()/14,mainPanel.getHeight()/14,Image.SCALE_DEFAULT));
 		setLabel.setIcon(setIcon);
 		setLabel.addMouseListener(
 				new MouseAdapter(){
@@ -561,7 +561,7 @@ private void setInfoPanel(){
 		s.gridwidth=0;
 		s.gridheight=1;
 		s.weightx = 1; 
-		s.weighty=3;
+		s.weighty=2;
 		layout.setConstraints(temp, s);
 		mainPanel.add(temp);
 		
@@ -572,12 +572,13 @@ private void setInfoPanel(){
 		s.weighty=0;
 		layout.setConstraints(lineLabel, s);
 		lineLabel.setText("所有比赛数据");
-		lineLabel.addComponentListener(new ComponentAdapter(){
-			public void componentResized(ComponentEvent e){
-				lineIcon.setImage(lineIcon.getImage().getScaledInstance(lineLabel.getWidth(), lineLabel.getHeight(),Image.SCALE_DEFAULT));
-			}
-		}
-				);
+//		lineLabel.addComponentListener(new ComponentAdapter(){
+//			public void componentResized(ComponentEvent e){
+//				lineIcon.setImage(lineIcon.getImage().getScaledInstance(lineLabel.getWidth(), lineLabel.getHeight(),Image.SCALE_DEFAULT));
+//			}
+//		}
+//				);
+		lineIcon.setImage(lineIcon.getImage().getScaledInstance(mainPanel.getWidth(),mainPanel.getHeight()/14,Image.SCALE_DEFAULT));
 		lineLabel.setIcon(lineIcon);
 		lineLabel.setFont(new Font("宋体",1,height/24));
 		lineLabel.setForeground(Color.WHITE);
@@ -596,6 +597,7 @@ private void setInfoPanel(){
 //			}
 //		}
 //	);
+		setIcon.setImage(setIcon.getImage().getScaledInstance(mainPanel.getHeight()/14,mainPanel.getHeight()/14,Image.SCALE_DEFAULT));
 		setLabel.setIcon(setIcon);
 		setLabel.addMouseListener(
 				new MouseAdapter(){
@@ -678,6 +680,7 @@ private void setInfoPanel(){
 		final ImageIcon icon = new ImageIcon("resource/Line.png");
 		GridBagLayout layout = new GridBagLayout();
 		GridBagConstraints s= new GridBagConstraints();
+		s.insets = new Insets(0,0,0,0);
 		s.fill = GridBagConstraints.BOTH; 
 		playerPanel.setLayout(layout);
 		final JLabel lineLabel =new JLabel();
@@ -687,12 +690,12 @@ private void setInfoPanel(){
 		s.weighty=0;
 		layout.setConstraints(lineLabel, s);
 		lineLabel.setText("常规赛 阵容");
-		lineLabel.addComponentListener(new ComponentAdapter(){
-			public void componentResized(ComponentEvent e){
-				icon.setImage(icon.getImage().getScaledInstance(lineLabel.getWidth(), lineLabel.getHeight(),Image.SCALE_DEFAULT));
-			}
-		}
-	);
+//		lineLabel.addComponentListener(new ComponentAdapter(){
+//			public void componentResized(ComponentEvent e){
+				icon.setImage(icon.getImage().getScaledInstance(this.getWidth(),mainPanel.getHeight()/14,Image.SCALE_DEFAULT));
+//			}
+//		}
+//	);
 		lineLabel.setIcon(icon);
 		lineLabel.setFont(new Font("宋体",1,height/24));
 		lineLabel.setForeground(Color.WHITE);
@@ -789,12 +792,13 @@ private void setInfoPanel(){
 		s.weighty=0;
 		layout.setConstraints(lineLabel, s);
 		lineLabel.setText("常规赛数据");
-		lineLabel.addComponentListener(new ComponentAdapter(){
-			public void componentResized(ComponentEvent e){
-				icon.setImage(icon.getImage().getScaledInstance(lineLabel.getWidth(), lineLabel.getHeight(),Image.SCALE_DEFAULT));
-			}
-		}
-	);
+//		lineLabel.addComponentListener(new ComponentAdapter(){
+//			public void componentResized(ComponentEvent e){
+//				icon.setImage(icon.getImage().getScaledInstance(lineLabel.getWidth(), lineLabel.getHeight(),Image.SCALE_DEFAULT));
+//			}
+//		}
+//	);
+		icon.setImage(icon.getImage().getScaledInstance(this.getWidth(),mainPanel.getHeight()/14,Image.SCALE_DEFAULT));
 		lineLabel.setIcon(icon);
 		lineLabel.setFont(new Font("宋体",1,height/21));
 		lineLabel.setForeground(Color.WHITE);
@@ -813,6 +817,7 @@ private void setInfoPanel(){
 //			}
 //		}
 //	);
+		setIcon.setImage(setIcon.getImage().getScaledInstance(mainPanel.getHeight()/14,mainPanel.getHeight()/14,Image.SCALE_DEFAULT));
 		setLabel.setIcon(setIcon);
 		setLabel.addMouseListener(
 				new MouseAdapter(){
