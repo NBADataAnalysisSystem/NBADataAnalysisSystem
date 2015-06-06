@@ -56,6 +56,7 @@ import ui.dlg.PlayerBasicInfoPanel;
 import ui.dlg.PlayerCheckFrame;
 import ui.dlg.PlayerSeasonInfoPanel;
 
+@SuppressWarnings("restriction")
 public class PlayerFrame extends JFrame implements FrameInterface, ActionListener {
 
 	/**
@@ -88,6 +89,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 	
 	private JButton btn_Player;
 	private JButton btn_Season;
+	private JButton btn_Data;
 	@SuppressWarnings("unused")
 	private JButton btn_close;
 	@SuppressWarnings("unused")
@@ -101,6 +103,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 	
 	static JLabel btnUnchoosedLabel = new JLabel();
 	static JLabel btnChoosedLabel = new JLabel();
+	static JLabel btnUnchoosedLabelB = new JLabel();
 	PlayerBasicInfoPanel playerPanel;
 	PlayerSeasonInfoPanel seasonPanel;
 	
@@ -255,6 +258,9 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		btnUnchoosedLabel.setIcon(btnUnchoosedIcon);
 		btnUnchoosedLabel.setOpaque(false);
 		
+		btnUnchoosedLabelB.setIcon(btnUnchoosedIcon);
+		btnUnchoosedLabelB.setOpaque(false);
+		
 		btn_Season= new JButton("赛季数据");
 		btn_Season.setName("season");
 		btn_Season.addActionListener(this);
@@ -268,6 +274,20 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		btnPanel.add(btnUnchoosedLabel);
 		btn_Season.setBounds(btn_Player.getWidth()+btn_Player.getX()+20,(btnPanel.getHeight())-30,120,30);
 		btnUnchoosedLabel.setBounds(btn_Season.getX(), btn_Season.getY(),120 , 30);
+		
+		btn_Data= new JButton("数据统计");
+		btn_Data.setName("data");
+		btn_Data.addActionListener(this);
+
+		btn_Data.setContentAreaFilled(false);
+		btn_Data.setForeground(Color.decode("#FF0000"));
+		btn_Data.setFont(new Font("宋体",1, 20));//设置字体
+		btn_Data.setBorderPainted(false);
+		btn_Data.setFocusPainted(false);
+		btnPanel.add(btn_Data);
+		btnPanel.add(btnUnchoosedLabelB);
+		btn_Data.setBounds(btn_Season.getWidth()+btn_Season.getX()+20,(btnPanel.getHeight())-30,120,30);
+		btnUnchoosedLabelB.setBounds(btn_Data.getX(), btn_Data.getY(),120 , 30);
 		
 		JButton btn_Close = new JButton("×");
 		btn_Close.setMargin(new Insets(0,0,0,0));
@@ -591,6 +611,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 					public void run(){
 						btnChoosedLabel.setBounds(btn_Player.getX(), btn_Player.getY(),120 , 30);
 						btnUnchoosedLabel.setBounds(btn_Season.getX(), btn_Season.getY(),120 , 30);
+						btnUnchoosedLabelB.setBounds(btn_Data.getX(), btn_Data.getY(),120 , 30);
 						btnPanel.setComponentZOrder(btnChoosedLabel, 1);
 						btnPanel.setComponentZOrder(btn_Player, 0);
 						setPlayerPanel();
@@ -603,9 +624,23 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 					public void run(){
 						btnUnchoosedLabel.setBounds(btn_Player.getX(), btn_Player.getY(),120 , 30);
 						btnChoosedLabel.setBounds(btn_Season.getX(), btn_Season.getY(),120 , 30);
+						btnUnchoosedLabelB.setBounds(btn_Data.getX(), btn_Data.getY(),120 , 30);
 						btnPanel.setComponentZOrder(btnChoosedLabel, 1);
 						btnPanel.setComponentZOrder(btn_Season, 0);
 						setSeasonPanel();
+						mainPanel.repaint();
+					}
+				});
+			}else if("data".equals(name)){
+				playerInfoType = PlayerInfoType.PLAYER_SEASON_TOTAL_INFO;
+				SwingUtilities.invokeLater(new Runnable(){
+					public void run(){
+						btnUnchoosedLabel.setBounds(btn_Player.getX(), btn_Player.getY(),120 , 30);
+						btnUnchoosedLabelB.setBounds(btn_Season.getX(), btn_Season.getY(),120 , 30);
+						btnChoosedLabel.setBounds(btn_Data.getX(), btn_Data.getY(),120 , 30);
+						btnPanel.setComponentZOrder(btnChoosedLabel, 1);
+						btnPanel.setComponentZOrder(btn_Data, 0);
+					//	setSeasonPanel();
 						mainPanel.repaint();
 					}
 				});
