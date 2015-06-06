@@ -54,6 +54,7 @@ import ui.component.MyTableHeaderPanel;
 import ui.component.MyTablePanel;
 import ui.dlg.PlayerBasicInfoPanel;
 import ui.dlg.PlayerCheckFrame;
+import ui.dlg.PlayerDataPanel;
 import ui.dlg.PlayerSeasonInfoPanel;
 
 @SuppressWarnings("restriction")
@@ -106,6 +107,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 	static JLabel btnUnchoosedLabelB = new JLabel();
 	PlayerBasicInfoPanel playerPanel;
 	PlayerSeasonInfoPanel seasonPanel;
+	PlayerDataPanel dataPanel;
 	
 	//标签标记
 	PlayerInfoType playerInfoType;
@@ -163,8 +165,8 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		      //TODO
 				seasonPanel = new PlayerSeasonInfoPanel(0,20,mainPanel.getWidth(),mainPanel.getHeight()*2/11);
 				playerPanel  = new PlayerBasicInfoPanel(0,20,mainPanel.getWidth(),mainPanel.getHeight()*2/11);
+				dataPanel  = new PlayerDataPanel(0,20,mainPanel.getWidth(),mainPanel.getHeight()-20);
 				seasonPanel.setPlayerFrame(this);
-				playerPanel.setPlayerFrame(this);
 				playerPanel.setPlayerFrame(this);
 				playerPanel.setList();
 				ArrayList<String> tempPlayer = playerPanel.getList();
@@ -477,7 +479,10 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		
 	//	playerPanel  = new PlayerBasicInfoPanel(0,20,mainPanel.getWidth(),mainPanel.getHeight()*2/11);
 		mainPanel.remove(seasonPanel);
+		mainPanel.remove(dataPanel);
 		mainPanel.add(playerPanel,0);
+		mainPanel.remove(tablePanel);
+		mainPanel.add(tablePanel,0);
 		playerPanel.setList();
 		ArrayList<String> temp = playerPanel.getList();
 		this.setList(temp);
@@ -487,15 +492,37 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 //		AdditionOfPlayerInfo addition = new AdditionOfPlayerInfo(this);
 //		addition.setPlayerFrame(this);
 //		addition.setVisible(true);	
+	}
+	
+	public void setDataPanel(){
 		
+	//	playerPanel  = new PlayerBasicInfoPanel(0,20,mainPanel.getWidth(),mainPanel.getHeight()*2/11);
+		mainPanel.remove(seasonPanel);
+		mainPanel.remove(playerPanel);
+		mainPanel.remove(tablePanel);
+		mainPanel.add(dataPanel,0);
+	//	playerPanel.setList();
+	//	ArrayList<String> temp = playerPanel.getList();
+//		this.setList(temp);
+		//setTableContent(tableHeader,tableContent);//TODO 暂用
+//		refreshData();//数据连接好后使用这个
+//		AWTUtilities.setWindowOpacity(this, 0.5f);
+//		AdditionOfPlayerInfo addition = new AdditionOfPlayerInfo(this);
+//		addition.setPlayerFrame(this);
+//		addition.setVisible(true);	
 		
+		mainPanel.repaint();
+
 	}
 	
 	public void setSeasonPanel(){
 		
 	//	playerPanel  = new PlayerBasicInfoPanel(0,20,mainPanel.getWidth(),mainPanel.getHeight()*2/11);
 		mainPanel.remove(playerPanel);
+		mainPanel.remove(dataPanel);
 		mainPanel.add(seasonPanel,0);
+		mainPanel.remove(tablePanel);
+		mainPanel.add(tablePanel,0);
 		seasonPanel.setSift();
 		seasonPanel.setList();
 		ArrayList<String> temp = seasonPanel.getList();
@@ -506,7 +533,6 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 //		AdditionOfPlayerInfo addition = new AdditionOfPlayerInfo(this);
 //		addition.setPlayerFrame(this);
 //		addition.setVisible(true);	
-		
 		
 	}
 	public void setSort(String string) {
@@ -640,7 +666,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 						btnChoosedLabel.setBounds(btn_Data.getX(), btn_Data.getY(),120 , 30);
 						btnPanel.setComponentZOrder(btnChoosedLabel, 1);
 						btnPanel.setComponentZOrder(btn_Data, 0);
-					//	setSeasonPanel();
+						setDataPanel();
 						mainPanel.repaint();
 					}
 				});

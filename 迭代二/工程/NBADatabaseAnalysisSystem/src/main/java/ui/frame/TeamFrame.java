@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import ui.dlg.TeamAdvancedPanel;
+import ui.dlg.TeamDataPanel;
 import ui.dlg.TeamListPanel;
 
 public class TeamFrame extends JFrame implements FrameInterface, ActionListener {
@@ -61,6 +62,7 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 	static JLabel btnUnchoosedLabel1 = new JLabel();
 	TeamListPanel listPanel ;
 	TeamAdvancedPanel advancedPanel;
+	TeamDataPanel dataPanel;
 	
 	public TeamFrame(){
 		
@@ -112,8 +114,10 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 		      //TODO
 				listPanel = new TeamListPanel(mainPanel.getWidth()/30,mainPanel.getHeight()/30,mainPanel.getWidth()*14/15,mainPanel.getHeight()*14/15);
 				advancedPanel = new TeamAdvancedPanel(mainPanel.getWidth()/30,mainPanel.getHeight()/30,mainPanel.getWidth()*14/15,mainPanel.getHeight()*14/15);
+				dataPanel = new TeamDataPanel(mainPanel.getWidth()/30,mainPanel.getHeight()/30,mainPanel.getWidth()*14/15,mainPanel.getHeight()*14/15);
 				advancedPanel.setFatherFrame(this);
 	 			listPanel.setFatherFrame(this);
+				dataPanel.setFatherFrame(this);
 		      backgroundPanel.add(btnPanel);
 		      backgroundPanel.add(mainPanel);
 		      mainPanel.add(listPanel);
@@ -318,6 +322,7 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 						btnUnchoosedLabel.setBounds(btn_TeamData.getX(), btn_TeamData.getY(),120 , 30);
 						btnUnchoosedLabel1.setBounds(btn_TeamAdvanced.getX(), btn_TeamAdvanced.getY(),120 , 30);
 						mainPanel.remove(advancedPanel);
+						mainPanel.remove(dataPanel);
 						mainPanel.add(listPanel,0);
 						mainPanel.validate();
 						mainPanel.repaint();
@@ -331,8 +336,9 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 						btnChoosedLabel.setBounds(btn_TeamData.getX(), btn_TeamData.getY(),120 , 30);
 						btnPanel.setComponentZOrder(btnChoosedLabel, 1);
 						btnPanel.setComponentZOrder(btn_TeamData, 0);
-					//	mainPanel.remove(listPanel);
-					//	mainPanel.remove(advancedPanel);
+						mainPanel.remove(listPanel);
+						mainPanel.remove(advancedPanel);
+						mainPanel.add(dataPanel);
 						mainPanel.validate();
 						mainPanel.repaint();
 					//	setSeasonPanel();
@@ -347,6 +353,7 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 						btnPanel.setComponentZOrder(btnChoosedLabel, 1);
 						btnPanel.setComponentZOrder(btn_TeamAdvanced, 0);
 						mainPanel.remove(listPanel);
+						mainPanel.remove(dataPanel);
 						mainPanel.add(advancedPanel,0);
 						mainPanel.validate();
 						mainPanel.repaint();
