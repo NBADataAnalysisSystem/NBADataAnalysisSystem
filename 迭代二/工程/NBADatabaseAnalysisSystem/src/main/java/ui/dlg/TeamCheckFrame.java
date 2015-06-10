@@ -85,6 +85,8 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 	String[][] playoffData;
 	String[][] matchData;
 //	String[][] matchInfo;
+	String[][] chartData;
+	TeamChartPanel chartPanel;
 	
 	public TeamCheckFrame(String tocheck){
 			UIManager.put("Table.background", new ColorUIResource(Color.WHITE));
@@ -180,27 +182,33 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 		JRadioButton infoButton = new JRadioButton("资料");
 		JRadioButton dataButton = new JRadioButton("数据");
 		JRadioButton matchButton = new JRadioButton("比赛");
+		JRadioButton chartButton = new JRadioButton("图表");
 		
 		ButtonGroup buttons = new ButtonGroup();
 		buttons.add(infoButton);
 		buttons.add(dataButton);
 		buttons.add(matchButton);
+		buttons.add(chartButton);
 		
 		infoButton.setOpaque(false);
 		dataButton.setOpaque(false);
 		matchButton.setOpaque(false);
+		chartButton.setOpaque(false);
 		
 		infoButton.setFont(new Font("黑体",1,height/24));
 		dataButton.setFont(new Font("黑体",1,height/24));
 		matchButton.setFont(new Font("黑体",1,height/24));
+		chartButton.setFont(new Font("黑体",1,height/24));
 		
 		infoButton.setForeground(Color.WHITE);
 		dataButton.setForeground(Color.WHITE);
 		matchButton.setForeground(Color.WHITE);
+		chartButton.setForeground(Color.WHITE);
 		
 		infoButton.setHorizontalAlignment(infoButton.CENTER);
 		dataButton.setHorizontalAlignment(dataButton.CENTER);
 		matchButton.setHorizontalAlignment(matchButton.CENTER);
+		chartButton.setHorizontalAlignment(matchButton.CENTER);
 		
 		infoButton.addMouseListener(
 				new MouseAdapter(){
@@ -242,10 +250,26 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 				);    
 		
 		
-		setPanel.setLayout(new GridLayout(3,1));
+		chartButton.addMouseListener(
+				new MouseAdapter(){
+					public void mouseClicked(MouseEvent e){
+					//	selectedRow = Integer.parseInt(e.getComponent().getName());
+								tempFrame.remove(setPanel);
+								setChartPanel();
+								tempFrame.revalidate();
+								tempFrame.repaint();
+
+					}          
+				}
+				);   
+		
+		
+		
+		setPanel.setLayout(new GridLayout(4,1));
 		setPanel.add(infoButton);
 		setPanel.add(dataButton);
 		setPanel.add(matchButton);
+		setPanel.add(chartButton);
 		this.add(setPanel,0);
 		this.addMouseListener(
 				new MouseAdapter(){
@@ -278,6 +302,68 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 		this.revalidate();
 		this.repaint();
 		setPanel.setLocation(x, y);
+		
+		
+	}
+	
+	@SuppressWarnings("static-access")
+	private void setChartPanel(){
+		mainPanel.removeAll();
+		mainPanel.setLayout(null);
+		
+
+		
+		final JLabel lineLabel =new JLabel();
+		lineLabel.setText("球队最近赛季得分情况图");
+//		lineLabel.addComponentListener(new ComponentAdapter(){
+//			public void componentResized(ComponentEvent e){
+//				lineIcon.setImage(lineIcon.getImage().getScaledInstance(lineLabel.getWidth(), lineLabel.getHeight(),Image.SCALE_DEFAULT));
+//			}
+//		}
+//				);
+		lineIcon.setImage(lineIcon.getImage().getScaledInstance(mainPanel.getWidth(),mainPanel.getHeight()/14,Image.SCALE_DEFAULT));
+		lineLabel.setIcon(lineIcon);
+		lineLabel.setFont(new Font("宋体",1,height/24));
+		lineLabel.setForeground(Color.WHITE);
+		lineLabel.setHorizontalTextPosition(lineLabel.CENTER);
+		lineLabel.setSize(width-height/14, height/14);
+		lineLabel.setLocation(0, 30);
+		mainPanel.add(lineLabel);
+		
+		final JLabel setLabel =new JLabel();
+//		setLabel.addComponentListener(new ComponentAdapter(){
+//			public void componentResized(ComponentEvent e){
+//				setIcon.setImage(setIcon.getImage().getScaledInstance(setLabel.getWidth(), setLabel.getHeight(),Image.SCALE_DEFAULT));
+//			}
+//		}
+//	);
+		setLabel.setIcon(setIcon);
+		setLabel.setSize(height/14, height/14);
+		setLabel.setLocation( lineLabel.getWidth(), 30);
+		setLabel.addMouseListener(
+				new MouseAdapter(){
+					public void mouseClicked(MouseEvent e){
+					//	selectedRow = Integer.parseInt(e.getComponent().getName());
+						setSetPanel(setLabel.getWidth()+setLabel.getX()-setPanel.getWidth(),setLabel.getY()+setLabel.getHeight());
+
+					}          
+				}
+				);   
+	//	setLabel.setHorizontalTextPosition(setLabel.CENTER);
+		mainPanel.add(setLabel);
+		
+		//TODO 连好数据后使用
+		getChartData();
+//		
+//		String[][] chartData = new String[lifeData.length][2];
+//		for(int i = 0;i<lifeData.length;i++){
+//			chartData[i][0] = lifeData[i][0];
+//			chartData[i][1] = lifeData[i][lifeData[i].length-1];
+//		}
+		
+		chartPanel = new TeamChartPanel(0,30+lineLabel.getHeight(),width,height-30,chartData);
+		chartPanel.setOpaque(false);
+		mainPanel.add(chartPanel);
 		
 		
 	}
@@ -539,6 +625,14 @@ private void setInfoPanel(){
 				this.revalidate();
 				this.repaint();
 				
+			}
+			//球员赛季得分情况，第一维为该球队球员名称，第二唯为赛季总得分
+			private void getChartData(){
+				chartData = new String[5][2];
+				for(int i = 0 ;i<5;i++){
+					chartData[i][0] = i+"";
+					chartData[i][1] = i+"";
+				}
 			}
 //所有赛季的场均信息
 	private void getPlayoffData() {
