@@ -11,7 +11,7 @@ public class TeamDaoJdbcImp implements TeamDao {
 	
 	private Connection connection;
 	
-	public TeamDaoJdbcImp() {
+	public TeamDaoJdbcImp(){
     	try {
 			Class.forName("org.sqlite.JDBC");
 			connection = DriverManager.getConnection("jdbc:sqlite:NBADatabase.db");
@@ -332,8 +332,9 @@ public class TeamDaoJdbcImp implements TeamDao {
 	
 	public static void main(String[] args){
 		TeamDaoJdbcImp t = new TeamDaoJdbcImp();
-		String[] strList = new String[4];
-		strList[0] ="12-13";
+		String[] strList = new String[2];
+		strList[0] ="13-14";
+		strList[1] = "E";
 		t.getTeamSeasonTotalBasicInfo(strList);
 	}
 
