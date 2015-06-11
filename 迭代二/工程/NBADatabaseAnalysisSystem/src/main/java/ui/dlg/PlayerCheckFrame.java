@@ -584,10 +584,10 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 	 * 	player = tocheck;
 	 *season = new String[]{"年度","球队","场数","先发","分钟","%","三分%","罚球%","进攻","防守","场均篮板","场均助攻","场均抢断","场均盖帽","失误","犯规","场均得分"};
 	*match = new String[]{"日期","对手","分钟","%","命中","出手","三分%","三分命中","三分出手","罚球%","罚球命中","罚球出手","进攻","防守","篮板","助攻","犯规","抢断","失误","盖帽","得分"};
-	*21为比赛ID（不显示）
 	*basicInfo = new String[16];
 	*seasonInfo = new String[2][17];
 	*matchInfo = new String[5][22];
+	*21为比赛ID（不显示）
 	*获取数据的方法 player为球员名称，用来获取basicInfo
 	*basicInfo[]:0:号数1:英文名2:球队3:位置4身高5:体重6:生日7:经历8:学校9:球员图片10:球队图片
 	*season为赛季数据的信息

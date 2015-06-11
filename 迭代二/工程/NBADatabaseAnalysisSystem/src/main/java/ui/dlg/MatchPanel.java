@@ -186,8 +186,12 @@ public class MatchPanel extends JPanel {
 	private void findMatch(String date) {
 		//TODO
 		String[] sift = new String[2];
-		sift[0] = date.split("-")[0];
-		sift[1] = date.split("-")[1] + "-" + date.split("-")[2];
+		if(Integer.parseInt(date.split("-")[1])<10){
+			sift[0] = (Integer.parseInt(date.split("-")[0])-1)+"";
+		}else{
+			sift[0] = date.split("-")[0];
+		}
+		sift[1] = date;
 		MatchController controller = new MatchController();
 		GetMatchSectionInfoResponse response = (GetMatchSectionInfoResponse) controller.processRequest(
 				new GetMatchSectionInfoRequest(sift));
