@@ -9,10 +9,10 @@ import java.util.ArrayList;
 
 import dao.teamdao.TeamDao;
 
-public class TeamDaoJdbcImpV2 implements TeamDao {
+public class TeamDaoJdbcImpV3 implements TeamDao {
 	Connection connection =null;
 	
-	public TeamDaoJdbcImpV2(){
+	public TeamDaoJdbcImpV3(){
 		try {
 			Class.forName("org.sqlite.JDBC");
 			connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/cross/Documents/GitHub/NBADataCollector/Database.db");
@@ -174,14 +174,14 @@ public class TeamDaoJdbcImpV2 implements TeamDao {
 	}
 
 	public static void main(String[] args){
-		TeamDaoJdbcImpV2 t = new TeamDaoJdbcImpV2();
-		String[] sift = new String[2];
-		sift[0] = "20132014";
-		sift[1] = "Western";
+		//TeamDaoJdbcImpV2 t = new TeamDaoJdbcImpV2();
+		//String[] sift = new String[2];
+		//sift[0] = "20132014";
+		//sift[1] = "Western";
 		//t.getTeamSeasonTotalBasicInfo(sift);
 		//t.getTeamSeasonAvgBasicInfo(sift);
 		//t.getTeamSeasonEffInfo(sift);
-		t.getTeamList();
+		//t.getTeamList();
 	}
 	
 	
