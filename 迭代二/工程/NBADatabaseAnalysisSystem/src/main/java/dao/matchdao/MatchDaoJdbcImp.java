@@ -14,7 +14,7 @@ public class MatchDaoJdbcImp implements MatchDao {
 	public MatchDaoJdbcImp() {
     	try {
 			Class.forName("org.sqlite.JDBC");
-			connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/cross/Documents/GitHub/NBADataCollector/Database.db");
+			connection = DriverManager.getConnection("jdbc:sqlite:NBADatabase.db");
 		} catch (ClassNotFoundException e) {
 			System.out.println("没有找到sqlite jdbc");
 			e.printStackTrace();
@@ -37,7 +37,6 @@ public class MatchDaoJdbcImp implements MatchDao {
 		try {
 			stat = connection.createStatement();
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			System.out.println("创建Statement错误！");
 		}
 		ResultSet rs = null;
@@ -53,7 +52,6 @@ public class MatchDaoJdbcImp implements MatchDao {
 					+ "from matches m,teams t1,teams t2,paths "
 					+ "where t1.id = m.home_court_team_id and t2.id=m.away_team_id " + condition);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			System.out.println("执行Statement 错误！");
 		}
 		
@@ -66,7 +64,6 @@ public class MatchDaoJdbcImp implements MatchDao {
 				result.add(strList);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -81,49 +78,6 @@ public class MatchDaoJdbcImp implements MatchDao {
 		return result;
 	}
 	
-	public ArrayList<String[]> getMatchSectionInfoV2(String[] sift){
-		ResultSet rs =null;
-		ArrayList<String[]> result = new ArrayList<String[]>();
-		Statement stat = null;
-		String path ="";
-		try{
-			stat = connection.createStatement();
-			rs=stat.executeQuery("select AbsolutePath from Path where Category='Team'");
-			rs.next();
-			path=rs.getString(1);
-			rs = stat.executeQuery("select HomeCourtTeamAbb,HomeScore1,HomeScore2,HomeScore3,HomeScore4,HomeScore,HomeCourtTeamAbb,Overtime,"
-					+ "AwayTeamAbb,AwayScore1,AwayScore2,AwayScore3,AwayScore4,AwayScore,AwayTeamAbb,Overtime from Match"+sift[0]+"Season where DateOfMatch='"+sift[1]+"'");
-			while (rs.next()){
-				String[] strList = new String[16];
-				for(int i =0 ;i <16;i++){
-					strList[i]=rs.getString(i+1);
-				}
-				strList[6]=path+strList[6]+".png";
-				strList[14]=path+strList[14]+".png";
-				result.add(strList);
-			}
-			stat.close();
-		}catch (Exception e){
-			e.printStackTrace();
-		}
-		show(result);
-		return result;
-	}
-	
-	private void show(ArrayList<String[]> list){
-		if(list.size()==0){
-			System.out.println("ArrayList为空");
-		}else{
-			int length =list.get(0).length;
-			for(int i =0;i<list.size();i++){
-				for(int j=0;j<length;j++){
-					System.out.print(list.get(i)[j]+" ");
-				}
-				System.out.println();
-			}
-		}
-	
-	}
 	public void close() {
 		try {
 			connection.close();
@@ -134,11 +88,10 @@ public class MatchDaoJdbcImp implements MatchDao {
 	}
 	
 	public static void main(String[] args){
-		MatchDaoJdbcImp t = new MatchDaoJdbcImp();
-		String[] strList = new String[2];
-		strList[0] ="20132014";
-		strList[1] = "2013-11-05";
-		t.getMatchSectionInfoV2(strList);
+		//MatchDaoJdbcImp t = new MatchDaoJdbcImp();
+		//String[] strList = new String[2];
+		//strList[0] ="20132014";
+		//strList[1] = "2013-11-05";
 	}
 
 }
