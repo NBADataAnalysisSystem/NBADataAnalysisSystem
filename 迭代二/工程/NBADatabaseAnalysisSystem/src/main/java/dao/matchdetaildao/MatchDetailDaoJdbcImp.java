@@ -16,7 +16,7 @@ public class MatchDetailDaoJdbcImp implements MatchDetailDao {
 	public MatchDetailDaoJdbcImp() {
     	try {
 			Class.forName("org.sqlite.JDBC");
-			connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/cross/Documents/GitHub/NBADataCollector/Database.db");
+			connection = DriverManager.getConnection("jdbc:sqlite:NBADatabase.db");
 		} catch (ClassNotFoundException e) {
 			System.out.println("没有找到sqlite jdbc");
 			e.printStackTrace();
@@ -71,43 +71,6 @@ public class MatchDetailDaoJdbcImp implements MatchDetailDao {
 		return result;
 	}
 
-	public ArrayList<String[]> getTeamMatchPerformanceV2(String MatchID){
-		String path="";
-		String season  =getSeasonFromMatchID(MatchID);
-		ArrayList<String[]> result = new ArrayList<String[]>();
-		Statement stat = null;
-		ResultSet rs = null;
-		try{
-			stat=connection.createStatement();
-			rs=stat.executeQuery("select AbsolutePath from Path where category='Team'");
-			path=rs.getString(1);
-			rs=stat.executeQuery("select PlayerName,Pos,PresenceTime,round(100.0*Shootings/Shots,1),Shootings,"
-					+ "Shots,round(100.0*ThreePointShootings/ThreePointShots,1),ThreePointShootings,ThreePointShots,"
-					+ "round(100.0*FreeThrowShootings/FreeThrowShots,1),FreeThrowShootings,FreeThrowShots,OffensiveRebounds,"
-					+ "DefensiveRebounds,Rebounds,Assists,Fouls,Steals,TurnOvers,BlockShots,Score,TeamAbb  "
-					+ "from PlayerMatch"+season+"Season where MatchID='"+MatchID+"' and TeamAbb in "
-					+ "(select HomeCourtTeamAbb from Match"+season+"Season where MatchID='"+MatchID+"'); ");
-			while(rs.next()){
-				String[] tempList=new String[22];
-				for(int i = 0;i<22;i++){
-					tempList[i] = rs.getString(i+1);
-				}
-				tempList[21]=path+tempList[21]+".png";
-				result.add(tempList);
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return result;
-	}
-	
-	private String getSeasonFromMatchID(String MatchID){
-		String season=MatchID.substring(3,5);
-		season = "20"+season;
-		season = season+((Integer.parseInt(season)+1)+"");
-		return season;
-	}
-	
 	public ArrayList<String[]> getRivalTeamMatchPerformance(String matchID){
 		ArrayList<String[]> result = new ArrayList<String[]>();
 		
@@ -153,51 +116,6 @@ public class MatchDetailDaoJdbcImp implements MatchDetailDao {
 		return result;
 	}
 	
-	public ArrayList<String[]> getRivalTeamMatchPerformanceV2(String MatchID){
-		String path="";
-		String season  =getSeasonFromMatchID(MatchID);
-		ArrayList<String[]> result = new ArrayList<String[]>();
-		Statement stat = null;
-		ResultSet rs = null;
-		try{
-			stat=connection.createStatement();
-			rs=stat.executeQuery("select AbsolutePath from Path where category = 'Team'");
-			path=rs.getString(1);
-			rs=stat.executeQuery("select PlayerName,Pos,PresenceTime,round(100.0*Shootings/Shots,1),Shootings,"
-					+ "Shots,round(100.0*ThreePointShootings/ThreePointShots,1),ThreePointShootings,ThreePointShots,"
-					+ "round(100.0*FreeThrowShootings/FreeThrowShots,1),FreeThrowShootings,FreeThrowShots,OffensiveRebounds,"
-					+ "DefensiveRebounds,Rebounds,Assists,Fouls,Steals,TurnOvers,BlockShots,Score,TeamAbb "
-					+ "from PlayerMatch"+season+"Season where MatchID='"+MatchID+"' and TeamAbb in "
-					+ "(select AwayTeamAbb from Match"+season+"Season where MatchID='"+MatchID+"'); ");
-			while(rs.next()){
-				String[] tempList=new String[22];
-				for(int i = 0;i<22;i++){
-					tempList[i] = rs.getString(i+1);
-				}
-				tempList[21]=path+tempList[21]+".png";
-				result.add(tempList);
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return result;
-	}
-	
-	private void show(ArrayList<String[]> list){
-		if(list.size()==0){
-			System.out.println("ArrayList为空");
-		}else{
-			int length =list.get(0).length;
-			for(int i =0;i<list.size();i++){
-				for(int j=0;j<length;j++){
-					System.out.print(list.get(i)[j]+" ");
-				}
-				System.out.println();
-			}
-		}
-	
-	}
-	
 	public void close() {
 		try {
 			connection.close();
@@ -210,9 +128,9 @@ public class MatchDetailDaoJdbcImp implements MatchDetailDao {
 	
 	
 	public static void main(String[] args){
-		MatchDetailDaoJdbcImp t = new MatchDetailDaoJdbcImp();
-		String[] strList = new String[2];
-		t.getTeamMatchPerformanceV2("0011300001");
+		//MatchDetailDaoJdbcImp t = new MatchDetailDaoJdbcImp();
+		//String[] strList = new String[2];
+		//t.getTeamMatchPerformanceV2("0011300001");
 		//strList[0] ="13-14";
 		//strList[1] = "round(1.0*sum(pmp.shootings)/count(distinct pmp.match_id),1)";
 		//t.getRivalTeamMatchPerformance("17");
