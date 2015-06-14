@@ -621,40 +621,13 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 	}
 	/**
 	 * 用于获取统计图表数据
-	 * lineChartData[][]为球员生涯效率值变化情况，折线图其中需要数据。。很多- -。在此方法下首先声明了。。
+	 * lineChartData[][]为球员生涯效率值变化情况，效率值听说可以直接扒。。不能的话再告诉我，迭代一有计算公式
+	 	lineChartData[][]第一维为赛季，第二唯为效率值
 	 */
+	@SuppressWarnings("unused")
 	private void getLineChartData(){
-		double threeP ;//球员三分球命中数
-		double  AST;//球员助攻数
-		double lgAST ;//联盟助攻数
-		double lgFG;//联盟命中数
-		double lgFT;//联盟出手数
-		double FT;//球员罚球命中数
-		double tmAST;//球队助攻数
-		double tmFG;//球队命中数
-		double lgPTS;//联盟平均得分
-		double lgFGA;//联盟平均出手；
-		double lgORB;//联盟平均前板；
-		double lgTO;//联盟平均失误；
-		double lgFTA;//联盟平均罚球数；
-		double TO;//球员失误
-		double lgTRB;//联盟平均总板；
-		double VOP;//联盟进攻平均效率；
-		double FGA;//球员出手数；
-		double FG;//投中数。
-		double DRBP;//，联盟平均防守篮板；
-		double FTA;//，球员罚球数；
-		double TRB;//，球员总板；
-		double ORB;//，球员前板；
-		double STL;//，球员抢断。
-		double BLK;//，球员盖帽。
-		double PF;//，球员犯规；
-		double lgPF;//联盟球员平均犯规
-		double FM;//，罚球数；
-		double TmORB;//，球队前板数；
-		double TmTO;//球队失误数
-		double lgPace;//联盟场均回合数
-		double tmPace;//球队场均回合数
+		
+		
 		
 //		double tmPoss;//，我方进攻次数；
 //		double oppPoss;//，对方进攻次数；
@@ -664,6 +637,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 	 *  * barChartData[][]为球员场均得分，场均篮板，场均助攻，罚球%，三分%与联盟这些值的对比
 	 * barChartData[0][0]为球员名，barChartData[1][0]为“联盟”。1-5对应上面五个数据
 	 */
+	@SuppressWarnings("unused")
 	private void getBarChartData(){
 		
 	}
