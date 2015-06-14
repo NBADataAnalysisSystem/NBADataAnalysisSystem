@@ -15,7 +15,7 @@ import org.jfree.chart.plot.PiePlot3D;
 import org.jfree.data.general.DefaultPieDataset;
 
 @SuppressWarnings("serial")
-public class TeamChartPanel extends JPanel {
+public class TeamPieChartPanel extends JPanel {
 	
 	int x;
 	int y;
@@ -24,7 +24,7 @@ public class TeamChartPanel extends JPanel {
 	JFreeChart chart;
 	ChartPanel chartPanel;
 	
-	public TeamChartPanel(int x,int y,int width,int height,String[][] data){
+	public TeamPieChartPanel(int x,int y,int width,int height,String[][] data){
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -35,7 +35,7 @@ public class TeamChartPanel extends JPanel {
 		this.setBounds(x, y, width, height);
 		this.setLayout(null);
 		
-		chartPanel.setBounds(x, y, width, height/2);
+		chartPanel.setBounds(0, 0, width, height);
 		this.add(chartPanel);
 		
 		chartPanel.setOpaque(false);
@@ -108,7 +108,7 @@ public class TeamChartPanel extends JPanel {
 	JFrame test = new JFrame();
 	test.setSize(600, 700);
 	test.setUndecorated(true);
-	TeamChartPanel panel = new TeamChartPanel(0,0,600,700,testString);
+	TeamPieChartPanel panel = new TeamPieChartPanel(0,0,600,700,testString);
 	panel.setBackground(Color.decode("#FF0000"));
 	panel.setForeground(Color.decode("#FF0000"));
 	test.add(panel);

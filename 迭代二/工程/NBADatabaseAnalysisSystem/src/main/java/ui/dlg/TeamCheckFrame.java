@@ -85,9 +85,10 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 	String[][] playoffData;
 	String[][] matchData;
 //	String[][] matchInfo;
-	String[][] chartData;
-	TeamChartPanel chartPanel;
-	
+	String[][] pieChartData;
+	String[][] barChartData;
+	TeamPieChartPanel pieChartPanel;
+	TeamBarChartPanel barChartPanel; 
 	public TeamCheckFrame(String tocheck){
 			UIManager.put("Table.background", new ColorUIResource(Color.WHITE));
 			UIManager.put("Table.alternateRowColor", Color.decode("#D1EEEE"));
@@ -353,7 +354,8 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 		mainPanel.add(setLabel);
 		
 		//TODO 连好数据后使用
-		getChartData();
+		getPieChartData();
+		getBarChartData();
 //		
 //		String[][] chartData = new String[lifeData.length][2];
 //		for(int i = 0;i<lifeData.length;i++){
@@ -361,9 +363,13 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 //			chartData[i][1] = lifeData[i][lifeData[i].length-1];
 //		}
 		
-		chartPanel = new TeamChartPanel(0,30+lineLabel.getHeight(),width,height-30,chartData);
-		chartPanel.setOpaque(false);
-		mainPanel.add(chartPanel);
+		pieChartPanel = new TeamPieChartPanel(0,30+lineLabel.getHeight(),width,height*2/5,pieChartData);
+		pieChartPanel.setOpaque(false);
+		mainPanel.add(pieChartPanel);
+		
+		barChartPanel = new TeamBarChartPanel(0,30+lineLabel.getHeight()+pieChartPanel.getHeight(),width,height*2/5,barChartData);
+		barChartPanel.setOpaque(false);
+		mainPanel.add(barChartPanel);
 		
 		
 	}
@@ -627,12 +633,22 @@ private void setInfoPanel(){
 				
 			}
 			//球员赛季得分情况，第一维为该球队球员名称，第二唯为赛季总得分
-			private void getChartData(){
-				chartData = new String[5][2];
+			private void getPieChartData(){
+				pieChartData = new String[5][2];
 				for(int i = 0 ;i<5;i++){
-					chartData[i][0] = i+"";
-					chartData[i][1] = i+"";
+					pieChartData[i][0] = i+"";
+					pieChartData[i][1] = i+"";
 				}
+			}
+			
+			//球员赛季得分情况，第一维为该球队球员名称，第二唯为赛季总得分
+			private void getBarChartData(){
+				barChartData = new String[2][6];
+				for(int i = 0 ;i<6;i++){
+					barChartData[0][i] = i+"";
+					barChartData[1][i] = i+"";
+				}
+				barChartData[1][0] = "联盟";
 			}
 //所有赛季的场均信息
 	private void getPlayoffData() {

@@ -85,7 +85,8 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 	//比赛页面信息，该球员全部比赛信息
 	String[][] allMatch;
 	
-	PlayerChartPanel chartPanel;
+	PlayerLineChartPanel lineChartPanel;
+	PlayerBarChartPanel barChartPanel;
 	
 	public PlayerCheckFrame(String tocheck){
 		UIManager.put("Table.background", new ColorUIResource(Color.WHITE));
@@ -349,9 +350,23 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 			chartData[i][1] = i+"";
 		}
 		
-		chartPanel = new PlayerChartPanel(0,30+lineLabel.getHeight(),width,height-30,chartData);
-		chartPanel.setOpaque(false);
-		mainPanel.add(chartPanel);
+		lineChartPanel = new PlayerLineChartPanel(0,lineLabel.getHeight()+30,width,height*2/5,chartData);
+		lineChartPanel.setOpaque(false);
+		mainPanel.add(lineChartPanel);
+		
+		String[][] barChartData = new String[2][6];
+		for(int i = 0 ;i<6;i++){
+			barChartData[0][i] = i+"";
+			barChartData[1][i] = i+"";
+		}
+			barChartData[1][0] = "联盟";
+		
+			System.out.println(height/2);
+		barChartPanel = new PlayerBarChartPanel(0,lineLabel.getHeight()+lineChartPanel.getHeight()+30,width,height*2/5,barChartData);
+		barChartPanel.setOpaque(false);
+		mainPanel.add(barChartPanel);
+		
+		
 		
 		
 	}

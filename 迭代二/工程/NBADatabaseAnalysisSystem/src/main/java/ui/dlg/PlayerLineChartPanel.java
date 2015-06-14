@@ -20,7 +20,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.TextAnchor;
 
 @SuppressWarnings("serial")
-public class PlayerChartPanel extends JPanel {
+public class PlayerLineChartPanel extends JPanel {
 	
 	int x;
 	int y;
@@ -29,7 +29,7 @@ public class PlayerChartPanel extends JPanel {
 	JFreeChart chart;
 	ChartPanel chartPanel;
 	
-	public PlayerChartPanel(int x,int y,int width,int height,String[][] data){
+	public PlayerLineChartPanel(int x,int y,int width,int height,String[][] data){
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -40,7 +40,7 @@ public class PlayerChartPanel extends JPanel {
 		this.setBounds(x, y, width, height);
 		this.setLayout(null);
 		
-		chartPanel.setBounds(x, y, width, height/2);
+		chartPanel.setBounds(0, 0, width, height);
 		this.add(chartPanel);
 		
 		chartPanel.setOpaque(false);
