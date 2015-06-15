@@ -975,6 +975,7 @@ private void setInfoPanel(){
 			table.getColumnModel().getColumn(i).setPreferredWidth(tableString[0][i].length()*height/21);	
 		}
 		table.getColumnModel().getColumn(0).setPreferredWidth(4*height/21);	
+		table.getColumnModel().getColumn(2).setPreferredWidth(2*height/21);	
 //		table.getColumnModel().getColumn(1).setPreferredWidth(4*height/21);	
 		table.setRowHeight(height/24);
 		table.getTableHeader().setSize(new Dimension(width,height/24));
