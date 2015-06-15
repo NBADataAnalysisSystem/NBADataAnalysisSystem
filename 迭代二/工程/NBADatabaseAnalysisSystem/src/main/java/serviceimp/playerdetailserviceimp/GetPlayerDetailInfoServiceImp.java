@@ -1,7 +1,7 @@
 package serviceimp.playerdetailserviceimp;
 
 import dao.playerdetaildao.PlayerDetailDao;
-import dao.playerdetaildao.PlayerDetailDaoJdbcImp;
+import dao.playerdetaildao.PlayerDetailDaoJdbcImpV2;
 import service.playerdetailservice.GetPlayerDetailInfoService;
 
 public class GetPlayerDetailInfoServiceImp implements GetPlayerDetailInfoService {
@@ -9,7 +9,7 @@ public class GetPlayerDetailInfoServiceImp implements GetPlayerDetailInfoService
 	PlayerDetailDao dao;
 	
 	public GetPlayerDetailInfoServiceImp() {
-		dao = new PlayerDetailDaoJdbcImp();
+		dao = new PlayerDetailDaoJdbcImpV2();
 	}
 	
 	public String[][] getPlayerSeasonInfo(String playerName) {

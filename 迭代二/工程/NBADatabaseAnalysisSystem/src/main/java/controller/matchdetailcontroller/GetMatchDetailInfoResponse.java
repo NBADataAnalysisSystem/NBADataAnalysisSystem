@@ -13,6 +13,7 @@ public class GetMatchDetailInfoResponse implements Response {
 	public GetMatchDetailInfoResponse(ArrayList<String[]> infoA, ArrayList<String[]> infoB) {
 		this.infoA = infoA;
 		this.infoB = infoB;
+		System.out.println(infoA);
 	}
 	
 	public String getName() {

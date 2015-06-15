@@ -20,6 +20,7 @@ public class GetMatchDetailInfoHandler implements RequestHandler {
 			getMatchService.close();
 		} catch (Exception e) {
 			response = new ErrorResponse(request, e);
+			e.printStackTrace();
 		}
 		return response;
 	}
