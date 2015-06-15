@@ -7,8 +7,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
@@ -25,7 +23,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.Timer;
 
 
 
@@ -69,7 +66,6 @@ public class MatchPanel extends JPanel {
 		dateToFind = new String();
 		dateToShow = new String();
 		//暂用
-		dateToShow = "2013-01-01";
 		rowNum = 3;
 		this.setLayout(null);
 		
@@ -118,6 +114,7 @@ public class MatchPanel extends JPanel {
 		datePanel.add(btn_Find);
 		datePanel.setOpaque(false);
 		
+		dateToShow =formatter.format(dateFindingField.getDate());
 		
 		sp = new JScrollPane(mainPanel);
 		this.findMatch(dateToShow);
