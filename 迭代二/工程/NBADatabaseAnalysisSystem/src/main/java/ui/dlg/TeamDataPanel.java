@@ -1,10 +1,10 @@
 package ui.dlg;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.text.DecimalFormat;
 import java.util.Random;
 
 import javax.swing.JFrame;
@@ -15,6 +15,16 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.labels.StandardCategoryToolTipGenerator;
+import org.jfree.chart.plot.SpiderWebPlot;
+import org.jfree.chart.title.LegendTitle;
+import org.jfree.chart.title.TextTitle;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.ui.RectangleEdge;
 
 @SuppressWarnings("serial")
 public class TeamDataPanel extends JPanel {
@@ -66,6 +76,11 @@ public class TeamDataPanel extends JPanel {
 			temp[i] = countData[i][2];
 		}
 		Rrebound = this.culculate(temp);
+		
+		JPanel chartPanel = createDemoPanel();
+		chartPanel.setOpaque(false);
+		reducePanel.add(chartPanel);
+		
 		JPanel rPanel = new JPanel();
 		rPanel.setLayout(new GridLayout(3,1));
 		rPanel.setOpaque(false);
@@ -96,8 +111,6 @@ public class TeamDataPanel extends JPanel {
 		reduceArea.setText("由此可知，在命中率、罚球命中率、场均篮板中，与球队胜率相关系数的绝对值最接近1的是\n"+max);
 		reduceArea.setOpaque(false);
 		reducePanel.add(reduceArea);
-		
-		reducePanel.add(new JPanel());
 	
 	
 		this.add(reducePanel);
@@ -206,6 +219,46 @@ public class TeamDataPanel extends JPanel {
         }
 }
 	
+	   private CategoryDataset createDataset()
+       {
+        String s = "因素";
+        DefaultCategoryDataset defaultcategorydataset = new DefaultCategoryDataset();
+        defaultcategorydataset.addValue(Double.parseDouble(RP),s,"命中率");
+        defaultcategorydataset.addValue(Double.parseDouble(Rfree),s,"罚球%");
+        defaultcategorydataset.addValue(Double.parseDouble(Rrebound),s,"场均篮板数");
+        return defaultcategorydataset;
+       }
+
+       private JFreeChart createChart(CategoryDataset categorydataset)
+       {
+        SpiderWebPlot spiderwebplot = new SpiderWebPlot(categorydataset);
+        spiderwebplot.setStartAngle(54D);
+        spiderwebplot.setInteriorGap(0.40000000000000002D);
+        spiderwebplot.setToolTipGenerator(new StandardCategoryToolTipGenerator());
+        JFreeChart jfreechart = new JFreeChart("", TextTitle.DEFAULT_FONT, spiderwebplot, false);
+        LegendTitle legendtitle = new LegendTitle(spiderwebplot);
+        legendtitle.setPosition(RectangleEdge.BOTTOM);
+        jfreechart.setBackgroundPaint(null);
+        jfreechart.addSubtitle(legendtitle);
+        
+        spiderwebplot.setBackgroundAlpha(0.0f);
+        // 图形边框颜色  
+        spiderwebplot.setOutlinePaint(Color.RED);  
+        // plot.setBaseSectionPaint(Color.WHITE);  
+        // 图形边框粗细  
+        spiderwebplot.setOutlineStroke(new BasicStroke(1.0f));  
+  
+        // 指定图片的透明度(0.0-1.0)  
+        spiderwebplot.setForegroundAlpha(0.65f);  
+        return jfreechart;
+       }
+
+       public JPanel createDemoPanel()
+       {
+        JFreeChart jfreechart = createChart(createDataset());
+        return new ChartPanel(jfreechart);
+       }
+       
 	JFrame frame;
 	public void setFatherFrame(JFrame frame){
 		this.frame = frame;
