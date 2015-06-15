@@ -224,27 +224,27 @@ public class HotPanel extends JPanel {
 		this.add(sp);
 		this.setOpaque(false);
 		
-		 Timer t = new Timer(5000,new ActionListener(){
-             public void actionPerformed(ActionEvent arg0){
-            	 	
-            		clickedBtn = panel1 ;
-            		setPanel(dayHotPlayerBtn,dayHotPlayerPanel);
-            		
-
-            		clickedBtn = panel2;
-            		setPanel(seasonHotPlayerBtn,seasonHotPlayerPanel);
-            		
-
-            		clickedBtn = panel3;
-            		setPanel(seasonHotTeamBtn,seasonHotTeamPanel);
-
-     				mainPanel.repaint();
-     				mainPanel.revalidate();
-     	
-	               }
-	           }
-				 );
-		 t.start();
+//		 Timer t = new Timer(5000,new ActionListener(){
+//             public void actionPerformed(ActionEvent arg0){
+//            	 	
+//            		clickedBtn = panel1 ;
+//            		setPanel(dayHotPlayerBtn,dayHotPlayerPanel);
+//            		
+//
+//            		clickedBtn = panel2;
+//            		setPanel(seasonHotPlayerBtn,seasonHotPlayerPanel);
+//            		
+//
+//            		clickedBtn = panel3;
+//            		setPanel(seasonHotTeamBtn,seasonHotTeamPanel);
+//
+//     				mainPanel.repaint();
+//     				mainPanel.revalidate();
+//     	
+//	               }
+//	           }
+//				 );
+//		 t.start();
 		
 		
 	}

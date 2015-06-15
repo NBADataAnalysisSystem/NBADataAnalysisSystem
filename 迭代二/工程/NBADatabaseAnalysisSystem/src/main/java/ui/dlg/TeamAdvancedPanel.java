@@ -243,19 +243,19 @@ public class TeamAdvancedPanel extends JPanel {
 		table = setTableContent(header);
 		setTable(width/25,height/5,(width - width/12)/header.length,((height) - (height/5)-(height/25))/rowNum,header,table);
 		
-		 Timer t = new Timer(5000,new ActionListener(){
-             public void actionPerformed(ActionEvent arg0){
-            	 
-     				sift();
-     				panel.remove(sp);
-     				setTable(width/25,height/5,(width - width/12)/header.length,((height) - (height/5)-(height/25))/rowNum,header,table);
-	        		panel.repaint();
-     				System.out.println(table.length);
-     	
-             			}
-		 			}
-				 );
-		 t.start();
+//		 Timer t = new Timer(5000,new ActionListener(){
+//             public void actionPerformed(ActionEvent arg0){
+//            	 
+//     				sift();
+//     				panel.remove(sp);
+//     				setTable(width/25,height/5,(width - width/12)/header.length,((height) - (height/5)-(height/25))/rowNum,header,table);
+//	        		panel.repaint();
+//     				System.out.println(table.length);
+//     	
+//             			}
+//		 			}
+//				 );
+//		 t.start();
 		
 	}
 	
