@@ -38,7 +38,7 @@ public class TeamDetailDaoJdbcImpV2 implements TeamDetailDao{
 			path = rs.getString(1);
 			rs = stat.executeQuery("select FullName,Sec,round(NumOfMatch*WinRate,0),round(NumOfMatch*(1-WinRate),0),round(1.0*Score/NumOfMatch,1),"
 					+ "round(1.0*Rebounds/NumOfMatch,1),round(1.0*Assists/NumOfMatch,1),RivalScore,Abb"
-					+ " from Team,    Team"+currentSeason+"Season     where Team.Abb = Team"+currentSeason+"Season.TeamAbb and FullName='"+teamFullName+"' ");
+					+ " from Team,    Team"+currentSeason+"Season     where Team.Abb = Team"+currentSeason+"Season.TeamAbb and (FullName='"+teamFullName+"' or Abb = '"+teamFullName+"')");
 			for(int i = 0;i< 9;i++){
 				result[i] = rs.getString(i+1);
 			}
@@ -66,7 +66,7 @@ public class TeamDetailDaoJdbcImpV2 implements TeamDetailDao{
 						+ "round(1.0*DefensiveRebounds/NumOfMatch,1),round(1.0*Rebounds/NumOfMatch,1),round(1.0*Assists/NumOfMatch,1),"
 						+ "round(1.0*Steals/NumOfMatch,1),round(1.0*BlockShots/NumOfMatch,1),round(1.0*TurnOvers/NumOfMatch,1),round(1.0*Fouls/NumOfMatch,1),round(1.0*Score/NumOfMatch,1) "
 						+ "from Team,Team"+SEASON[i]+"Season "
-						+ "where Team.Abb = Team"+SEASON[i]+"Season.TeamAbb and Team.FullName = '"+teamFullName+"'");
+						+ "where Team.Abb = Team"+SEASON[i]+"Season.TeamAbb and (Team.FullName = '"+teamFullName+"' or Abb='"+teamFullName+"')");
 				if(rs.next()){
 					String[] tempList = new String[14];
 					tempList[0] = SEASON[i];
@@ -95,7 +95,7 @@ public class TeamDetailDaoJdbcImpV2 implements TeamDetailDao{
 				rs = stat.executeQuery("select NumOfMatch,Shootings,Shots,ThreePointShootings,ThreePointShots,FreeThrowShootings,FreeThrowShots,"
 						+ "OffensiveRebounds,DefensiveRebounds,Rebounds,Assists,Steals,BlockShots,TurnOvers,Fouls,Score "
 						+ "from Team,Team"+SEASON[i]+"Season "
-						+ "where Team.Abb = Team"+SEASON[i]+"Season.TeamAbb and Team.FullName = '"+teamFullName+"'");
+						+ "where Team.Abb = Team"+SEASON[i]+"Season.TeamAbb and (Team.FullName = '"+teamFullName+"' or Abb='"+teamFullName+"')");
 				if(rs.next()){
 					String[] tempList = new String[17];
 					tempList[0] = SEASON[i];
@@ -127,7 +127,7 @@ public class TeamDetailDaoJdbcImpV2 implements TeamDetailDao{
 					+ "round(1.0*BlockShots/NumOfMatch,1),round(1.0*Assists/NumOfMatch,1),Fouls,TurnOvers,round(1.0*Score/NumOfMatch,1) "
 					+ "from Team,"
 					+ "     Player"+currentSeason+"Season,"
-					+ "     Player where Player.TeamAbb = Team.Abb and Player.Name = Player"+currentSeason+"Season.PlayerName and Team.FullName='"+teamFullName+"'");
+					+ "     Player where Player.TeamAbb = Team.Abb and Player.Name = Player"+currentSeason+"Season.PlayerName and (Team.FullName='"+teamFullName+"' or Abb = '"+teamFullName+"')");
 			while(rs.next()){
 				String[] tempList = new String[16];
 				for(int i = 0 ;i<16;i++){
