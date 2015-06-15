@@ -114,10 +114,11 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 		      //TODO
 				listPanel = new TeamListPanel(mainPanel.getWidth()/30,mainPanel.getHeight()/30,mainPanel.getWidth()*14/15,mainPanel.getHeight()*14/15);
 				advancedPanel = new TeamAdvancedPanel(mainPanel.getWidth()/30,mainPanel.getHeight()/30,mainPanel.getWidth()*14/15,mainPanel.getHeight()*14/15);
-				dataPanel = new TeamDataPanel(mainPanel.getWidth()/30,mainPanel.getHeight()/30,mainPanel.getWidth()*14/15,mainPanel.getHeight()*14/15);
+				dataPanel = new TeamDataPanel(mainPanel.getWidth()/30,mainPanel.getHeight()/30,mainPanel.getWidth()*14/15,mainPanel.getHeight()*14/15-10);
 				advancedPanel.setFatherFrame(this);
 	 			listPanel.setFatherFrame(this);
 				dataPanel.setFatherFrame(this);
+				dataPanel.setOpaque(false);
 		      backgroundPanel.add(btnPanel);
 		      backgroundPanel.add(mainPanel);
 		      mainPanel.add(listPanel);
@@ -338,7 +339,7 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 						btnPanel.setComponentZOrder(btn_TeamData, 0);
 						mainPanel.remove(listPanel);
 						mainPanel.remove(advancedPanel);
-						mainPanel.add(dataPanel);
+						mainPanel.add(dataPanel,0);
 						mainPanel.validate();
 						mainPanel.repaint();
 					//	setSeasonPanel();
