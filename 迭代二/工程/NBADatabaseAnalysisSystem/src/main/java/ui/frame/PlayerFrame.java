@@ -165,7 +165,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		      //TODO
 				seasonPanel = new PlayerSeasonInfoPanel(0,20,mainPanel.getWidth(),mainPanel.getHeight()*2/11);
 				playerPanel  = new PlayerBasicInfoPanel(0,20,mainPanel.getWidth(),mainPanel.getHeight()*2/11);
-				dataPanel  = new PlayerDataPanel(0,20,mainPanel.getWidth(),mainPanel.getHeight()-20);
+				dataPanel  = new PlayerDataPanel(mainPanel.getWidth()/30,mainPanel.getHeight()/30,mainPanel.getWidth()*14/15,mainPanel.getHeight()*14/15-10);
 				seasonPanel.setPlayerFrame(this);
 				playerPanel.setPlayerFrame(this);
 				playerPanel.setList();
@@ -510,7 +510,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 //		AdditionOfPlayerInfo addition = new AdditionOfPlayerInfo(this);
 //		addition.setPlayerFrame(this);
 //		addition.setVisible(true);	
-		
+		mainPanel.revalidate();
 		mainPanel.repaint();
 
 	}

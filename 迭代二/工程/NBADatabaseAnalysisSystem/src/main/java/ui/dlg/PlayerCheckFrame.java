@@ -953,7 +953,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		number.setText(basicInfo[0]);
 		number.setForeground(Color.YELLOW);
 		number.setFont(new Font("宋体",1,50));
-		number.setBorder(BorderFactory.createLoweredBevelBorder());
+	//	number.setBorder(BorderFactory.createLoweredBevelBorder());
 		number.setHorizontalAlignment(number.RIGHT);
 		dataPanel.add("West",number);
 		contain = new JPanel();

@@ -3,6 +3,7 @@ package ui.dlg;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -11,7 +12,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import ui.dlg.TeamDataPanel.MyTableCellRenderrer;
 
 @SuppressWarnings("serial")
 public class PlayerDataPanel extends JPanel {
@@ -40,12 +40,9 @@ public class PlayerDataPanel extends JPanel {
 		
 		this.setLayout(new GridLayout(1,2));
 		this.add(sp);
-		
 		reducePanel = new JPanel();
 		reducePanel.setOpaque(false);
 		this.add(reducePanel);
-		
-	
 		this.setOpaque(false);
 		
 	}
@@ -62,7 +59,7 @@ public class PlayerDataPanel extends JPanel {
 		table.setGridColor(Color.decode("#D1EEEE"));
 		
 		sp = new JScrollPane(table);
-		sp.setOpaque(false);
+		//sp.setOpaque(false);
 		this.revalidate();
 		this.repaint();
 		
@@ -73,16 +70,17 @@ public class PlayerDataPanel extends JPanel {
 	 * data第一维为球队，第二唯0为球队名，1为球队命中率，2为罚球命中率，3为场均篮板，4为球队胜率
 	 */
 	private void getData(){
-		countData = new double[30][4];
-		data = new String[30][5];
-		for(int i = 0;i<30;i++){
+		countData = new double[50][4];
+		Random random = new Random();
+		data = new String[50][5];
+		for(int i = 0;i<50;i++){
 			data[i][0] = "test"+i;
-			data[i][1] = "0.5"; 
-			data[i][2] = "0.5";
-			data[i][3]= "0.5";
-			data[i][4] = "0.5";
+			data[i][1] = Double.toString(Math.abs(random.nextDouble())%1); 
+			data[i][2] = Double.toString(Math.abs(random.nextDouble())%1); 
+			data[i][3]=	Double.toString(Math.abs(random.nextDouble())%1); 
+			data[i][4] = Double.toString(Math.abs(random.nextDouble())%1); 
 		}
-		for(int i =0;i<30;i++){
+		for(int i =0;i<50;i++){
 			for(int j = 0;j<4;j++){
 				countData[i][j] = Double.parseDouble(data[i][j+1]);
 			}

@@ -25,7 +25,7 @@ public class PlayerSeasonInfoPanel extends JPanel{
 	JComboBox<String> selectOth;
 	JComboBox<String> selectYear;
 	JComboBox<String> selectType;
-	JComboBox<String> selectSeason;
+	//JComboBox<String> selectSeason;
 	ArrayList<String> infoToShow;
 	
 	PlayerFrame frame;
@@ -37,7 +37,7 @@ public class PlayerSeasonInfoPanel extends JPanel{
 	int width;
 	int height;
 	
-	String[] sift = new String[6];
+	String[] sift = new String[5];
 	
 	public PlayerSeasonInfoPanel(int x,int y,int width,int height){
 		this.x = x;
@@ -128,32 +128,33 @@ public class PlayerSeasonInfoPanel extends JPanel{
 		this.add(selectYear);
 		selectYear.setBackground(Color.decode("#FFFFFF"));
 		selectYear.setFont(new Font("Serif",1, 15));
+		selectYear.addItem("2014-2015");
 		selectYear.addItem("2013-2014");
 		selectYear.addItem("2012-2013");
 		selectYear.setEditable(false);
 		selectYear.setOpaque(false);
-		selectYear.setBounds(50 ,height/2, (width - 300)/6-5, (height-20)/2);
+		selectYear.setBounds(50 ,height/2, (width - 300)/3, (height-20)/2);
 		/*selectYear.addMouseListener(       new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){
 				sift[3] = selectYear.getSelectedItem().toString();
 			}
 		});*/
 		
-		selectSeason = new JComboBox<String>();
-		this.add(selectSeason);
-		selectSeason.setBackground(Color.decode("#FFFFFF"));
-		selectSeason.setFont(new Font("Serif",1, 15));
-		selectSeason.addItem("常规赛");
-		selectSeason.addItem("季后赛");
-		selectSeason.addItem("季前赛");
-		selectSeason.setEditable(false);
-		selectSeason.setOpaque(false);
-		selectSeason.setBounds(50+  (width - 300)/6+10,height/2, (width - 300)/6-5, (height-20)/2);
-		/*selectYear.addMouseListener(       new MouseAdapter(){
-			public void mouseClicked(MouseEvent e){
-				sift[3] = selectYear.getSelectedItem().toString();
-			}
-		});*/
+//		selectSeason = new JComboBox<String>();
+//	//	this.add(selectSeason);
+//		selectSeason.setBackground(Color.decode("#FFFFFF"));
+//		selectSeason.setFont(new Font("Serif",1, 15));
+//		selectSeason.addItem("常规赛");
+//		selectSeason.addItem("季后赛");
+//		selectSeason.addItem("季前赛");
+//		selectSeason.setEditable(false);
+//		selectSeason.setOpaque(false);
+//		selectSeason.setBounds(50+  (width - 300)/6+10,height/2, (width - 300)/6-5, (height-20)/2);
+//		/*selectYear.addMouseListener(       new MouseAdapter(){
+//			public void mouseClicked(MouseEvent e){
+//				sift[3] = selectYear.getSelectedItem().toString();
+//			}
+//		});*/
 		
 		selectType = new JComboBox<String>();
 		this.add(selectType);
@@ -229,7 +230,7 @@ public class PlayerSeasonInfoPanel extends JPanel{
             	sift[2] = selectOth.getSelectedItem().toString();
             	sift[3] = selectYear.getSelectedItem().toString();
             	sift[4] = selectType.getSelectedItem().toString();
-            	sift[5] = selectSeason.getSelectedItem().toString();
+            	//sift[5] = selectSeason.getSelectedItem().toString();
             	setList();
             	frame.setList(infoToShow);
             	if (sift[4].equals("总数")) {
@@ -263,7 +264,7 @@ public class PlayerSeasonInfoPanel extends JPanel{
 		sift[2] = "得分";
 		sift[3] = "2013-2014";
 		sift[4] = "总数";
-		sift[5] = "常规赛";
+	//	sift[5] = "常规赛";
 	}
 	
 	public void setList(){
