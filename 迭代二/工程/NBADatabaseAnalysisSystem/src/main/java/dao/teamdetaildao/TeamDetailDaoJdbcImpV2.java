@@ -15,7 +15,7 @@ public class TeamDetailDaoJdbcImpV2 implements TeamDetailDao{
 	public TeamDetailDaoJdbcImpV2() {
 		try {
 			Class.forName("org.sqlite.JDBC");
-			connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/cross/Documents/GitHub/NBADataCollector/Database.db");
+			connection = DriverManager.getConnection("jdbc:sqlite:Database.db");
 		} catch (ClassNotFoundException e) {
 			System.out.println("没有找到sqlite jdbc");
 			e.printStackTrace();
@@ -127,7 +127,7 @@ public class TeamDetailDaoJdbcImpV2 implements TeamDetailDao{
 					+ "round(1.0*BlockShots/NumOfMatch,1),round(1.0*Assists/NumOfMatch,1),Fouls,TurnOvers,round(1.0*Score/NumOfMatch,1) "
 					+ "from Team,"
 					+ "     Player"+currentSeason+"Season,"
-					+ "     Player where Player.TeamAbb = Team.Abb and Player.Name = Player"+currentSeason+"Season.PlayerName and Team.FullName='"+teamFullName+"' limit 5 ");
+					+ "     Player where Player.TeamAbb = Team.Abb and Player.Name = Player"+currentSeason+"Season.PlayerName and Team.FullName='"+teamFullName+"'");
 			while(rs.next()){
 				String[] tempList = new String[16];
 				for(int i = 0 ;i<16;i++){

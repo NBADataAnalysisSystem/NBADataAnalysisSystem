@@ -3,7 +3,7 @@ package serviceimp.teamdetailserviceimp;
 import java.util.ArrayList;
 
 import dao.teamdetaildao.TeamDetailDao;
-import dao.teamdetaildao.TeamDetailDaoJdbcImp;
+import dao.teamdetaildao.TeamDetailDaoJdbcImpV2;
 import service.teamdetailservice.GetTeamDetailInfoService;
 
 public class GetTeamDetailInfoServiceImp implements GetTeamDetailInfoService {
@@ -11,7 +11,7 @@ public class GetTeamDetailInfoServiceImp implements GetTeamDetailInfoService {
 	TeamDetailDao dao;
 	
 	public GetTeamDetailInfoServiceImp() {
-		dao = new TeamDetailDaoJdbcImp();
+		dao = new TeamDetailDaoJdbcImpV2();
 	}
 	
 	public String[] getTeamBasicInfo(String teamFullName) {

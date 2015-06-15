@@ -15,7 +15,7 @@ public class PlayerDaoJdbcImpV2 implements PlayerDao {
 	public PlayerDaoJdbcImpV2(){
 		try {
 			Class.forName("org.sqlite.JDBC");
-			connection = DriverManager.getConnection("jdbc:sqlite:C:/Users/cross/Documents/GitHub/NBADataCollector/Database.db");
+			connection = DriverManager.getConnection("jdbc:sqlite:Database.db");
 		} catch (ClassNotFoundException e) {
 			System.out.println("没有找到sqlite jdbc");
 			e.printStackTrace();
