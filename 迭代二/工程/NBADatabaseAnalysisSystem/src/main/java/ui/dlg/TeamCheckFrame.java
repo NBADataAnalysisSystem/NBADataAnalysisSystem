@@ -799,7 +799,7 @@ private void setInfoPanel(){
 		s.weightx = 1; 
 		s.weighty=0;
 		layout.setConstraints(lineLabel, s);
-		lineLabel.setText("常规赛 阵容");
+		lineLabel.setText("比赛阵容");
 //		lineLabel.addComponentListener(new ComponentAdapter(){
 //			public void componentResized(ComponentEvent e){
 				icon.setImage(icon.getImage().getScaledInstance(this.getWidth(),mainPanel.getHeight()/14,Image.SCALE_DEFAULT));
@@ -863,6 +863,7 @@ private void setInfoPanel(){
 		table.setFont(new Font("宋体",0,height/56));
 		table.getColumnModel().getColumn(0).setPreferredWidth(5*height/24);	
 		table.getColumnModel().getColumn(3).setPreferredWidth(3*height/24);	
+		table.getColumnModel().getColumn(4).setPreferredWidth(2*height/24);	
 		table.setRowHeight(height/23);
 		final TableRowSorter sorter = new TableRowSorter(model); 
 		table.setRowSorter(sorter);
@@ -901,7 +902,7 @@ private void setInfoPanel(){
 		s.weightx = 1; 
 		s.weighty=0;
 		layout.setConstraints(lineLabel, s);
-		lineLabel.setText("常规赛数据");
+		lineLabel.setText("赛季数据");
 //		lineLabel.addComponentListener(new ComponentAdapter(){
 //			public void componentResized(ComponentEvent e){
 //				icon.setImage(icon.getImage().getScaledInstance(lineLabel.getWidth(), lineLabel.getHeight(),Image.SCALE_DEFAULT));
@@ -1050,7 +1051,7 @@ private void setInfoPanel(){
 		JLabel chineseName = new JLabel();
 		chineseName.setText(basicInfo[0]);
 		chineseName.setFont(new Font("宋体",1,height/26));
-		chineseName.setBorder(BorderFactory.createLoweredBevelBorder());
+	//	chineseName.setBorder(BorderFactory.createLoweredBevelBorder());
 		chineseName.setHorizontalAlignment(chineseName.LEFT);
 		chineseName.setVerticalAlignment(chineseName.BOTTOM);
 		dataPanel.add(chineseName);
@@ -1072,7 +1073,7 @@ private void setInfoPanel(){
 		rankPanel.setOpaque(false);
 		rankPanel.setLayout(new GridLayout(2,1));
 		JLabel winLose = new JLabel();
-		winLose.setText(basicInfo[2]+"胜-"+basicInfo[3]+"负");
+		winLose.setText(basicInfo[2].split("\\.")[0]+"胜-"+basicInfo[3].split("\\.")[0]+"负");
 		winLose.setForeground(Color.GRAY);
 		winLose.setFont(new Font("宋体",1,height/24));
 		winLose.setHorizontalAlignment(winLose.LEFT);
@@ -1110,12 +1111,12 @@ private void setInfoPanel(){
 		contain.add(temp4);
 		contain.add(new JLabel());
 		JLabel tempa = new JLabel();
-		tempa.setText("季后赛");
+		tempa.setText("");
 		tempa.setFont(new Font("宋体",0,12));
 		tempa.setForeground(Color.decode("#9B30FF"));
 		contain.add(tempa);
 		JLabel tempb = new JLabel();
-		tempb.setText("排名");
+		tempb.setText("");
 		tempb.setFont(new Font("宋体",0,12));
 		tempb.setForeground(Color.decode("#9B30FF"));
 		contain.add(tempb);

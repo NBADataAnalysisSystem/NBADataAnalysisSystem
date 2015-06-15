@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.text.DecimalFormat;
+import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -78,13 +80,20 @@ public class TeamDataPanel extends JPanel {
 		rPanel.add(labelRrebound);
 		
 		reducePanel.add(rPanel);
-		
+		String max;
+		if(Double.parseDouble(RP)>Double.parseDouble(Rfree)&&Double.parseDouble(RP)>Double.parseDouble(Rrebound)){
+			max = "命中率";
+		}else if(Double.parseDouble(Rfree)>Double.parseDouble(RP)&&Double.parseDouble(Rfree)>Double.parseDouble(Rrebound)){
+			max = "罚球命中率";
+		}else{
+			max = "场均篮板";
+		}
 		reduceArea = new JTextArea();
 		reduceArea.setSelectedTextColor(Color.RED);
 		reduceArea.setLineWrap(true);        //激活自动换行功能 
 		reduceArea.setWrapStyleWord(true);            // 激活断行不断字功能
 		reduceArea.setFont(new Font("宋体",1,height/24));
-		reduceArea.setText("fasdfasfasfasfasdfasdfasfsafsafasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf");
+		reduceArea.setText("由此可知，在命中率、罚球命中率、场均篮板中，与球队胜率相关系数的绝对值最接近1的是\n"+max);
 		reduceArea.setOpaque(false);
 		reducePanel.add(reduceArea);
 		
@@ -118,8 +127,8 @@ public class TeamDataPanel extends JPanel {
 		double result = 0;
 		int n = factor.length;
 		double[] main = new double[30];
-		double aveFactor = 0;
-		double aveMain = 0;
+//		double aveFactor = 0;
+//		double aveMain = 0;
 		double sumFactor = 0;
 		double sumMain = 0;
 		double sumFM = 0;
@@ -135,11 +144,11 @@ public class TeamDataPanel extends JPanel {
 		for(int i = 0;i<n;i++){
 			sumFactor = sumFactor + factor[i];
 		}
-		  aveFactor = sumFactor/n;
+	//	  aveFactor = sumFactor/n;
 		for(int i = 0;i<n;i++){
 			sumMain = sumMain + main[i];
 		}
-			aveMain = sumMain/n;
+			//aveMain = sumMain/n;
 		for(int i = 0;i<n;i++){
 			sumSMain = sumSMain + Math.pow(main[i],2);
 		}
@@ -148,7 +157,7 @@ public class TeamDataPanel extends JPanel {
 		}
 		
 		result = (n*sumFM - sumFactor*sumMain)/((Math.sqrt(n*sumSFactor - Math.pow(sumFactor, 2)))*(Math.sqrt(n*sumSMain - Math.pow(sumMain, 2))));
-		System.out.println(sumSFactor);
+		System.out.println(n*sumSFactor - Math.pow(sumFactor, 2));
 		return Double.toString(result);
 	}
 	/**
@@ -157,13 +166,14 @@ public class TeamDataPanel extends JPanel {
 	 */
 	private void getData(){
 		countData = new double[30][4];
+		Random random = new Random();
 		data = new String[30][5];
 		for(int i = 0;i<30;i++){
 			data[i][0] = "test"+i;
-			data[i][1] = "0.5"; 
-			data[i][2] = "0.5";
-			data[i][3]= "0.5";
-			data[i][4] = "0.6";
+			data[i][1] = Double.toString(Math.abs(random.nextDouble())%1); 
+			data[i][2] = Double.toString(Math.abs(random.nextDouble())%1); 
+			data[i][3]=	Double.toString(Math.abs(random.nextDouble())%1); 
+			data[i][4] = Double.toString(Math.abs(random.nextDouble())%1); 
 		}
 		for(int i =0;i<30;i++){
 			for(int j = 0;j<4;j++){
