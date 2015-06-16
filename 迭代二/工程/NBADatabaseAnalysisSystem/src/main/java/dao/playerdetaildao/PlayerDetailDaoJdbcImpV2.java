@@ -36,7 +36,7 @@ public class PlayerDetailDaoJdbcImpV2 implements PlayerDetailDao{
 		
 		try{
 			stat  = connection.createStatement();
-			rs = stat.executeQuery("select TeamAbb,NumOfMatch,NumOfStart,PresenceTime,ShootingPersentage,ThreePointPersentage,FreeThrowPersentage,OffensiveRebounds,"
+			rs = stat.executeQuery("select TeamAbb,NumOfMatch,NumOfStart,PresenceTime,ShootingPersentage*100,ThreePointPersentage*100,FreeThrowPersentage*100,OffensiveRebounds,"
 					+ "DefensiveRebounds,Rebounds,Assists,Steals,BlockShots,TurnOvers,Fouls,Score "
 					+ "from Player"+currentSeason+"Season,"
 					+ "     Player "
@@ -69,8 +69,8 @@ public class PlayerDetailDaoJdbcImpV2 implements PlayerDetailDao{
 		String currentSeason = SEASON[SEASON.length-1];
 		try{
 			stat = connection.createStatement();
-			rs = stat.executeQuery("select DateOfMatch,TeamAbb,PresenceTime,round(1.0*Shootings/Shots,1),Shootings,Shots,"
-					+ "round(1.0*ThreePointShootings/ThreePointShots,1),ThreePointShootings,ThreePointShots,round(1.0*FreeThrowShootings/FreeThrowShots,1),"
+			rs = stat.executeQuery("select DateOfMatch,TeamAbb,PresenceTime,round(100.0*Shootings/Shots,1),Shootings,Shots,"
+					+ "round(100.0*ThreePointShootings/ThreePointShots,1),ThreePointShootings,ThreePointShots,round(100.0*FreeThrowShootings/FreeThrowShots,1),"
 					+ "FreeThrowShootings,FreeThrowShots,OffensiveRebounds,DefensiveRebounds,Rebounds,Assists,Fouls,Steals,TurnOvers,BlockShots,Score "
 					+ "from PlayerMatch"+currentSeason+"Season,"
 					+ "     Match"+currentSeason+"Season        "

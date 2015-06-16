@@ -65,7 +65,7 @@ public class PlayerDaoJdbcImpV2 implements PlayerDao {
 					+ "     Player,     "
 					+ "     Team "
 					+ "where Player.Name=Player"+sift[3]+"Season.PlayerName and Team.Abb=Player.TeamAbb and (Division like '"+sift[0]+"%' or Sec like '"+sift[0]+"%') and Pos like '"+sift[1]+"%' "
-					+ "order by "+sift[2]+"");
+					+ "order by "+sift[2]+" desc limit 50");
 			while(rs.next()){
 				String[] tempList = new String[17];
 				for(int i = 0 ;i<17;i++){
@@ -96,7 +96,7 @@ public class PlayerDaoJdbcImpV2 implements PlayerDao {
 					+ "     Player,     "
 					+ "     Team "
 					+ "where Player.Name=Player"+sift[3]+"Season.PlayerName and Team.Abb=Player.TeamAbb and (Division like '"+sift[0]+"%' or Sec like '"+sift[0]+"%') and Pos like '"+sift[1]+"%' "
-					+ "order by "+sift[2]+"");
+					+ "order by "+sift[2]+" desc limit 50");
 			while(rs.next()){
 				String[] tempList = new String[18];
 				for(int i = 0 ;i< 18;i++){
