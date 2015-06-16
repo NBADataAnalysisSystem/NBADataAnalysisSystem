@@ -71,7 +71,8 @@ public class PlayerDetailDaoJdbcImpV2 implements PlayerDetailDao{
 			stat = connection.createStatement();
 			rs = stat.executeQuery("select DateOfMatch,TeamAbb,PresenceTime,round(100.0*Shootings/Shots,1),Shootings,Shots,"
 					+ "round(100.0*ThreePointShootings/ThreePointShots,1),ThreePointShootings,ThreePointShots,round(100.0*FreeThrowShootings/FreeThrowShots,1),"
-					+ "FreeThrowShootings,FreeThrowShots,OffensiveRebounds,DefensiveRebounds,Rebounds,Assists,Fouls,Steals,TurnOvers,BlockShots,Score "
+					+ "FreeThrowShootings,FreeThrowShots,OffensiveRebounds,DefensiveRebounds,Rebounds,Assists,Fouls,Steals,TurnOvers,BlockShots,Score,"
+					+ "PlayerMatch"+currentSeason+"Season.MatchID "
 					+ "from PlayerMatch"+currentSeason+"Season,"
 					+ "     Match"+currentSeason+"Season        "
 					+ "where  PlayerMatch"+currentSeason+"Season.MatchID = Match"+currentSeason+"Season.MatchID and PlayerName='"+playerName+"' "
