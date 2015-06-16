@@ -56,9 +56,14 @@ public class MatchDetailDaoJdbcImpV2 implements MatchDetailDao {
 	}
 
 	private String getSeasonFromMatchID(String MatchID){
-		String season=MatchID.substring(3,5);
-		season = "20"+season;
-		season = season+((Integer.parseInt(season)+1)+"");
+		String season = null;
+		if(MatchID.charAt(1)=='g'){
+			season = "20122013";
+		}else{
+			season=MatchID.substring(3,5);
+			season = "20"+season;
+			season = season+((Integer.parseInt(season)+1)+"");
+		}
 		return season;
 	}
 	
