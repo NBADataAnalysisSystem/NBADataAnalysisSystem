@@ -19,7 +19,7 @@ public class GetHotInfoServiceImp implements GetHotInfoService {
 	public ArrayList<String[]> getCurrentHotPlayerInfo(String sift) {
 		mappingTable = new HotPlayerMappingTable();
 		sift = mappingTable.get(sift);
-		return dao.getCurrentHotPlayerInfo(sift);
+		return dao.getCurrentKingPlayerInfo(sift);
 	}
 
 	public ArrayList<String[]> getSeasonHotPlayerInfo(String sift) {

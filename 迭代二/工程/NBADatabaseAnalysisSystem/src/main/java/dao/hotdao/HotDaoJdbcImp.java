@@ -24,7 +24,7 @@ public class HotDaoJdbcImp implements HotDao {
 		}
     }
 	
-	public  ArrayList<String[]> getCurrentHotPlayerInfo(String sift){
+	public  ArrayList<String[]> getCurrentKingPlayerInfo(String sift){
 		ArrayList<String[]> result = new ArrayList<String[]>();
 		Statement stat = null;
 		try {
@@ -197,7 +197,13 @@ public class HotDaoJdbcImp implements HotDao {
 		String[] strList = new String[2];
 		strList[0] ="13-14";
 		strList[1] = "round(1.0*sum(pmp.shootings)/count(distinct pmp.match_id),1)";
-		t.getCurrentHotPlayerInfo("steals");
+		t.getCurrentKingPlayerInfo("steals");
+	}
+
+	@Override
+	public ArrayList<String[]> getSeasonHotPlayer(String sift) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
