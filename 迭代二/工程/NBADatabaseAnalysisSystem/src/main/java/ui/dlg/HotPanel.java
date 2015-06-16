@@ -453,7 +453,7 @@ public class HotPanel extends JPanel {
 							}else if(panel.getName().equals("赛季联盟球队数据王")){
 								TeamCheckFrame check = new TeamCheckFrame(name);
 								check.setFatherFrame(frame);
-							}
+							} 
 							AWTUtilities.setWindowOpacity(frame, 0.5f);
 
 					}          
