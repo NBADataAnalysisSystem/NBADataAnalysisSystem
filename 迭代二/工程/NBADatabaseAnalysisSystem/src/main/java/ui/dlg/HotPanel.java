@@ -67,10 +67,10 @@ public class HotPanel extends JPanel {
 	JButton freeShotRateT;
 	ArrayList<JButton> seasonHotTeamBtn;
 	
-//	JButton aveScoreI;
-//	JButton aveAssistI;
-//	JButton aveReboundI;
-//	ArrayList<JButton> improvePlayerBtn;
+	JButton aveScoreI;
+	JButton aveAssistI;
+	JButton aveReboundI;
+	ArrayList<JButton> improvePlayerBtn;
 	
 	ImageIcon lineIcon;
 	JLabel lineLabel;
@@ -80,7 +80,7 @@ public class HotPanel extends JPanel {
 	JPanel dayHotPlayerPanel;
 	JPanel seasonHotPlayerPanel;
 	JPanel seasonHotTeamPanel;
-//	JPanel improvePlayerPanel;
+	JPanel improvePlayerPanel;
 	
 	int rowNum;
 
@@ -151,13 +151,13 @@ public class HotPanel extends JPanel {
 		seasonHotTeamBtn.add(freeShotRateT);
 		
 		
-//		aveScoreI = new JButton("场均得分");
-//		aveAssistI = new JButton("场均助攻");
-//		aveReboundI = new JButton("场均篮板");
-//		improvePlayerBtn=  new ArrayList<JButton>();
-//		improvePlayerBtn.add(aveScoreI);
-//		improvePlayerBtn.add(aveAssistI);
-//		improvePlayerBtn.add(aveReboundI);
+		aveScoreI = new JButton("场均得分");
+		aveAssistI = new JButton("场均助攻");
+		aveReboundI = new JButton("场均篮板");
+		improvePlayerBtn=  new ArrayList<JButton>();
+		improvePlayerBtn.add(aveScoreI);
+		improvePlayerBtn.add(aveAssistI);
+		improvePlayerBtn.add(aveReboundI);
 
 		
 		dayHotPlayerPanel = new JPanel();
@@ -181,11 +181,12 @@ public class HotPanel extends JPanel {
 		setPanel(seasonHotTeamBtn,seasonHotTeamPanel);
 		mainPanel.add(seasonHotTeamPanel);
 		
-//		improvePlayerPanel = new JPanel();
-//		improvePlayerPanel.setName("进步最快球员");
-//		clickedBtn = improvePlayerPanel.getName() + aveScoreI.getText();
-//		setPanel(improvePlayerBtn,improvePlayerPanel);
-//		mainPanel.add(improvePlayerPanel);
+		improvePlayerPanel = new JPanel();
+		improvePlayerPanel.setName("进步最快球员");
+		clickedBtn = improvePlayerPanel.getName() + aveScoreI.getText();
+		panel4 = clickedBtn;
+		setPanel(improvePlayerBtn,improvePlayerPanel);
+		mainPanel.add(improvePlayerPanel);
 		
 		
 		
@@ -202,8 +203,8 @@ public class HotPanel extends JPanel {
 		seasonHotPlayerPanel.setOpaque(false);
 		seasonHotTeamPanel.setBorder(BorderFactory.createTitledBorder(""));
 		seasonHotTeamPanel.setOpaque(false);
-//		improvePlayerPanel.setBorder(BorderFactory.createTitledBorder(""));
-//		improvePlayerPanel.setOpaque(false);
+		improvePlayerPanel.setBorder(BorderFactory.createTitledBorder(""));
+		improvePlayerPanel.setOpaque(false);
 		
 		
 //		mainPanel.add(dayHotPlayerPanel);
@@ -212,7 +213,7 @@ public class HotPanel extends JPanel {
 //		mainPanel.add(improvePlayerPanel);
 		
 		mainPanel.setBounds(0, 0, width, height*3/(rowNum));
-		GridLayout layout = new GridLayout(3,1);
+		GridLayout layout = new GridLayout(4,1);
 		mainPanel.setLayout(layout);
 		mainPanel.setOpaque(false);
 		mainPanel.setPreferredSize(new Dimension(mainPanel.getWidth(),mainPanel.getHeight()));
@@ -294,6 +295,7 @@ public class HotPanel extends JPanel {
 	String panel1;
 	String panel2;
 	String panel3;
+	String panel4;
 	@SuppressWarnings("static-access")
 	private void setPanel(final ArrayList<JButton> btn,final JPanel panel){
 		panel.removeAll();
@@ -352,6 +354,8 @@ public class HotPanel extends JPanel {
             			panel2 = clickedBtn;
             		}if(clickedBtn.contains("赛季热点球队")){
             			panel3 = clickedBtn;
+            		}if(clickedBtn.contains("进步最快球员")){
+            			panel4 = clickedBtn;
             		}
             		setPanel (btn,panel);
             			}
@@ -504,7 +508,7 @@ public class HotPanel extends JPanel {
 			tempName.setText(hotInfo[i][0]);
 			tempName.setHorizontalAlignment(tempName.LEFT);
 			tempName.setHorizontalTextPosition(tempName.RIGHT);
-			tempName.setFont(new Font("宋体",0, width/50));
+			tempName.setFont(new Font("宋体",0, width/80));
 			tempName.addMouseListener(
 					new MouseAdapter(){
 						public void mouseClicked(MouseEvent e){
