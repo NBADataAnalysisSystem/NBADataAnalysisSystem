@@ -27,7 +27,7 @@ public class ChartDaoJdbcImp  implements ChartDao{
 	}
 	
 	@Override
-	public String[] getPlayerEfficiency(String playerName) {
+	public String[][] getPlayerEfficiency(String playerName) {
 		// TODO Auto-generated method stub
 		String[] SEASON ={"19961997","19971998","19981999","19992000","20002001","20012002","20022003","20032004","20042005","20052006"
 				,"20062007","20072008","20082009","20092010","20102011","20112012"};
@@ -56,7 +56,7 @@ public class ChartDaoJdbcImp  implements ChartDao{
 				result[i][j] = list.get(i)[j];
 			}
 		}
-		return null;
+		return result;
 	}
 
 	@Override

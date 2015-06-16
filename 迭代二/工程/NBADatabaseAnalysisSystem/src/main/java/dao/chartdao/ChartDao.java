@@ -2,7 +2,7 @@ package dao.chartdao;
 
 public interface ChartDao {
 	
-	public String[] getPlayerEfficiency(String playerName);
+	public String[][] getPlayerEfficiency(String playerName);
 	
 	public  String[] getLeagueInfo();
 	
