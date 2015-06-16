@@ -21,6 +21,10 @@ public class GetHotInfoHandler implements RequestHandler {
 				GetSeasonHotPlayerInfoRequest getHotInfoRequest = (GetSeasonHotPlayerInfoRequest) request;
 				response = new GetHotInfoResponse(
 						getHotInfoService.getSeasonHotPlayerInfo(getHotInfoRequest.getSift()));
+			} else if (request.getName().equals("GetHotPlayer")) {
+				GetHotPlayerRequest getHotInfoRequest = (GetHotPlayerRequest) request;
+				response = new GetHotInfoResponse(
+						getHotInfoService.getSeasonHotTeamInfo(getHotInfoRequest.getSift()));
 			} else {
 				GetSeasonHotTeamInfoRequest getHotInfoRequest = (GetSeasonHotTeamInfoRequest) request;
 				response = new GetHotInfoResponse(

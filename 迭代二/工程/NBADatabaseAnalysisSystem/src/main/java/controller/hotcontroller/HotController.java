@@ -8,6 +8,7 @@ public class HotController extends DefaultController {
 		addHandler(new GetCurrentHotPlayerInfoRequest(null), new GetHotInfoHandler());
 		addHandler(new GetSeasonHotPlayerInfoRequest(null), new GetHotInfoHandler());
 		addHandler(new GetSeasonHotTeamInfoRequest(null), new GetHotInfoHandler());
+		addHandler(new GetHotPlayerRequest(null), new GetHotInfoHandler());
 	}
 	
 }

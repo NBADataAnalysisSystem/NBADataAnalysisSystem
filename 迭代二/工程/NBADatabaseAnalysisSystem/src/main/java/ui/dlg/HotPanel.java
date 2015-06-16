@@ -28,6 +28,7 @@ import com.sun.awt.AWTUtilities;
 
 import controller.hotcontroller.GetCurrentHotPlayerInfoRequest;
 import controller.hotcontroller.GetHotInfoResponse;
+import controller.hotcontroller.GetHotPlayerRequest;
 import controller.hotcontroller.GetSeasonHotPlayerInfoRequest;
 import controller.hotcontroller.GetSeasonHotTeamInfoRequest;
 import controller.hotcontroller.HotController;
@@ -281,6 +282,19 @@ public class HotPanel extends JPanel {
 			String sift = clickedBtn.substring(6);
 			GetHotInfoResponse response = (GetHotInfoResponse) controller.processRequest(
 					new GetSeasonHotTeamInfoRequest(sift));
+			ArrayList<String[]> list = response.getList();
+			for(int i = 0;i<5;i++){
+				hotInfo[i][0] = list.get(i)[0];
+				hotInfo[i][1] = list.get(i)[1];
+				hotInfo[i][2] = "";
+				hotInfo[i][3] = list.get(i)[2];
+				hotInfo[i][4] = "";
+			}
+		} else if (clickedBtn.startsWith("进步最快球员")) {
+			HotController controller = new HotController();
+			String sift = clickedBtn.substring(6);
+			GetHotInfoResponse response = (GetHotInfoResponse) controller.processRequest(
+					new GetHotPlayerRequest(sift));
 			ArrayList<String[]> list = response.getList();
 			for(int i = 0;i<5;i++){
 				hotInfo[i][0] = list.get(i)[0];
