@@ -61,13 +61,13 @@ public class PlayerDataPanel extends JPanel {
 		String conclusion;
 		JLabel compareLabel = new JLabel();
 		if(fone <= Double.parseDouble(result)){
-			compareLabel.setText("F0.01<= FA");
+			compareLabel.setText("F0.01≤ FA");
 			conclusion = "高度显著差异";
 		}else 	if(fone >= Double.parseDouble(result)&&ffive<=Double.parseDouble(result)){
-			compareLabel.setText("F0.05<= FA <= F0.01");
+			compareLabel.setText("F0.05≤ FA ≤ F0.01");
 			conclusion = "显著差异";
 		}else {
-			compareLabel.setText("FA <= F0.05");
+			compareLabel.setText("FA≤ F0.05");
 			conclusion = "无显著差异";
 		}
 		compareLabel.setOpaque(false);
