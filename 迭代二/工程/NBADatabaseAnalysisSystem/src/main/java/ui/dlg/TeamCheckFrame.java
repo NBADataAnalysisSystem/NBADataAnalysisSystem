@@ -951,7 +951,7 @@ private void setInfoPanel(){
 		String [] tempHeader = new String[14];
 		String[][] tableString = new String[3][14];
 		for(int i = 0;i<aveInfo.length;i++){
-			tableString[1+i] = aveInfo[i];
+			tableString[i] = aveInfo[i];
 //			tableString[2] = aveInfo[1];
 		}
 		tableString[0]= new String[]{"年度","场数","%","三分%","罚球%","进攻","防守","场均篮板","场均助攻","场均抢断","场均盖帽","失误","犯规","场均得分"};
@@ -995,7 +995,7 @@ private void setInfoPanel(){
 		tempHeader = new String[17];
 		tableString = new String[3][17];
 		for(int i = 0;i<seasonInfo.length;i++){
-			tableString[1+i] = seasonInfo[i];
+			tableString[i] = seasonInfo[i];
 //			tableString[2] = aveInfo[1];
 		}
 		tableString[0]= new String[]{"年度","场数","命中","出手","三分命中","三分出手","罚球命中","罚球出手","进攻","防守","篮板","助攻","抢断","盖帽","失误","犯规","得分"};

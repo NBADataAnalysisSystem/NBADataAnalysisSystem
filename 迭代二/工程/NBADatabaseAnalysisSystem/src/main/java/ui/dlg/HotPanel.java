@@ -254,7 +254,7 @@ public class HotPanel extends JPanel {
 	private void getData(){
 		if (clickedBtn.startsWith("每日联盟球员数据王")) {
 			HotController controller = new HotController();
-			String sift = clickedBtn.substring(6);
+			String sift = clickedBtn.substring(9);
 			GetHotInfoResponse response = (GetHotInfoResponse) controller.processRequest(
 					new GetCurrentHotPlayerInfoRequest(sift));
 			ArrayList<String[]> list = response.getList();
@@ -265,7 +265,7 @@ public class HotPanel extends JPanel {
 			}
 		} else if (clickedBtn.startsWith("赛季联盟球员数据王")) {
 			HotController controller = new HotController();
-			String sift = clickedBtn.substring(6);
+			String sift = clickedBtn.substring(9);
 			GetHotInfoResponse response = (GetHotInfoResponse) controller.processRequest(
 					new GetSeasonHotPlayerInfoRequest(sift));
 			ArrayList<String[]> list = response.getList();
@@ -276,7 +276,7 @@ public class HotPanel extends JPanel {
 			}
 		} else if (clickedBtn.startsWith("赛季联盟球队数据王")) {
 			HotController controller = new HotController();
-			String sift = clickedBtn.substring(6);
+			String sift = clickedBtn.substring(9);
 			GetHotInfoResponse response = (GetHotInfoResponse) controller.processRequest(
 					new GetSeasonHotTeamInfoRequest(sift));
 			ArrayList<String[]> list = response.getList();
@@ -289,16 +289,14 @@ public class HotPanel extends JPanel {
 			}
 		} else if (clickedBtn.startsWith("热门球员")) {
 			HotController controller = new HotController();
-			String sift = clickedBtn.substring(6);
+			String sift = clickedBtn.substring(4);
 			GetHotInfoResponse response = (GetHotInfoResponse) controller.processRequest(
 					new GetHotPlayerRequest(sift));
 			ArrayList<String[]> list = response.getList();
 			for(int i = 0;i<5;i++){
-				hotInfo[i][0] = list.get(i)[0];
-				hotInfo[i][1] = list.get(i)[1];
-				hotInfo[i][2] = "";
-				hotInfo[i][3] = list.get(i)[2];
-				hotInfo[i][4] = "";
+				for(int j = 0;j<5;j++){
+					hotInfo[i][j] = list.get(i)[j];
+				}
 			}
 		}
 	}
@@ -363,11 +361,12 @@ public class HotPanel extends JPanel {
             			panel1 = clickedBtn;
             		}else if(clickedBtn.contains("赛季联盟球员数据王")){
             			panel2 = clickedBtn;
-            		}if(clickedBtn.contains("赛季联盟球队数据王")){
+            		}else if(clickedBtn.contains("赛季联盟球队数据王")){
             			panel3 = clickedBtn;
-            		}if(clickedBtn.contains("热门球员")){
+            		}else if(clickedBtn.contains("热门球员")){
             			panel4 = clickedBtn;
             		}
+            	
             		setPanel (btn,panel);
             			}
             		}      
