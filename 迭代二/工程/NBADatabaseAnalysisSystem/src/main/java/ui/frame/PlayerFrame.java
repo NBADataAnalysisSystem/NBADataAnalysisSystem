@@ -25,21 +25,6 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-import javax.swing.Timer;
-
 import com.sun.awt.AWTUtilities;
 
 import controller.playercontroller.GetPlayerBasicInfoRequest;
@@ -50,6 +35,7 @@ import controller.playercontroller.GetPlayerSeasonTotalInfoRequest;
 import controller.playercontroller.GetPlayerSeasonTotalInfoResponse;
 import controller.playercontroller.PlayerController;
 import entity.PlayerInfoType;
+import ui.component.LoadingPanel;
 import ui.component.MyTableHeaderPanel;
 import ui.component.MyTablePanel;
 import ui.dlg.PlayerBasicInfoPanel;
@@ -57,7 +43,6 @@ import ui.dlg.PlayerCheckFrame;
 import ui.dlg.PlayerDataPanel;
 import ui.dlg.PlayerSeasonInfoPanel;
 
-@SuppressWarnings("restriction")
 public class PlayerFrame extends JFrame implements FrameInterface, ActionListener {
 
 	/**
@@ -111,9 +96,8 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 	
 	//标签标记
 	PlayerInfoType playerInfoType;
-	
+	LoadingPanel loadingPanel ;
 	public PlayerFrame(){
-		
 		playerInfoType = PlayerInfoType.PLAYER_BASIC_INFO;
 		
 		backgroundPanel = new JPanel();
@@ -124,12 +108,12 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		//设置Frame原点d
 		x=(Toolkit.getDefaultToolkit().getScreenSize().width-width)/2;
 		y=(Toolkit.getDefaultToolkit().getScreenSize().height-height)/2;
+		loadingPanel = new LoadingPanel(width/2-50,height/2-50);
 		this.setUndecorated(true);
 		this.setSize(width, height);
 		this.setLocation(x,y);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLayout(null);
-		
 		backgroundPanel.setSize(width,height);
 		backgroundPanel.setLayout(null);
 
@@ -172,6 +156,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 				ArrayList<String> tempPlayer = playerPanel.getList();
 				this.setList(tempPlayer);
 			//	System.out.println(tableHeader.length);
+		
 				refreshData();
 				setTablePanel();
 		      
@@ -683,7 +668,5 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		}
 		
 	}
-
-
 
 }
