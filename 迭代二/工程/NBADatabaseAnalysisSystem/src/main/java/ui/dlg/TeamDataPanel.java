@@ -5,8 +5,11 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.Random;
 
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -62,6 +65,7 @@ public class TeamDataPanel extends JPanel {
 		reducePanel = new JPanel();
 		reducePanel.setOpaque(false);
 		reducePanel.setLayout(new GridLayout(3,1));
+		
 		
 		double[] temp = new double[30];
 		for(int i = 0;i<30;i++){
