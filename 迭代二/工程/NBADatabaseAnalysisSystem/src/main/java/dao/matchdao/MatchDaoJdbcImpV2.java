@@ -34,8 +34,8 @@ public class MatchDaoJdbcImpV2 implements MatchDao{
 			rs=stat.executeQuery("select AbsolutePath from Path where Category='Team'");
 			rs.next();
 			path=rs.getString(1);
-			rs = stat.executeQuery("select HomeCourtTeamAbb,HomeScore1,HomeScore2,HomeScore3,HomeScore4,HomeScore,HomeCourtTeamAbb,Overtime,"
-					+ "AwayTeamAbb,AwayScore1,AwayScore2,AwayScore3,AwayScore4,AwayScore,AwayTeamAbb,Overtime from Match"+sift[0]+"Season where DateOfMatch='"+sift[1]+"'");
+			rs = stat.executeQuery("select HomeCourtTeamAbb,HomeScore1,HomeScore2,HomeScore3,HomeScore4,HomeScore,HomeCourtTeamAbb,MatchID,"
+					+ "AwayTeamAbb,AwayScore1,AwayScore2,AwayScore3,AwayScore4,AwayScore,AwayTeamAbb,MatchID from Match"+sift[0]+"Season where DateOfMatch='"+sift[1]+"'");
 			while (rs.next()){
 				String[] strList = new String[16];
 				for(int i =0 ;i <16;i++){
