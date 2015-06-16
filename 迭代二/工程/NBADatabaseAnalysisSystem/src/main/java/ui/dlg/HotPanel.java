@@ -8,8 +8,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -22,7 +20,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.Timer;
 
 import com.sun.awt.AWTUtilities;
 
@@ -33,7 +30,7 @@ import controller.hotcontroller.GetSeasonHotPlayerInfoRequest;
 import controller.hotcontroller.GetSeasonHotTeamInfoRequest;
 import controller.hotcontroller.HotController;
 
-@SuppressWarnings({ "serial", "restriction" })
+@SuppressWarnings({ "serial" })
 public class HotPanel extends JPanel {
 	int x;
 	int y;
@@ -162,28 +159,28 @@ public class HotPanel extends JPanel {
 
 		
 		dayHotPlayerPanel = new JPanel();
-		dayHotPlayerPanel.setName("当日热点球员");
+		dayHotPlayerPanel.setName("每日联盟球员数据王");
 		clickedBtn = dayHotPlayerPanel.getName() + scoreP.getText();
 		panel1 = clickedBtn;
 		setPanel(dayHotPlayerBtn,dayHotPlayerPanel);
 		mainPanel.add(dayHotPlayerPanel);
 		
 		seasonHotPlayerPanel = new JPanel();
-		seasonHotPlayerPanel.setName("赛季热点球员");
+		seasonHotPlayerPanel.setName("赛季联盟球员数据王");
 		clickedBtn = seasonHotPlayerPanel.getName() + aveScoreP.getText();
 		panel2=clickedBtn;
 		setPanel(seasonHotPlayerBtn,seasonHotPlayerPanel);
 		mainPanel.add(seasonHotPlayerPanel);
 		
 		seasonHotTeamPanel = new JPanel();
-		seasonHotTeamPanel.setName("赛季热点球队");
+		seasonHotTeamPanel.setName("赛季联盟球队数据王");
 		clickedBtn = seasonHotTeamPanel.getName() + scoreT.getText();
 		panel3 = clickedBtn;
 		setPanel(seasonHotTeamBtn,seasonHotTeamPanel);
 		mainPanel.add(seasonHotTeamPanel);
 		
 		improvePlayerPanel = new JPanel();
-		improvePlayerPanel.setName("进步最快球员");
+		improvePlayerPanel.setName("热门球员");
 		clickedBtn = improvePlayerPanel.getName() + aveScoreI.getText();
 		panel4 = clickedBtn;
 		setPanel(improvePlayerBtn,improvePlayerPanel);
@@ -255,7 +252,7 @@ public class HotPanel extends JPanel {
 	 * 第二唯[0]为球队/球员名字 [1]为该项排名数据 [2]为所属球队名（若排名为球队排名则为""）[3]为球员/球队icon地址[4]为球队ICON（若为球队排名则为""）
 	 */
 	private void getData(){
-		if (clickedBtn.startsWith("当日热点球员")) {
+		if (clickedBtn.startsWith("每日联盟球员数据王")) {
 			HotController controller = new HotController();
 			String sift = clickedBtn.substring(6);
 			GetHotInfoResponse response = (GetHotInfoResponse) controller.processRequest(
@@ -266,7 +263,7 @@ public class HotPanel extends JPanel {
 					hotInfo[i][j] = list.get(i)[j];
 				}
 			}
-		} else if (clickedBtn.startsWith("赛季热点球员")) {
+		} else if (clickedBtn.startsWith("赛季联盟球员数据王")) {
 			HotController controller = new HotController();
 			String sift = clickedBtn.substring(6);
 			GetHotInfoResponse response = (GetHotInfoResponse) controller.processRequest(
@@ -277,7 +274,7 @@ public class HotPanel extends JPanel {
 					hotInfo[i][j] = list.get(i)[j];
 				}
 			}
-		} else if (clickedBtn.startsWith("赛季热点球队")) {
+		} else if (clickedBtn.startsWith("赛季联盟球队数据王")) {
 			HotController controller = new HotController();
 			String sift = clickedBtn.substring(6);
 			GetHotInfoResponse response = (GetHotInfoResponse) controller.processRequest(
@@ -290,7 +287,7 @@ public class HotPanel extends JPanel {
 				hotInfo[i][3] = list.get(i)[2];
 				hotInfo[i][4] = "";
 			}
-		} else if (clickedBtn.startsWith("进步最快球员")) {
+		} else if (clickedBtn.startsWith("热门球员")) {
 			HotController controller = new HotController();
 			String sift = clickedBtn.substring(6);
 			GetHotInfoResponse response = (GetHotInfoResponse) controller.processRequest(
@@ -362,13 +359,13 @@ public class HotPanel extends JPanel {
             	if(clickedBtn.equals( panel.getName()+tempBtn.getText())==false){
  
             		clickedBtn = panel.getName()+tempBtn.getText();
-            		if(clickedBtn.contains("当日热点球员")){
+            		if(clickedBtn.contains("每日联盟球员数据王")){
             			panel1 = clickedBtn;
-            		}else if(clickedBtn.contains("赛季热点球员")){
+            		}else if(clickedBtn.contains("赛季联盟球员数据王")){
             			panel2 = clickedBtn;
-            		}if(clickedBtn.contains("赛季热点球队")){
+            		}if(clickedBtn.contains("赛季联盟球队数据王")){
             			panel3 = clickedBtn;
-            		}if(clickedBtn.contains("进步最快球员")){
+            		}if(clickedBtn.contains("热门球员")){
             			panel4 = clickedBtn;
             		}
             		setPanel (btn,panel);
@@ -450,10 +447,10 @@ public class HotPanel extends JPanel {
 					//	selectedRow = Integer.parseInt(e.getComponent().getName());
 						
 							String name = firstName.getText();
-							if(panel.getName().equals("当日热点球员")||panel.getName().equals("进步最快球员")||panel.getName().equals("赛季热点球员")){
+							if(panel.getName().equals("每日联盟球员数据王")||panel.getName().equals("热门球员")||panel.getName().equals("赛季联盟球员数据王")){
 								PlayerCheckFrame check = new PlayerCheckFrame(name);
 								check.setFatherFrame(frame);
-							}else if(panel.getName().equals("赛季热点球队")){
+							}else if(panel.getName().equals("赛季联盟球队数据王")){
 								TeamCheckFrame check = new TeamCheckFrame(name);
 								check.setFatherFrame(frame);
 							}
@@ -473,10 +470,10 @@ public class HotPanel extends JPanel {
 					//	selectedRow = Integer.parseInt(e.getComponent().getName());
 						
 							String name = firstTeamName.getText();
-							if(panel.getName().equals("当日热点球员")||panel.getName().equals("进步最快球员")||panel.getName().equals("赛季热点球员")){
+							if(panel.getName().equals("每日联盟球员数据王")||panel.getName().equals("热门球员")||panel.getName().equals("赛季联盟球员数据王")){
 								PlayerCheckFrame check = new PlayerCheckFrame(name);
 								check.setFatherFrame(frame);
-							}else if(panel.getName().equals("赛季热点球队")){
+							}else if(panel.getName().equals("赛季联盟球队数据王")){
 								TeamCheckFrame check = new TeamCheckFrame(name);
 								check.setFatherFrame(frame);
 							}
@@ -529,10 +526,10 @@ public class HotPanel extends JPanel {
 						//	selectedRow = Integer.parseInt(e.getComponent().getName());
 							
 								String name = tempName.getText();
-								if(panel.getName().equals("当日热点球员")||panel.getName().equals("进步最快球员")||panel.getName().equals("赛季热点球员")){
+								if(panel.getName().equals("每日联盟球员数据王")||panel.getName().equals("热门球员")||panel.getName().equals("赛季联盟球员数据王")){
 									PlayerCheckFrame check = new PlayerCheckFrame(name);
 									check.setFatherFrame(frame);
-								}else if(panel.getName().equals("赛季热点球队")){
+								}else if(panel.getName().equals("赛季联盟球队数据王")){
 									TeamCheckFrame check = new TeamCheckFrame(name);
 									check.setFatherFrame(frame);
 								}
