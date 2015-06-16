@@ -36,7 +36,7 @@ public class PlayerDetailDaoJdbcImpV2 implements PlayerDetailDao{
 		
 		try{
 			stat  = connection.createStatement();
-			rs = stat.executeQuery("select TeamAbb,NumOfMatch,NumOfStart,PresenceTime,ShootingPersentage*100,ThreePointPersentage*100,FreeThrowPersentage*100,OffensiveRebounds,"
+			rs = stat.executeQuery("select TeamAbb,NumOfMatch,NumOfStart,PresenceTime,ShootingPersentage,ThreePointPersentage,FreeThrowPersentage,OffensiveRebounds,"
 					+ "DefensiveRebounds,Rebounds,Assists,Steals,BlockShots,TurnOvers,Fouls,Score "
 					+ "from Player"+currentSeason+"Season,"
 					+ "     Player "
@@ -44,8 +44,8 @@ public class PlayerDetailDaoJdbcImpV2 implements PlayerDetailDao{
 			for(int i =1;i<17;i++){
 				result[0][i] = rs.getString(i);
 			}
-			rs =stat.executeQuery("select TeamAbb,NumOfMatch,NumOfStart,round(1.0*PresenceTime/NumOfMatch,1),round(1.0*ShootingPersentage/NumOfMatch,1),"
-					+ "round(1.0*ThreePointPersentage/NumOfMatch,1),round(1.0*FreeThrowPersentage/NumOfMatch,1),round(1.0*OffensiveRebounds/NumOfMatch,1),"
+			rs =stat.executeQuery("select TeamAbb,NumOfMatch,NumOfStart,round(1.0*PresenceTime/NumOfMatch,1),ShootingPersentage,"
+					+ "ThreePointPersentage,FreeThrowPersentage,round(1.0*OffensiveRebounds/NumOfMatch,1),"
 					+ "round(1.0*DefensiveRebounds/NumOfMatch,1),round(1.0*Rebounds/NumOfMatch,1),round(1.0*Assists/NumOfMatch,1),round(1.0*Steals/NumOfMatch,1),"
 					+ "round(1.0*BlockShots/NumOfMatch,1),round(1.0*TurnOvers/NumOfMatch,1),round(1.0*Fouls/NumOfMatch,1),round(1.0*Score/NumOfMatch,1) "
 					+ "from Player"+currentSeason+"Season,"
