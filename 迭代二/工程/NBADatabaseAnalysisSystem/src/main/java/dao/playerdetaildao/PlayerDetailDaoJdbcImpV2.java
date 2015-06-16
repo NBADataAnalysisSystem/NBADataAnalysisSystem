@@ -63,7 +63,7 @@ public class PlayerDetailDaoJdbcImpV2 implements PlayerDetailDao{
 
 	@Override
 	public String[][] getPlayerLatestFiveMatchInfo(String playerName) {
-		String [][] result = new String[5][21];
+		String [][] result = new String[5][22];
 		Statement stat = null;
 		ResultSet rs = null;
 		String currentSeason = SEASON[SEASON.length-1];
@@ -80,7 +80,7 @@ public class PlayerDetailDaoJdbcImpV2 implements PlayerDetailDao{
 					+ "limit 5;");
 			int col=0;
 			while(rs.next()){
-				for(int i =0;i<21;i++){
+				for(int i =0;i<22;i++){
 					result[col][i] = rs.getString(i+1);
 				}
 				col++;
