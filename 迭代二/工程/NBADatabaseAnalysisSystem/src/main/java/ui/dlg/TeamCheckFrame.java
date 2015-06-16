@@ -43,6 +43,7 @@ import com.sun.awt.AWTUtilities;
 import controller.teamdetailcontroller.GetTeamDetailInfoRequest;
 import controller.teamdetailcontroller.GetTeamDetailInfoResponse;
 import controller.teamdetailcontroller.TeamDetailController;
+import dao.chartdao.ChartDaoJdbcImp;
 
 
 
@@ -634,11 +635,17 @@ private void setInfoPanel(){
 			}
 			//球员贡献，根据球员的per值划分。per值的计算。。。要30个变量，先处理好球员那边的再考虑这里吧。。。
 			private void getPieChartData(){
-				pieChartData = new String[5][2];
-				for(int i = 0 ;i<5;i++){
-					pieChartData[i][0] = i+"";
-					pieChartData[i][1] = i+"";
+				ChartDaoJdbcImp dataImp = new ChartDaoJdbcImp();
+				String[][] temp = dataImp.getPlayerEfficiency(team);
+				for(int i = 0;i<temp.length;i++){
+					temp[i][0] = temp[i][0].substring(0,4);
 				}
+				pieChartData = temp;
+				System.out.println(pieChartData.length);
+//				for(int i = 0 ;i<5;i++){
+//					pieChartData[i][0] = i+"";
+//					pieChartData[i][1] = i+"";
+//				}
 			}
 			
 			//球队场均得分，场均篮板，场均助攻，罚球%，三分%与联盟均值对比

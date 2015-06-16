@@ -213,7 +213,7 @@ public class ChartDaoJdbcImp  implements ChartDao{
 		//c.getTeamRate();
 		//c.getPlayerScoreAtPosition();
 		//c.getLeagueInfo();
-		//c.getTeamPlayerEfficiency("LAC");
+		c.getTeamPlayerEfficiency("LAC");
 		c.getPlayerEfficiency("Kobe Bryant");
 	}
 	
