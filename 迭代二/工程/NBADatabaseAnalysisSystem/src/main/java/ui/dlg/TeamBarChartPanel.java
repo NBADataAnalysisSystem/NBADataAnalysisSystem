@@ -109,7 +109,7 @@ public class TeamBarChartPanel extends JPanel {
 //        plot.setSectionPaint(0, new Color(244, 194, 144));  
         // plot.setSectionPaint("2", new Color(144, 233, 144));  
         // 设置图例说明Legend上的文字  
-        chart.getLegend().setItemFont(new Font("宋体", Font.PLAIN, 30));  
+        chart.getLegend().setItemFont(new Font("微软雅黑", Font.PLAIN, 30));  
 
  }
 //	

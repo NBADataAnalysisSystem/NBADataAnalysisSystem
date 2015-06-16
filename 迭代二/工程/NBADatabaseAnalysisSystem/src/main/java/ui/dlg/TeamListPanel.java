@@ -72,7 +72,7 @@ public class TeamListPanel extends JPanel {
 
 		West_Btn = new JButton();
 		West_Btn.setBounds(width/25,0,width/10, height/10);
-		West_Btn.setFont(new Font("宋体",1, 30));//设置字体
+		West_Btn.setFont(new Font("微软雅黑",1, 30));//设置字体
 		West_Btn.setBorderPainted(false);
 		West_Btn.setMargin(new Insets(0,0,0,0));
 		final JPanel panel = this;
@@ -135,7 +135,7 @@ public class TeamListPanel extends JPanel {
 		
 		East_Btn = new JButton();
 		East_Btn.setBounds(width/25 + width/25 + West_Btn.getWidth(),0,width/10, height/10);
-		East_Btn.setFont(new Font("宋体",1, 30));//设置字体
+		East_Btn.setFont(new Font("微软雅黑",1, 30));//设置字体
 		East_Btn.setBorderPainted(false);
 		East_Btn.setMargin(new Insets(0,0,0,0));
 		East_Btn.addMouseListener(       new MouseAdapter(){

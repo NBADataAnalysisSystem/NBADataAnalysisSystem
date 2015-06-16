@@ -91,9 +91,9 @@ public class TeamDataPanel extends JPanel {
 		JLabel labelRP = new JLabel("命中率与胜率的相关系数=" + RP);
 		JLabel labelRfree = new JLabel("罚球命中率与胜率的相关系数=" + Rfree);
 		JLabel labelRrebound = new JLabel("场均篮板与胜率的相关系数=" + Rrebound);
-		labelRP.setFont(new Font("宋体",1,height/24));
-		labelRfree.setFont(new Font("宋体",1,height/24));
-		labelRrebound.setFont(new Font("宋体",1,height/24));
+		labelRP.setFont(new Font("微软雅黑",1,height/24));
+		labelRfree.setFont(new Font("微软雅黑",1,height/24));
+		labelRrebound.setFont(new Font("微软雅黑",1,height/24));
 		rPanel.add(labelRP);
 		rPanel.add(labelRfree);
 		rPanel.add(labelRrebound);
@@ -111,7 +111,7 @@ public class TeamDataPanel extends JPanel {
 		reduceArea.setSelectedTextColor(Color.RED);
 		reduceArea.setLineWrap(true);        //激活自动换行功能 
 		reduceArea.setWrapStyleWord(true);            // 激活断行不断字功能
-		reduceArea.setFont(new Font("宋体",1,height/24));
+		reduceArea.setFont(new Font("微软雅黑",1,height/24));
 		reduceArea.setText("由此可知，在命中率、罚球命中率、场均篮板中，与球队胜率相关系数的绝对值最接近1的是\n"+max);
 		reduceArea.setOpaque(false);
 		reducePanel.add(reduceArea);

@@ -167,7 +167,7 @@ public class TeamAdvancedPanel extends JPanel {
 		
 		submit = new JButton();
 		submit.setBounds(width/25 + type.getWidth()*2+width*8/25,height/15+10,width/5, height/15);
-		submit.setFont(new Font("宋体",1, 20));//设置字体
+		submit.setFont(new Font("微软雅黑",1, 20));//设置字体
 		submit.setBorderPainted(false);
 		submit.setMargin(new Insets(0,0,0,0));
 		final JLabel btnChoosedLabel = new JLabel();

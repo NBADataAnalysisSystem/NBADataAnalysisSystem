@@ -55,7 +55,7 @@ public class PlayerDataPanel extends JPanel {
 		JLabel fLabel = new JLabel();
 		fLabel.setText("检验统计量为FA = " + result);
 		fLabel.setOpaque(false);
-		fLabel.setFont(new Font("宋体",1,height/20));
+		fLabel.setFont(new Font("微软雅黑",1,height/20));
 		reducePanel.add(fLabel);
 		
 		String conclusion;
@@ -72,11 +72,11 @@ public class PlayerDataPanel extends JPanel {
 		}
 		compareLabel.setOpaque(false);
 		compareLabel.setVerticalAlignment(compareLabel.BOTTOM);
-		compareLabel.setFont(new Font("宋体",1,height/12));
+		compareLabel.setFont(new Font("微软雅黑",1,height/12));
 		reducePanel.add(compareLabel);
 		
 		JLabel temp = new JLabel("由此可知，球员位置与其得分有：");
-		temp.setFont(new Font("宋体",1,height/20));
+		temp.setFont(new Font("微软雅黑",1,height/20));
 		reducePanel.add(temp);
 		
 		JLabel ss = new JLabel(conclusion);
@@ -84,7 +84,7 @@ public class PlayerDataPanel extends JPanel {
 		ss.setHorizontalAlignment(ss.CENTER);
 		ss.setVerticalAlignment(ss.TOP);
 		ss.setOpaque(false);
-		ss.setFont(new Font("宋体",1,height/10));
+		ss.setFont(new Font("微软雅黑",1,height/10));
 		reducePanel.add(ss);
 		
 		reducePanel.setOpaque(false);

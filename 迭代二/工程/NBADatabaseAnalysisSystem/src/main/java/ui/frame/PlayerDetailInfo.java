@@ -124,115 +124,115 @@ public class PlayerDetailInfo extends JFrame implements ActionListener  {
 		backPanel.add(j1, 0);
 		
 		j2 = new JLabel("球员姓名");
-		j2.setFont(new Font("宋体",1, 20));//设置字体
+		j2.setFont(new Font("微软雅黑",1, 20));//设置字体
 		j2.setBounds(220, 40, 100, 50);
 		j2.setOpaque(false);
 		backPanel.add(j2);
 	    
 		j3 = new JLabel("aaa   ");//aaa调用方法传入名字的string
-		j3.setFont(new Font("宋体",1, 20));
+		j3.setFont(new Font("微软雅黑",1, 20));
 		j3.setBounds(340, 40, 200, 50);
 		j3.setOpaque(false);
 		backPanel.add(j3);
 		
 		j4 = new JLabel("球衣号码");
-		j4.setFont(new Font("宋体",1, 20));//设置字体
+		j4.setFont(new Font("微软雅黑",1, 20));//设置字体
 		j4.setBounds(220, 70, 100, 50);
 		j4.setOpaque(false);
 		backPanel.add(j4);
 	    
 		j5 = new JLabel("aaa   ");//aaa调用方法传入号码
-		j5.setFont(new Font("宋体",1, 20));
+		j5.setFont(new Font("微软雅黑",1, 20));
 		j5.setBounds(340, 70, 200, 50);
 		j5.setOpaque(false);
 		backPanel.add(j5);
 		
 		j6 = new JLabel("球员位置");
-		j6.setFont(new Font("宋体",1, 20));//设置字体
+		j6.setFont(new Font("微软雅黑",1, 20));//设置字体
 		j6.setBounds(220, 100, 100, 50);
 		j6.setOpaque(false);
 		backPanel.add(j6);
 	    
 		j7 = new JLabel("aaa   ");//aaa调用方法传入
-		j7.setFont(new Font("宋体",1, 20));
+		j7.setFont(new Font("微软雅黑",1, 20));
 		j7.setBounds(340, 100, 200, 50);
 		j7.setOpaque(false);
 		backPanel.add(j7);
 		
 		j8 = new JLabel("身高");
-		j8.setFont(new Font("宋体",1, 20));//设置字体
+		j8.setFont(new Font("微软雅黑",1, 20));//设置字体
 		j8.setBounds(220, 130, 100, 50);
 		j8.setOpaque(false);
 		backPanel.add(j8);
 	    
 		j9 = new JLabel("aaa   ");//aaa调用方法传入
-		j9.setFont(new Font("宋体",1, 20));
+		j9.setFont(new Font("微软雅黑",1, 20));
 		j9.setBounds(340, 130, 200, 50);
 		j9.setOpaque(false);
 		backPanel.add(j9);
 		
 		j10 = new JLabel("体重");
-		j10.setFont(new Font("宋体",1, 20));//设置字体
+		j10.setFont(new Font("微软雅黑",1, 20));//设置字体
 		j10.setBounds(220, 160, 100, 50);
 		j10.setOpaque(false);
 		backPanel.add(j10);
 	    
 		j11 = new JLabel("aaa   ");//aaa调用方法传入
-		j11.setFont(new Font("宋体",1, 20));
+		j11.setFont(new Font("微软雅黑",1, 20));
 		j11.setBounds(340, 160, 200, 50);
 		j11.setOpaque(false);
 		backPanel.add(j11);
 		
 		j12 = new JLabel("生日");
-		j12.setFont(new Font("宋体",1, 20));//设置字体
+		j12.setFont(new Font("微软雅黑",1, 20));//设置字体
 		j12.setBounds(220, 190, 100, 50);
 		j12.setOpaque(false);
 		backPanel.add(j12);
 	    
 		j13 = new JLabel("aaa   ");//aaa调用方法传入
-		j13.setFont(new Font("宋体",1, 20));
+		j13.setFont(new Font("微软雅黑",1, 20));
 		j13.setBounds(340, 190, 200, 50);
 		j13.setOpaque(false);
 		backPanel.add(j13);
 		
 		j14 = new JLabel("年龄");
-		j14.setFont(new Font("宋体",1, 20));//设置字体
+		j14.setFont(new Font("微软雅黑",1, 20));//设置字体
 		j14.setBounds(220, 220, 100, 50);
 		j14.setOpaque(false);
 		backPanel.add(j14);
 	    
 		j15 = new JLabel("aaa   ");//aaa调用方法传入
-		j15.setFont(new Font("宋体",1, 20));
+		j15.setFont(new Font("微软雅黑",1, 20));
 		j15.setBounds(340, 220, 200, 50);
 		j15.setOpaque(false);
 		backPanel.add(j15);
 		
 		j16 = new JLabel("球龄");
-		j16.setFont(new Font("宋体",1, 20));//设置字体
+		j16.setFont(new Font("微软雅黑",1, 20));//设置字体
 		j16.setBounds(220, 250, 100, 50);
 		j16.setOpaque(false);
 		backPanel.add(j16);
 	    
 		j17 = new JLabel("aaa   ");//aaa调用方法传入
-		j17.setFont(new Font("宋体",1, 20));
+		j17.setFont(new Font("微软雅黑",1, 20));
 		j17.setBounds(340, 250, 200, 50);
 		j17.setOpaque(false);
 		backPanel.add(j17);
 		
 		j18 = new JLabel("毕业学校");
-		j18.setFont(new Font("宋体",1, 20));//设置字体
+		j18.setFont(new Font("微软雅黑",1, 20));//设置字体
 		j18.setBounds(220, 280, 100, 50);
 		j18.setOpaque(false);
 		backPanel.add(j18);
 	    
 		j19 = new JLabel("aaa   ");//aaa调用方法传入
-		j19.setFont(new Font("宋体",1, 20));
+		j19.setFont(new Font("微软雅黑",1, 20));
 		j19.setBounds(340, 280, 200, 50);
 		j19.setOpaque(false);
 		backPanel.add(j19);
 		
 		j20 = new JLabel("所属球队");
-		j20.setFont(new Font("宋体",1, 20));//设置字体
+		j20.setFont(new Font("微软雅黑",1, 20));//设置字体
 		j20.setBounds(540, 50, 100, 50);
 		j20.setOpaque(false);
 		backPanel.add(j20);
@@ -246,25 +246,25 @@ public class PlayerDetailInfo extends JFrame implements ActionListener  {
 		backPanel.add(j21, 0);
 		
 		j22 = new JLabel("aaa");
-		j22.setFont(new Font("宋体",1, 20));//设置字体
+		j22.setFont(new Font("微软雅黑",1, 20));//设置字体
 		j22.setBounds(540, 240, 100, 50);
 		j22.setOpaque(false);
 		backPanel.add(j22);
 		
 		j23 = new JLabel("赛季平均数据:");
-		j23.setFont(new Font("宋体",1, 20));//设置字体
+		j23.setFont(new Font("微软雅黑",1, 20));//设置字体
 		j23.setBounds(10, 320, 150, 50);
 		j23.setOpaque(false);
 		backPanel.add(j23);
 		
 		j24 = new JLabel("赛季总数据:");
-		j24.setFont(new Font("宋体",1, 20));//设置字体
+		j24.setFont(new Font("微软雅黑",1, 20));//设置字体
 		j24.setBounds(10, 420, 150, 50);
 		j24.setOpaque(false);
 		backPanel.add(j24);
 		
 		j25 = new JLabel("近期比赛数据:");
-		j25.setFont(new Font("宋体",1, 20));//设置字体
+		j25.setFont(new Font("微软雅黑",1, 20));//设置字体
 		j25.setBounds(10, 520, 150, 50);
 		j25.setOpaque(false);
 		backPanel.add(j25);

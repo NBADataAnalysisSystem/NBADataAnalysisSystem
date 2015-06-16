@@ -229,7 +229,7 @@ public class MatchCheckFrame extends JFrame implements  ActionListener{
 				);    
 		icon.setImage(icon.getImage().getScaledInstance(height/10, height/10,Image.SCALE_DEFAULT));
 		lineLabel.setIcon(icon);
-		lineLabel.setFont(new Font("宋体",1,height/24));
+		lineLabel.setFont(new Font("微软雅黑",1,height/24));
 		lineLabel.setForeground(Color.BLACK);
 		lineLabel.setHorizontalTextPosition(lineLabel.RIGHT);
 		lineLabel.setHorizontalAlignment(lineLabel.LEFT);
@@ -279,7 +279,7 @@ public class MatchCheckFrame extends JFrame implements  ActionListener{
 		for(int i = 0;i<table.getColumnCount();i++){
 			table.getColumnModel().getColumn(i).setPreferredWidth(header[i].length()*height/30);	
 		}
-		table.setFont(new Font("宋体",0,height/56));
+		table.setFont(new Font("微软雅黑",0,height/56));
 		table.getColumnModel().getColumn(0).setPreferredWidth(6*height/30);	
 		table.setRowHeight(height/23);
 		table.setEnabled(false);

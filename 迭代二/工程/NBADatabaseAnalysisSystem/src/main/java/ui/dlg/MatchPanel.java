@@ -79,7 +79,7 @@ public class MatchPanel extends JPanel {
 		datePanel.setLayout(null);
 		datePanel.setBounds(0, 0, width, height/10);
 		dateFindingField = new JDateChooser(new Date());  
-		dateFindingField.setFont(new Font("宋体",1, 20));
+		dateFindingField.setFont(new Font("微软雅黑",1, 20));
 		dateFindingField.setBounds(0, datePanel.getHeight()/4, datePanel.getWidth()/5, datePanel.getHeight()/2);
 		btn_Find = new JButton("查询");
 		btn_Find.setBounds(dateFindingField.getWidth()+20, datePanel.getHeight()/4, datePanel.getWidth()/10, datePanel.getHeight()/2);
@@ -108,7 +108,7 @@ public class MatchPanel extends JPanel {
 		
 );
 		btn_Find.setOpaque(false);
-		btn_Find.setFont(new Font("宋体",1, 20));//设置字体
+		btn_Find.setFont(new Font("微软雅黑",1, 20));//设置字体
 		btn_Find.setBorderPainted(false);
 		btn_Find.setContentAreaFilled(false);
 		datePanel.add(dateFindingField);
@@ -285,7 +285,7 @@ public class MatchPanel extends JPanel {
 			JLabel n = new JLabel(info[0][1+i]);
 			n.setOpaque(false);
 			n.setHorizontalAlignment(n.RIGHT);
-			n.setFont(new Font("宋体",1, 20));
+			n.setFont(new Font("微软雅黑",1, 20));
 			pointA.add(n);
 			if(Integer.parseInt(info[0][1+i])>Integer.parseInt(info[1][1+i])){
 				n.setForeground(Color.RED);
@@ -298,7 +298,7 @@ public class MatchPanel extends JPanel {
 			JLabel n = new JLabel(info[1][1+i]);
 			n.setOpaque(false);
 			n.setHorizontalAlignment(n.LEFT);
-			n.setFont(new Font("宋体",1, 20));
+			n.setFont(new Font("微软雅黑",1, 20));
 			pointB.add(n);
 			if(Integer.parseInt(info[1][1+i])>Integer.parseInt(info[0][1+i])){
 				n.setForeground(Color.RED);

@@ -176,7 +176,7 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 		
 		btn_TeamList.setContentAreaFilled(false);
 		btn_TeamList.setForeground(Color.decode("#FF0000"));
-		btn_TeamList.setFont(new Font("宋体",1, 20));//设置字体
+		btn_TeamList.setFont(new Font("微软雅黑",1, 20));//设置字体
 		btn_TeamList.setBorderPainted(false);
 		btn_TeamList.setFocusPainted(false);
 		//btn_Add.setOpaque(false);
@@ -202,7 +202,7 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 
 		btn_TeamAdvanced.setContentAreaFilled(false);
 		btn_TeamAdvanced.setForeground(Color.decode("#FF0000"));
-		btn_TeamAdvanced.setFont(new Font("宋体",1, 20));//设置字体
+		btn_TeamAdvanced.setFont(new Font("微软雅黑",1, 20));//设置字体
 		btn_TeamAdvanced.setBorderPainted(false);
 		btn_TeamAdvanced.setFocusPainted(false);
 		btnPanel.add(btn_TeamAdvanced);
@@ -219,7 +219,7 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 
 		btn_TeamData.setContentAreaFilled(false);
 		btn_TeamData.setForeground(Color.decode("#FF0000"));
-		btn_TeamData.setFont(new Font("宋体",1, 20));//设置字体
+		btn_TeamData.setFont(new Font("微软雅黑",1, 20));//设置字体
 		btn_TeamData.setBorderPainted(false);
 		btn_TeamData.setFocusPainted(false);
 		btnPanel.add(btn_TeamData);
@@ -240,7 +240,7 @@ public class TeamFrame extends JFrame implements FrameInterface, ActionListener 
 		btn_Close.setFont(new Font("Serif",0, 30));//设置字体
 		btnPanel.add(btn_Close);
 		
-		JButton btn_Back = new JButton("←");
+		JButton btn_Back = new JButton("<");
 		btn_Back.setMargin(new Insets(0,0,0,0));
 		btn_Back.setBounds(btnPanel.getWidth()-60-btn_Close.getWidth(),(btnPanel.getHeight())/2-10,30, 30);
 		btn_Back.addActionListener(this);

@@ -161,7 +161,7 @@ public class HotFrame extends JFrame implements  ActionListener {
 		
 		btn_Match.setContentAreaFilled(false);
 		btn_Match.setForeground(Color.decode("#FF0000"));
-		btn_Match.setFont(new Font("宋体",1, 20));//设置字体
+		btn_Match.setFont(new Font("微软雅黑",1, 20));//设置字体
 		btn_Match.setBorderPainted(false);
 		btn_Match.setFocusPainted(false);
 		//btn_Add.setOpaque(false);
@@ -182,7 +182,7 @@ public class HotFrame extends JFrame implements  ActionListener {
 		btn_Close.setFont(new Font("Serif",0, 30));//设置字体
 		btnPanel.add(btn_Close);
 		
-		JButton btn_Back = new JButton("←");
+		JButton btn_Back = new JButton("<");
 		btn_Back.setMargin(new Insets(0,0,0,0));
 		btn_Back.setBounds(btnPanel.getWidth()-60-btn_Close.getWidth(),(btnPanel.getHeight())/2-10,30, 30);
 		btn_Back.addActionListener(this);

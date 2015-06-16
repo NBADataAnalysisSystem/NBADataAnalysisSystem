@@ -416,7 +416,7 @@ public class HotPanel extends JPanel {
 		JLabel firstTemp = new JLabel();
 		firstTemp.setOpaque(false);
 		firstTemp.setText("1");
-		firstTemp.setFont(new Font("宋体",1, 100));
+		firstTemp.setFont(new Font("微软雅黑",1, 100));
 		firstTemp.setHorizontalAlignment(firstIconLabel.RIGHT);
 		firstPanel.add(firstTemp);
 		
@@ -427,7 +427,7 @@ public class HotPanel extends JPanel {
 		final JLabel firstName = new JLabel();
 		firstName.setOpaque(false);
 		firstName.setText(hotInfo[0][0]);
-		firstName.setFont(new Font("宋体",1, 20));
+		firstName.setFont(new Font("微软雅黑",1, 20));
 		firstName.setVerticalAlignment(firstName.BOTTOM);
 		firstInfoPanel.add(firstName);
 		firstName.addMouseListener(
@@ -452,7 +452,7 @@ public class HotPanel extends JPanel {
 		final JLabel firstTeamName = new JLabel();
 		firstTeamName.setOpaque(false);
 		firstTeamName.setText(hotInfo[0][2]);
-		firstTeamName.setFont(new Font("宋体",0, 10));
+		firstTeamName.setFont(new Font("微软雅黑",0, 10));
 		firstTeamName.addMouseListener(
 				new MouseAdapter(){
 					public void mouseClicked(MouseEvent e){
@@ -476,7 +476,7 @@ public class HotPanel extends JPanel {
 		JLabel firstInfo = new JLabel();
 		firstInfo.setOpaque(false);
 		firstInfo.setText(hotInfo[0][1]);
-		firstInfo.setFont(new Font("宋体",1, 20));
+		firstInfo.setFont(new Font("微软雅黑",1, 20));
 		firstInfo.setVerticalAlignment(firstName.TOP);
 		firstInfoPanel.add(firstInfo);
 		
@@ -508,7 +508,7 @@ public class HotPanel extends JPanel {
 			tempName.setText(hotInfo[i][0]);
 			tempName.setHorizontalAlignment(tempName.LEFT);
 			tempName.setHorizontalTextPosition(tempName.RIGHT);
-			tempName.setFont(new Font("宋体",0, width/80));
+			tempName.setFont(new Font("微软雅黑",0, width/80));
 			tempName.addMouseListener(
 					new MouseAdapter(){
 						public void mouseClicked(MouseEvent e){
@@ -557,7 +557,7 @@ public class HotPanel extends JPanel {
 			numLabel.setOpaque(false);
 			numLabel.setText(i+"");
 			numLabel.setHorizontalAlignment(lineLabel.CENTER);
-			numLabel.setFont(new Font("宋体",1, 25));
+			numLabel.setFont(new Font("微软雅黑",1, 25));
 			numPanel.add(numLabel);
 		}
 

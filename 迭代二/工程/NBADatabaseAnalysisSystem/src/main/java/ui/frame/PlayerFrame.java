@@ -245,7 +245,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		
 		btn_Player.setContentAreaFilled(false);
 		btn_Player.setForeground(Color.decode("#FF0000"));
-		btn_Player.setFont(new Font("宋体",1, 20));//设置字体
+		btn_Player.setFont(new Font("微软雅黑",1, 20));//设置字体
 		btn_Player.setBorderPainted(false);
 		btn_Player.setFocusPainted(false);
 		//btn_Add.setOpaque(false);
@@ -269,7 +269,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 
 		btn_Season.setContentAreaFilled(false);
 		btn_Season.setForeground(Color.decode("#FF0000"));
-		btn_Season.setFont(new Font("宋体",1, 20));//设置字体
+		btn_Season.setFont(new Font("微软雅黑",1, 20));//设置字体
 		btn_Season.setBorderPainted(false);
 		btn_Season.setFocusPainted(false);
 		btnPanel.add(btn_Season);
@@ -283,7 +283,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 
 		btn_Data.setContentAreaFilled(false);
 		btn_Data.setForeground(Color.decode("#FF0000"));
-		btn_Data.setFont(new Font("宋体",1, 20));//设置字体
+		btn_Data.setFont(new Font("微软雅黑",1, 20));//设置字体
 		btn_Data.setBorderPainted(false);
 		btn_Data.setFocusPainted(false);
 		btnPanel.add(btn_Data);
@@ -303,7 +303,7 @@ public class PlayerFrame extends JFrame implements FrameInterface, ActionListene
 		btn_Close.setFont(new Font("Serif",0, 30));//设置字体
 		btnPanel.add(btn_Close);
 		
-		JButton btn_Back = new JButton("←");
+		JButton btn_Back = new JButton("<");
 		btn_Back.setMargin(new Insets(0,0,0,0));
 		btn_Back.setBounds(btnPanel.getWidth()-60-btn_Close.getWidth(),(btnPanel.getHeight())/2-10,30, 30);
 		btn_Back.addActionListener(this);

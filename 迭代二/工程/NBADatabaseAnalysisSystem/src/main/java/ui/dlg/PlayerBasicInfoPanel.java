@@ -59,7 +59,7 @@ public class PlayerBasicInfoPanel extends JPanel{
 			char temp = (char) ('A' + i);
 			final JButton tempBtn = new JButton();
 			tempBtn.setBounds(20 + i*tempW , 0, tempW, tempW);
-			tempBtn.setFont(new Font("宋体",1, 20));//设置字体
+			tempBtn.setFont(new Font("微软雅黑",1, 20));//设置字体
 			tempBtn.setBorderPainted(false);
 			tempBtn.setMargin(new Insets(0,0,0,0));
 			final JPanel panel = this;

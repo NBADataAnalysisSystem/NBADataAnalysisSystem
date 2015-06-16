@@ -57,7 +57,7 @@ public class TeamInfoPanel extends JPanel {
 		typeAll = new JRadioButton("总数");
 		typeAve = new JRadioButton("平均");
 		typeAll.setBounds(width/25,0,width/10,height/20);
-		typeAll.setFont(new Font("宋体",1, 15));
+		typeAll.setFont(new Font("微软雅黑",1, 15));
 		typeAll.setOpaque(false);
 		typeAll.setMargin(new Insets(0, 0, 0, 0));
 		typeAll.setBorderPainted(false);
@@ -65,7 +65,7 @@ public class TeamInfoPanel extends JPanel {
 		typeAll.setBorderPainted(false);
 //		typeAll.setFocusPainted(false);
 		typeAve.setBounds(width/25,typeAll.getHeight(),width/10,height/20);
-		typeAve.setFont(new Font("宋体",1, 15));
+		typeAve.setFont(new Font("微软雅黑",1, 15));
 		typeAve.setOpaque(false);
 		typeAve.setMargin(new Insets(0, 0, 0, 0));
 		typeAve.setBorderPainted(false);
@@ -115,7 +115,7 @@ public class TeamInfoPanel extends JPanel {
 
 		submit = new JButton();
 		submit.setBounds(width-width/10,0,width/10, height/15);
-		submit.setFont(new Font("宋体",1, 20));//设置字体
+		submit.setFont(new Font("微软雅黑",1, 20));//设置字体
 		submit.setBorderPainted(false);
 		submit.setMargin(new Insets(0,0,0,0));
 		final JLabel btnChoosedLabel = new JLabel();

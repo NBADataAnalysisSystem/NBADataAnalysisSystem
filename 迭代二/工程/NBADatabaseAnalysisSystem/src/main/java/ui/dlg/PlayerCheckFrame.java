@@ -308,7 +308,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 //		}
 //				);
 		lineLabel.setIcon(lineIcon);
-		lineLabel.setFont(new Font("宋体",1,height/24));
+		lineLabel.setFont(new Font("微软雅黑",1,height/24));
 		lineLabel.setForeground(Color.WHITE);
 		lineLabel.setHorizontalTextPosition(lineLabel.CENTER);
 		lineLabel.setSize(width-height/14, height/14);
@@ -440,7 +440,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 //		}
 //				);
 		lineLabel.setIcon(lineIcon);
-		lineLabel.setFont(new Font("宋体",1,height/24));
+		lineLabel.setFont(new Font("微软雅黑",1,height/24));
 		lineLabel.setForeground(Color.WHITE);
 		lineLabel.setHorizontalTextPosition(lineLabel.CENTER);
 		mainPanel.add(lineLabel);
@@ -496,7 +496,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 //		}
 //				);
 		lineLabels.setIcon(lineIcon);
-		lineLabels.setFont(new Font("宋体",1,height/24));
+		lineLabels.setFont(new Font("微软雅黑",1,height/24));
 		lineLabels.setForeground(Color.WHITE);
 		lineLabels.setHorizontalTextPosition(lineLabels.CENTER);
 		mainPanel.add(lineLabels);
@@ -551,7 +551,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 //		}
 //				);
 		lineLabel.setIcon(lineIcon);
-		lineLabel.setFont(new Font("宋体",1,height/24));
+		lineLabel.setFont(new Font("微软雅黑",1,height/24));
 		lineLabel.setForeground(Color.WHITE);
 		lineLabel.setHorizontalTextPosition(lineLabel.CENTER);
 		mainPanel.add(lineLabel);
@@ -803,7 +803,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 //		}
 //	);
 		lineLabel.setIcon(lineIcon);
-		lineLabel.setFont(new Font("宋体",1,height/24));
+		lineLabel.setFont(new Font("微软雅黑",1,height/24));
 		lineLabel.setForeground(Color.WHITE);
 		lineLabel.setHorizontalTextPosition(lineLabel.CENTER);
 		matchPanel.add(lineLabel);
@@ -838,7 +838,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 					}          
 				}
 				);    
-		table.setFont(new Font("宋体",0,height/54));
+		table.setFont(new Font("微软雅黑",0,height/54));
 		table.getColumnModel().getColumn(0).setPreferredWidth(5*height/24);	
 		table.getColumnModel().getColumn(3).setPreferredWidth(2*height/24);	
 		table.setRowHeight(height/23);
@@ -873,7 +873,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 //		}
 //	);
 		lineLabel.setIcon(lineIcon);
-		lineLabel.setFont(new Font("宋体",1,height/21));
+		lineLabel.setFont(new Font("微软雅黑",1,height/21));
 		lineLabel.setForeground(Color.WHITE);
 		lineLabel.setHorizontalTextPosition(lineLabel.CENTER);
 		seasonPanel.add(lineLabel);
@@ -952,7 +952,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		JLabel number = new JLabel();
 		number.setText(basicInfo[0]);
 		number.setForeground(Color.YELLOW);
-		number.setFont(new Font("宋体",1,50));
+		number.setFont(new Font("微软雅黑",1,50));
 	//	number.setBorder(BorderFactory.createLoweredBevelBorder());
 		number.setHorizontalAlignment(number.RIGHT);
 		dataPanel.add("West",number);
@@ -961,12 +961,12 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		contain.setLayout(new GridLayout(4,1));
 		JLabel englishName = new JLabel();
 		englishName.setText(basicInfo[1]);
-		englishName.setFont(new Font("宋体",0,20));
+		englishName.setFont(new Font("微软雅黑",0,20));
 		englishName.setHorizontalAlignment(number.LEFT);
 		contain.add(englishName);
 		JLabel teamChinese = new JLabel();
 		teamChinese.setText(basicInfo[2]);
-		teamChinese.setFont(new Font("宋体",0,15));
+		teamChinese.setFont(new Font("微软雅黑",0,15));
 		teamChinese.setForeground(Color.BLUE);
 		teamChinese.setHorizontalAlignment(teamChinese.LEFT);
 		teamChinese.setVerticalAlignment(teamChinese.BOTTOM);
