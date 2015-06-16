@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.text.DecimalFormat;
 import java.util.Random;
 
 import javax.swing.JComboBox;
@@ -29,6 +30,8 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.RectangleEdge;
 
+import dao.chartdao.ChartDaoJdbcImp;
+
 @SuppressWarnings("serial")
 public class TeamDataPanel extends JPanel {
 	int x;
@@ -48,7 +51,7 @@ public class TeamDataPanel extends JPanel {
 	String conclusion;
 	
 	public TeamDataPanel(int x,int y,int widthn,int heightn){
-		
+		DecimalFormat df = new DecimalFormat("#0.00");
 		this.x = x;
 		this.y = y;
 		this.width = widthn;
@@ -72,14 +75,18 @@ public class TeamDataPanel extends JPanel {
 			temp[i] = countData[i][0];
 		}
 		RP = this.culculate(temp);
+		System.out.println(RP);
+		RP = df.format(Double.parseDouble(RP));
 		for(int i = 0;i<30;i++){
 			temp[i] = countData[i][1];
 		}
 		Rfree = this.culculate(temp);
+		Rfree = df.format(Double.parseDouble(Rfree));
 		for(int i = 0;i<30;i++){
 			temp[i] = countData[i][2];
 		}
 		Rrebound = this.culculate(temp);
+		Rrebound = df.format(Double.parseDouble(Rrebound));
 		
 		JPanel chartPanel = createDemoPanel();
 		chartPanel.setOpaque(false);
@@ -182,16 +189,18 @@ public class TeamDataPanel extends JPanel {
 	 * data第一维为球队，第二唯0为球队名，1为球队命中率，2为罚球命中率，3为场均篮板，4为球队胜率
 	 */
 	private void getData(){
+		ChartDaoJdbcImp dataImp = new ChartDaoJdbcImp();
+		String[][] temp = dataImp.getTeamRate();
 		countData = new double[30][4];
-		Random random = new Random();
-		data = new String[30][5];
-		for(int i = 0;i<30;i++){
-			data[i][0] = "test"+i;
-			data[i][1] = Double.toString(Math.abs(random.nextDouble())%1); 
-			data[i][2] = Double.toString(Math.abs(random.nextDouble())%1); 
-			data[i][3]=	Double.toString(Math.abs(random.nextDouble())%1); 
-			data[i][4] = Double.toString(Math.abs(random.nextDouble())%1); 
-		}
+		//Random random = new Random();
+		data = temp;
+//		for(int i = 0;i<30;i++){
+//			data[i][0] = "test"+i;
+//			data[i][1] = Double.toString(Math.abs(random.nextDouble())%1); 
+//			data[i][2] = Double.toString(Math.abs(random.nextDouble())%1); 
+//			data[i][3]=	Double.toString(Math.abs(random.nextDouble())%1); 
+//			data[i][4] = Double.toString(Math.abs(random.nextDouble())%1); 
+//		}
 		for(int i =0;i<30;i++){
 			for(int j = 0;j<4;j++){
 				countData[i][j] = Double.parseDouble(data[i][j+1]);
@@ -227,9 +236,9 @@ public class TeamDataPanel extends JPanel {
        {
         String s = "因素";
         DefaultCategoryDataset defaultcategorydataset = new DefaultCategoryDataset();
-        defaultcategorydataset.addValue(Double.parseDouble(RP),s,"命中率");
-        defaultcategorydataset.addValue(Double.parseDouble(Rfree),s,"罚球%");
-        defaultcategorydataset.addValue(Double.parseDouble(Rrebound),s,"场均篮板数");
+        defaultcategorydataset.addValue(Math.abs(Double.parseDouble(RP)),s,"命中率");
+        defaultcategorydataset.addValue(Math.abs(Double.parseDouble(Rfree)),s,"罚球%");
+        defaultcategorydataset.addValue(Math.abs(Double.parseDouble(Rrebound)),s,"场均篮板数");
         return defaultcategorydataset;
        }
 

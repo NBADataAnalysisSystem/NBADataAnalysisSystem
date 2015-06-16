@@ -14,6 +14,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import dao.chartdao.ChartDaoJdbcImp;
+
 
 @SuppressWarnings("serial")
 public class PlayerDataPanel extends JPanel {
@@ -160,14 +162,16 @@ public class PlayerDataPanel extends JPanel {
 	 *data[][]储存三种不同位置下，每种30个球员的场均得分的数据，不需要存储名字等信息
 	 */
 	private void getData(){
+		ChartDaoJdbcImp dataImp = new ChartDaoJdbcImp();
+		String[][] temp = dataImp.getPlayerScoreAtPosition();
 		countData = new double[3][30];
-		Random random = new Random();
-		data = new String[30][3];
-		for(int i = 0;i<30;i++){
-			data[i][1] = Double.toString(Math.abs(random.nextDouble())*20+10); 
-			data[i][2] = Double.toString(Math.abs(random.nextDouble())*20+10); 
-			data[i][0]=	Double.toString(Math.abs(random.nextDouble())*20+10); 
-		}
+//		Random random = new Random();
+		data =temp;
+//		for(int i = 0;i<30;i++){
+//			data[i][1] = Double.toString(Math.abs(random.nextDouble())*20+10); 
+//			data[i][2] = Double.toString(Math.abs(random.nextDouble())*20+10); 
+//			data[i][0]=	Double.toString(Math.abs(random.nextDouble())*20+10); 
+//		}
 		for(int i =0;i<3;i++){
 			for(int j = 0;j<30;j++){
 				countData[i][j] = Double.parseDouble(data[j][i]);

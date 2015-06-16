@@ -39,6 +39,7 @@ import com.sun.awt.AWTUtilities;
 import controller.playerdetailcontroller.GetPlayerDetailInfoRequest;
 import controller.playerdetailcontroller.GetPlayerDetailInfoResponse;
 import controller.playerdetailcontroller.PlayerDetailController;
+import dao.chartdao.ChartDaoJdbcImp;
 
 
 
@@ -346,24 +347,14 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 //			chartData[i][1] = lifeData[i][lifeData[i].length-1];
 //		}
 		
-		String[][] chartData = new String[5][2];
-		for(int i = 0 ;i<5;i++){
-			chartData[i][0] = i+"";
-			chartData[i][1] = i+"";
-		}
+
 		
-		lineChartPanel = new PlayerLineChartPanel(0,lineLabel.getHeight()+30,width,height*2/5,chartData);
+		getLineChartData();
+		lineChartPanel = new PlayerLineChartPanel(0,lineLabel.getHeight()+30,width,height*2/5,lineChartData);
 		lineChartPanel.setOpaque(false);
 		mainPanel.add(lineChartPanel);
 		
-		String[][] barChartData = new String[2][6];
-		for(int i = 0 ;i<6;i++){
-			barChartData[0][i] = i+"";
-			barChartData[1][i] = i+"";
-		}
-			barChartData[1][0] = "联盟";
-		
-			System.out.println(height/2);
+		getBarChartData();
 		barChartPanel = new PlayerBarChartPanel(0,lineLabel.getHeight()+lineChartPanel.getHeight()+30,width,height*2/5,barChartData);
 		barChartPanel.setOpaque(false);
 		mainPanel.add(barChartPanel);
@@ -624,10 +615,16 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 	 * lineChartData[][]为球员生涯效率值变化情况，效率值听说可以直接扒。。不能的话再告诉我，迭代一有计算公式
 	 	lineChartData[][]第一维为赛季，第二唯为效率值
 	 */
-	@SuppressWarnings("unused")
 	private void getLineChartData(){
 		
-		
+		ChartDaoJdbcImp dataImp = new ChartDaoJdbcImp();
+		String[][] temp = dataImp.getPlayerEfficiency(player);
+		System.out.println(temp.length);
+		for(int i = 0;i<temp.length;i++){
+			temp[i][0] = temp[i][0].substring(0,4);
+		}
+		lineChartData =temp;
+
 		
 //		double tmPoss;//，我方进攻次数；
 //		double oppPoss;//，对方进攻次数；
@@ -637,8 +634,23 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 	 *  * barChartData[][]为球员场均得分，场均篮板，场均助攻，罚球%，三分%与联盟这些值的对比
 	 * barChartData[0][0]为球员名，barChartData[1][0]为“联盟”。1-5对应上面五个数据
 	 */
-	@SuppressWarnings("unused")
 	private void getBarChartData(){
+		ChartDaoJdbcImp dataImp = new ChartDaoJdbcImp();
+		String[] temp = dataImp.getLeagueInfo();
+		System.out.println(temp.length);
+		barChartData = new String[2][6];
+	//	System.out.println(player);
+			barChartData[0][0] = player;
+			barChartData[0][1] = seasonInfo[1][16];
+			barChartData[0][2] = seasonInfo[1][10];
+			barChartData[0][3] =seasonInfo[1][11];
+			barChartData[0][4] = seasonInfo[1][7];
+			barChartData[0][5] =seasonInfo[1][6];
+			
+		barChartData[1][0] = "联盟";
+		for(int i = 0;i<5;i++){
+			barChartData[1][i+1] = temp[i];
+		}
 		
 	}
 	/**
@@ -907,9 +919,9 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		String[][] tableString = new String[5][17];
 		tableString[0]= new String[]{"年度","球队","场数","先发","分钟","%","三分%","罚球%","进攻","防守","场均篮板","场均助攻","场均抢断","场均盖帽","失误","犯规","场均得分"};
 		tableString[1][0] = "赛季平均";
-		tableString[2] = seasonInfo[0];
+		tableString[2] = seasonInfo[1];
 		tableString[3][0] = "赛季总计";
-		tableString [4] = seasonInfo[1];
+		tableString [4] = seasonInfo[0];
 		DefaultTableModel model = new DefaultTableModel(tableString,tempHeader);
 		JTable table = new JTable(model);
 		s.gridwidth=0;

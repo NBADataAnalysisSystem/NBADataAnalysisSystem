@@ -72,7 +72,7 @@ public class TeamPieChartPanel extends JPanel {
         PiePlot3D plot = (PiePlot3D) chart.getPlot();  
         plot.setBackgroundAlpha(0.0f);
         // 图形边框颜色  
-        plot.setBaseSectionOutlinePaint(Color.RED);  
+        plot.setBaseSectionOutlinePaint(Color.BLUE);  
         // plot.setBaseSectionPaint(Color.WHITE);  
         // 图形边框粗细  
         plot.setBaseSectionOutlineStroke(new BasicStroke(1.0f));  
@@ -90,12 +90,12 @@ public class TeamPieChartPanel extends JPanel {
         // 设置突出显示的数据块  
         plot.setExplodePercent("One", 0.1D);  
         // 设置饼图各部分标签字体  
-        plot.setLabelFont(new Font("微软雅黑", Font.ITALIC, 20));  
+        plot.setLabelFont(new Font("微软雅黑", Font.ITALIC, 10));  
         // 设置分饼颜色  
 //        plot.setSectionPaint(0, new Color(244, 194, 144));  
         // plot.setSectionPaint("2", new Color(144, 233, 144));  
         // 设置图例说明Legend上的文字  
-        chart.getLegend().setItemFont(new Font("微软雅黑", Font.PLAIN, 30));  
+        chart.getLegend().setItemFont(new Font("微软雅黑", Font.PLAIN, 15));  
 
  }
 //	
