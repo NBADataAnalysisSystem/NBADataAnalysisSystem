@@ -57,7 +57,7 @@ public class TeamBarChartPanel extends JPanel {
     	String rebound = "场均篮板";
     	String assist = "场均助攻";
     	String freeThrow = "10*罚球%";
-    	String threeP = "三分%";
+    	String threeP = "10*三分%";
     	DefaultCategoryDataset    dataset=new DefaultCategoryDataset ();
         //TODO 暂时先放着，用模拟的数据
 //        for(int i = 0;i<data.length;i++){
