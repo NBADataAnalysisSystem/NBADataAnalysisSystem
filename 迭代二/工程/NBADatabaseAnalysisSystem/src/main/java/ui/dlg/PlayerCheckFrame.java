@@ -656,13 +656,13 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 	/**
 	 * 获取数据页面的信息
 	 * 	player = tocheck;
-	 *season = new String[]{"年度","球队","场数","先发","分钟","%","三分%","罚球%","进攻","防守","场均篮板","场均助攻","场均抢断","场均盖帽","失误","犯规","场均得分"};
+	 *season = new String[]{"年度","场数","先发","分钟","%","三分%","罚球%","进攻","防守","场均篮板","场均助攻","场均抢断","场均盖帽","失误","犯规","场均得分"};
 	*获取数据的方法 player为球员名称，用来获取basicInfo
 	*根据获取到的数据设置数组的行值，这里暂时取100
 	 */
 	private void getData(){
-		playoffData = new String[100][17];
-		lifeData = new String[100][17];
+		playoffData = new String[100][16];
+		lifeData = new String[100][16];
 	}
 	/**
 	 * 获取比赛页面的信息
@@ -676,13 +676,13 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 	//设置数据界面的两个子界面
 	@SuppressWarnings("serial")
 	private void setDataSp(JPanel panel,String[][] content){
-		String [] tempHeader = new String[17];
-		final Object[][] tableString = new Object[content.length][17];
-		tempHeader= season;
+		String [] tempHeader = new String[16];
+		final Object[][] tableString = new Object[content.length][16];
+		tempHeader= new String[]{"年度","场数","先发","分钟","%","三分%","罚球%","进攻","防守","场均篮板","场均助攻","场均抢断","场均盖帽","失误","犯规","场均得分"};
 				
 		for(int i = 0;i<tableString.length;i++){
 			for(int j = 0 ; j<tableString[0].length;j++){
-				if(j <= 1){
+				if(j <= 0){
 						tableString[i][j] = content[i][j] ;
 				}else{
 						if(content[i][j]!=null){
