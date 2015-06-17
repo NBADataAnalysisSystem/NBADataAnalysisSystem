@@ -636,7 +636,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 	 */
 	private void getBarChartData(){
 		ChartDaoJdbcImp dataImp = new ChartDaoJdbcImp();
-		String[] temp = dataImp.getLeagueInfo();
+		String[] temp = dataImp.getPlayerLeagueInfo();
 		System.out.println(temp.length);
 		barChartData = new String[2][6];
 	//	System.out.println(player);
