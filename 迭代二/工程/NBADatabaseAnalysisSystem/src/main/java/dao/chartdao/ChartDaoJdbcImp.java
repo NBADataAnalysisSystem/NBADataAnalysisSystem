@@ -30,7 +30,7 @@ public class ChartDaoJdbcImp  implements ChartDao{
 	public String[][] getPlayerEfficiency(String playerName) {
 		// TODO Auto-generated method stub
 		String[] SEASON ={"19961997","19971998","19981999","19992000","20002001","20012002","20022003","20032004","20042005","20052006"
-				,"20062007","20072008","20082009","20092010","20102011","20112012"};
+				,"20062007","20072008","20082009","20092010","20102011","20112012","20122013","20132014","20142015"};
 		Statement stat = null;
 		ResultSet rs = null;
 		ArrayList<String[]> list = new ArrayList<String[]>();
@@ -211,10 +211,10 @@ public class ChartDaoJdbcImp  implements ChartDao{
 	public static void main(String[] args){
 		ChartDaoJdbcImp c = new ChartDaoJdbcImp();
 		//c.getTeamRate();
-		c.getPlayerScoreAtPosition();
+		//c.getPlayerScoreAtPosition();
 		//c.getLeagueInfo();
 		//c.getTeamPlayerEfficiency("LAC");
-		//c.getPlayerEfficiency("Kobe Bryant");
+		c.getPlayerEfficiency("Kyle Anderson");
 	}
 	
 }
