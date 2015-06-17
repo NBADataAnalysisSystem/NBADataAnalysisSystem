@@ -124,8 +124,8 @@ public class ChartDaoJdbcImp  implements ChartDao{
 		ResultSet rs = null;
 		try{
 			stat = connection.createStatement();
-			rs = stat.executeQuery("select Score"
-					+ " from Player"+currentSeason+"Season,Player  where Name = PlayerName and Pos like '%前锋%' limit 30");
+			rs = stat.executeQuery("select round(1.0*Score/NumOfMatch,2)"
+					+ " from Player"+currentSeason+"Season,Player  where Name = PlayerName and Pos like '%前锋%' and NumOfMatch<>'0' limit 30");
 			String[] tempList = new String[30];
 			for(int i =0;i<30;i++){
 				rs.next();
@@ -133,8 +133,8 @@ public class ChartDaoJdbcImp  implements ChartDao{
 			}
 			resultArrayList.add(tempList);
 			
-			rs = stat.executeQuery("select Score"
-					+ " from Player"+currentSeason+"Season,Player where Name = PlayerName and  Pos like '%中锋%' limit 30");
+			rs = stat.executeQuery("select round(1.0*Score/NumOfMatch,2)"
+					+ " from Player"+currentSeason+"Season,Player where Name = PlayerName and  Pos like '%中锋%' and NumOfMatch<>'0' limit 30");
 			tempList = new String[30];
 			for(int i =0;i<30;i++){
 				rs.next();
@@ -142,8 +142,8 @@ public class ChartDaoJdbcImp  implements ChartDao{
 			}
 			resultArrayList.add(tempList);
 			
-			rs = stat.executeQuery("select Score"
-					+ " from Player"+currentSeason+"Season,Player where Name = PlayerName and  Pos like '%后卫%' limit 30");
+			rs = stat.executeQuery("select round(1.0*Score/NumOfMatch,2)"
+					+ " from Player"+currentSeason+"Season,Player where Name = PlayerName and  Pos like '%后卫%' and NumOfMatch<>'0' limit 30");
 			tempList = new String[30];
 			for(int i =0;i<30;i++){
 				rs.next();
@@ -211,10 +211,10 @@ public class ChartDaoJdbcImp  implements ChartDao{
 	public static void main(String[] args){
 		ChartDaoJdbcImp c = new ChartDaoJdbcImp();
 		//c.getTeamRate();
-		//c.getPlayerScoreAtPosition();
+		c.getPlayerScoreAtPosition();
 		//c.getLeagueInfo();
-		c.getTeamPlayerEfficiency("LAC");
-		c.getPlayerEfficiency("Kobe Bryant");
+		//c.getTeamPlayerEfficiency("LAC");
+		//c.getPlayerEfficiency("Kobe Bryant");
 	}
 	
 }
