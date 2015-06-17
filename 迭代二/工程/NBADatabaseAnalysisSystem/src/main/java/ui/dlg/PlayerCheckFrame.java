@@ -301,7 +301,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 
 		
 		final JLabel lineLabel =new JLabel();
-		lineLabel.setText("球员季度场均得分图");
+		lineLabel.setText("球员能力分析图");
 //		lineLabel.addComponentListener(new ComponentAdapter(){
 //			public void componentResized(ComponentEvent e){
 //				lineIcon.setImage(lineIcon.getImage().getScaledInstance(lineLabel.getWidth(), lineLabel.getHeight(),Image.SCALE_DEFAULT));

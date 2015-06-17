@@ -52,7 +52,7 @@ public class PlayerLineChartPanel extends JPanel {
     public static CategoryDataset createDataset(String[][] data) //创建柱状图数据集
     {
         DefaultCategoryDataset dataset=new DefaultCategoryDataset();
-        String lineSeries = "季后赛场均得分";
+        String lineSeries = "球员效率图";
         //TODO 暂时先放着，用模拟的数据
         for(int i = 0;i<data.length;i++){
         	dataset.setValue(Double.parseDouble(data[i][1]), lineSeries, data[i][0]);
@@ -70,7 +70,7 @@ public class PlayerLineChartPanel extends JPanel {
                //定义图标对象
                chart = ChartFactory.createLineChart(null,// 报表题目，字符串类型
                              "季度", // 横轴
-                             "季后赛场均得分", // 纵轴
+                             "球员赛季效率值", // 纵轴
                              this.createDataset(data), // 获得数据集
                              PlotOrientation.VERTICAL, // 图标方向垂直
                              true, // 显示图例
