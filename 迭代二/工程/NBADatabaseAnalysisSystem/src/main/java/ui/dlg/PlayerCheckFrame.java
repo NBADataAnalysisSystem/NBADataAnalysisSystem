@@ -644,8 +644,8 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 			barChartData[0][1] = seasonInfo[1][16];
 			barChartData[0][2] = seasonInfo[1][10];
 			barChartData[0][3] =seasonInfo[1][11];
-			barChartData[0][4] = seasonInfo[1][7];
-			barChartData[0][5] =seasonInfo[1][6];
+			barChartData[0][4] = Double.parseDouble(seasonInfo[1][7])/10+"";
+			barChartData[0][5] =Double.parseDouble(seasonInfo[1][6])/10+"";
 			
 		barChartData[1][0] = "联盟";
 		for(int i = 0;i<5;i++){

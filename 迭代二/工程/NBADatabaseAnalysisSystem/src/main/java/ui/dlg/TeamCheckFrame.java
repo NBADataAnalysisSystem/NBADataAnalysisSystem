@@ -658,8 +658,8 @@ private void setInfoPanel(){
 					barChartData[0][1] = aveInfo[aveInfo.length-1][13];
 					barChartData[0][2] = aveInfo[aveInfo.length-1][7];
 					barChartData[0][3] =aveInfo[aveInfo.length-1][8];
-					barChartData[0][4] = aveInfo[aveInfo.length-1][4];
-					barChartData[0][5] =aveInfo[aveInfo.length-1][3];
+					barChartData[0][4] = Double.parseDouble(aveInfo[aveInfo.length-1][4])/10+"";
+					barChartData[0][5] =Double.parseDouble(aveInfo[aveInfo.length-1][3])+"";
 					
 				barChartData[1][0] = "联盟";
 				for(int i = 0;i<5;i++){
