@@ -466,40 +466,40 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		lifePanel = new JPanel();
 		setDataSp(lifePanel,lifeData);
 		s.gridwidth=0;
-		s.gridheight=16;
-		s.weightx = 1; 
-		s.weighty=16;
-		layout.setConstraints(sp, s);
-		mainPanel.add(sp);
-		
-		
-		final JLabel lineLabels =new JLabel();
-		s.gridwidth=0;
-		s.gridheight=1;
-		s.weightx = 23; 
-		s.weighty=0;
-		layout.setConstraints(lineLabels, s);
-		lineLabels.setText("季后赛数据");
-//		lineLabels.addComponentListener(new ComponentAdapter(){
-//			public void componentResized(ComponentEvent e){
-//				lineIcon.setImage(lineIcon.getImage().getScaledInstance(lineLabels.getWidth(), lineLabels.getHeight(),Image.SCALE_DEFAULT));
-//			}
-//		}
-//				);
-		lineLabels.setIcon(lineIcon);
-		lineLabels.setFont(new Font("微软雅黑",1,height/24));
-		lineLabels.setForeground(Color.WHITE);
-		lineLabels.setHorizontalTextPosition(lineLabels.CENTER);
-		mainPanel.add(lineLabels);
-		
-		playoffPanel = new JPanel();
-		setDataSp(playoffPanel,playoffData);
-		s.gridwidth=0;
 		s.gridheight=0;
 		s.weightx = 1; 
-		s.weighty=16;
+		s.weighty=32;
 		layout.setConstraints(sp, s);
 		mainPanel.add(sp);
+		
+//		
+//		final JLabel lineLabels =new JLabel();
+//		s.gridwidth=0;
+//		s.gridheight=1;
+//		s.weightx = 23; 
+//		s.weighty=0;
+//		layout.setConstraints(lineLabels, s);
+//		lineLabels.setText("季后赛数据");
+////		lineLabels.addComponentListener(new ComponentAdapter(){
+////			public void componentResized(ComponentEvent e){
+////				lineIcon.setImage(lineIcon.getImage().getScaledInstance(lineLabels.getWidth(), lineLabels.getHeight(),Image.SCALE_DEFAULT));
+////			}
+////		}
+////				);
+//		lineLabels.setIcon(lineIcon);
+//		lineLabels.setFont(new Font("微软雅黑",1,height/24));
+//		lineLabels.setForeground(Color.WHITE);
+//		lineLabels.setHorizontalTextPosition(lineLabels.CENTER);
+//		mainPanel.add(lineLabels);
+		
+//		playoffPanel = new JPanel();
+//		setDataSp(playoffPanel,playoffData);
+//		s.gridwidth=0;
+//		s.gridheight=0;
+//		s.weightx = 1; 
+//		s.weighty=16;
+//		layout.setConstraints(sp, s);
+//		mainPanel.add(sp);
 		
 		
 		this.revalidate();
