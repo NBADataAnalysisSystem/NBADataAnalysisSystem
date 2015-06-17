@@ -229,7 +229,7 @@ public class ChartDaoJdbcImp  implements ChartDao{
 			stat = connection.createStatement();
 			rs = stat.executeQuery("select round(1.0*sum(Score)/sum(NumOfMatch)/15,1),"
 					+ "round(1.0*sum(Rebounds)/sum(NumOfMatch)/15,1),round(1.0*sum(Assists)/sum(NumOfMatch)/15,1),"
-					+ "FreeThrowPersentage,ThreePointPersentage "
+					+ "FreeThrowPersentage/10,ThreePointPersentage/10 "
 					+ "from Team"+currentSeason+"Season");
 			for(int i = 0;i< 5;i++){
 				result[i] = rs.getString(i+1);
