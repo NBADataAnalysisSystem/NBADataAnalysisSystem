@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.text.DecimalFormat;
 import java.util.Random;
 
 import javax.swing.JFrame;
@@ -35,7 +36,7 @@ public class PlayerDataPanel extends JPanel {
 	
 	@SuppressWarnings("static-access")
 	public PlayerDataPanel(int x,int y,int widthn,int heightn){
-		
+		DecimalFormat df = new DecimalFormat("#0.000");
 		this.x = x;
 		this.y = y;
 		this.width = widthn;
@@ -51,7 +52,7 @@ public class PlayerDataPanel extends JPanel {
 		result = culculate(countData);
 		fone = 4.88;
 		ffive = 3.11;
-		
+		result = df.format(Double.parseDouble(result));
 		reducePanel = new JPanel(new GridLayout(4,1));
 		
 		JLabel fLabel = new JLabel();
