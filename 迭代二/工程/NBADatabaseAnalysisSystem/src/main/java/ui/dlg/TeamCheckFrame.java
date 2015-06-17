@@ -43,6 +43,7 @@ import com.sun.awt.AWTUtilities;
 import controller.teamdetailcontroller.GetTeamDetailInfoRequest;
 import controller.teamdetailcontroller.GetTeamDetailInfoResponse;
 import controller.teamdetailcontroller.TeamDetailController;
+import dao.chartdao.ChartDao;
 import dao.chartdao.ChartDaoJdbcImp;
 
 
@@ -621,7 +622,7 @@ private void setInfoPanel(){
 								//	selectedRow = Integer.parseInt(e.getComponent().getName());
 									//TODO 比赛ID未知，日后设置
 											MatchCheckFrame check = new MatchCheckFrame(basicInfo[0],"",content[table.rowAtPoint(e.getPoint())][8]);
-									//		check.setFatherFrame(fatherFrame);
+										check.setFatherFrame(fatherFrame);
 											tempFrame.dispose();
 
 								}          
@@ -756,7 +757,12 @@ private void setInfoPanel(){
 	}
 	
 	private void getAllMatchData(){
-		matchData = new String[100][9];
+		ChartDao data = new ChartDaoJdbcImp();
+		String temp[][] = data.getTeamMatchInfo(team);
+//		for(int i = 0;i<temp.length;i++){
+//			temp[i][0] = temp[i][0].substring(0,4);
+//		}
+		matchData = temp;
 	}
 	/**
 	 * 	team = tocheck;
