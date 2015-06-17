@@ -470,7 +470,7 @@ public class HotPanel extends JPanel {
 						
 							String name = firstTeamName.getText();
 							if(panel.getName().equals("每日联盟球员数据王")||panel.getName().equals("热门球员")||panel.getName().equals("赛季联盟球员数据王")){
-								PlayerCheckFrame check = new PlayerCheckFrame(name);
+								TeamCheckFrame check = new TeamCheckFrame(name);
 								check.setFatherFrame(frame);
 							}else if(panel.getName().equals("赛季联盟球队数据王")){
 								TeamCheckFrame check = new TeamCheckFrame(name);
