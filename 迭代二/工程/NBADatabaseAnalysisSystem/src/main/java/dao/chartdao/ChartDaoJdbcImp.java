@@ -175,7 +175,7 @@ public class ChartDaoJdbcImp  implements ChartDao{
 		ResultSet rs = null;
 		try{
 			stat = connection.createStatement();
-			rs = stat.executeQuery("select TeamAbb,ShootingPersentage,FreeThrowPersentage,round(Rebounds/NumOfMatch,2),WinRate"
+			rs = stat.executeQuery("select TeamAbb,ShootingPersentage,FreeThrowPersentage,round(1.0*Rebounds/NumOfMatch,2),WinRate"
 					+ " from Team"+currentSeason+"Season");
 			while(rs.next()){
 				String[] tempList = new String[5];
@@ -210,11 +210,11 @@ public class ChartDaoJdbcImp  implements ChartDao{
 
 	public static void main(String[] args){
 		ChartDaoJdbcImp c = new ChartDaoJdbcImp();
-		//c.getTeamRate();
+		c.getTeamRate();
 		//c.getPlayerScoreAtPosition();
 		//c.getLeagueInfo();
 		//c.getTeamPlayerEfficiency("LAC");
-		c.getPlayerEfficiency("Kyle Anderson");
+		//c.getPlayerEfficiency("Kyle Anderson");
 	}
 	
 }
