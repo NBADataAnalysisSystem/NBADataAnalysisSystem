@@ -28,7 +28,6 @@ public class ChartDaoJdbcImp  implements ChartDao{
 	
 	@Override
 	public String[][] getPlayerEfficiency(String playerName) {
-		// TODO Auto-generated method stub
 		String[] SEASON ={"19961997","19971998","19981999","19992000","20002001","20012002","20022003","20032004","20042005","20052006"
 				,"20062007","20072008","20082009","20092010","20102011","20112012","20122013","20132014","20142015"};
 		Statement stat = null;
@@ -210,11 +209,37 @@ public class ChartDaoJdbcImp  implements ChartDao{
 
 	public static void main(String[] args){
 		ChartDaoJdbcImp c = new ChartDaoJdbcImp();
-		c.getTeamRate();
+		//c.getTeamRate();
 		//c.getPlayerScoreAtPosition();
 		//c.getLeagueInfo();
 		//c.getTeamPlayerEfficiency("LAC");
 		//c.getPlayerEfficiency("Kyle Anderson");
+		c.getPlayerLeagueInfo();
+	}
+
+	@Override
+	public String[] getPlayerLeagueInfo() {
+		// TODO Auto-generated method stub
+		String[] result = new String[5];
+		Statement stat = null;
+		ResultSet rs = null;
+		String currentSeason = SEASON[SEASON.length-1];
+		
+		try{
+			stat = connection.createStatement();
+			rs = stat.executeQuery("select round(1.0*sum(Score)/sum(NumOfMatch)/15,1),"
+					+ "round(1.0*sum(Rebounds)/sum(NumOfMatch)/15,1),round(1.0*sum(Assists)/sum(NumOfMatch)/15,1),"
+					+ "FreeThrowPersentage,ThreePointPersentage "
+					+ "from Team"+currentSeason+"Season");
+			for(int i = 0;i< 5;i++){
+				result[i] = rs.getString(i+1);
+			}
+			stat.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		System.out.println(Arrays.asList(result));
+		return result;
 	}
 	
 }

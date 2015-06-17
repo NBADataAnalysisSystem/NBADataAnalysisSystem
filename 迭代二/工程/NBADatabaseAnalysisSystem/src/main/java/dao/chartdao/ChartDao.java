@@ -6,6 +6,8 @@ public interface ChartDao {
 	
 	public  String[] getLeagueInfo();
 	
+	public String[] getPlayerLeagueInfo();
+	
 	public String[][] getTeamPlayerEfficiency(String teamAbb);
 	
 	public String[][] getPlayerScoreAtPosition();
