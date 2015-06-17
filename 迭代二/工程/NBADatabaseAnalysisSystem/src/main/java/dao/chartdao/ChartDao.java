@@ -14,6 +14,8 @@ public interface ChartDao {
 	
 	public String[][] getTeamRate();
 	
+	public String[][] getPlayerCareerInfo(String playerName);
+	
 	public void close();
 
 }

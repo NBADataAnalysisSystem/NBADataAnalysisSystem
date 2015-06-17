@@ -213,8 +213,9 @@ public class ChartDaoJdbcImp  implements ChartDao{
 		//c.getPlayerScoreAtPosition();
 		//c.getLeagueInfo();
 		//c.getTeamPlayerEfficiency("LAC");
-		c.getPlayerEfficiency("Kobe Bryant");
+		//c.getPlayerEfficiency("Kobe Bryant");
 		//c.getPlayerLeagueInfo();
+		c.getPlayerCareerInfo("Kobe Bryant");
 	}
 
 	@Override
@@ -242,7 +243,7 @@ public class ChartDaoJdbcImp  implements ChartDao{
 		return result;
 	}
 	
-	public String[][] getPlayerCareerInfo(){
+	public String[][] getPlayerCareerInfo(String playerName){
 		String[] SEASON ={"19961997","19971998","19981999","19992000","20002001","20012002","20022003","20032004","20042005","20052006"
 				,"20062007","20072008","20082009","20092010","20102011","20112012","20122013","20132014","20142015"};
 		Statement stat = null;
@@ -251,11 +252,16 @@ public class ChartDaoJdbcImp  implements ChartDao{
 		try{
 			stat = connection.createStatement();
 			for(int i = 0;i< SEASON.length;i++){
-				rs = stat.executeQuery("select Efficiency from Player"+SEASON[i]+"Season where PlayerName = '"+"'");
+				rs = stat.executeQuery("select NumOfMatch,NumOfStart,PresenceTime,ShootingPersentage,ThreePointPersentage,FreeThrowPersentage,"
+						+ "OffensiveRebounds,DefensiveRebounds,round(1.0*Rebounds/NumOfMatch,1)"
+						+ ",round(1.0*Assists/NumOfMatch,1),round(1.0*Steals/NumOfMatch,1),"
+						+ "round(1.0*BlockShots/NumOfMatch,1),TurnOvers,Fouls,round(1.0*Score/NumOfMatch,1) from Player"+SEASON[i]+"Season where PlayerName = '"+playerName+"'");
 				if(rs.next()){
-					String[] tempList = new String[2];
+					String[] tempList = new String[16];
 					tempList[0] = SEASON[i];
-					tempList[1] = rs.getString(1);
+					for(int m =1;m<16;m++){
+						tempList[m] = rs.getString(m);
+					}
 					list.add(tempList);
 				}
 			}
@@ -263,10 +269,10 @@ public class ChartDaoJdbcImp  implements ChartDao{
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		String[][] result = new String[list.size()][2];
+		String[][] result = new String[list.size()][16];
 		for(int i = 0;i<list.size();i++){
 			System.out.println(Arrays.asList(list.get(i)));
-			for(int j =0;j<2;j++){
+			for(int j =0;j<16;j++){
 				result[i][j] = list.get(i)[j];
 			}
 		}
