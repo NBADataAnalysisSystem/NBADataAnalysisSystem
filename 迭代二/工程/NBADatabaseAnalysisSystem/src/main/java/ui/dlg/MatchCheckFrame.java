@@ -281,6 +281,8 @@ public class MatchCheckFrame extends JFrame implements  ActionListener{
 		}
 		table.setFont(new Font("微软雅黑",0,height/56));
 		table.getColumnModel().getColumn(0).setPreferredWidth(6*height/30);	
+		table.getColumnModel().getColumn(1).setPreferredWidth(4*height/30);	
+		table.getColumnModel().getColumn(3).setPreferredWidth(2*height/30);	
 		table.setRowHeight(height/23);
 		table.setEnabled(false);
 		table.setGridColor(new Color(0,0,0,0));

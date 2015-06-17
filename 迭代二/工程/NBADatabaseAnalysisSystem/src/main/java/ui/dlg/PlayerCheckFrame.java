@@ -939,6 +939,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		table.getColumnModel().getColumn(0).setPreferredWidth(4*height/21);	
 		table.getColumnModel().getColumn(1).setPreferredWidth(4*height/21);	
 		table.getColumnModel().getColumn(4).setPreferredWidth(3*height/21);	
+		table.getColumnModel().getColumn(5).setPreferredWidth(2*height/21);	
 		table.setRowHeight(height/19);
 		table.setEnabled(false);
 		table.setGridColor(Color.decode("#D1EEEE"));
