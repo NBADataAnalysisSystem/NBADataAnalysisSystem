@@ -316,7 +316,7 @@ public class TeamCheckFrame extends JFrame implements  ActionListener{
 
 		
 		final JLabel lineLabel =new JLabel();
-		lineLabel.setText("球队最近赛季得分情况图");
+		lineLabel.setText("球队贡献与能力情况图");
 //		lineLabel.addComponentListener(new ComponentAdapter(){
 //			public void componentResized(ComponentEvent e){
 //				lineIcon.setImage(lineIcon.getImage().getScaledInstance(lineLabel.getWidth(), lineLabel.getHeight(),Image.SCALE_DEFAULT));
