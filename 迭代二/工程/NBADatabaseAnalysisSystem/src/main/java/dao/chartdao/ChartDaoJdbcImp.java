@@ -36,7 +36,7 @@ public class ChartDaoJdbcImp  implements ChartDao{
 		try{
 			stat = connection.createStatement();
 			for(int i = 0;i< SEASON.length;i++){
-				rs = stat.executeQuery("select Efficiency from Player"+SEASON[i]+"Season where PlayerName = '"+playerName+"'");
+				rs = stat.executeQuery("select round(1.0*Efficiency/NumOfMatch,2) from Player"+SEASON[i]+"Season where PlayerName = '"+playerName+"'");
 				if(rs.next()){
 					String[] tempList = new String[2];
 					tempList[0] = SEASON[i];
@@ -213,8 +213,8 @@ public class ChartDaoJdbcImp  implements ChartDao{
 		//c.getPlayerScoreAtPosition();
 		//c.getLeagueInfo();
 		//c.getTeamPlayerEfficiency("LAC");
-		//c.getPlayerEfficiency("Kyle Anderson");
-		c.getPlayerLeagueInfo();
+		c.getPlayerEfficiency("Kobe Bryant");
+		//c.getPlayerLeagueInfo();
 	}
 
 	@Override
@@ -239,6 +239,37 @@ public class ChartDaoJdbcImp  implements ChartDao{
 			e.printStackTrace();
 		}
 		System.out.println(Arrays.asList(result));
+		return result;
+	}
+	
+	public String[][] getPlayerCareerInfo(){
+		String[] SEASON ={"19961997","19971998","19981999","19992000","20002001","20012002","20022003","20032004","20042005","20052006"
+				,"20062007","20072008","20082009","20092010","20102011","20112012","20122013","20132014","20142015"};
+		Statement stat = null;
+		ResultSet rs = null;
+		ArrayList<String[]> list = new ArrayList<String[]>();
+		try{
+			stat = connection.createStatement();
+			for(int i = 0;i< SEASON.length;i++){
+				rs = stat.executeQuery("select Efficiency from Player"+SEASON[i]+"Season where PlayerName = '"+"'");
+				if(rs.next()){
+					String[] tempList = new String[2];
+					tempList[0] = SEASON[i];
+					tempList[1] = rs.getString(1);
+					list.add(tempList);
+				}
+			}
+			stat.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		String[][] result = new String[list.size()][2];
+		for(int i = 0;i<list.size();i++){
+			System.out.println(Arrays.asList(list.get(i)));
+			for(int j =0;j<2;j++){
+				result[i][j] = list.get(i)[j];
+			}
+		}
 		return result;
 	}
 	
