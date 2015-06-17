@@ -39,6 +39,7 @@ import com.sun.awt.AWTUtilities;
 import controller.playerdetailcontroller.GetPlayerDetailInfoRequest;
 import controller.playerdetailcontroller.GetPlayerDetailInfoResponse;
 import controller.playerdetailcontroller.PlayerDetailController;
+import dao.chartdao.ChartDao;
 import dao.chartdao.ChartDaoJdbcImp;
 
 
@@ -187,34 +188,34 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		setPanel.removeAll();
 		JRadioButton infoButton = new JRadioButton("资料");
 		JRadioButton dataButton = new JRadioButton("数据");
-		JRadioButton matchButton = new JRadioButton("比赛");
+		//JRadioButton matchButton = new JRadioButton("比赛");
 		JRadioButton chartButton = new JRadioButton("图表");
 		
 		ButtonGroup buttons = new ButtonGroup();
 		buttons.add(infoButton);
 		buttons.add(dataButton);
-		buttons.add(matchButton);
+	//	buttons.add(matchButton);
 		buttons.add(chartButton);
 		
 		infoButton.setOpaque(false);
 		dataButton.setOpaque(false);
-		matchButton.setOpaque(false);
+	//	matchButton.setOpaque(false);
 		chartButton.setOpaque(false);
 		
 		infoButton.setFont(new Font("黑体",1,height/24));
 		dataButton.setFont(new Font("黑体",1,height/24));
-		matchButton.setFont(new Font("黑体",1,height/24));
+	//	matchButton.setFont(new Font("黑体",1,height/24));
 		chartButton.setFont(new Font("黑体",1,height/24));
 		
 		infoButton.setForeground(Color.WHITE);
 		dataButton.setForeground(Color.WHITE);
-		matchButton.setForeground(Color.WHITE);
+	//	matchButton.setForeground(Color.WHITE);
 		chartButton.setForeground(Color.WHITE);
 		
 		infoButton.setHorizontalAlignment(infoButton.CENTER);
 		dataButton.setHorizontalAlignment(dataButton.CENTER);
-		matchButton.setHorizontalAlignment(matchButton.CENTER);
-		chartButton.setHorizontalAlignment(matchButton.CENTER);
+	//	matchButton.setHorizontalAlignment(matchButton.CENTER);
+		chartButton.setHorizontalAlignment(chartButton.CENTER);
 		
 		infoButton.addMouseListener(
 				new MouseAdapter(){
@@ -242,18 +243,18 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 				}
 				);    
 		
-		matchButton.addMouseListener(
-				new MouseAdapter(){
-					public void mouseClicked(MouseEvent e){
-					//	selectedRow = Integer.parseInt(e.getComponent().getName());
-								tempFrame.remove(setPanel);
-								setAllMatchPanel();
-								tempFrame.revalidate();
-								tempFrame.repaint();
-
-					}          
-				}
-				);    
+//		matchButton.addMouseListener(
+//				new MouseAdapter(){
+//					public void mouseClicked(MouseEvent e){
+//					//	selectedRow = Integer.parseInt(e.getComponent().getName());
+//								tempFrame.remove(setPanel);
+//								setAllMatchPanel();
+//								tempFrame.revalidate();
+//								tempFrame.repaint();
+//
+//					}          
+//				}
+//				);    
 		
 		chartButton.addMouseListener(
 				new MouseAdapter(){
@@ -272,7 +273,7 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 		setPanel.setLayout(new GridLayout(4,1));
 		setPanel.add(infoButton);
 		setPanel.add(dataButton);
-		setPanel.add(matchButton);
+		//setPanel.add(matchButton);
 		setPanel.add(chartButton);
 		this.add(setPanel,0);
 		this.addMouseListener(
@@ -510,83 +511,83 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 	 * 设置球员比赛界面
 	 * 球员所有比赛的数据
 	 */
-	@SuppressWarnings("static-access")
-	private void setAllMatchPanel(){
-		mainPanel.removeAll();
-		GridBagLayout layout = new GridBagLayout();
-		GridBagConstraints s= new GridBagConstraints();
-		s.fill = GridBagConstraints.BOTH; 
-
-		mainPanel.setLayout(layout);
-		
-		JPanel temp = new JPanel();
-		temp.setOpaque(false);
-		s.gridwidth=0;
-		s.gridheight=1;
-		s.weightx = 1; 
-		s.weighty=2;
-		layout.setConstraints(temp, s);
-		mainPanel.add(temp);
-		
-		final JLabel lineLabel =new JLabel();
-		s.gridwidth=1;
-		s.gridheight=1;
-		s.weightx = 1; 
-		s.weighty=0;
-		layout.setConstraints(lineLabel, s);
-		lineLabel.setText("所有比赛数据");
-//		lineLabel.addComponentListener(new ComponentAdapter(){
-//			public void componentResized(ComponentEvent e){
-//				lineIcon.setImage(lineIcon.getImage().getScaledInstance(lineLabel.getWidth(), lineLabel.getHeight(),Image.SCALE_DEFAULT));
-//			}
-//		}
-//				);
-		lineLabel.setIcon(lineIcon);
-		lineLabel.setFont(new Font("微软雅黑",1,height/24));
-		lineLabel.setForeground(Color.WHITE);
-		lineLabel.setHorizontalTextPosition(lineLabel.CENTER);
-		mainPanel.add(lineLabel);
-		
-		final JLabel setLabel =new JLabel();
-		s.gridwidth=0;
-		s.gridheight = 1;
-		s.weightx = 0; 
-		s.weighty=0;
-		layout.setConstraints(setLabel, s);
-//		setLabel.addComponentListener(new ComponentAdapter(){
-//			public void componentResized(ComponentEvent e){
-//				setIcon.setImage(setIcon.getImage().getScaledInstance(setLabel.getWidth(), setLabel.getHeight(),Image.SCALE_DEFAULT));
-//			}
-//		}
-//	);
-		setLabel.setIcon(setIcon);
-		setLabel.addMouseListener(
-				new MouseAdapter(){
-					public void mouseClicked(MouseEvent e){
-					//	selectedRow = Integer.parseInt(e.getComponent().getName());
-						setSetPanel(setLabel.getWidth()+setLabel.getX()-setPanel.getWidth(),setLabel.getY()+setLabel.getHeight());
-
-					}          
-				}
-				);   
-	//	setLabel.setHorizontalTextPosition(setLabel.CENTER);
-		mainPanel.add(setLabel);
-
-		getMatchData();
-		
-		allMatchPanel = new JPanel();
-		setMatchSp(allMatchPanel,allMatch);
-		s.gridwidth=0;
-		s.gridheight=0;
-		s.weightx = 1; 
-		s.weighty=32;
-		layout.setConstraints(sp, s);
-		mainPanel.add(sp);
-		
-		
-		this.revalidate();
-		this.repaint();
-	}
+//	@SuppressWarnings("static-access")
+//	private void setAllMatchPanel(){
+//		mainPanel.removeAll();
+//		GridBagLayout layout = new GridBagLayout();
+//		GridBagConstraints s= new GridBagConstraints();
+//		s.fill = GridBagConstraints.BOTH; 
+//
+//		mainPanel.setLayout(layout);
+//		
+//		JPanel temp = new JPanel();
+//		temp.setOpaque(false);
+//		s.gridwidth=0;
+//		s.gridheight=1;
+//		s.weightx = 1; 
+//		s.weighty=2;
+//		layout.setConstraints(temp, s);
+//		mainPanel.add(temp);
+//		
+//		final JLabel lineLabel =new JLabel();
+//		s.gridwidth=1;
+//		s.gridheight=1;
+//		s.weightx = 1; 
+//		s.weighty=0;
+//		layout.setConstraints(lineLabel, s);
+//		lineLabel.setText("所有比赛数据");
+////		lineLabel.addComponentListener(new ComponentAdapter(){
+////			public void componentResized(ComponentEvent e){
+////				lineIcon.setImage(lineIcon.getImage().getScaledInstance(lineLabel.getWidth(), lineLabel.getHeight(),Image.SCALE_DEFAULT));
+////			}
+////		}
+////				);
+//		lineLabel.setIcon(lineIcon);
+//		lineLabel.setFont(new Font("微软雅黑",1,height/24));
+//		lineLabel.setForeground(Color.WHITE);
+//		lineLabel.setHorizontalTextPosition(lineLabel.CENTER);
+//		mainPanel.add(lineLabel);
+//		
+//		final JLabel setLabel =new JLabel();
+//		s.gridwidth=0;
+//		s.gridheight = 1;
+//		s.weightx = 0; 
+//		s.weighty=0;
+//		layout.setConstraints(setLabel, s);
+////		setLabel.addComponentListener(new ComponentAdapter(){
+////			public void componentResized(ComponentEvent e){
+////				setIcon.setImage(setIcon.getImage().getScaledInstance(setLabel.getWidth(), setLabel.getHeight(),Image.SCALE_DEFAULT));
+////			}
+////		}
+////	);
+//		setLabel.setIcon(setIcon);
+//		setLabel.addMouseListener(
+//				new MouseAdapter(){
+//					public void mouseClicked(MouseEvent e){
+//					//	selectedRow = Integer.parseInt(e.getComponent().getName());
+//						setSetPanel(setLabel.getWidth()+setLabel.getX()-setPanel.getWidth(),setLabel.getY()+setLabel.getHeight());
+//
+//					}          
+//				}
+//				);   
+//	//	setLabel.setHorizontalTextPosition(setLabel.CENTER);
+//		mainPanel.add(setLabel);
+//
+//		getMatchData();
+//		
+//		allMatchPanel = new JPanel();
+//		setMatchSp(allMatchPanel,allMatch);
+//		s.gridwidth=0;
+//		s.gridheight=0;
+//		s.weightx = 1; 
+//		s.weighty=32;
+//		layout.setConstraints(sp, s);
+//		mainPanel.add(sp);
+//		
+//		
+//		this.revalidate();
+//		this.repaint();
+//	}
 	/**
 	 * 获取资料页面的信息
 	 * 	player = tocheck;
@@ -661,16 +662,20 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 	*根据获取到的数据设置数组的行值，这里暂时取100
 	 */
 	private void getData(){
-		playoffData = new String[100][16];
-		lifeData = new String[100][16];
+		ChartDao data = new ChartDaoJdbcImp();
+		String temp[][] = data.getPlayerCareerInfo(player);
+		for(int i = 0;i<temp.length;i++){
+			temp[i][0] = temp[i][0].substring(0,4);
+		}
+		lifeData = temp;
 	}
 	/**
 	 * 获取比赛页面的信息
 	 * match = new String[]{"日期","对手","分钟","%","命中","出手","三分%","三分命中","三分出手","罚球%","罚球命中","罚球出手","进攻","防守","篮板","助攻","犯规","抢断","失误","盖帽","得分"};
 	 */
-	private void getMatchData(){
-		allMatch = new String[100][22];
-	}
+//	private void getMatchData(){
+//		allMatch = new String[100][22];
+//	}
 
 
 	//设置数据界面的两个子界面
@@ -729,72 +734,71 @@ public class PlayerCheckFrame extends JFrame implements  ActionListener{
 	}
 	
 	//设置比赛界面的两个子界面
-		@SuppressWarnings("serial")
-		private void setMatchSp(JPanel panel,String[][] content){
-			String [] tempHeader = new String[22];
-			final Object[][] tableString = new Object[content.length][22];
-			tempHeader= season;
-					
-			for(int i = 0;i<tableString.length;i++){
-				for(int j = 0 ; j<tableString[0].length;j++){
-					if(j <= 1){
-							tableString[i][j] = content[i][j] ;
-					}else{
-							if(content[i][j]!=null){
-								tableString[i][j] = Double.parseDouble(content[i][j]);
-							}else{
-								tableString[i][j] = content[i][j];
-							}
-					}
-				}
-			}
-			DefaultTableModel model = new DefaultTableModel(tableString,tempHeader) {  
-				@SuppressWarnings({ "unchecked", "rawtypes" })
-				public Class getColumnClass(int column) {  
-			        Class returnValue;  
-			        if ((column >=2) && (column < getColumnCount())) {  
-			            returnValue = Double.class;  
-			            
-			        } else {  
-			            returnValue = Object.class;  
-			        }  
-			        return returnValue;  
-			    }  
-			};
-			final JTable table = new JTable(model);
-			MyTableBodyCellRenderrer render = new MyTableBodyCellRenderrer();
-			//	render.setOpaque(false); 
-		     
-		        table.setDefaultRenderer(Object.class,render);  
-				for(int i = 0;i<table.getColumnCount();i++){
-					table.getColumnModel().getColumn(i).setPreferredWidth(tempHeader[i].length()*height/25);	
-				}
-				table.getColumnModel().getColumn(0).setPreferredWidth(4*height/21);	
-				table.getColumnModel().getColumn(1).setPreferredWidth(4*height/21);	
-				table.getColumnModel().getColumn(4).setPreferredWidth(3*height/21);	
-				table.setRowHeight(height/26);
-				table.setEnabled(false);
-				table.setGridColor(Color.decode("#D1EEEE"));
-				
-				final JFrame tempFrame =this;
-				table.addMouseListener(
-						new MouseAdapter(){
-							public void mouseClicked(MouseEvent e){
-							//	selectedRow = Integer.parseInt(e.getComponent().getName());
-										MatchCheckFrame check = new MatchCheckFrame(basicInfo[2],(String) tableString[table.rowAtPoint(e.getPoint())][1],matchInfo[table.rowAtPoint(e.getPoint())-1][21]);
-										check.setFatherFrame(fatherFrame);
-										tempFrame.dispose();
-
-							}          
-						}
-						);    
-			
-			sp = new JScrollPane(table);
-			
-			this.revalidate();
-			this.repaint();
-			
-		}
+//		private void setMatchSp(JPanel panel,String[][] content){
+//			String [] tempHeader = new String[22];
+//			final Object[][] tableString = new Object[content.length][22];
+//			tempHeader= season;
+//					
+//			for(int i = 0;i<tableString.length;i++){
+//				for(int j = 0 ; j<tableString[0].length;j++){
+//					if(j <= 1){
+//							tableString[i][j] = content[i][j] ;
+//					}else{
+//							if(content[i][j]!=null){
+//								tableString[i][j] = Double.parseDouble(content[i][j]);
+//							}else{
+//								tableString[i][j] = content[i][j];
+//							}
+//					}
+//				}
+//			}
+//			DefaultTableModel model = new DefaultTableModel(tableString,tempHeader) {  
+//				@SuppressWarnings({ "unchecked", "rawtypes" })
+//				public Class getColumnClass(int column) {  
+//			        Class returnValue;  
+//			        if ((column >=2) && (column < getColumnCount())) {  
+//			            returnValue = Double.class;  
+//			            
+//			        } else {  
+//			            returnValue = Object.class;  
+//			        }  
+//			        return returnValue;  
+//			    }  
+//			};
+//			final JTable table = new JTable(model);
+//			MyTableBodyCellRenderrer render = new MyTableBodyCellRenderrer();
+//			//	render.setOpaque(false); 
+//		     
+//		        table.setDefaultRenderer(Object.class,render);  
+//				for(int i = 0;i<table.getColumnCount();i++){
+//					table.getColumnModel().getColumn(i).setPreferredWidth(tempHeader[i].length()*height/25);	
+//				}
+//				table.getColumnModel().getColumn(0).setPreferredWidth(4*height/21);	
+//				table.getColumnModel().getColumn(1).setPreferredWidth(4*height/21);	
+//				table.getColumnModel().getColumn(4).setPreferredWidth(3*height/21);	
+//				table.setRowHeight(height/26);
+//				table.setEnabled(false);
+//				table.setGridColor(Color.decode("#D1EEEE"));
+//				
+//				final JFrame tempFrame =this;
+//				table.addMouseListener(
+//						new MouseAdapter(){
+//							public void mouseClicked(MouseEvent e){
+//							//	selectedRow = Integer.parseInt(e.getComponent().getName());
+//										MatchCheckFrame check = new MatchCheckFrame(basicInfo[2],(String) tableString[table.rowAtPoint(e.getPoint())][1],matchInfo[table.rowAtPoint(e.getPoint())-1][21]);
+//										check.setFatherFrame(fatherFrame);
+//										tempFrame.dispose();
+//
+//							}          
+//						}
+//						);    
+//			
+//			sp = new JScrollPane(table);
+//			
+//			this.revalidate();
+//			this.repaint();
+//			
+//		}
 	@SuppressWarnings("static-access")
 	private void setMatchPanel() {
 	//	final ImageIcon icon = new ImageIcon("resource/Line.png");

@@ -215,7 +215,8 @@ public class ChartDaoJdbcImp  implements ChartDao{
 		//c.getTeamPlayerEfficiency("LAC");
 		//c.getPlayerEfficiency("Kobe Bryant");
 		//c.getPlayerLeagueInfo();
-		c.getPlayerCareerInfo("Kobe Bryant");
+		//c.getPlayerCareerInfo("Kobe Bryant");
+		c.getTeamMatchInfo("Celtics");
 	}
 
 	@Override
@@ -279,4 +280,36 @@ public class ChartDaoJdbcImp  implements ChartDao{
 		return result;
 	}
 	
+	public String [][] getTeamMatchInfo(String teamName){
+		Statement stat = null;
+		ResultSet rs = null;
+		ArrayList<String[]> list = new ArrayList<String[]>();
+		String currentSeason = SEASON[SEASON.length-1];
+		try{
+			stat = connection.createStatement();
+				rs = stat.executeQuery("select DateOfMatch,round(100.0*Shootings/Shots,1),round(100.0*ThreePointShootings/ThreePointShots,1),"
+						+ "round(100.0*FreeThrowShootings/FreeThrowShots,1),Rebounds,Assists,BlockShots,TurnOvers,T3.MatchID "
+						+ "from TeamMatch"+currentSeason+"Season T1,Team T2,Match"+currentSeason+"Season T3 "
+						+ "where T1.TeamAbb=T2.Abb and (T2.FullName like '%"+teamName+"%' or T2.Abb like '%"+teamName+"%') and T3.MatchID = T1.MatchID ");
+				while(rs.next()){
+					String[] tempList = new String[9];
+					for(int i =0;i<9;i++)
+					{
+						tempList[i] = rs.getString(i+1);
+					}
+					list.add(tempList);
+				}
+			stat.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		String[][] result = new String[list.size()][9];
+		for(int i = 0;i<list.size();i++){
+			System.out.println(Arrays.asList(list.get(i)));
+			for(int j =0;j<9;j++){
+				result[i][j] = list.get(i)[j];
+			}
+		}
+		return result;
+	}
 }
